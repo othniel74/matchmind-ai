@@ -1440,16 +1440,16 @@ function App() {
             </div>
             <div className="metric accent-metric">
               <span className="metric-label">
-                Key moments
+                {studio ? "Verified overlays" : "Key moments"}
                 <Sparkles size={16} />
               </span>
               <div>
-                {momentCount}
+                {studio ? queue.length : momentCount}
                 <span className="verified-chip">
                   <Check size={12} /> Evidence linked
                 </span>
               </div>
-              <span className="metric-note">Verified, for your profile</span>
+              <span className="metric-note">{studio ? "Ready for the rendering partner" : "Verified, for your profile"}</span>
             </div>
           </section>
           <div className="content-tabs">

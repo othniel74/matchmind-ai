@@ -210,7 +210,7 @@ export function AskPanel({ minute, profile }: { minute: number; profile: Profile
           <p dir={directionOf(profile.language)} lang={profile.language}>{answer.answer}</p>
           <span className="subtle-note">
             {answer.supported ? `${answer.evidence_event_ids.length} evidence event${answer.evidence_event_ids.length === 1 ? "" : "s"}` : "Outside what the match data can answer"}
-            {` · routed by ${answer.router === "model" ? "the model" : "keywords"}`}
+            {answer.router === "mcp_agent" ? " · Foundry agent via MCP" : " · keyword router"}
           </span>
         </div>
       )}
