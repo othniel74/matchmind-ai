@@ -1,0 +1,56 @@
+{
+  "outputs": 21,
+  "published_by_agent_workflow": 13,
+  "mean_scores": {
+    "groundedness": 4.714,
+    "relevance": 4.19,
+    "coherence": 3.952,
+    "fluency": 3.286,
+    "numbers_verified": 1.0
+  },
+  "thresholds": {
+    "groundedness": 4.0,
+    "relevance": 3.0,
+    "coherence": 3.0,
+    "fluency": 3.0,
+    "numbers_verified": 1.0
+  },
+  "passed": {
+    "groundedness": true,
+    "relevance": true,
+    "coherence": true,
+    "fluency": true,
+    "numbers_verified": true
+  },
+  "groundedness_by_language": {
+    "en": 5.0,
+    "es": 5.0,
+    "fr": 4.67,
+    "pt": 4.33,
+    "de": 5.0,
+    "it": 5.0,
+    "ar": 4.0
+  },
+  "by_engine": {
+    "agent": {
+      "groundedness": 4.54,
+      "fluency": 3.38
+    },
+    "verified_fallback": {
+      "groundedness": 5.0,
+      "fluency": 3.12
+    }
+  },
+  "blocked_by_fact_checker": {
+    "narrative:en": "fact_checker:unsupported_mentions_chances_or_threat",
+    "narrative:es": "fact_checker:unsupported_mentions_match_time",
+    "recap_half:fr": "fact_checker:unsupported_mentions_match_time",
+    "recap_half:de": "fact_checker:invalid_output",
+    "narrative:de": "fact_checker:contradicts_evidence",
+    "recap_full:it": "fact_checker:extraction_mismatch",
+    "narrative:it": "fact_checker:unsupported_mentions_match_time",
+    "recap_half:ar": "fact_checker:extraction_mismatch"
+  },
+  "unsupported_numbers": {},
+  "foundry_run_logged": true
+}

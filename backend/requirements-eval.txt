@@ -1,0 +1,3 @@
+-r requirements-agents.txt
+# Foundry evaluations (evaluation/foundry_eval.py); kept out of the app image.
+azure-ai-evaluation==1.18.9

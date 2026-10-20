@@ -20,7 +20,7 @@ All resources are in resource group `rg-othniel.obasi-9233`, UK South.
 | Container Apps environment | `matchmind-env` | Hosting environment | Included |
 | Container registry | `ca7835cfc7a5acr` (Basic) | Image `matchmind-demo:v3`, plus imported `memgraph/memgraph:3.13.1`, `neo4j:5.26.32-community` and `python:3.12-slim` for graph tests | About $5 per month |
 | Foundry resource / project | `matchmind-ai-studio` / `matchmind-ai` | Model deployment `gpt-4.1-mini`, GlobalStandard, 100 units | Per token |
-| Application Insights | `matchmind-insights` with `matchmind-logs` | Traces, with the connection string stored as a Container App secret | Per GB ingested |
+| Application Insights | `matchmind-ai-studio-appinsights` (connected to the Foundry project) | Agent and app traces, also visible in Foundry → Tracing; connection string stored as a Container App secret | Per GB ingested |
 
 The app authenticates to Foundry with its **system-assigned managed identity**, which holds Foundry User on `matchmind-ai-studio` and AcrPull on the registry. No API keys are stored. The image contains no `.env`, tests, research data or documentation.
 

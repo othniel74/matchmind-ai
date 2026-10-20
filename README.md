@@ -27,6 +27,7 @@ See:
 - [languages](docs/LANGUAGES.md)
 - [MCP server](docs/MCP.md)
 - [path to production](docs/PATH_TO_PRODUCTION.md)
+- [Microsoft Foundry: models, tracing and release evaluations](docs/FOUNDRY.md)
 
 Verification: 203 backend tests, 56/56 offline evaluation checks, and Playwright smoke tests both locally and against the deployment. The live fact checker let through 0 wrong statements in 264 scored checks.
 
