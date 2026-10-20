@@ -39,7 +39,12 @@ async def lifespan(app):
     if projection.enabled():
         import threading
         threading.Thread(target=projection.project_at_startup, daemon=True, name='graph-projection').start()
-    yield
+    # A session manager runs once, so each startup builds a fresh MCP app (tests start many).
+    global _mcp_app
+    from .mcp_server import server as mcp_server
+    _mcp_app = _mcp_http_app()
+    async with mcp_server.session_manager.run():  # serves /mcp
+        yield
     shutdown_tracing()
 
 app = FastAPI(title='MatchMind AI', version='0.1.0',lifespan=lifespan)
@@ -49,6 +54,20 @@ app.add_middleware(TrustedHostMiddleware,allowed_hosts=['localhost','127.0.0.1',
 app.include_router(foundation_router)
 from .access import router as access_router
 app.include_router(access_router)
+# MCP: the same verified match tools for any MCP client (agents, Copilot, Foundry), read-only.
+from starlette.routing import Route as _Route
+from .mcp_server import http_app as _mcp_http_app
+_mcp_app = _mcp_http_app()
+
+
+class _MCPEndpoint:
+    """ASGI endpoint so /mcp is served exactly, without a trailing-slash redirect."""
+    async def __call__(self, scope, receive, send):
+        await _mcp_app(dict(scope, path='/', raw_path=b'/', root_path=scope.get('root_path', '') + '/mcp'),
+                       receive, send)
+
+
+app.router.routes.append(_Route('/mcp', endpoint=_MCPEndpoint(), methods=['GET', 'POST', 'DELETE']))
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -600,24 +619,29 @@ async def ask_match(request: Request, q: str = Query(..., min_length=2, max_leng
                     seed: int = SEED):
     """Answer a question from verified facts. The model only routes the question; code answers."""
     from .agents import selected_provider
-    from .ask import answer, keyword_intent, model_intent
+    from .ask import answer, keyword_intent, mcp_agent_answer
     from .guard import GUARD, visitor
     g, events, context = _knowledge(seed, max(minute, 1))
-    router, intent = 'keywords', None
+    result, router, intent = None, 'keywords', None
     use_model = os.getenv('MATCHMIND_ASK_MODEL', 'true').lower() == 'true' and selected_provider() is not None
-    if use_model and (not is_demo() or GUARD.allow(visitor(request))):
+    from .mcp_server import SEED as MCP_SEED
+    if use_model and 1 <= minute and seed == MCP_SEED and (not is_demo() or GUARD.allow(visitor(request))):
+        # The agent reaches the match tools over MCP, like any external MCP client would.
         from .agents import FoundryAgentRuntime
         runtime = FoundryAgentRuntime()
         try:
-            intent, router = await model_intent(runtime._client(), q), 'model'
+            url = os.getenv('MATCHMIND_MCP_URL', 'http://127.0.0.1:8000/mcp')
+            result = await mcp_agent_answer(runtime._client(), q, minute, language, url)
+            if result is not None:
+                router = 'mcp_agent'
         except Exception as exc:
-            logging.getLogger('matchmind.ask').warning('ask_model_failed error_type=%s', type(exc).__name__)
+            logging.getLogger('matchmind.ask').warning('ask_agent_failed error_type=%s', type(exc).__name__)
         finally:
             await runtime._close()
-    if intent is None:
+    if result is None:
         intent = keyword_intent(q)
-    result = answer(g, events, seed, minute, intent, language)
-    return {**result, 'question': q, 'router': router, 'routed_intent': intent, 'context': context}
+        result = answer(g, events, seed, minute, intent, language)
+    return {**result, 'question': q, 'router': router, 'context': context}
 
 
 _static = os.getenv('MATCHMIND_STATIC_DIR')

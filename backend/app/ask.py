@@ -90,36 +90,69 @@ def keyword_intent(question: str) -> dict[str, Any]:
     return {'intent': intent or 'unsupported', 'team': team, 'player_id': player, 'metric': metric}
 
 
-INTENT_INSTRUCTIONS = """You classify a football viewer's question about one match. Reply with JSON only:
-{"intent": one of %s, "team": "home" | "away" | null, "player": the player's name as written or null,
- "metric": one of %s or null}
-Clubs: home = %s, away = %s. Use "unsupported" for anything that is not about this match's
-score, scorers, a statistic, a player, why a moment happened, the key player, build-up play or momentum.
-Never answer the question yourself.""" % (', '.join(INTENTS), ', '.join(METRICS),
-                                            CLUBS['home'].name, CLUBS['away'].name)
+AGENT_INSTRUCTIONS = """You route a football viewer's question about one match to the answer_question tool.
+Call answer_question exactly once. Pass the question in clear English, plus the structured intent:
+- score: the current score or who is winning
+- scorers: who scored
+- stat: a team statistic; set metric (%s)
+- player: how a named player is doing; set player to the name as written
+- why_moment: why a goal happened or why it mattered
+- key_player: the key player, main man, playmaker or who the team plays through
+- buildup: how a goal was built
+- momentum: who is on top, in control or has momentum
+- unsupported: anything else (other matches, predictions, opinions, the weather)
+Set team to home (%s) or away (%s) when the question names a club. Pass minute and language exactly as
+given. Never answer the question yourself; the tool's answer is shown to the viewer.""" % (
+    ', '.join(METRICS), CLUBS['home'].name, CLUBS['away'].name)
+
+
+def validate_intent(raw: dict[str, Any] | None, question: str) -> dict[str, Any]:
+    """Check a model-chosen intent against the contract; anything off-contract, or a refusal
+    the keyword router can answer, falls back to keywords (answers are computed by code)."""
+    if not isinstance(raw, dict) or raw.get('intent') not in INTENTS or raw['intent'] == 'unsupported':
+        return keyword_intent(question)
+    player = find_player(str(raw.get('player') or '')) if raw.get('player') else None
+    if raw['intent'] == 'player' and player is None:
+        player = find_player(question)
+    return {'intent': raw['intent'], 'team': raw.get('team') if raw.get('team') in TEAMS else None,
+            'player_id': player, 'metric': raw.get('metric') if raw.get('metric') in METRICS else None}
 
 
 def parse_intent(text: str, question: str) -> dict[str, Any]:
-    """Validate a model's intent JSON; anything off-contract falls back to keywords."""
+    """Validate an intent given as JSON text."""
     match = re.search(r'\{.*\}', text or '', re.S)
     try:
         raw = json.loads(match.group(0)) if match else None
     except json.JSONDecodeError:
         raw = None
-    if not isinstance(raw, dict) or raw.get('intent') not in INTENTS:
-        return keyword_intent(question)
-    if raw['intent'] == 'unsupported':
-        # Answers are computed by code, so a supported keyword match is safe to answer.
-        return keyword_intent(question)
-    player = find_player(str(raw.get('player') or '')) if raw.get('player') else None
-    return {'intent': raw['intent'], 'team': raw.get('team') if raw.get('team') in TEAMS else None,
-            'player_id': player, 'metric': raw.get('metric') if raw.get('metric') in METRICS else None}
+    return validate_intent(raw, question)
 
 
-async def model_intent(client: Any, question: str) -> dict[str, Any]:
+async def mcp_agent_answer(client: Any, question: str, minute: int, language: str, url: str) -> dict[str, Any] | None:
+    """An Agent Framework agent calls MatchMind's answer_question tool over MCP. The viewer gets
+    the tool's verified result, never the model's own text. None if the tool was not called."""
+    from agent_framework import MCPStreamableHTTPTool
     from .agent_workflow import _run_agent
-    agent = client.as_agent(name='question-router', instructions=INTENT_INSTRUCTIONS)
-    return parse_intent(await _run_agent(agent, question[:300]), question)
+    tool = MCPStreamableHTTPTool(name='matchmind', url=url, allowed_tools=['answer_question'], load_prompts=False,
+                                 request_timeout=20)
+    async with tool:
+        agent = client.as_agent(name='match-qa', instructions=AGENT_INSTRUCTIONS, tools=[tool])
+        response = await agent.run(f'{question[:300]}\n(minute={minute}, language={language})')
+    results = [c for m in response.messages for c in m.contents if c.type == 'function_result']
+    calls = [c for m in response.messages for c in m.contents if c.type == 'function_call']
+    if not results:
+        return None
+    payload = results[-1].result
+    if not isinstance(payload, dict):
+        text = payload if isinstance(payload, str) else getattr(payload[0], 'text', '') if payload else ''
+        try:
+            payload = json.loads(text)
+        except (TypeError, json.JSONDecodeError):
+            return None
+    if not isinstance(payload, dict) or 'answer' not in payload:
+        return None
+    arguments = calls[-1].parse_arguments() if calls else {}
+    return {**payload, 'tool_call': {'tool': 'answer_question', 'arguments': arguments}}
 
 
 def _club(team: str, code: str) -> str:
