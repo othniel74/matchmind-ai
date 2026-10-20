@@ -174,3 +174,15 @@ def test_experience_focus_card_has_network_role():
     body = TestClient(app).get('/api/experience?minute=67&focus_player=away-10').json()
     role = body['focus']['network_role']
     assert role['match']['is_hub'] and role['match']['top_partners']
+
+
+def test_fans_see_speed_records_not_every_speed_tag(events):
+    from app.experience import Profile, experience
+    fan = experience(events, SEED, 30, Profile(audience='fan'))['moments']
+    analyst = experience(events, SEED, 30, Profile(audience='analyst'))['moments']
+    speeds = sorted((m for m in fan if m['kind'] == 'top_speed'), key=lambda m: m['clock_seconds'])
+    values = [m['facts']['value'] for m in speeds]
+    assert values == sorted(values) and len(set(values)) == len(values)  # each one a new match high
+    assert len(speeds) < sum(m['kind'] == 'top_speed' for m in analyst)
+    mine = experience(events, SEED, 30, Profile(audience='fan', players=('away-05',)))['moments']
+    assert any(m['kind'] == 'top_speed' and 'away-05' in m['player_ids'] for m in mine)

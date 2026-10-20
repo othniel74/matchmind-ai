@@ -743,6 +743,12 @@ main {
   gap: 20px;
   min-width: 0;
 }
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
 .comparison-teams {
   display: flex;
   justify-content: space-between;
@@ -1365,6 +1371,7 @@ footer > span:last-child {
 .broadcast-screen {
   aspect-ratio: 16/9;
   min-height: 300px;
+  width: 100%;
   position: relative;
   overflow: hidden;
   border: 1px solid #3c5543;

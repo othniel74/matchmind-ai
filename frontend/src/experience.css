@@ -1,8 +1,36 @@
 .experience-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   gap: 16px;
   margin: 16px 0;
+  align-items: start;
+}
+.experience-side {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  min-width: 0;
+}
+.experience-grid > .graph-panel,
+.experience-grid > .live-panel {
+  grid-column: 1 / -1;
+}
+@media (max-width: 960px) {
+  .experience-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.favourite-details {
+  margin-top: 14px;
+}
+.favourite-details > summary {
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+  width: fit-content;
+}
+.favourite-details[open] > summary {
+  color: var(--lime);
 }
 .profile-panel {
   grid-column: 1 / -1;

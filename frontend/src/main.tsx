@@ -749,11 +749,11 @@ function BroadcastCanvas({ frame, overlay }: PreviewPayload) {
         <AudioLines size={17} /> MATCHMIND <span>DEMO</span>
       </div>
       <div className="broadcast-score">
-        NL{" "}
+        CAL{" "}
         <b>
           {home.goals} : {away.goals}
         </b>{" "}
-        MB <span>{frame.minute}′</span>
+        MER <span>{frame.minute}′</span>
       </div>
       <div className="broadcast-pitch">
         <div />
@@ -895,6 +895,7 @@ function App() {
   );
   const [profile, setProfile] = useProfile();
   const squads = useSquads();
+  const [momentCount, setMomentCount] = useState(0);
   const [language, setLanguage] = useState<LanguageCode>("en");
   const [audience, setAudience] = useState<"fan" | "analyst" | "broadcast">(
     "broadcast",
@@ -1438,16 +1439,16 @@ function App() {
             </div>
             <div className="metric accent-metric">
               <span className="metric-label">
-                Verified insights
+                Key moments
                 <Sparkles size={16} />
               </span>
               <div>
-                {history.filter((x) => x.validated).length}
+                {momentCount}
                 <span className="verified-chip">
                   <Check size={12} /> Evidence linked
                 </span>
               </div>
-              <span className="metric-note">Traceable to source events</span>
+              <span className="metric-note">Verified, for your profile</span>
             </div>
           </section>
           <div className="content-tabs">
@@ -1691,11 +1692,14 @@ function App() {
               <>
                 <div className="experience-grid">
                   <ProfilePanel profile={profile} onChange={setProfile} squads={squads} />
-                  <ExperiencePanels minute={frame.minute} stateVersion={frame.context?.state_version} profile={profile} />
-                  <AskPanel minute={frame.minute} profile={profile} />
-                  <RecapPanel minute={frame.minute} profile={profile} />
-                  <LiveStreamPanel profile={profile} />
+                  <ExperiencePanels minute={frame.minute} stateVersion={frame.context?.state_version} profile={profile}
+                                    onMoments={setMomentCount} />
+                  <div className="experience-side">
+                    <AskPanel minute={frame.minute} profile={profile} />
+                    <RecapPanel minute={frame.minute} profile={profile} />
+                  </div>
                   {squads && <GraphExplorer minute={frame.minute} stateVersion={frame.context?.state_version} clubs={squads.clubs} />}
+                  <LiveStreamPanel profile={profile} />
                 </div>
                 <div className="dashboard-grid">
                   <div className="main-column">
@@ -1819,6 +1823,8 @@ function App() {
                       </p>
                     </section>
                   </div>
+                  <div className="side-column">
+                    {history.length > 0 && (
                   <section className="panel insight-panel" id="insight">
                     <PanelTitle
                       icon={<Sparkles size={17} />}
@@ -1939,63 +1945,7 @@ function App() {
                       </span>
                     </div>
                   </section>
-                </div>
-                <div className="bottom-grid">
-                  <section className="panel network-panel">
-                    <PanelTitle
-                      icon={<GitBranch size={17} />}
-                      title="Passing connections"
-                      kicker="AWAY · LAST 10 MIN"
-                    />
-                    {graph ? (
-                      <>
-                        <div className="network-content">
-                          <PassingNetwork network={graph.current} />
-                          <div className="network-stats">
-                            <div>
-                              <span>Connections</span>
-                              <strong>
-                                {graph.current.metrics.edges}
-                                <small>
-                                  prev. {graph.previous.metrics.edges}
-                                </small>
-                              </strong>
-                            </div>
-                            <div>
-                              <span>Completed passes</span>
-                              <strong>
-                                {graph.current.metrics.passes}
-                                <small>
-                                  prev. {graph.previous.metrics.passes}
-                                </small>
-                              </strong>
-                            </div>
-                          </div>
-                        </div>
-                        <details className="source-details">
-                          <summary>
-                            Inspect graph evidence
-                            <ChevronRight size={14} />
-                          </summary>
-                          <pre>
-                            {JSON.stringify(graph.current.edges, null, 2)}
-                          </pre>
-                        </details>
-                      </>
-                    ) : (
-                      <div className="empty-state">
-                        <GitBranch size={27} />
-                        <p>
-                          Passing connections appear after two complete
-                          ten-minute windows.
-                        </p>
-                      </div>
                     )}
-                    <p className="subtle-note">
-                      Synthetic recipients. Layout shows connections, not player
-                      positions.
-                    </p>
-                  </section>
                   <section className="panel events-panel">
                     <PanelTitle
                       icon={<AudioLines size={17} />}
@@ -2036,7 +1986,9 @@ function App() {
                       </div>
                     )}
                   </section>
+                  </div>
                 </div>
+                {history.length > 0 && (
                 <section className="panel timeline-panel">
                   <PanelTitle
                     icon={<Zap size={17} />}
@@ -2083,6 +2035,7 @@ function App() {
                     </p>
                   )}
                 </section>
+                )}
               </>
             )}
           </div>

@@ -142,6 +142,8 @@ export function ProfilePanel({ profile, onChange, squads }: { profile: Profile; 
         </label>
       </div>
       {squads && (
+        <details className="favourite-details" open={profile.players.length > 0 || undefined}>
+        <summary>Favourite players{profile.players.length ? ` · ${profile.players.length} selected` : ""}</summary>
         <div className="favourite-players" role="group" aria-label="Favourite players">
           {(["home", "away"] as const).map((team) => (
             <div key={team}>
@@ -155,6 +157,7 @@ export function ProfilePanel({ profile, onChange, squads }: { profile: Profile; 
             </div>
           ))}
         </div>
+        </details>
       )}
     </section>
   );
@@ -185,7 +188,9 @@ function dynamicsLabel(d: Experience["dynamics"], clubs: Experience["clubs"]) {
   return chips;
 }
 
-export function ExperiencePanels({ minute, stateVersion, profile }: { minute: number; stateVersion?: number; profile: Profile }) {
+export function ExperiencePanels({ minute, stateVersion, profile, onMoments }: {
+  minute: number; stateVersion?: number; profile: Profile; onMoments?: (count: number) => void;
+}) {
   const [data, setData] = useState<Experience | null>(null);
   const [why, setWhy] = useState<{ id: string; detail: WhyDetail | null } | null>(null);
   const explain = (id: string) => {
@@ -198,7 +203,7 @@ export function ExperiencePanels({ minute, stateVersion, profile }: { minute: nu
     let cancelled = false;
     fetch(`/api/experience?${profileQuery(profile, { minute })}`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((v) => { if (!cancelled) setData(v); })
+      .then((v) => { if (!cancelled) { setData(v); onMoments?.(v?.moments?.length ?? 0); } })
       .catch(() => { if (!cancelled) setData(null); });
     return () => { cancelled = true; };
   }, [minute, stateVersion, profile]);

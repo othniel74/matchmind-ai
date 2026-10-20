@@ -49,6 +49,7 @@ test("MatchMind AI product tour", async ({ page }) => {
   await page.waitForTimeout(500);
   await page.getByLabel("Track one metric").selectOption("xg");
   await page.waitForTimeout(500);
+  await page.getByText("Favourite players").click();
   await page.getByRole("button", { name: "#9 Callum Rhodes" }).click();
   await page.waitForTimeout(800);
   await scrollTo(page, ".moments-panel");

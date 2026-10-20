@@ -40,6 +40,9 @@ function PassNetwork({ roles }: { roles: TeamRoles }) {
   const max = Math.max(1, ...roles.edges.map((e) => e.passes));
   const pos = (id: string) => roles.positions[id] ?? { x: 50, y: 50 };
   const surname = (n: string) => n.split(" ").slice(-1)[0];
+  // Label the six most involved players (and the hub and key link); the rest show on hover.
+  const labelled = new Set([...roles.players].sort((x, y) => y.pass_share - x.pass_share).slice(0, 6)
+    .map((p) => p.player_id).concat([roles.hub ?? "", roles.connector ?? ""]));
   return (
     <svg className="pass-network" viewBox="-4 -4 108 76" role="img"
          aria-label={`Pass network: hub ${names[roles.hub ?? ""] ?? "none"}, key connector ${names[roles.connector ?? ""] ?? "none"}`}>
@@ -56,8 +59,10 @@ function PassNetwork({ roles }: { roles: TeamRoles }) {
         const role = id === roles.connector ? "connector" : id === roles.hub ? "hub" : "";
         return (
           <g key={id} className={`node ${role}`}>
-            <circle cx={p.x} cy={p.y * 0.68} r={1.4 + 9 * (share[id] ?? 0)} />
-            <text x={p.x} y={p.y * 0.68 - 2.6 - 9 * (share[id] ?? 0)}>{surname(names[id])}</text>
+            <circle cx={p.x} cy={p.y * 0.68} r={1.4 + 9 * (share[id] ?? 0)}>
+              <title>{`${names[id]}: ${pct(share[id] ?? 0)} of passes`}</title>
+            </circle>
+            {labelled.has(id) && <text x={p.x} y={p.y * 0.68 - 2.6 - 9 * (share[id] ?? 0)}>{surname(names[id])}</text>}
           </g>
         );
       })}

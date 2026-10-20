@@ -74,8 +74,16 @@ def relevance(moment: dict[str, Any], profile: Profile) -> tuple[bool, int, dict
 
 def personalized_moments(moments: list[dict[str, Any]], profile: Profile, limit: int = 30) -> list[dict[str, Any]]:
     items = []
-    for m in moments:
+    fastest = 0.0
+    for m in sorted(moments, key=lambda x: x['clock_seconds']):
         shown, score, flags = relevance(m, profile)
+        if m['kind'] == 'top_speed' and profile.audience != 'analyst':
+            # Most players pass the speed threshold early on; fans see a new match-high speed,
+            # or any speed tag for their own players, rather than one tag per player.
+            record = m['facts']['value'] > fastest
+            shown = shown and (record or flags['favourite_player'])
+        if m['kind'] == 'top_speed':
+            fastest = max(fastest, m['facts']['value'])
         if shown:
             items.append({**m, **render(m, profile.language), **flags, 'relevance': score,
                           'player_names': [name(p) for p in m['player_ids']]})

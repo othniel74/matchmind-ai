@@ -536,7 +536,7 @@ export default function Landing() {
               <h3>Tell the story.</h3>
               <p>
                 Give analysts the detail, fans the clarity and producers a
-                structured overlay. English or Spanish. The same verified facts.
+                structured overlay, in seven languages. The same verified facts.
               </p>
               <span className="lp-step-foot">INSIGHTS → EXPERIENCE</span>
             </article>
@@ -587,12 +587,12 @@ export default function Landing() {
               </div>
               <div className="lp-mini-pitch">
                 <div className="lp-mini-score">
-                  NL{" "}
+                  CAL{" "}
                   <b>
                     {hero?.statistics.home.goals ?? "—"} :{" "}
                     {hero?.statistics.away.goals ?? "—"}
                   </b>{" "}
-                  MB <span>67′</span>
+                  MER <span>67′</span>
                 </div>
                 <svg viewBox="0 0 540 300" aria-hidden="true">
                   <rect x="20" y="18" width="500" height="264" />
@@ -647,11 +647,11 @@ export default function Landing() {
               ],
               [
                 "Is the demo powered by a live AI model?",
-                "The local demo uses deterministic rules and narrative templates. An optional Microsoft Foundry adapter is prepared, but live model inference and Azure deployment have not been verified.",
+                "Yes. The demo runs on Azure Container Apps. Narratives and recaps come from a Microsoft Agent Framework workflow on a Microsoft Foundry model: writers draft, a fact checker extracts every statement and code verifies it, and only verified text is published. Ask the match uses an agent that calls MatchMind's own MCP tools. When the model is unavailable, verified templates take over.",
               ],
               [
                 "What can I try right now?",
-                "Replay a complete synthetic match, compare team statistics, explore passing connections, switch between audience modes and English or Spanish, inspect source events, and try the full-screen or pop-out Broadcast Studio.",
+                "Replay a full synthetic match. Pick a viewing mode, language, favourite club and players, follow one player or track one metric. Ask the match a question, open a goal's build-up, explore both teams' pass networks, read a verified recap, and try the full-screen or pop-out Broadcast Studio.",
               ],
             ].map(([q, a]) => (
               <details key={q}>

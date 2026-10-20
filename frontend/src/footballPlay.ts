@@ -48,7 +48,7 @@ const foot = (m: Motion, time = 0): Spot => {
   };
 };
 const name = (id: string) =>
-  `${id.startsWith("home") ? "NL" : "MB"} #${Number(id.split("-")[1])}`;
+  `${id.startsWith("home") ? "CAL" : "MER"} #${Number(id.split("-")[1])}`;
 export function createFootballPlay(input: FormationPlayer[]): FootballPlay {
   const anchors = [
     [8, 50],

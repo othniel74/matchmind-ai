@@ -76,6 +76,7 @@ test("personalized experience, recap and live event stream", async ({ page }) =>
   await page.getByLabel("Favourite club").selectOption("away");
   await page.getByLabel("Follow one player").selectOption("away-03");
   await page.getByLabel("Track one metric").selectOption("xg");
+  await page.getByText("Favourite players").click();
   await page.getByRole("button", { name: "#9 Callum Rhodes" }).click();
   await expect(page.getByRole("button", { name: "#9 Callum Rhodes" })).toHaveAttribute("aria-pressed", "true");
 
