@@ -1,4 +1,4 @@
-"""Honest deployment boundary for controls that are still local-only."""
+"""Release gate: production starts only once its controls exist (docs/PATH_TO_PRODUCTION.md)."""
 import os
 
 
@@ -12,8 +12,8 @@ def validate_runtime():
         raise RuntimeConfigurationError('Unknown MATCHMIND_ENV. Use local, test or demo; production is release-blocked.')
     if mode=='production':
         raise RuntimeConfigurationError(
-            'Production release blocked: managed identity, tenant isolation, external delivery controls '
-            'and measured release evaluations are not implemented or verified. See docs/PRODUCTION_READINESS_AUDIT.md.')
+            'Production release gate: Entra ID user roles, tenant isolation, a managed database, delivery '
+            'acknowledgements and release evaluation thresholds must be in place first. See docs/PATH_TO_PRODUCTION.md.')
     return mode
 
 

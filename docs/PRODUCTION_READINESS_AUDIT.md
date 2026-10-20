@@ -1,3 +1,5 @@
+> **Superseded (20 October 2026):** see [PATH_TO_PRODUCTION.md](PATH_TO_PRODUCTION.md) for the current controls and release gate. This file is kept as history.
+
 # Deployment verification backlog — 19 October 2026
 
 Deployment review is deferred at the user's request while product development continues. This file records work already completed and remaining release checks; it is not a production approval.

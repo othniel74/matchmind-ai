@@ -1,3 +1,5 @@
+> **Superseded (20 October 2026):** see [PATH_TO_PRODUCTION.md](PATH_TO_PRODUCTION.md) for the current controls and release gate. This file is kept as history.
+
 > **17 October 2026 update:** Read [the current verification report](VERIFICATION_2026_10_17.md) before using this earlier plan. Frontend compilation and local browser checks now pass; synthetic scoring, explicit recipients, SQLite replay persistence and WebSocket resume are implemented. Optional SDK imports and client construction are checked with pinned dependencies. Docker/database integration, live Foundry inference and Azure deployment remain pending. The older milestone counts below are historical.
 
 # MatchMind AI — M4 release checklist
