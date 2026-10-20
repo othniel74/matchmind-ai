@@ -1,0 +1,150 @@
+{
+  "split": "holdout2",
+  "repeat": 3,
+  "cases": 14,
+  "overall": {
+    "correct": 42,
+    "total": 42,
+    "accuracy": 1.0,
+    "ci95": [
+      0.916,
+      1
+    ]
+  },
+  "unsafe_passes": {
+    "correct": 21,
+    "total": 21,
+    "accuracy": 1.0,
+    "ci95": [
+      0.845,
+      1.0
+    ],
+    "count": 0
+  },
+  "consistent_across_repeats": true,
+  "service_errors": 0,
+  "by_language": {
+    "ar": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "de": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "en": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "es": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "fr": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "it": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "pt": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    }
+  },
+  "by_category": {
+    "false_comparison": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    },
+    "overstated": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0,
+      "ci95": [
+        0.757,
+        1
+      ]
+    },
+    "strong_true_comparison": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0,
+      "ci95": [
+        0.757,
+        1
+      ]
+    },
+    "true_comparison": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    }
+  },
+  "by_expect": {
+    "block": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    },
+    "pass": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    }
+  },
+  "misses": []
+}

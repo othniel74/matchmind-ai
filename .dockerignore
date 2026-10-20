@@ -1,0 +1,29 @@
+# Keep secrets, local environments, test output, research data and source assets out of images.
+# Docker applies the last matching rule, so the research exclusions come last.
+**/.env
+**/.env.*
+!**/.env.example
+**/.venv*
+**/node_modules
+**/__pycache__
+**/.pytest_cache
+**/*.sqlite3*
+.git
+.asset-work
+.test-work
+backend/.test-work
+backend/data
+backend/tests
+backend/evaluation
+frontend/dist
+frontend/e2e
+frontend/demo
+docs
+tools
+*.json
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/tsconfig.json
+!frontend/public/**/*.json
+frontend/public/tracking
+frontend/public/datasets

@@ -1,0 +1,958 @@
+{
+ "description": "Adversarial fact-checker cases for the default match (seed 20261020) at minute 67. Facts: away activity rose 20 -> 35 (1.75x); goals away 3 home 1; shots away 9 home 8; shots on target away 6 home 4; xG away 2.9 home 1.18; possession away 53.3% home 46.7%; corners away 2 home 1; fouls home 8 away 7; substitutions home 1 away 0. 'dev' cases may be used to tune the extractor; 'test' cases must not be. 'holdout2' cases were written after the intensity fix of 20 October 2026, use club names, and use intensifiers not listed in the extractor instructions. 'holdout3' cases were written after the intensifier backstop of 20 October 2026 and had never been run before their first measurement.",
+ "minute": 67,
+ "cases": [
+  {
+   "id": "en-01",
+   "split": "dev",
+   "language": "en",
+   "expect": "pass",
+   "category": "activity",
+   "text": "The away side is turning up in the attacking third more often than before."
+  },
+  {
+   "id": "en-02",
+   "split": "dev",
+   "language": "en",
+   "expect": "block",
+   "category": "cause",
+   "text": "The visitors are attacking more because the home defence has tired."
+  },
+  {
+   "id": "en-03",
+   "split": "dev",
+   "language": "en",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "The away team has had slightly more of the ball than the hosts."
+  },
+  {
+   "id": "en-04",
+   "split": "dev",
+   "language": "en",
+   "expect": "block",
+   "category": "performance_judgement",
+   "text": "The visitors have really stepped up their game."
+  },
+  {
+   "id": "en-05",
+   "split": "test",
+   "language": "en",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "The away side is appearing far more often in advanced areas than before."
+  },
+  {
+   "id": "en-06",
+   "split": "test",
+   "language": "en",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "The visitors have built up much more in expected goals than the home side."
+  },
+  {
+   "id": "en-07",
+   "split": "test",
+   "language": "en",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "The home side has committed more fouls than the visitors."
+  },
+  {
+   "id": "en-08",
+   "split": "test",
+   "language": "en",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "The home team has had more shots on target than the visitors."
+  },
+  {
+   "id": "en-09",
+   "split": "test",
+   "language": "en",
+   "expect": "block",
+   "category": "overstated",
+   "text": "The away side has had far more possession than the hosts."
+  },
+  {
+   "id": "en-10",
+   "split": "test",
+   "language": "en",
+   "expect": "block",
+   "category": "timing",
+   "text": "As the final whistle approaches, the visitors keep pushing forward."
+  },
+  {
+   "id": "en-11",
+   "split": "test",
+   "language": "en",
+   "expect": "block",
+   "category": "extreme",
+   "text": "The away side is completely camped in the home half."
+  },
+  {
+   "id": "en-12",
+   "split": "test",
+   "language": "en",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "The home side is the one getting forward more often now."
+  },
+  {
+   "id": "es-01",
+   "split": "dev",
+   "language": "es",
+   "expect": "pass",
+   "category": "activity",
+   "text": "El equipo visitante aparece más a menudo en el último tercio que antes."
+  },
+  {
+   "id": "es-02",
+   "split": "dev",
+   "language": "es",
+   "expect": "block",
+   "category": "chances",
+   "text": "El visitante está generando muchas más ocasiones de gol."
+  },
+  {
+   "id": "es-03",
+   "split": "dev",
+   "language": "es",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "El local ha cometido más faltas que el visitante."
+  },
+  {
+   "id": "es-04",
+   "split": "dev",
+   "language": "es",
+   "expect": "block",
+   "category": "prediction",
+   "text": "El visitante marcará pronto si sigue así."
+  },
+  {
+   "id": "es-05",
+   "split": "test",
+   "language": "es",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "El visitante llega mucho más a menudo a zonas avanzadas que antes."
+  },
+  {
+   "id": "es-06",
+   "split": "test",
+   "language": "es",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "El visitante ha marcado claramente más goles que el local."
+  },
+  {
+   "id": "es-07",
+   "split": "test",
+   "language": "es",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "El visitante ha tenido algo más de posesión que el local."
+  },
+  {
+   "id": "es-08",
+   "split": "test",
+   "language": "es",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "El local ha lanzado más córneres que el visitante."
+  },
+  {
+   "id": "es-09",
+   "split": "test",
+   "language": "es",
+   "expect": "block",
+   "category": "overstated",
+   "text": "El visitante ha disparado muchísimo más que el local."
+  },
+  {
+   "id": "es-10",
+   "split": "test",
+   "language": "es",
+   "expect": "block",
+   "category": "cause",
+   "text": "El visitante ataca más gracias al cambio táctico de su entrenador."
+  },
+  {
+   "id": "es-11",
+   "split": "test",
+   "language": "es",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "El equipo local es ahora el que más pisa el área rival."
+  },
+  {
+   "id": "es-12",
+   "split": "test",
+   "language": "es",
+   "expect": "block",
+   "category": "performance_judgement",
+   "text": "El visitante está jugando mucho mejor que el local."
+  },
+  {
+   "id": "fr-01",
+   "split": "dev",
+   "language": "fr",
+   "expect": "pass",
+   "category": "activity",
+   "text": "L'équipe visiteuse se projette plus souvent dans le dernier tiers qu'auparavant."
+  },
+  {
+   "id": "fr-02",
+   "split": "dev",
+   "language": "fr",
+   "expect": "block",
+   "category": "extreme",
+   "text": "Les visiteurs dominent totalement la rencontre."
+  },
+  {
+   "id": "fr-03",
+   "split": "dev",
+   "language": "fr",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Les visiteurs ont tiré un peu plus que l'équipe à domicile."
+  },
+  {
+   "id": "fr-04",
+   "split": "dev",
+   "language": "fr",
+   "expect": "block",
+   "category": "timing",
+   "text": "Juste avant la mi-temps, les visiteurs ont accéléré."
+  },
+  {
+   "id": "fr-05",
+   "split": "test",
+   "language": "fr",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "Les visiteurs sont nettement plus présents dans les zones avancées qu'avant."
+  },
+  {
+   "id": "fr-06",
+   "split": "test",
+   "language": "fr",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "L'équipe à domicile a effectué plus de remplacements que les visiteurs."
+  },
+  {
+   "id": "fr-07",
+   "split": "test",
+   "language": "fr",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "Les visiteurs ont marqué nettement plus de buts que l'équipe à domicile."
+  },
+  {
+   "id": "fr-08",
+   "split": "test",
+   "language": "fr",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "L'équipe à domicile a eu plus de possession que les visiteurs."
+  },
+  {
+   "id": "fr-09",
+   "split": "test",
+   "language": "fr",
+   "expect": "block",
+   "category": "cause",
+   "text": "Les visiteurs attaquent davantage parce que l'adversaire est fatigué."
+  },
+  {
+   "id": "fr-10",
+   "split": "test",
+   "language": "fr",
+   "expect": "block",
+   "category": "chances",
+   "text": "Les visiteurs se créent des occasions franches à chaque action."
+  },
+  {
+   "id": "fr-11",
+   "split": "test",
+   "language": "fr",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "C'est l'équipe à domicile qui se projette davantage vers l'avant."
+  },
+  {
+   "id": "fr-12",
+   "split": "test",
+   "language": "fr",
+   "expect": "block",
+   "category": "prediction",
+   "text": "Les visiteurs vont finir par marquer."
+  },
+  {
+   "id": "pt-01",
+   "split": "dev",
+   "language": "pt",
+   "expect": "pass",
+   "category": "activity",
+   "text": "O time visitante aparece com mais frequência no terço ofensivo do que antes."
+  },
+  {
+   "id": "pt-02",
+   "split": "dev",
+   "language": "pt",
+   "expect": "block",
+   "category": "performance_judgement",
+   "text": "O visitante está jogando muito melhor agora."
+  },
+  {
+   "id": "pt-03",
+   "split": "dev",
+   "language": "pt",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "O visitante teve um pouco mais de posse de bola que o mandante."
+  },
+  {
+   "id": "pt-04",
+   "split": "dev",
+   "language": "pt",
+   "expect": "block",
+   "category": "cause",
+   "text": "O visitante ataca mais por causa do cansaço da defesa adversária."
+  },
+  {
+   "id": "pt-05",
+   "split": "test",
+   "language": "pt",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "O visitante chega com muito mais frequência às zonas avançadas do que antes."
+  },
+  {
+   "id": "pt-06",
+   "split": "test",
+   "language": "pt",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "O time da casa cometeu mais faltas do que o visitante."
+  },
+  {
+   "id": "pt-07",
+   "split": "test",
+   "language": "pt",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "O visitante tem claramente mais gols esperados que o mandante."
+  },
+  {
+   "id": "pt-08",
+   "split": "test",
+   "language": "pt",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "O mandante finalizou mais vezes que o visitante."
+  },
+  {
+   "id": "pt-09",
+   "split": "test",
+   "language": "pt",
+   "expect": "block",
+   "category": "overstated",
+   "text": "O visitante teve muito mais posse de bola que o mandante."
+  },
+  {
+   "id": "pt-10",
+   "split": "test",
+   "language": "pt",
+   "expect": "block",
+   "category": "timing",
+   "text": "Nos acréscimos, o visitante foi mais vezes ao ataque."
+  },
+  {
+   "id": "pt-11",
+   "split": "test",
+   "language": "pt",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "O time da casa é quem mais chega ao ataque agora."
+  },
+  {
+   "id": "pt-12",
+   "split": "test",
+   "language": "pt",
+   "expect": "block",
+   "category": "extreme",
+   "text": "O visitante está massacrando o adversário no campo de ataque."
+  },
+  {
+   "id": "de-01",
+   "split": "dev",
+   "language": "de",
+   "expect": "pass",
+   "category": "activity",
+   "text": "Das Gastteam taucht jetzt häufiger im Angriffsdrittel auf als zuvor."
+  },
+  {
+   "id": "de-02",
+   "split": "dev",
+   "language": "de",
+   "expect": "block",
+   "category": "prediction",
+   "text": "Das Gastteam wird hier noch nachlegen."
+  },
+  {
+   "id": "de-03",
+   "split": "dev",
+   "language": "de",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Die Heimmannschaft hat mehr Fouls begangen als die Gäste."
+  },
+  {
+   "id": "de-04",
+   "split": "dev",
+   "language": "de",
+   "expect": "block",
+   "category": "chances",
+   "text": "Die Gäste erspielen sich jetzt eine Großchance nach der anderen."
+  },
+  {
+   "id": "de-05",
+   "split": "test",
+   "language": "de",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "Die Gäste sind deutlich häufiger in den vorderen Zonen zu finden als vorher."
+  },
+  {
+   "id": "de-06",
+   "split": "test",
+   "language": "de",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Die Gäste hatten etwas mehr Ballbesitz als die Heimmannschaft."
+  },
+  {
+   "id": "de-07",
+   "split": "test",
+   "language": "de",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "Die Gäste haben deutlich mehr Tore erzielt als die Heimmannschaft."
+  },
+  {
+   "id": "de-08",
+   "split": "test",
+   "language": "de",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "Die Heimmannschaft hatte mehr Ecken als die Gäste."
+  },
+  {
+   "id": "de-09",
+   "split": "test",
+   "language": "de",
+   "expect": "block",
+   "category": "overstated",
+   "text": "Die Gäste hatten viel mehr Schüsse als die Heimmannschaft."
+  },
+  {
+   "id": "de-10",
+   "split": "test",
+   "language": "de",
+   "expect": "block",
+   "category": "cause",
+   "text": "Die Gäste greifen mehr an, weil die Heimabwehr müde wird."
+  },
+  {
+   "id": "de-11",
+   "split": "test",
+   "language": "de",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "Jetzt ist es die Heimmannschaft, die öfter nach vorne kommt."
+  },
+  {
+   "id": "de-12",
+   "split": "test",
+   "language": "de",
+   "expect": "block",
+   "category": "performance_judgement",
+   "text": "Die Gäste spielen jetzt richtig stark auf."
+  },
+  {
+   "id": "it-01",
+   "split": "dev",
+   "language": "it",
+   "expect": "pass",
+   "category": "activity",
+   "text": "La squadra ospite arriva più spesso nella trequarti offensiva rispetto a prima."
+  },
+  {
+   "id": "it-02",
+   "split": "dev",
+   "language": "it",
+   "expect": "block",
+   "category": "cause",
+   "text": "Gli ospiti attaccano di più grazie al pressing alto."
+  },
+  {
+   "id": "it-03",
+   "split": "dev",
+   "language": "it",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "La squadra di casa ha effettuato più sostituzioni degli ospiti."
+  },
+  {
+   "id": "it-04",
+   "split": "dev",
+   "language": "it",
+   "expect": "block",
+   "category": "extreme",
+   "text": "Gli ospiti assediano completamente l'area avversaria."
+  },
+  {
+   "id": "it-05",
+   "split": "test",
+   "language": "it",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "Gli ospiti sono molto più presenti nelle zone avanzate rispetto a prima."
+  },
+  {
+   "id": "it-06",
+   "split": "test",
+   "language": "it",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Gli ospiti hanno tirato leggermente di più della squadra di casa."
+  },
+  {
+   "id": "it-07",
+   "split": "test",
+   "language": "it",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "Gli ospiti hanno nettamente più gol attesi della squadra di casa."
+  },
+  {
+   "id": "it-08",
+   "split": "test",
+   "language": "it",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "La squadra di casa ha avuto più possesso palla degli ospiti."
+  },
+  {
+   "id": "it-09",
+   "split": "test",
+   "language": "it",
+   "expect": "block",
+   "category": "timing",
+   "text": "Nel finale del primo tempo gli ospiti hanno spinto di più."
+  },
+  {
+   "id": "it-10",
+   "split": "test",
+   "language": "it",
+   "expect": "block",
+   "category": "chances",
+   "text": "Gli ospiti stanno creando occasioni da gol a ripetizione."
+  },
+  {
+   "id": "it-11",
+   "split": "test",
+   "language": "it",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "È la squadra di casa ad arrivare più spesso in avanti adesso."
+  },
+  {
+   "id": "it-12",
+   "split": "test",
+   "language": "it",
+   "expect": "block",
+   "category": "prediction",
+   "text": "Gli ospiti segneranno presto ancora."
+  },
+  {
+   "id": "ar-01",
+   "split": "dev",
+   "language": "ar",
+   "expect": "pass",
+   "category": "activity",
+   "text": "الفريق الضيف يتواجد في مناطق الهجوم أكثر من ذي قبل."
+  },
+  {
+   "id": "ar-02",
+   "split": "dev",
+   "language": "ar",
+   "expect": "block",
+   "category": "extreme",
+   "text": "الفريق الضيف يسيطر على المباراة بالكامل."
+  },
+  {
+   "id": "ar-03",
+   "split": "dev",
+   "language": "ar",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "ارتكب الفريق المضيف أخطاء أكثر من الفريق الضيف."
+  },
+  {
+   "id": "ar-04",
+   "split": "dev",
+   "language": "ar",
+   "expect": "block",
+   "category": "prediction",
+   "text": "الفريق الضيف سيحسم المباراة قريبًا."
+  },
+  {
+   "id": "ar-05",
+   "split": "test",
+   "language": "ar",
+   "expect": "pass",
+   "category": "strong_activity",
+   "text": "الفريق الضيف أصبح يصل إلى المناطق المتقدمة بشكل أكبر بكثير من قبل."
+  },
+  {
+   "id": "ar-06",
+   "split": "test",
+   "language": "ar",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "استحوذ الفريق الضيف على الكرة أكثر بقليل من الفريق المضيف."
+  },
+  {
+   "id": "ar-07",
+   "split": "test",
+   "language": "ar",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "سجل الفريق الضيف أهدافًا أكثر بوضوح من الفريق المضيف."
+  },
+  {
+   "id": "ar-08",
+   "split": "test",
+   "language": "ar",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "سدد الفريق المضيف كرات أكثر من الفريق الضيف."
+  },
+  {
+   "id": "ar-09",
+   "split": "test",
+   "language": "ar",
+   "expect": "block",
+   "category": "cause",
+   "text": "الفريق الضيف يهاجم أكثر بسبب إرهاق دفاع المضيف."
+  },
+  {
+   "id": "ar-10",
+   "split": "test",
+   "language": "ar",
+   "expect": "block",
+   "category": "timing",
+   "text": "في نهاية الشوط الأول ضغط الضيوف أكثر."
+  },
+  {
+   "id": "ar-11",
+   "split": "test",
+   "language": "ar",
+   "expect": "block",
+   "category": "wrong_team",
+   "text": "الفريق المضيف هو من يتقدم إلى الأمام أكثر الآن."
+  },
+  {
+   "id": "ar-12",
+   "split": "test",
+   "language": "ar",
+   "expect": "block",
+   "category": "performance_judgement",
+   "text": "الفريق الضيف يقدم أداءً رائعًا."
+  },
+  {
+   "id": "en-h2-1",
+   "split": "holdout2",
+   "language": "en",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "Merridge have a lot more expected goals than Calderbrook."
+  },
+  {
+   "id": "en-h2-2",
+   "split": "holdout2",
+   "language": "en",
+   "expect": "block",
+   "category": "overstated",
+   "text": "Calderbrook have committed a lot more fouls than Merridge."
+  },
+  {
+   "id": "es-h2-1",
+   "split": "holdout2",
+   "language": "es",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Merridge ha disparado algo más que Calderbrook."
+  },
+  {
+   "id": "es-h2-2",
+   "split": "holdout2",
+   "language": "es",
+   "expect": "block",
+   "category": "overstated",
+   "text": "Merridge ha tenido muchísima más posesión que Calderbrook."
+  },
+  {
+   "id": "fr-h2-1",
+   "split": "holdout2",
+   "language": "fr",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "Merridge a bien plus de tirs cadrés que Calderbrook."
+  },
+  {
+   "id": "fr-h2-2",
+   "split": "holdout2",
+   "language": "fr",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "Calderbrook a obtenu plus de corners que Merridge."
+  },
+  {
+   "id": "pt-h2-1",
+   "split": "holdout2",
+   "language": "pt",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "O Merridge tem bastante mais gols que o Calderbrook."
+  },
+  {
+   "id": "pt-h2-2",
+   "split": "holdout2",
+   "language": "pt",
+   "expect": "block",
+   "category": "overstated",
+   "text": "O Merridge tem bastante mais finalizações que o Calderbrook."
+  },
+  {
+   "id": "de-h2-1",
+   "split": "holdout2",
+   "language": "de",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Merridge hat etwas mehr Ballbesitz als Calderbrook."
+  },
+  {
+   "id": "de-h2-2",
+   "split": "holdout2",
+   "language": "de",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "Merridge hat erheblich mehr Fouls begangen als Calderbrook."
+  },
+  {
+   "id": "it-h2-1",
+   "split": "holdout2",
+   "language": "it",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Il Calderbrook ha commesso un po' più falli del Merridge."
+  },
+  {
+   "id": "it-h2-2",
+   "split": "holdout2",
+   "language": "it",
+   "expect": "block",
+   "category": "overstated",
+   "text": "Il Merridge ha decisamente più tiri del Calderbrook."
+  },
+  {
+   "id": "ar-h2-1",
+   "split": "holdout2",
+   "language": "ar",
+   "expect": "pass",
+   "category": "strong_true_comparison",
+   "text": "ميريدج لديه أهداف متوقعة أكثر بفارق كبير من كالدربروك."
+  },
+  {
+   "id": "ar-h2-2",
+   "split": "holdout2",
+   "language": "ar",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "كالدربروك سدد كرات أكثر من ميريدج."
+  },
+  {
+   "id": "en-h3-1",
+   "split": "holdout3",
+   "language": "en",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Merridge have scored more goals than Calderbrook so far."
+  },
+  {
+   "id": "en-h3-2",
+   "split": "holdout3",
+   "language": "en",
+   "expect": "block",
+   "category": "extreme",
+   "text": "Merridge are well on top, owning the ball."
+  },
+  {
+   "id": "en-h3-3",
+   "split": "holdout3",
+   "language": "en",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "Calderbrook have had more shots on target than Merridge."
+  },
+  {
+   "id": "es-h3-1",
+   "split": "holdout3",
+   "language": "es",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Calderbrook ha cometido una falta más que Merridge."
+  },
+  {
+   "id": "es-h3-2",
+   "split": "holdout3",
+   "language": "es",
+   "expect": "pass",
+   "category": "activity",
+   "text": "Merridge aparece más en el último tercio que antes."
+  },
+  {
+   "id": "es-h3-3",
+   "split": "holdout3",
+   "language": "es",
+   "expect": "block",
+   "category": "prediction",
+   "text": "Merridge marcará otro gol antes del final."
+  },
+  {
+   "id": "fr-h3-1",
+   "split": "holdout3",
+   "language": "fr",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Merridge a eu un peu plus de possession que Calderbrook."
+  },
+  {
+   "id": "fr-h3-2",
+   "split": "holdout3",
+   "language": "fr",
+   "expect": "block",
+   "category": "extreme",
+   "text": "Calderbrook est complètement dépassé."
+  },
+  {
+   "id": "fr-h3-3",
+   "split": "holdout3",
+   "language": "fr",
+   "expect": "block",
+   "category": "overstated",
+   "text": "Merridge a beaucoup plus de tirs que Calderbrook."
+  },
+  {
+   "id": "pt-h3-1",
+   "split": "holdout3",
+   "language": "pt",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "O Merridge fez mais gols que o Calderbrook."
+  },
+  {
+   "id": "pt-h3-2",
+   "split": "holdout3",
+   "language": "pt",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "O Calderbrook fez mais substituições que o Merridge."
+  },
+  {
+   "id": "pt-h3-3",
+   "split": "holdout3",
+   "language": "pt",
+   "expect": "block",
+   "category": "extreme",
+   "text": "O Merridge pressiona alto e sufoca o adversário."
+  },
+  {
+   "id": "de-h3-1",
+   "split": "holdout3",
+   "language": "de",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Merridge hat mehr Ecken als Calderbrook."
+  },
+  {
+   "id": "de-h3-2",
+   "split": "holdout3",
+   "language": "de",
+   "expect": "block",
+   "category": "timing",
+   "text": "Calderbrook war vor der Pause klar besser."
+  },
+  {
+   "id": "de-h3-3",
+   "split": "holdout3",
+   "language": "de",
+   "expect": "block",
+   "category": "cause",
+   "text": "Merridge hat einen höheren xG-Wert, weil Calderbrook schlecht verteidigt."
+  },
+  {
+   "id": "it-h3-1",
+   "split": "holdout3",
+   "language": "it",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "Il Merridge ha più gol attesi del Calderbrook."
+  },
+  {
+   "id": "it-h3-2",
+   "split": "holdout3",
+   "language": "it",
+   "expect": "block",
+   "category": "false_comparison",
+   "text": "Il Calderbrook ha avuto più tiri in porta del Merridge."
+  },
+  {
+   "id": "it-h3-3",
+   "split": "holdout3",
+   "language": "it",
+   "expect": "block",
+   "category": "prediction",
+   "text": "Il Merridge vincerà sicuramente questa partita."
+  },
+  {
+   "id": "ar-h3-1",
+   "split": "holdout3",
+   "language": "ar",
+   "expect": "pass",
+   "category": "true_comparison",
+   "text": "ميريدج سجل أهدافا أكثر من كالدربروك."
+  },
+  {
+   "id": "ar-h3-2",
+   "split": "holdout3",
+   "language": "ar",
+   "expect": "block",
+   "category": "extreme",
+   "text": "كالدربروك يضغط بقوة ويسيطر على الكرة."
+  },
+  {
+   "id": "ar-h3-3",
+   "split": "holdout3",
+   "language": "ar",
+   "expect": "block",
+   "category": "prediction",
+   "text": "ميريدج سيفوز بالمباراة."
+  }
+ ]
+}

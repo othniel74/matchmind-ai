@@ -1,0 +1,242 @@
+{
+  "split": "test",
+  "repeat": 3,
+  "cases": 56,
+  "overall": {
+    "correct": 166,
+    "total": 168,
+    "accuracy": 0.988,
+    "ci95": [
+      0.958,
+      0.997
+    ]
+  },
+  "unsafe_passes": {
+    "correct": 103,
+    "total": 105,
+    "accuracy": 0.981,
+    "ci95": [
+      0.933,
+      0.995
+    ],
+    "count": 2
+  },
+  "consistent_across_repeats": false,
+  "by_language": {
+    "ar": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0,
+      "ci95": [
+        0.862,
+        1
+      ]
+    },
+    "de": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0,
+      "ci95": [
+        0.862,
+        1
+      ]
+    },
+    "en": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0,
+      "ci95": [
+        0.862,
+        1
+      ]
+    },
+    "es": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0,
+      "ci95": [
+        0.862,
+        1
+      ]
+    },
+    "fr": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0,
+      "ci95": [
+        0.862,
+        1
+      ]
+    },
+    "it": {
+      "correct": 24,
+      "total": 24,
+      "accuracy": 1.0,
+      "ci95": [
+        0.862,
+        1
+      ]
+    },
+    "pt": {
+      "correct": 22,
+      "total": 24,
+      "accuracy": 0.917,
+      "ci95": [
+        0.742,
+        0.977
+      ]
+    }
+  },
+  "by_category": {
+    "cause": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0,
+      "ci95": [
+        0.757,
+        1
+      ]
+    },
+    "chances": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "extreme": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "false_comparison": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    },
+    "overstated": {
+      "correct": 10,
+      "total": 12,
+      "accuracy": 0.833,
+      "ci95": [
+        0.552,
+        0.953
+      ]
+    },
+    "performance_judgement": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    },
+    "prediction": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "strong_activity": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    },
+    "strong_true_comparison": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    },
+    "timing": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0,
+      "ci95": [
+        0.757,
+        1
+      ]
+    },
+    "true_comparison": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    },
+    "wrong_team": {
+      "correct": 21,
+      "total": 21,
+      "accuracy": 1.0,
+      "ci95": [
+        0.845,
+        1.0
+      ]
+    }
+  },
+  "by_expect": {
+    "block": {
+      "correct": 103,
+      "total": 105,
+      "accuracy": 0.981,
+      "ci95": [
+        0.933,
+        0.995
+      ]
+    },
+    "pass": {
+      "correct": 63,
+      "total": 63,
+      "accuracy": 1.0,
+      "ci95": [
+        0.943,
+        1.0
+      ]
+    }
+  },
+  "misses": [
+    {
+      "id": "pt-09",
+      "language": "pt",
+      "category": "overstated",
+      "expect": "block",
+      "outcome": "pass",
+      "reason": null,
+      "text": "O visitante teve muito mais posse de bola que o mandante.",
+      "run": 1
+    },
+    {
+      "id": "pt-09",
+      "language": "pt",
+      "category": "overstated",
+      "expect": "block",
+      "outcome": "pass",
+      "reason": null,
+      "text": "O visitante teve muito mais posse de bola que o mandante.",
+      "run": 2
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "evaluation": "synthetic_offline_v2",
+  "generator_version": "possession-v4",
+  "seeds": [
+    20261020,
+    20261021,
+    20261022,
+    20261023,
+    20261024
+  ],
+  "checks_passed": 56,
+  "checks_total": 56,
+  "passed": true,
+  "checks": [
+    {
+      "check": "20261020: repeatable replay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261020: stream structure",
+      "passed": true,
+      "detail": "1079 events"
+    },
+    {
+      "check": "20261020: basic statistics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261020: evidence integrity",
+      "passed": true,
+      "detail": "2 detected insights"
+    },
+    {
+      "check": "20261020: rejection of forged metrics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261020: interpretations held for review",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261020: overlay publication",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261020: multilingual factual parity",
+      "passed": true,
+      "detail": "7 languages"
+    },
+    {
+      "check": "20261020: overlay lifetime",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261021: repeatable replay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261021: stream structure",
+      "passed": true,
+      "detail": "1072 events"
+    },
+    {
+      "check": "20261021: basic statistics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261021: evidence integrity",
+      "passed": true,
+      "detail": "1 detected insights"
+    },
+    {
+      "check": "20261021: rejection of forged metrics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261021: interpretations held for review",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261021: overlay publication",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261021: multilingual factual parity",
+      "passed": true,
+      "detail": "7 languages"
+    },
+    {
+      "check": "20261021: overlay lifetime",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261022: repeatable replay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261022: stream structure",
+      "passed": true,
+      "detail": "1007 events"
+    },
+    {
+      "check": "20261022: basic statistics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261022: evidence integrity",
+      "passed": true,
+      "detail": "2 detected insights"
+    },
+    {
+      "check": "20261022: rejection of forged metrics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261022: interpretations held for review",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261022: overlay publication",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261022: multilingual factual parity",
+      "passed": true,
+      "detail": "7 languages"
+    },
+    {
+      "check": "20261022: overlay lifetime",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261023: repeatable replay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261023: stream structure",
+      "passed": true,
+      "detail": "1109 events"
+    },
+    {
+      "check": "20261023: basic statistics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261023: evidence integrity",
+      "passed": true,
+      "detail": "3 detected insights"
+    },
+    {
+      "check": "20261023: rejection of forged metrics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261023: interpretations held for review",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261023: overlay publication",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261023: multilingual factual parity",
+      "passed": true,
+      "detail": "7 languages"
+    },
+    {
+      "check": "20261023: overlay lifetime",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261024: repeatable replay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261024: stream structure",
+      "passed": true,
+      "detail": "1089 events"
+    },
+    {
+      "check": "20261024: basic statistics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261024: evidence integrity",
+      "passed": true,
+      "detail": "1 detected insights"
+    },
+    {
+      "check": "20261024: rejection of forged metrics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261024: interpretations held for review",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261024: overlay publication",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "20261024: multilingual factual parity",
+      "passed": true,
+      "detail": "7 languages"
+    },
+    {
+      "check": "20261024: overlay lifetime",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "calibration: passes",
+      "passed": true,
+      "detail": "mean 444.66 vs range 350-550"
+    },
+    {
+      "check": "calibration: pass_completion_pct",
+      "passed": true,
+      "detail": "mean 79.927 vs range 74-86"
+    },
+    {
+      "check": "calibration: shots",
+      "passed": true,
+      "detail": "mean 12.185 vs range 9-16"
+    },
+    {
+      "check": "calibration: shots_on_target",
+      "passed": true,
+      "detail": "mean 4.815 vs range 3-6"
+    },
+    {
+      "check": "calibration: goals",
+      "passed": true,
+      "detail": "mean 1.57 vs range 1.0-1.8"
+    },
+    {
+      "check": "calibration: xg",
+      "passed": true,
+      "detail": "mean 1.528 vs range 1.0-1.8"
+    },
+    {
+      "check": "calibration: corners",
+      "passed": true,
+      "detail": "mean 4.175 vs range 3.5-6.5"
+    },
+    {
+      "check": "calibration: fouls",
+      "passed": true,
+      "detail": "mean 9.855 vs range 8-14"
+    },
+    {
+      "check": "calibration: yellow_cards",
+      "passed": true,
+      "detail": "mean 1.745 vs range 1.2-2.6"
+    },
+    {
+      "check": "calibration: red_cards",
+      "passed": true,
+      "detail": "mean 0.055 vs range 0.02-0.15"
+    },
+    {
+      "check": "calibration: substitutions",
+      "passed": true,
+      "detail": "mean 4.215 vs range 3-5"
+    }
+  ],
+  "calibration": {
+    "seeds": [
+      2000,
+      2099
+    ],
+    "team_matches": 200,
+    "metrics": {
+      "passes": {
+        "mean": 444.66,
+        "sd": 29.896,
+        "reference_range": [
+          350,
+          550
+        ],
+        "within_range": true
+      },
+      "pass_completion_pct": {
+        "mean": 79.927,
+        "sd": 2.27,
+        "reference_range": [
+          74,
+          86
+        ],
+        "within_range": true
+      },
+      "shots": {
+        "mean": 12.185,
+        "sd": 6.551,
+        "reference_range": [
+          9,
+          16
+        ],
+        "within_range": true
+      },
+      "shots_on_target": {
+        "mean": 4.815,
+        "sd": 3.22,
+        "reference_range": [
+          3,
+          6
+        ],
+        "within_range": true
+      },
+      "goals": {
+        "mean": 1.57,
+        "sd": 1.437,
+        "reference_range": [
+          1.0,
+          1.8
+        ],
+        "within_range": true
+      },
+      "xg": {
+        "mean": 1.528,
+        "sd": 1.027,
+        "reference_range": [
+          1.0,
+          1.8
+        ],
+        "within_range": true
+      },
+      "corners": {
+        "mean": 4.175,
+        "sd": 2.806,
+        "reference_range": [
+          3.5,
+          6.5
+        ],
+        "within_range": true
+      },
+      "fouls": {
+        "mean": 9.855,
+        "sd": 2.955,
+        "reference_range": [
+          8,
+          14
+        ],
+        "within_range": true
+      },
+      "yellow_cards": {
+        "mean": 1.745,
+        "sd": 1.162,
+        "reference_range": [
+          1.2,
+          2.6
+        ],
+        "within_range": true
+      },
+      "red_cards": {
+        "mean": 0.055,
+        "sd": 0.228,
+        "reference_range": [
+          0.02,
+          0.15
+        ],
+        "within_range": true
+      },
+      "substitutions": {
+        "mean": 4.215,
+        "sd": 0.78,
+        "reference_range": [
+          3,
+          5
+        ],
+        "within_range": true
+      }
+    },
+    "possession_pct_sd": 4.74
+  },
+  "detector": {
+    "count_change": {
+      "tier": "count_change",
+      "seeds": [
+        3000,
+        3199
+      ],
+      "labelled_shifts": 143,
+      "control_matches": 57,
+      "alert_episodes": 362,
+      "true_positive": 108,
+      "false_positive": 254,
+      "precision": 0.298,
+      "precision_ci95": [
+        0.254,
+        0.347
+      ],
+      "recall": 0.538,
+      "recall_ci95": [
+        0.457,
+        0.618
+      ],
+      "mean_latency_minutes": 10.8,
+      "false_alerts_per_control_match": 1.49,
+      "unreviewed_publication_bar": 0.8,
+      "fit_for_unreviewed_publication": false
+    },
+    "interpretation": {
+      "tier": "interpretation",
+      "seeds": [
+        3000,
+        3199
+      ],
+      "labelled_shifts": 143,
+      "control_matches": 57,
+      "alert_episodes": 31,
+      "true_positive": 16,
+      "false_positive": 15,
+      "precision": 0.516,
+      "precision_ci95": [
+        0.348,
+        0.68
+      ],
+      "recall": 0.098,
+      "recall_ci95": [
+        0.059,
+        0.158
+      ],
+      "mean_latency_minutes": 10.2,
+      "false_alerts_per_control_match": 0.11,
+      "unreviewed_publication_bar": 0.8,
+      "fit_for_unreviewed_publication": false
+    }
+  },
+  "strength_curve": [
+    {
+      "strength": 0.5,
+      "precision": 0.3,
+      "precision_ci95": [
+        0.108,
+        0.603
+      ],
+      "recall": 0.07,
+      "recall_ci95": [
+        0.024,
+        0.186
+      ],
+      "false_alerts_per_control_match": 0.12
+    },
+    {
+      "strength": 1.0,
+      "precision": 0.333,
+      "precision_ci95": [
+        0.138,
+        0.609
+      ],
+      "recall": 0.093,
+      "recall_ci95": [
+        0.037,
+        0.216
+      ],
+      "false_alerts_per_control_match": 0.12
+    },
+    {
+      "strength": 1.5,
+      "precision": 0.444,
+      "precision_ci95": [
+        0.189,
+        0.733
+      ],
+      "recall": 0.093,
+      "recall_ci95": [
+        0.037,
+        0.216
+      ],
+      "false_alerts_per_control_match": 0.12
+    },
+    {
+      "strength": 2.0,
+      "precision": 0.5,
+      "precision_ci95": [
+        0.268,
+        0.732
+      ],
+      "recall": 0.163,
+      "recall_ci95": [
+        0.081,
+        0.3
+      ],
+      "false_alerts_per_control_match": 0.12
+    },
+    {
+      "strength": 3.0,
+      "precision": 0.625,
+      "precision_ci95": [
+        0.386,
+        0.815
+      ],
+      "recall": 0.233,
+      "recall_ci95": [
+        0.132,
+        0.377
+      ],
+      "false_alerts_per_control_match": 0.12
+    }
+  ],
+  "publication_policy": "Observed count changes publish after exact evidence validation. Shift interpretations are always routed to human review.",
+  "limitations": [
+    "Synthetic distributions are bounded by broad reference ranges, not fitted to a licensed dataset.",
+    "Possession share varies less between teams than in real matches (sd 4.74 points).",
+    "Detector measurements use synthetic scenario labels; they are not accuracy against real tactical events.",
+    "This does not validate Foundry connectivity, browser rendering, or Azure deployment.",
+    "Advanced-area activity is not a causal or possession-based pressure metric."
+  ]
+}

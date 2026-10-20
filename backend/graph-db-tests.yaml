@@ -1,0 +1,23 @@
+# Azure Container Registry multi-step task: real Memgraph and Neo4j integration tests.
+#   az acr run -r <registry> -f graph-db-tests.yaml <staging dir with app/, tests/, requirements.txt>
+# The databases run as detached containers on the task network, reachable by step ID.
+# Images are imported into the registry first (az acr import) so runs do not hit Docker Hub.
+version: v1.1.0
+steps:
+  - id: memgraph
+    cmd: "{{.Run.Registry}}/memgraph/memgraph:3.13.1 --telemetry-enabled=false"
+    detach: true
+  - id: neo4j
+    cmd: "{{.Run.Registry}}/neo4j:5.26.32-community"
+    env:
+      - NEO4J_AUTH=neo4j/graphtest-{{.Run.ID}}
+      - NEO4J_server_memory_heap_max__size=512m
+    detach: true
+  - id: build
+    build: -t graphtest:{{.Run.ID}} --build-arg BASE={{.Run.Registry}}/python:3.12-slim -f Dockerfile.graphtest .
+  - id: test
+    cmd: graphtest:{{.Run.ID}}
+    env:
+      - GRAPH_TEST_TARGETS=memgraph=bolt://memgraph:7687,neo4j=bolt://neo4j:7687
+      - GRAPH_TEST_NEO4J_PASSWORD=graphtest-{{.Run.ID}}
+    timeout: 900

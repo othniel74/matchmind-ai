@@ -1,0 +1,49 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      args:
+        INSTALL_AGENTS: ${INSTALL_AGENTS:-false}
+    restart: unless-stopped
+    environment:
+      GRAPH_BACKEND: ${GRAPH_BACKEND:-memgraph}
+      GRAPH_URI: ${GRAPH_URI:-bolt://memgraph:7687}
+      GRAPH_USER: ${GRAPH_USER:-}
+      GRAPH_PASSWORD: ${GRAPH_PASSWORD:-}
+      GRAPH_REBUILD_ENABLED: ${GRAPH_REBUILD_ENABLED:-false}
+      MATCHMIND_EVENT_DB: /data/events.sqlite3
+      MATCHMIND_FOUNDATION_DB: /data/foundation.sqlite3
+      MATCHMIND_ENV: local
+      AZURE_AI_PROJECT_ENDPOINT: ${AZURE_AI_PROJECT_ENDPOINT:-}
+      AZURE_AI_MODEL_DEPLOYMENT_NAME: ${AZURE_AI_MODEL_DEPLOYMENT_NAME:-}
+    volumes: ["event_data:/data"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/ready')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports: ["127.0.0.1:8080:80"]
+    depends_on:
+      backend:
+        condition: service_healthy
+  memgraph:
+    image: memgraph/memgraph:latest
+    profiles: ["memgraph"]
+    restart: unless-stopped
+    volumes: ["memgraph_data:/var/lib/memgraph"]
+    ports: ["127.0.0.1:7687:7687"]
+  neo4j:
+    image: neo4j:5-community
+    profiles: ["neo4j"]
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: ${NEO4J_AUTH:-neo4j/matchmind-dev-password}
+    volumes: ["neo4j_data:/data"]
+    ports: ["127.0.0.1:7474:7474", "127.0.0.1:7688:7687"]
+volumes:
+  event_data:
+  memgraph_data:
+  neo4j_data:

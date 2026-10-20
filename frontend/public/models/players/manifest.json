@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "url": "/models/players/footballer-02.glb",
+  "credit": "Microsoft Rocketbox / Rocketbox Studios: Sports_Male_02 and Sports_Male_03; adapted by MatchMind AI",
+  "license": "MIT; see LICENSE-Rocketbox.md",
+  "forwardRotation": 0,
+  "jerseyMaterials": [],
+  "shortsMaterials": [],
+  "clips": {
+    "idle": "Idle",
+    "run": "Run"
+  },
+  "variants": [
+    "/models/players/footballer-02.glb",
+    "/models/players/footballer-03.glb"
+  ],
+  "rocketboxKit": true
+}

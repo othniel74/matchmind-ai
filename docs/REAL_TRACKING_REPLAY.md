@@ -1,0 +1,14 @@
+# Real tracking replay — 18 October 2026
+
+In Broadcast Studio, select **Real tracking · SkillCorner** under Preview source, then Play. A standalone view is available at `/app?view=tracking`. Existing full screen/reset controls work in Studio. Pop out opens an independent tracking player with its own playback controls.
+
+The local excerpt covers the opening 120 seconds of Melbourne Victory v Auckland FC, 17 May 2025, A-League, SkillCorner match 2017461. It contains 1,201 consecutive 10 Hz frames (2510–3710). Source: https://github.com/SkillCorner/opendata. The MIT notice is retained in `frontend/public/tracking/LICENSE.txt`; provenance and SHA-256 hashes are retained in `provenance.json`. Run `python tools/import-skillcorner.py` from any directory to retrieve the excerpt again. Upstream master can change; hashes identify the retained local files.
+
+Metre coordinates, centered on the source pitch, are normalized using the provided 105 × 68 m dimensions. Adjacent frames are linearly interpolated. Actual source player IDs, jersey numbers, team IDs and goalkeeper roles are mapped from match metadata. Ball height comes from source data. Missing ball positions are hidden; missing players are hidden rather than substituted with synthetic movement. There are 122 empty player frames in this excerpt. Tracking quality counts distinguish detected, extrapolated and unavailable positions. Team width/depth are coordinate ranges across available players, including goalkeeper and extrapolated positions; they are descriptive measurements, not inferred tactical conclusions.
+
+The positions are recorded tracking and include provider estimates. Body orientation is derived from movement or ball direction. Character likenesses, kit colors, running animations and physical contacts are illustrative. No match video is included. This is historical playback, not a live feed. The surrounding synthetic score, statistics, insights and overlay queue are explicitly separate; no real-match event analytics are claimed.
+
+Validation: `node --experimental-strip-types tools/check-tracking.ts` checks every frame, source-coordinate round trips, identity uniqueness, goalkeeper roles, interpolation, missing ball handling and seek bounds. Existing football-play checks continue to pass. Production build passes. Browser QA covers rendered models/ball, play/pause, reset, seeking, speed selection and source switching.
+
+
+Ball rendering correction: recorded tracking z is treated as a center height, converting to ground clearance before adding the visible sphere radius. Tracking display size is bounded and reduced, with a contact shadow; genuine airborne height remains intact. Metrica, which has no source height, remains grounded. `tools/check-ball-display.ts` verifies grounding, narrow-screen size bounds, airborne displacement and unchanged synthetic clearance semantics.

@@ -1,0 +1,793 @@
+{
+  "split": "holdout3",
+  "repeat": 3,
+  "cases": 21,
+  "overall": {
+    "correct": 56,
+    "total": 60,
+    "accuracy": 0.933,
+    "ci95": [
+      0.841,
+      0.974
+    ]
+  },
+  "unsafe_passes": {
+    "correct": 33,
+    "total": 33,
+    "accuracy": 1.0,
+    "ci95": [
+      0.896,
+      1
+    ],
+    "count": 0
+  },
+  "consistent_across_repeats": false,
+  "service_errors": 3,
+  "rows": [
+    {
+      "id": "ar-h3-1",
+      "language": "ar",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "ar-h3-1",
+      "language": "ar",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "ar-h3-1",
+      "language": "ar",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "ar-h3-2",
+      "language": "ar",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_judges_performance",
+      "run": 0
+    },
+    {
+      "id": "ar-h3-2",
+      "language": "ar",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 1
+    },
+    {
+      "id": "ar-h3-2",
+      "language": "ar",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_judges_performance",
+      "run": 2
+    },
+    {
+      "id": "ar-h3-3",
+      "language": "ar",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_is_prediction",
+      "run": 0
+    },
+    {
+      "id": "ar-h3-3",
+      "language": "ar",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_is_prediction",
+      "run": 1
+    },
+    {
+      "id": "ar-h3-3",
+      "language": "ar",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_result",
+      "run": 2
+    },
+    {
+      "id": "de-h3-1",
+      "language": "de",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "de-h3-1",
+      "language": "de",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "de-h3-1",
+      "language": "de",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "de-h3-2",
+      "language": "de",
+      "category": "timing",
+      "expect": "block",
+      "outcome": "error",
+      "reason": "error:ValueError",
+      "run": 0
+    },
+    {
+      "id": "de-h3-2",
+      "language": "de",
+      "category": "timing",
+      "expect": "block",
+      "outcome": "error",
+      "reason": "error:ValueError",
+      "run": 1
+    },
+    {
+      "id": "de-h3-2",
+      "language": "de",
+      "category": "timing",
+      "expect": "block",
+      "outcome": "error",
+      "reason": "error:ValueError",
+      "run": 2
+    },
+    {
+      "id": "de-h3-3",
+      "language": "de",
+      "category": "cause",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_gives_cause",
+      "run": 0
+    },
+    {
+      "id": "de-h3-3",
+      "language": "de",
+      "category": "cause",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_gives_cause",
+      "run": 1
+    },
+    {
+      "id": "de-h3-3",
+      "language": "de",
+      "category": "cause",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_gives_cause",
+      "run": 2
+    },
+    {
+      "id": "en-h3-1",
+      "language": "en",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 0
+    },
+    {
+      "id": "en-h3-1",
+      "language": "en",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 1
+    },
+    {
+      "id": "en-h3-1",
+      "language": "en",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 2
+    },
+    {
+      "id": "en-h3-2",
+      "language": "en",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 0
+    },
+    {
+      "id": "en-h3-2",
+      "language": "en",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 1
+    },
+    {
+      "id": "en-h3-2",
+      "language": "en",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 2
+    },
+    {
+      "id": "en-h3-3",
+      "language": "en",
+      "category": "false_comparison",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_claims",
+      "run": 0
+    },
+    {
+      "id": "en-h3-3",
+      "language": "en",
+      "category": "false_comparison",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_claims",
+      "run": 1
+    },
+    {
+      "id": "en-h3-3",
+      "language": "en",
+      "category": "false_comparison",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_claims",
+      "run": 2
+    },
+    {
+      "id": "es-h3-1",
+      "language": "es",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "es-h3-1",
+      "language": "es",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "es-h3-1",
+      "language": "es",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "es-h3-2",
+      "language": "es",
+      "category": "activity",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 0
+    },
+    {
+      "id": "es-h3-2",
+      "language": "es",
+      "category": "activity",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "es-h3-2",
+      "language": "es",
+      "category": "activity",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "es-h3-3",
+      "language": "es",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 0
+    },
+    {
+      "id": "es-h3-3",
+      "language": "es",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 1
+    },
+    {
+      "id": "es-h3-3",
+      "language": "es",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "run": 2
+    },
+    {
+      "id": "fr-h3-1",
+      "language": "fr",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "fr-h3-1",
+      "language": "fr",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "fr-h3-1",
+      "language": "fr",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "fr-h3-2",
+      "language": "fr",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_judges_performance",
+      "run": 0
+    },
+    {
+      "id": "fr-h3-2",
+      "language": "fr",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_judges_performance",
+      "run": 1
+    },
+    {
+      "id": "fr-h3-2",
+      "language": "fr",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_judges_performance",
+      "run": 2
+    },
+    {
+      "id": "fr-h3-3",
+      "language": "fr",
+      "category": "overstated",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "overstated",
+      "run": 0
+    },
+    {
+      "id": "fr-h3-3",
+      "language": "fr",
+      "category": "overstated",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "overstated",
+      "run": 1
+    },
+    {
+      "id": "fr-h3-3",
+      "language": "fr",
+      "category": "overstated",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "overstated",
+      "run": 2
+    },
+    {
+      "id": "it-h3-1",
+      "language": "it",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "it-h3-1",
+      "language": "it",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "it-h3-1",
+      "language": "it",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "it-h3-2",
+      "language": "it",
+      "category": "false_comparison",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_claims",
+      "run": 0
+    },
+    {
+      "id": "it-h3-2",
+      "language": "it",
+      "category": "false_comparison",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_claims",
+      "run": 1
+    },
+    {
+      "id": "it-h3-2",
+      "language": "it",
+      "category": "false_comparison",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "contradicts_claims",
+      "run": 2
+    },
+    {
+      "id": "it-h3-3",
+      "language": "it",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_is_prediction",
+      "run": 0
+    },
+    {
+      "id": "it-h3-3",
+      "language": "it",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_is_prediction",
+      "run": 1
+    },
+    {
+      "id": "it-h3-3",
+      "language": "it",
+      "category": "prediction",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_is_prediction",
+      "run": 2
+    },
+    {
+      "id": "pt-h3-1",
+      "language": "pt",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "pt-h3-1",
+      "language": "pt",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "pt-h3-1",
+      "language": "pt",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "pt-h3-2",
+      "language": "pt",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 0
+    },
+    {
+      "id": "pt-h3-2",
+      "language": "pt",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 1
+    },
+    {
+      "id": "pt-h3-2",
+      "language": "pt",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "pass",
+      "reason": null,
+      "run": 2
+    },
+    {
+      "id": "pt-h3-3",
+      "language": "pt",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 0
+    },
+    {
+      "id": "pt-h3-3",
+      "language": "pt",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 1
+    },
+    {
+      "id": "pt-h3-3",
+      "language": "pt",
+      "category": "extreme",
+      "expect": "block",
+      "outcome": "block",
+      "reason": "unsupported_claims_dominance",
+      "run": 2
+    }
+  ],
+  "by_language": {
+    "ar": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    },
+    "de": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "en": {
+      "correct": 6,
+      "total": 9,
+      "accuracy": 0.667,
+      "ci95": [
+        0.354,
+        0.879
+      ]
+    },
+    "es": {
+      "correct": 8,
+      "total": 9,
+      "accuracy": 0.889,
+      "ci95": [
+        0.565,
+        0.98
+      ]
+    },
+    "fr": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    },
+    "it": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    },
+    "pt": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    }
+  },
+  "by_category": {
+    "activity": {
+      "correct": 2,
+      "total": 3,
+      "accuracy": 0.667,
+      "ci95": [
+        0.208,
+        0.939
+      ]
+    },
+    "cause": {
+      "correct": 3,
+      "total": 3,
+      "accuracy": 1.0,
+      "ci95": [
+        0.438,
+        1
+      ]
+    },
+    "extreme": {
+      "correct": 12,
+      "total": 12,
+      "accuracy": 1.0,
+      "ci95": [
+        0.757,
+        1
+      ]
+    },
+    "false_comparison": {
+      "correct": 6,
+      "total": 6,
+      "accuracy": 1.0,
+      "ci95": [
+        0.61,
+        1.0
+      ]
+    },
+    "overstated": {
+      "correct": 3,
+      "total": 3,
+      "accuracy": 1.0,
+      "ci95": [
+        0.438,
+        1
+      ]
+    },
+    "prediction": {
+      "correct": 9,
+      "total": 9,
+      "accuracy": 1.0,
+      "ci95": [
+        0.701,
+        1
+      ]
+    },
+    "timing": {
+      "correct": 0,
+      "total": 0,
+      "accuracy": null,
+      "ci95": null
+    },
+    "true_comparison": {
+      "correct": 21,
+      "total": 24,
+      "accuracy": 0.875,
+      "ci95": [
+        0.69,
+        0.957
+      ]
+    }
+  },
+  "by_expect": {
+    "block": {
+      "correct": 33,
+      "total": 33,
+      "accuracy": 1.0,
+      "ci95": [
+        0.896,
+        1
+      ]
+    },
+    "pass": {
+      "correct": 23,
+      "total": 27,
+      "accuracy": 0.852,
+      "ci95": [
+        0.675,
+        0.941
+      ]
+    }
+  },
+  "misses": [
+    {
+      "id": "en-h3-1",
+      "language": "en",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "text": "Merridge have scored more goals than Calderbrook so far.",
+      "run": 0
+    },
+    {
+      "id": "es-h3-2",
+      "language": "es",
+      "category": "activity",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "text": "Merridge aparece más en el último tercio que antes.",
+      "run": 0
+    },
+    {
+      "id": "en-h3-1",
+      "language": "en",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "text": "Merridge have scored more goals than Calderbrook so far.",
+      "run": 1
+    },
+    {
+      "id": "en-h3-1",
+      "language": "en",
+      "category": "true_comparison",
+      "expect": "pass",
+      "outcome": "block",
+      "reason": "unsupported_mentions_match_time",
+      "text": "Merridge have scored more goals than Calderbrook so far.",
+      "run": 2
+    }
+  ]
+}

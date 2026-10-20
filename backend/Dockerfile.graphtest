@@ -1,0 +1,14 @@
+# Test image for the real graph-database suite (tests/test_graph_db.py), run by
+# graph-db-tests.yaml in Azure Container Registry Tasks next to Memgraph and Neo4j containers.
+# Build context: a staging copy holding only app/, tests/ and requirements.txt (no secrets).
+ARG BASE=python:3.12-slim
+FROM ${BASE}
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 MATCHMIND_SKIP_DOTENV=1 \
+    MATCHMIND_FOUNDATION_DB=/tmp/matchmind/foundation.sqlite3
+WORKDIR /app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app ./app
+COPY tests ./tests
+RUN mkdir -p /tmp/matchmind
+CMD ["python", "-m", "pytest", "-q", "-rs", "tests/test_graph_db.py", "tests/test_graph.py", "tests/test_knowledge.py"]

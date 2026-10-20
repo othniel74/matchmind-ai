@@ -1,0 +1,4038 @@
+[
+  {
+    "path": "Assets/Animals/Bird_Chicken_Brown_01/Bird_Chicken_Brown_01.png",
+    "size": 838397
+  },
+  {
+    "path": "Assets/Animals/Bird_Chicken_Brown_01/Export/Bird_Chicken_Brown_01.fbx",
+    "size": 218032
+  },
+  {
+    "path": "Assets/Animals/Bird_Chicken_White_01/Bird_Chicken_White_01.png",
+    "size": 810182
+  },
+  {
+    "path": "Assets/Animals/Bird_Chicken_White_01/Export/Bird_Chicken_White_01.fbx",
+    "size": 218032
+  },
+  {
+    "path": "Assets/Animals/Bird_Duck_Female_01/Bird_Duck_Female_01.png",
+    "size": 736235
+  },
+  {
+    "path": "Assets/Animals/Bird_Duck_Female_01/Export/Bird_Duck_Female_01.fbx",
+    "size": 149664
+  },
+  {
+    "path": "Assets/Animals/Bird_Duck_Male_01/Bird_Duck_Male_01.png",
+    "size": 791964
+  },
+  {
+    "path": "Assets/Animals/Bird_Duck_Male_01/Export/Bird_Duck_Male_01.fbx",
+    "size": 149664
+  },
+  {
+    "path": "Assets/Animals/Bird_Goose_Grey_01/Bird_Goose_Grey_01.png",
+    "size": 634633
+  },
+  {
+    "path": "Assets/Animals/Bird_Goose_Grey_01/Export/Bird_Goose_Grey_01.fbx",
+    "size": 180608
+  },
+  {
+    "path": "Assets/Animals/Bird_Goose_White_01/Bird_Goose_White_01.png",
+    "size": 467969
+  },
+  {
+    "path": "Assets/Animals/Bird_Goose_White_01/Export/Bird_Goose_White_01.fbx",
+    "size": 158912
+  },
+  {
+    "path": "Assets/Animals/Bird_Rooster_Brown_01/Bird_Rooster_Brown_01.png",
+    "size": 666143
+  },
+  {
+    "path": "Assets/Animals/Bird_Rooster_Brown_01/Export/Bird_Rooster_Brown_01.fbx",
+    "size": 219792
+  },
+  {
+    "path": "Assets/Animals/Bird_Sparrow_01/Bird_Sparrow_01.png",
+    "size": 878679
+  },
+  {
+    "path": "Assets/Animals/Bird_Sparrow_01/Export/Bird_Sparrow_01.fbx",
+    "size": 207712
+  },
+  {
+    "path": "Assets/Animals/Bull_Brown_01/Bull_Brown_01.png",
+    "size": 1404972
+  },
+  {
+    "path": "Assets/Animals/Bull_Brown_01/Export/Bull_Brown_01.fbx",
+    "size": 374144
+  },
+  {
+    "path": "Assets/Animals/Camel_OneHump_01/Camel_OneHump_01.png",
+    "size": 1105749
+  },
+  {
+    "path": "Assets/Animals/Camel_OneHump_01/Export/Camel_OneHump_01.fbx",
+    "size": 363072
+  },
+  {
+    "path": "Assets/Animals/Camel_TwoHump_01/Camel_TwoHump_01.png",
+    "size": 1281578
+  },
+  {
+    "path": "Assets/Animals/Camel_TwoHump_01/Export/Camel_TwoHump_01.fbx",
+    "size": 365472
+  },
+  {
+    "path": "Assets/Animals/Cow_Black_01/Cow_Black_01.png",
+    "size": 880294
+  },
+  {
+    "path": "Assets/Animals/Cow_Black_01/Export/Cow_Black_01.fbx",
+    "size": 344480
+  },
+  {
+    "path": "Assets/Animals/Cow_Brown_01/Cow_Brown_01.png",
+    "size": 1376000
+  },
+  {
+    "path": "Assets/Animals/Cow_Brown_01/Export/Cow_Brown_01.fbx",
+    "size": 343232
+  },
+  {
+    "path": "Assets/Animals/Deer_Roe_Tabby_01/Deer_Roe_Tabby_01.png",
+    "size": 1177945
+  },
+  {
+    "path": "Assets/Animals/Deer_Roe_Tabby_01/Export/Deer_Roe_Tabby_01.fbx",
+    "size": 278480
+  },
+  {
+    "path": "Assets/Animals/Dog_Beagle_01/Dog_Beagle_01.png",
+    "size": 993185
+  },
+  {
+    "path": "Assets/Animals/Dog_Beagle_01/Export/Dog_Beagle_01.fbx",
+    "size": 335984
+  },
+  {
+    "path": "Assets/Animals/Dog_GermanShepard_01/Dog_GermanShepard_01.png",
+    "size": 900129
+  },
+  {
+    "path": "Assets/Animals/Dog_GermanShepard_01/Export/Dog_GermanShepard_01.fbx",
+    "size": 288336
+  },
+  {
+    "path": "Assets/Animals/Donkey_Grey_01/Donkey_Grey_01.png",
+    "size": 1054254
+  },
+  {
+    "path": "Assets/Animals/Donkey_Grey_01/Export/Donkey_Grey_01.fbx",
+    "size": 318640
+  },
+  {
+    "path": "Assets/Animals/Goat_Brown_01/Export/Goat_Brown_01.fbx",
+    "size": 315376
+  },
+  {
+    "path": "Assets/Animals/Goat_Brown_01/Goat_Brown_01.png",
+    "size": 1043327
+  },
+  {
+    "path": "Assets/Animals/Goat_White_01/Export/Goat_White_01.fbx",
+    "size": 313008
+  },
+  {
+    "path": "Assets/Animals/Goat_White_01/Goat_White_01.png",
+    "size": 974221
+  },
+  {
+    "path": "Assets/Animals/Horse_Brown_01/Export/Horse_Brown_01.fbx",
+    "size": 393024
+  },
+  {
+    "path": "Assets/Animals/Horse_Brown_01/Horse_Brown_01.png",
+    "size": 650137
+  },
+  {
+    "path": "Assets/Animals/Horse_Brown_Saddle_01/Export/Horse_Brown_Saddle_01.fbx",
+    "size": 490128
+  },
+  {
+    "path": "Assets/Animals/Horse_Brown_Saddle_01/Horse_Brown_Saddle_01.png",
+    "size": 771901
+  },
+  {
+    "path": "Assets/Animals/Horse_LightBrown_01/Export/Horse_LightBrown_01.fbx",
+    "size": 392736
+  },
+  {
+    "path": "Assets/Animals/Horse_LightBrown_01/Horse_LightBrown_01.png",
+    "size": 843513
+  },
+  {
+    "path": "Assets/Animals/Horse_LightBrown_Saddle_01/Export/Horse_LightBrown_Saddle_01.fbx",
+    "size": 489584
+  },
+  {
+    "path": "Assets/Animals/Horse_LightBrown_Saddle_01/Horse_LightBrown_Saddle_01.png",
+    "size": 751806
+  },
+  {
+    "path": "Assets/Animals/Pig_Pink_01/Export/Pig_Pink_01.fbx",
+    "size": 228768
+  },
+  {
+    "path": "Assets/Animals/Pig_Pink_01/Pig_Pink_01.png",
+    "size": 1491304
+  },
+  {
+    "path": "Assets/Animals/Sheep_White_01/Export/Sheep_White_01.fbx",
+    "size": 271712
+  },
+  {
+    "path": "Assets/Animals/Sheep_White_01/Sheep_White_01.png",
+    "size": 892054
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_cell_phone_textmessage.max.fbx",
+    "size": 3647440
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_cheer_01.max.fbx",
+    "size": 3015536
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_cheer_02.max.fbx",
+    "size": 3494400
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_cheer_03.max.fbx",
+    "size": 1513040
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_cheer_04.max.fbx",
+    "size": 2066480
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_cheer_05.max.fbx",
+    "size": 2066768
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_claphands_01.max.fbx",
+    "size": 3088480
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_claphands_02.max.fbx",
+    "size": 3715744
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_crouch_gestic.max.fbx",
+    "size": 4207680
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_crouch_idle.max.fbx",
+    "size": 2108192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_crouch_in.max.fbx",
+    "size": 1335312
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_crouch_out.max.fbx",
+    "size": 1379472
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_dancing_affective.max.fbx",
+    "size": 5333952
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_dancing_aggressive.max.fbx",
+    "size": 4353872
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_dancing_cool.max.fbx",
+    "size": 4251696
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_dancing_neutral.max.fbx",
+    "size": 4442480
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_dancing_silly.max.fbx",
+    "size": 5910304
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documentfile_idle.max.fbx",
+    "size": 4535824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documents_check.max.fbx",
+    "size": 2517152
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documents_idle.max.fbx",
+    "size": 4714768
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documents_in.max.fbx",
+    "size": 1557616
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documents_note.max.fbx",
+    "size": 2027248
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documents_out.max.fbx",
+    "size": 1557424
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_documents_take.max.fbx",
+    "size": 2260096
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_drink_drinking.max.fbx",
+    "size": 2484912
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_drink_idle.max.fbx",
+    "size": 5017600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_laugh_extreme.max.fbx",
+    "size": 3918544
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_laugh_loud.max.fbx",
+    "size": 2281280
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_laugh_low.max.fbx",
+    "size": 2499584
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_accept_01.max.fbx",
+    "size": 1210672
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_accept_02.max.fbx",
+    "size": 1237456
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_accept_03.max.fbx",
+    "size": 1605088
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_accept_04.max.fbx",
+    "size": 1786624
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_accept_05.max.fbx",
+    "size": 2988480
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_angry_01.max.fbx",
+    "size": 4835008
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_deny_01.max.fbx",
+    "size": 1513200
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_deny_02.max.fbx",
+    "size": 1424368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_deny_03.max.fbx",
+    "size": 1193088
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_deny_04.max.fbx",
+    "size": 1602208
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_deny_05.max.fbx",
+    "size": 2992528
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_excited_01.max.fbx",
+    "size": 4982560
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_left_01.max.fbx",
+    "size": 5286544
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_nervous_01.max.fbx",
+    "size": 4717328
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_neutral_01.max.fbx",
+    "size": 3817248
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_neutral_02.max.fbx",
+    "size": 4138032
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_neutral_03.max.fbx",
+    "size": 3644976
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_relaxed_01.max.fbx",
+    "size": 4985952
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_right_01.max.fbx",
+    "size": 5372224
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_sad_01.max.fbx",
+    "size": 3850304
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_listen_self-assured_01.max.fbx",
+    "size": 4763392
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_presentation_left_01.max.fbx",
+    "size": 3118320
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_presentation_right_01.max.fbx",
+    "size": 2842928
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_shrug_01.max.fbx",
+    "size": 1157488
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_shrug_02.max.fbx",
+    "size": 1659152
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_angry_01.max.fbx",
+    "size": 5600656
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_cool.max.fbx",
+    "size": 5446176
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_excited_01.max.fbx",
+    "size": 5043104
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_excited_02.max.fbx",
+    "size": 5055840
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_femalestressed_01.max.fbx",
+    "size": 7018864
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_left_01.max.fbx",
+    "size": 5398880
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_nervous_01.max.fbx",
+    "size": 5012944
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_nervous_02.max.fbx",
+    "size": 4503328
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_neutral_01.max.fbx",
+    "size": 4761664
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_neutral_02.max.fbx",
+    "size": 4836720
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_neutral_03.max.fbx",
+    "size": 5874016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_relaxed_01.max.fbx",
+    "size": 4802192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_relaxed_02.max.fbx",
+    "size": 4794000
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_right_01.max.fbx",
+    "size": 5324752
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_sad_01.max.fbx",
+    "size": 5074992
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_self-assured_01.max.fbx",
+    "size": 5553520
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_talk_self-assured_02.max.fbx",
+    "size": 5431088
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_gestic_thoughtful_01.max.fbx",
+    "size": 2136016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_headphones_idle.max.fbx",
+    "size": 5511824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_hold_bag_idle_01.max.fbx",
+    "size": 4351872
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_hold_bag_listen.max.fbx",
+    "size": 3643648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_hold_bag_talk.max.fbx",
+    "size": 4296816
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_angry_01.max.fbx",
+    "size": 4229648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_breathe_01.max.fbx",
+    "size": 1379504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_breathe_02.max.fbx",
+    "size": 2114336
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_breathe_03.max.fbx",
+    "size": 2336704
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_cough_01.max.fbx",
+    "size": 1646352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_cough_02.max.fbx",
+    "size": 1735552
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_drunk_01.max.fbx",
+    "size": 5237824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_dust_01.max.fbx",
+    "size": 1692576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_finger nail_01.max.fbx",
+    "size": 1820608
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_look_around_01.max.fbx",
+    "size": 1617760
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_look_around_02.max.fbx",
+    "size": 1646656
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_look_around_03.max.fbx",
+    "size": 1770960
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_move_01.max.fbx",
+    "size": 2066688
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_move_leg_01.max.fbx",
+    "size": 2266304
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_nervous_01.max.fbx",
+    "size": 7442016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_nervous_02.max.fbx",
+    "size": 7452656
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_nervous_03.max.fbx",
+    "size": 2066688
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_01.max.fbx",
+    "size": 2959360
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_02.max.fbx",
+    "size": 2335264
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_03.max.fbx",
+    "size": 3058816
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_04.max.fbx",
+    "size": 5120144
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_05.max.fbx",
+    "size": 5310288
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_06.max.fbx",
+    "size": 7409216
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_07.max.fbx",
+    "size": 7686576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_08.max.fbx",
+    "size": 5021664
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_neutral_09.max.fbx",
+    "size": 2326688
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_roll_head_01.max.fbx",
+    "size": 2025520
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_roll_head_02.max.fbx",
+    "size": 1644976
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_scratch_head_01.max.fbx",
+    "size": 1735488
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_shake_arms_01.max.fbx",
+    "size": 1659152
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_shake_leg_01.max.fbx",
+    "size": 2066704
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_stretch_arms_01.max.fbx",
+    "size": 2192688
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_touch_face_01.max.fbx",
+    "size": 1845888
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_touch_hair_01.max.fbx",
+    "size": 1696944
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_waiting_01.max.fbx",
+    "size": 7600640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_idle_yawn_01.max.fbx",
+    "size": 2027408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_invite_sit.max.fbx",
+    "size": 1779808
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_knock_door.max.fbx",
+    "size": 1513056
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_listen_door.max.fbx",
+    "size": 2199312
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_moderate_01.max.fbx",
+    "size": 5275296
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_moderate_02.max.fbx",
+    "size": 5034880
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_newspaper_arm_idle.max.fbx",
+    "size": 4531312
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_newspaper_hand_idle.max.fbx",
+    "size": 5641184
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_breathe_01.max.fbx",
+    "size": 3445856
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_gestic_shrug_01.max.fbx",
+    "size": 1059616
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_gestic_shrug_02.max.fbx",
+    "size": 1584256
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_gestic_thoughtful.max.fbx",
+    "size": 2047904
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_cough.max.fbx",
+    "size": 1602016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_dust.max.fbx",
+    "size": 1624048
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_finger nail.max.fbx",
+    "size": 2100928
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_look_around.max.fbx",
+    "size": 2166576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_neutral_01.max.fbx",
+    "size": 5562720
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_neutral_02.max.fbx",
+    "size": 5696528
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_relaxed_01.max.fbx",
+    "size": 6127488
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_roll_head.max.fbx",
+    "size": 2252624
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_scratch_head.max.fbx",
+    "size": 1779888
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_touch_face.max.fbx",
+    "size": 1617584
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_touch_hair.max.fbx",
+    "size": 1833872
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_waiting_01.max.fbx",
+    "size": 4509648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_waiting_02.max.fbx",
+    "size": 4713312
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_chair_idle_yawn.max.fbx",
+    "size": 2212592
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_breathe_01.max.fbx",
+    "size": 3408608
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_gestic_shrug_01.max.fbx",
+    "size": 1024144
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_gestic_shrug_02.max.fbx",
+    "size": 1762192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_gestic_thoughtful.max.fbx",
+    "size": 2947024
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_cough.max.fbx",
+    "size": 1486320
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_dust.max.fbx",
+    "size": 1735392
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_look_around.max.fbx",
+    "size": 1735408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_neutral_01.max.fbx",
+    "size": 4516208
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_neutral_02.max.fbx",
+    "size": 3890336
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_relaxed_01.max.fbx",
+    "size": 4759104
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_roll_head.max.fbx",
+    "size": 2153328
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_scratch_head.max.fbx",
+    "size": 1539888
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_stretch arms.max.fbx",
+    "size": 2280160
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_touch_face.max.fbx",
+    "size": 1592496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_touch_hair.max.fbx",
+    "size": 1958544
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_waiting_01.max.fbx",
+    "size": 4450896
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_sit_table_idle_yawn.max.fbx",
+    "size": 2159248
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_take_picture.max.fbx",
+    "size": 2420880
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_trolley_idle.max.fbx",
+    "size": 4249984
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_trolley_listen.max.fbx",
+    "size": 3692336
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_trolley_talk.max.fbx",
+    "size": 3480592
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_try_door_inwards.max.fbx",
+    "size": 2071920
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_try_door_outwards.max.fbx",
+    "size": 2240192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_umbrella_idle_01.max.fbx",
+    "size": 5302256
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_umbrella_idle_02.max.fbx",
+    "size": 5610880
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_umbrella_listen_01.max.fbx",
+    "size": 3572800
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_umbrella_talk_01.max.fbx",
+    "size": 3562320
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_wave_01.max.fbx",
+    "size": 1839824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_wave_02.max.fbx",
+    "size": 2414192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_work_mid.max.fbx",
+    "size": 4022992
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/f_work_table.max.fbx",
+    "size": 4879328
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cell_phone_listen_01.max.fbx",
+    "size": 6124448
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cell_phone_talk_01.max.fbx",
+    "size": 5374704
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cell_phone_textmessage.max.fbx",
+    "size": 5693776
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cheer_01.max.fbx",
+    "size": 4390576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cheer_03.max.fbx",
+    "size": 1788592
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cheer_04.max.fbx",
+    "size": 2079808
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_cheer_05.max.fbx",
+    "size": 1999792
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_claphands_01.max.fbx",
+    "size": 2133184
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_claphands_02.max.fbx",
+    "size": 2808000
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_crouch_gestic.max.fbx",
+    "size": 2328720
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_crouch_idle.max.fbx",
+    "size": 2106496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_dancing_aggressive.max.fbx",
+    "size": 4561376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_dancing_cool.max.fbx",
+    "size": 5111840
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_dancing_neutral.max.fbx",
+    "size": 3925376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_dancing_silly.max.fbx",
+    "size": 4595872
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documentfile_idle.max.fbx",
+    "size": 5551696
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documents_check.max.fbx",
+    "size": 3057824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documents_idle.max.fbx",
+    "size": 4670352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documents_in.max.fbx",
+    "size": 1646240
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documents_note.max.fbx",
+    "size": 2221712
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documents_out.max.fbx",
+    "size": 1735168
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_documents_take.max.fbx",
+    "size": 1733056
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_drink_drinking.max.fbx",
+    "size": 5859792
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_drink_idle.max.fbx",
+    "size": 5229184
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_drunk_gestic_01.max.fbx",
+    "size": 11382176
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_drunk_gestic_02.max.fbx",
+    "size": 5467392
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_laugh_extreme.max.fbx",
+    "size": 3614080
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_laugh_loud.max.fbx",
+    "size": 3194512
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_laugh_low.max.fbx",
+    "size": 2402608
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_accept_01.max.fbx",
+    "size": 1655280
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_accept_02.max.fbx",
+    "size": 1290704
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_accept_03.max.fbx",
+    "size": 1539680
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_accept_04.max.fbx",
+    "size": 1699648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_accept_05.max.fbx",
+    "size": 2158192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_angry_01.max.fbx",
+    "size": 5179024
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_deny_01.max.fbx",
+    "size": 1468448
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_deny_02.max.fbx",
+    "size": 1557456
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_deny_03.max.fbx",
+    "size": 1779664
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_deny_04.max.fbx",
+    "size": 1299488
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_deny_05.max.fbx",
+    "size": 1557360
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_deny_06.max.fbx",
+    "size": 2889088
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_excited_01.max.fbx",
+    "size": 4796384
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_left_01.max.fbx",
+    "size": 4389760
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_nervous_01.max.fbx",
+    "size": 5380384
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_neutral_01.max.fbx",
+    "size": 5445056
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_neutral_02.max.fbx",
+    "size": 4316432
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_neutral_03.max.fbx",
+    "size": 5184320
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_relaxed_01.max.fbx",
+    "size": 5917568
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_right_01.max.fbx",
+    "size": 5329024
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_listen_sad_01.max.fbx",
+    "size": 5498288
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_presentation_left_01.max.fbx",
+    "size": 4049664
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_presentation_right_01.max.fbx",
+    "size": 4451072
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_shrug_01.max.fbx",
+    "size": 1157296
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_shrug_02.max.fbx",
+    "size": 1584112
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_cool.max.fbx",
+    "size": 7538848
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_excited_01.max.fbx",
+    "size": 4669728
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_left_01.max.fbx",
+    "size": 5126320
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_nervous_01.max.fbx",
+    "size": 4558688
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_neutral_01.max.fbx",
+    "size": 5977648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_neutral_02.max.fbx",
+    "size": 7247408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_neutral_03.max.fbx",
+    "size": 10236976
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_relaxed_01.max.fbx",
+    "size": 5511856
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_relaxed_02.max.fbx",
+    "size": 4786576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_right_01.max.fbx",
+    "size": 5056592
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_talk_sad_01.max.fbx",
+    "size": 5501744
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_gestic_thoughtful_01.max.fbx",
+    "size": 2716624
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_headphones_idle.max.fbx",
+    "size": 4481968
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_hold_bag_idle.max.fbx",
+    "size": 5760800
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_angry_01.max.fbx",
+    "size": 4898032
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_angry_02.max.fbx",
+    "size": 3233568
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_breathe_01.max.fbx",
+    "size": 1397280
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_breathe_02.max.fbx",
+    "size": 2158176
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_breathe_03.max.fbx",
+    "size": 3092640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_cough_01.max.fbx",
+    "size": 1646352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_cough_02.max.fbx",
+    "size": 1651440
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_drunk_01.max.fbx",
+    "size": 7135552
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_drunk_02.max.fbx",
+    "size": 7761792
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_dust_01.max.fbx",
+    "size": 1833824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_dust_02.max.fbx",
+    "size": 1833824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_look_around_01.max.fbx",
+    "size": 1651456
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_look_around_02.max.fbx",
+    "size": 1624144
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_look_around_03.max.fbx",
+    "size": 2446880
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_nervous_01.max.fbx",
+    "size": 5227600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_nervous_02.max.fbx",
+    "size": 8150768
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_nervous_03.max.fbx",
+    "size": 2780736
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_01.max.fbx",
+    "size": 2418544
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_02.max.fbx",
+    "size": 2938656
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_03.max.fbx",
+    "size": 5466800
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_04.max.fbx",
+    "size": 6073920
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_05.max.fbx",
+    "size": 5716640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_06.max.fbx",
+    "size": 5411552
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_07.max.fbx",
+    "size": 5113152
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_08.max.fbx",
+    "size": 8102912
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_neutral_09.max.fbx",
+    "size": 3791648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_roll_head_01.max.fbx",
+    "size": 2265840
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_scratch_head_01.max.fbx",
+    "size": 1727040
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_scratch_head_02.max.fbx",
+    "size": 1585712
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_shake_arms_01.max.fbx",
+    "size": 1646368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_shake_leg_01.max.fbx",
+    "size": 1617360
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_stretch_arms_01.max.fbx",
+    "size": 2060592
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_touch_face_01.max.fbx",
+    "size": 1926368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_touch_face_02.max.fbx",
+    "size": 2113744
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_touch_hair_01.max.fbx",
+    "size": 1733056
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_waiting_01.max.fbx",
+    "size": 7450000
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_waiting_02.max.fbx",
+    "size": 5717376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_idle_yawn_01.max.fbx",
+    "size": 2089808
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_invite_sit.max.fbx",
+    "size": 1592240
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_knock_door.max.fbx",
+    "size": 2333888
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_listen_door.max.fbx",
+    "size": 2400672
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_moderate_01.max.fbx",
+    "size": 6047328
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_moderate_02.max.fbx",
+    "size": 4459152
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_newspaper_arm_idle.max.fbx",
+    "size": 5732352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_newspaper_hand_idle.max.fbx",
+    "size": 5241040
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_breathe_01.max.fbx",
+    "size": 2537504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_gestic_shrug_01.max.fbx",
+    "size": 1468560
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_gestic_shrug_02.max.fbx",
+    "size": 1557376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_gestic_thoughtful.max.fbx",
+    "size": 3128272
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_cough.max.fbx",
+    "size": 1773824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_dust.max.fbx",
+    "size": 1994256
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_look_around.max.fbx",
+    "size": 1997872
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_nervous_01.max.fbx",
+    "size": 7222208
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_neutral_01.max.fbx",
+    "size": 5868640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_neutral_02.max.fbx",
+    "size": 6408736
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_relaxed_01.max.fbx",
+    "size": 5949808
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_roll_head.max.fbx",
+    "size": 2172208
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_scratch_head.max.fbx",
+    "size": 2020864
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_touch_face.max.fbx",
+    "size": 2172512
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_touch_hair.max.fbx",
+    "size": 2199088
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_waiting_01.max.fbx",
+    "size": 7987600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_waiting_02.max.fbx",
+    "size": 7669600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_chair_idle_yawn.max.fbx",
+    "size": 2265648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_breathe_01.max.fbx",
+    "size": 2531376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_gestic_shrug_01.max.fbx",
+    "size": 1601936
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_gestic_shrug_02.max.fbx",
+    "size": 1726320
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_gestic_thoughtful.max.fbx",
+    "size": 3168208
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_cough.max.fbx",
+    "size": 1744192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_dust.max.fbx",
+    "size": 2115536
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_look_around.max.fbx",
+    "size": 1983056
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_nervous_01.max.fbx",
+    "size": 5712096
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_neutral_01.max.fbx",
+    "size": 7189408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_neutral_02.max.fbx",
+    "size": 5960992
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_relaxed_01.max.fbx",
+    "size": 7158896
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_roll_head.max.fbx",
+    "size": 2374048
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_scratch_head.max.fbx",
+    "size": 2133168
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_touch_face.max.fbx",
+    "size": 2232720
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_touch_hair.max.fbx",
+    "size": 2414176
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_waiting_01.max.fbx",
+    "size": 5398576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_sit_table_idle_yawn.max.fbx",
+    "size": 2014752
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_take_picture.max.fbx",
+    "size": 1969648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_trolley_idle.max.fbx",
+    "size": 5322480
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_try_door_inwards.max.fbx",
+    "size": 1972400
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_try_door_outwards.max.fbx",
+    "size": 1972496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_umbrella_idle_01.max.fbx",
+    "size": 6778816
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_umbrella_idle_02.max.fbx",
+    "size": 5262464
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_wave_01.max.fbx",
+    "size": 1424016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_wave_02.max.fbx",
+    "size": 1972368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_work_mid.max.fbx",
+    "size": 2477312
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_static/m_work_table.max.fbx",
+    "size": 2405424
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_extremefemale.max.fbx",
+    "size": 868272
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_fast_01.max.fbx",
+    "size": 859600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_funny_01.max.fbx",
+    "size": 859600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_funny_02.max.fbx",
+    "size": 850544
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_injured.max.fbx",
+    "size": 877296
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_neutral.max.fbx",
+    "size": 895504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_neutral_01.max.fbx",
+    "size": 877504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_neutral_02.max.fbx",
+    "size": 895216
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_slow_01.max.fbx",
+    "size": 895392
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_slow_02.max.fbx",
+    "size": 886256
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_start.max.fbx",
+    "size": 957904
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_stop.max.fbx",
+    "size": 1120448
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_run_to_walk.max.fbx",
+    "size": 1147040
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_bruised.max.fbx",
+    "size": 948912
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_cool_01.max.fbx",
+    "size": 1029584
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_cool_02.max.fbx",
+    "size": 1119216
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_drunk.max.fbx",
+    "size": 1020624
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_extremefemale.max.fbx",
+    "size": 939888
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_fast_01.max.fbx",
+    "size": 948912
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_fast_02.max.fbx",
+    "size": 839936
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_fast_03.max.fbx",
+    "size": 958176
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_funny_01.max.fbx",
+    "size": 1012352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_funny_02.max.fbx",
+    "size": 913744
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_injured.max.fbx",
+    "size": 975776
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_neutral.max.fbx",
+    "size": 1002832
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_neutral_01.max.fbx",
+    "size": 993792
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_neutral_02.max.fbx",
+    "size": 1003600
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_neutral_03.max.fbx",
+    "size": 1039536
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_neutral_04.max.fbx",
+    "size": 1002848
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_self-assured.max.fbx",
+    "size": 994832
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_slow_01.max.fbx",
+    "size": 1075504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_slow_02.max.fbx",
+    "size": 1039504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_start.max.fbx",
+    "size": 922800
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_stop.max.fbx",
+    "size": 1147184
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_stroll_01.max.fbx",
+    "size": 1048576
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_stroll_02.max.fbx",
+    "size": 1253616
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/f_walk_to_run.max.fbx",
+    "size": 1200944
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_cheer_02.max.fbx",
+    "size": 4165232
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_crouch_in.max.fbx",
+    "size": 1634800
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_crouch_out.max.fbx",
+    "size": 1634608
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_fast_01.max.fbx",
+    "size": 833040
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_fast_02.max.fbx",
+    "size": 814992
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_funny_02.max.fbx",
+    "size": 859984
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_injured.max.fbx",
+    "size": 850704
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_neutral.max.fbx",
+    "size": 877760
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_neutral_01.max.fbx",
+    "size": 868752
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_neutral_02.max.fbx",
+    "size": 877776
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_slow_01.max.fbx",
+    "size": 877200
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_slow_02.max.fbx",
+    "size": 886352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_start.max.fbx",
+    "size": 841824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_stop.max.fbx",
+    "size": 1012752
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_run_to_walk.max.fbx",
+    "size": 887056
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_bruised.max.fbx",
+    "size": 1352016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_cool_01.max.fbx",
+    "size": 1012368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_cool_02.max.fbx",
+    "size": 976464
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_drunk.max.fbx",
+    "size": 1342864
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_fast_01.max.fbx",
+    "size": 957776
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_fast_02.max.fbx",
+    "size": 913536
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_funny_01.max.fbx",
+    "size": 1030528
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_funny_02.max.fbx",
+    "size": 949648
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_neutral.max.fbx",
+    "size": 958512
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_neutral_01.max.fbx",
+    "size": 994336
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_neutral_02.max.fbx",
+    "size": 958640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_neutral_03.max.fbx",
+    "size": 958528
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_slow_01.max.fbx",
+    "size": 1066224
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_slow_02.max.fbx",
+    "size": 1012240
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_start.max.fbx",
+    "size": 931792
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_stop.max.fbx",
+    "size": 1209760
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_stroll_01.max.fbx",
+    "size": 1093264
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_stroll_02.max.fbx",
+    "size": 1163680
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xy/m_walk_to_run.max.fbx",
+    "size": 922608
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_cell_phone_talk_01.max.fbx",
+    "size": 6801264
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_cell_phone_talk_02.max.fbx",
+    "size": 5795248
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_gestic_presentation_left_02.max.fbx",
+    "size": 6266992
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_gestic_presentation_right_02.max.fbx",
+    "size": 4915088
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_gestic_talk_angry_02.max.fbx",
+    "size": 5968096
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_gestic_talk_neutral_04.max.fbx",
+    "size": 5697808
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_gestic_talk_neutral_05.max.fbx",
+    "size": 5606864
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_idle_angry_02.max.fbx",
+    "size": 6393264
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_idle_waiting_02.max.fbx",
+    "size": 8267376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_down_chair_01.max.fbx",
+    "size": 1725744
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_down_chair_02.max.fbx",
+    "size": 1765664
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_down_chair_left.max.fbx",
+    "size": 1792704
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_down_chair_right.max.fbx",
+    "size": 1747776
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_down_table_left.max.fbx",
+    "size": 1740640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_down_table_right.max.fbx",
+    "size": 1908352
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_stand_up_chair_01.max.fbx",
+    "size": 1568528
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_stand_up_chair_left.max.fbx",
+    "size": 1671920
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_stand_up_chair_right.max.fbx",
+    "size": 1648928
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_stand_up_table_left.max.fbx",
+    "size": 1760816
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_sit_stand_up_table_right.max.fbx",
+    "size": 1756544
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_social loafing_left.max.fbx",
+    "size": 9470016
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_social loafing_right.max.fbx",
+    "size": 13664192
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_120.max.fbx",
+    "size": 1121568
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_120_to_walk.max.fbx",
+    "size": 1220496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_180.max.fbx",
+    "size": 1175568
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_180_to_walk.max.fbx",
+    "size": 1130496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_60.max.fbx",
+    "size": 977552
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_60_to_walk.max.fbx",
+    "size": 1094400
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_left_90.max.fbx",
+    "size": 1299280
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_120.max.fbx",
+    "size": 1085472
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_120_to_walk.max.fbx",
+    "size": 950496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_180.max.fbx",
+    "size": 1139344
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_180_to_walk.max.fbx",
+    "size": 1022304
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_60.max.fbx",
+    "size": 1031344
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_60_to_walk.max.fbx",
+    "size": 878496
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_turn_right_90.max.fbx",
+    "size": 1299280
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/f_waiting_walk.max.fbx",
+    "size": 10017216
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_cell_phone_talk_02.max.fbx",
+    "size": 4945376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_dancing_sexy.max.fbx",
+    "size": 4788336
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_presentation_left_02.max.fbx",
+    "size": 4930448
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_presentation_right_02.max.fbx",
+    "size": 5774368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_angry_01.max.fbx",
+    "size": 6632112
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_angry_02.max.fbx",
+    "size": 5701792
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_excited_02.max.fbx",
+    "size": 7651136
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_neutral_04.max.fbx",
+    "size": 8528864
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_neutral_05.max.fbx",
+    "size": 5778640
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_self_assured_01.max.fbx",
+    "size": 9275872
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_gestic_talk_self_assured_02.max.fbx",
+    "size": 7554912
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_down_chair_01.max.fbx",
+    "size": 1451824
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_down_chair_02.max.fbx",
+    "size": 1604256
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_down_chair_left.max.fbx",
+    "size": 1720752
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_down_chair_right.max.fbx",
+    "size": 1774560
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_down_table_left.max.fbx",
+    "size": 1801360
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_down_table_right.max.fbx",
+    "size": 1640064
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_stand_up_chair_01.max.fbx",
+    "size": 1343856
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_stand_up_chair_left.max.fbx",
+    "size": 1523216
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_stand_up_chair_right.max.fbx",
+    "size": 1523424
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_stand_up_table_left.max.fbx",
+    "size": 1586288
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_sit_stand_up_table_right.max.fbx",
+    "size": 1523408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_120.max.fbx",
+    "size": 1112368
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_120_to_walk.max.fbx",
+    "size": 1085408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_180.max.fbx",
+    "size": 1325984
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_180_to_walk.max.fbx",
+    "size": 1112400
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_60.max.fbx",
+    "size": 1121472
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_60_to_walk.max.fbx",
+    "size": 725408
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_left_90.max.fbx",
+    "size": 1299184
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_120.max.fbx",
+    "size": 1254480
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_120_to_walk.max.fbx",
+    "size": 932512
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_180.max.fbx",
+    "size": 1308256
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_180_to_walk.max.fbx",
+    "size": 1229504
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_60.max.fbx",
+    "size": 1031376
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_60_to_walk.max.fbx",
+    "size": 1022208
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_turn_right_90.max.fbx",
+    "size": 1254448
+  },
+  {
+    "path": "Assets/Animations/all_animations_max_motextr_xyz/m_waiting_walk.max.fbx",
+    "size": 5651936
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_01/Export/Female_Adult_01.fbx",
+    "size": 609152
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_01/Export/Female_Adult_01_facial.fbx",
+    "size": 2226864
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_01/Female_Adult_01.png",
+    "size": 434013
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_02/Export/Female_Adult_02.fbx",
+    "size": 580800
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_02/Export/Female_Adult_02_facial.fbx",
+    "size": 2050400
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_02/Female_Adult_02.png",
+    "size": 415947
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_03/Export/Female_Adult_03.fbx",
+    "size": 791312
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_03/Export/Female_Adult_03_facial.fbx",
+    "size": 2397744
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_03/Female_Adult_03.png",
+    "size": 400279
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_04/Export/Female_Adult_04.fbx",
+    "size": 635552
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_04/Export/Female_Adult_04_facial.fbx",
+    "size": 2349152
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_04/Female_Adult_04.png",
+    "size": 430066
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_05/Export/Female_Adult_05.fbx",
+    "size": 594160
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_05/Export/Female_Adult_05_facial.fbx",
+    "size": 2158576
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_05/Female_Adult_05.png",
+    "size": 420293
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_06/Export/Female_Adult_06.fbx",
+    "size": 529632
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_06/Export/Female_Adult_06_facial.fbx",
+    "size": 1863184
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_06/Female_Adult_06.png",
+    "size": 466661
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_07/Export/Female_Adult_07.fbx",
+    "size": 591744
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_07/Export/Female_Adult_07_facial.fbx",
+    "size": 2136864
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_07/Female_Adult_07.png",
+    "size": 421304
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_08/Export/Female_Adult_08.fbx",
+    "size": 594640
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_08/Export/Female_Adult_08_facial.fbx",
+    "size": 2147392
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_08/Female_Adult_08.png",
+    "size": 407395
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_09/Export/Female_Adult_09.fbx",
+    "size": 611632
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_09/Export/Female_Adult_09_facial.fbx",
+    "size": 2135024
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_09/Female_Adult_09.png",
+    "size": 430008
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_10/Export/Female_Adult_10.fbx",
+    "size": 509024
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_10/Export/Female_Adult_10_facial.fbx",
+    "size": 1858560
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_10/Female_Adult_10.png",
+    "size": 549154
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_11/Export/Female_Adult_11.fbx",
+    "size": 612192
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_11/Export/Female_Adult_11_facial.fbx",
+    "size": 2126800
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_11/Female_Adult_11.png",
+    "size": 440534
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_12/Export/Female_Adult_12.fbx",
+    "size": 610352
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_12/Export/Female_Adult_12_facial.fbx",
+    "size": 2192768
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_12/Female_Adult_12.png",
+    "size": 419481
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_13/Export/Female_Adult_13.fbx",
+    "size": 605168
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_13/Export/Female_Adult_13_facial.fbx",
+    "size": 2209984
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_13/Female_Adult_13.png",
+    "size": 421123
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_14/Export/Female_Adult_14.fbx",
+    "size": 608528
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_14/Export/Female_Adult_14_facial.fbx",
+    "size": 2148192
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_14/Female_Adult_14.png",
+    "size": 446721
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_15/Export/Female_Adult_15.fbx",
+    "size": 651088
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_15/Export/Female_Adult_15_facial.fbx",
+    "size": 2206336
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_15/Female_Adult_15.png",
+    "size": 438817
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_16/Export/Female_Adult_16.fbx",
+    "size": 373120
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_16/Export/Female_Adult_16_facial.fbx",
+    "size": 1024880
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_16/Female_Adult_16.png",
+    "size": 662767
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_17/Export/Female_Adult_17.fbx",
+    "size": 593440
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_17/Export/Female_Adult_17_facial.fbx",
+    "size": 2114512
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Adult_17/Female_Adult_17.png",
+    "size": 409100
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Party_01/Export/Female_Party_01.fbx",
+    "size": 683648
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Party_01/Export/Female_Party_01_facial.fbx",
+    "size": 2712544
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Party_01/Female_Party_01.png",
+    "size": 352838
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Party_02/Export/Female_Party_02.fbx",
+    "size": 657232
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Party_02/Export/Female_Party_02_facial.fbx",
+    "size": 2569136
+  },
+  {
+    "path": "Assets/Avatars/Adults/Female_Party_02/Female_Party_02.png",
+    "size": 434370
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_01/Export/Male_Adult_01.fbx",
+    "size": 521472
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_01/Export/Male_Adult_01_facial.fbx",
+    "size": 1962256
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_01/Male_Adult_01.png",
+    "size": 450889
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_02/Export/Male_Adult_02.fbx",
+    "size": 539920
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_02/Export/Male_Adult_02_facial.fbx",
+    "size": 1981328
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_02/Male_Adult_02.png",
+    "size": 478395
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_03/Export/Male_Adult_03.fbx",
+    "size": 513728
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_03/Export/Male_Adult_03_facial.fbx",
+    "size": 1907328
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_03/Male_Adult_03.png",
+    "size": 515426
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_04/Export/Male_Adult_04.fbx",
+    "size": 571296
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_04/Export/Male_Adult_04_facial.fbx",
+    "size": 2173840
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_04/Male_Adult_04.png",
+    "size": 511910
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_05/Export/Male_Adult_05.fbx",
+    "size": 536496
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_05/Export/Male_Adult_05_facial.fbx",
+    "size": 1978688
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_05/Male_Adult_05.png",
+    "size": 488838
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_06/Export/Male_Adult_06.fbx",
+    "size": 548576
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_06/Export/Male_Adult_06_facial.fbx",
+    "size": 2082768
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_06/Male_Adult_06.png",
+    "size": 485364
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_07/Export/Male_Adult_07.fbx",
+    "size": 516064
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_07/Export/Male_Adult_07_facial.fbx",
+    "size": 1881520
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_07/Male_Adult_07.png",
+    "size": 482710
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_08/Export/Male_Adult_08.fbx",
+    "size": 508784
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_08/Export/Male_Adult_08_facial.fbx",
+    "size": 1913408
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_08/Male_Adult_08.png",
+    "size": 448126
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_09/Export/Male_Adult_09.fbx",
+    "size": 522176
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_09/Export/Male_Adult_09_facial.fbx",
+    "size": 1930736
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_09/Male_Adult_09.png",
+    "size": 472224
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_10/Export/Male_Adult_10.fbx",
+    "size": 541104
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_10/Export/Male_Adult_10_facial.fbx",
+    "size": 1877232
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_10/Male_Adult_10.png",
+    "size": 457608
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_11/Export/Male_Adult_11.fbx",
+    "size": 487744
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_11/Export/Male_Adult_11_facial.fbx",
+    "size": 1779440
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_11/Male_Adult_11.png",
+    "size": 419506
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_12/Export/Male_Adult_12.fbx",
+    "size": 487776
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_12/Export/Male_Adult_12_facial.fbx",
+    "size": 1772832
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_12/Male_Adult_12.png",
+    "size": 506050
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_13/Export/Male_Adult_13.fbx",
+    "size": 494816
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_13/Export/Male_Adult_13_facial.fbx",
+    "size": 1776592
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_13/Male_Adult_13.png",
+    "size": 473462
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_14/Export/Male_Adult_14.fbx",
+    "size": 486032
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_14/Export/Male_Adult_14_facial.fbx",
+    "size": 1765696
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_14/Male_Adult_14.png",
+    "size": 465232
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_15/Export/Male_Adult_15.fbx",
+    "size": 532528
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_15/Export/Male_Adult_15_facial.fbx",
+    "size": 1853888
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_15/Male_Adult_15.png",
+    "size": 389579
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_16/Export/Male_Adult_16.fbx",
+    "size": 531664
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_16/Export/Male_Adult_16_facial.fbx",
+    "size": 1853952
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_16/Male_Adult_16.png",
+    "size": 462484
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_17/Export/Male_Adult_17.fbx",
+    "size": 495328
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_17/Export/Male_Adult_17_facial.fbx",
+    "size": 1821648
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_17/Male_Adult_17.png",
+    "size": 483358
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_18/Export/Male_Adult_18.fbx",
+    "size": 475888
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_18/Export/Male_Adult_18_facial.fbx",
+    "size": 1656816
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_18/Male_Adult_18.png",
+    "size": 458613
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_19/Export/Male_Adult_19.fbx",
+    "size": 522160
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_19/Export/Male_Adult_19_facial.fbx",
+    "size": 1817936
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_19/Male_Adult_19.png",
+    "size": 439455
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_20/Export/Male_Adult_20.fbx",
+    "size": 519408
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_20/Export/Male_Adult_20_facial.fbx",
+    "size": 1840944
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_20/Male_Adult_20.png",
+    "size": 463415
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_21/Export/Male_Adult_21.fbx",
+    "size": 518928
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_21/Export/Male_Adult_21_facial.fbx",
+    "size": 1779744
+  },
+  {
+    "path": "Assets/Avatars/Adults/Male_Adult_21/Male_Adult_21.png",
+    "size": 352293
+  },
+  {
+    "path": "Assets/Avatars/Children/Female_Child_01/Export/Female_Child_01.fbx",
+    "size": 521968
+  },
+  {
+    "path": "Assets/Avatars/Children/Female_Child_01/Export/Female_Child_01_facial.fbx",
+    "size": 1832640
+  },
+  {
+    "path": "Assets/Avatars/Children/Female_Child_01/Female_Child_01.png",
+    "size": 396354
+  },
+  {
+    "path": "Assets/Avatars/Children/Female_Child_02/Export/Female_Child_02.fbx",
+    "size": 519088
+  },
+  {
+    "path": "Assets/Avatars/Children/Female_Child_02/Export/Female_Child_02_facial.fbx",
+    "size": 1784976
+  },
+  {
+    "path": "Assets/Avatars/Children/Female_Child_02/Female_Child_02.png",
+    "size": 436854
+  },
+  {
+    "path": "Assets/Avatars/Children/Male_Child_01/Export/Male_Child_01.fbx",
+    "size": 506912
+  },
+  {
+    "path": "Assets/Avatars/Children/Male_Child_01/Export/Male_Child_01_facial.fbx",
+    "size": 1807104
+  },
+  {
+    "path": "Assets/Avatars/Children/Male_Child_01/Male_Child_01.png",
+    "size": 461151
+  },
+  {
+    "path": "Assets/Avatars/Children/Male_Child_02/Export/Male_Child_02.fbx",
+    "size": 538256
+  },
+  {
+    "path": "Assets/Avatars/Children/Male_Child_02/Export/Male_Child_02_facial.fbx",
+    "size": 1873456
+  },
+  {
+    "path": "Assets/Avatars/Children/Male_Child_02/Male_Child_02.png",
+    "size": 416786
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_01/Business_Female_01.png",
+    "size": 420187
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_01/Export/Business_Female_01.fbx",
+    "size": 616576
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_01/Export/Business_Female_01_facial.fbx",
+    "size": 2190000
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_02/Business_Female_02.png",
+    "size": 455239
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_02/Export/Business_Female_02.fbx",
+    "size": 612848
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_02/Export/Business_Female_02_facial.fbx",
+    "size": 2221184
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_03/Business_Female_03.png",
+    "size": 418711
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_03/Export/Business_Female_03.fbx",
+    "size": 603024
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_03/Export/Business_Female_03_facial.fbx",
+    "size": 2057216
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_04/Business_Female_04.png",
+    "size": 399801
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_04/Export/Business_Female_04.fbx",
+    "size": 588672
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Female_04/Export/Business_Female_04_facial.fbx",
+    "size": 2098688
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_01/Business_Male_01.png",
+    "size": 429864
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_01/Export/Business_Male_01.fbx",
+    "size": 520704
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_01/Export/Business_Male_01_facial.fbx",
+    "size": 1942752
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_02/Business_Male_02.png",
+    "size": 454042
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_02/Export/Business_Male_02.fbx",
+    "size": 521088
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_02/Export/Business_Male_02_facial.fbx",
+    "size": 1919088
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_03/Business_Male_03.png",
+    "size": 455906
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_03/Export/Business_Male_03.fbx",
+    "size": 534112
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_03/Export/Business_Male_03_facial.fbx",
+    "size": 1994192
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_04/Business_Male_04.png",
+    "size": 472137
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_04/Export/Business_Male_04.fbx",
+    "size": 505728
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_04/Export/Business_Male_04_facial.fbx",
+    "size": 1804720
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_05/Business_Male_05.png",
+    "size": 429227
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_05/Export/Business_Male_05.fbx",
+    "size": 501296
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_05/Export/Business_Male_05_facial.fbx",
+    "size": 1801712
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_06/Business_Male_06.png",
+    "size": 297811
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_06/Export/Business_Male_06.fbx",
+    "size": 507712
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_06/Export/Business_Male_06_facial.fbx",
+    "size": 1817264
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_07/Business_Male_07.png",
+    "size": 413980
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_07/Export/Business_Male_07.fbx",
+    "size": 487360
+  },
+  {
+    "path": "Assets/Avatars/Professions/Business_Male_07/Export/Business_Male_07_facial.fbx",
+    "size": 1754800
+  },
+  {
+    "path": "Assets/Avatars/Professions/Chef_Female_01/Chef_Female_01.png",
+    "size": 285234
+  },
+  {
+    "path": "Assets/Avatars/Professions/Chef_Female_01/Export/Chef_Female_01.fbx",
+    "size": 544192
+  },
+  {
+    "path": "Assets/Avatars/Professions/Chef_Female_01/Export/Chef_Female_01_facial.fbx",
+    "size": 1873312
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Female_01/Construction_Female_01.png",
+    "size": 418231
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Female_01/Export/Construction_Female_01.fbx",
+    "size": 603248
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Female_01/Export/Construction_Female_01_facial.fbx",
+    "size": 2095760
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_01/Construction_Male_01.png",
+    "size": 516253
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_01/Export/Construction_Male_01.fbx",
+    "size": 676496
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_01/Export/Construction_Male_01_facial.fbx",
+    "size": 2324144
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_02/Construction_Male_02.png",
+    "size": 486142
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_02/Export/Construction_Male_02.fbx",
+    "size": 542464
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_02/Export/Construction_Male_02_facial.fbx",
+    "size": 1988976
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_03/Construction_Male_03.png",
+    "size": 489275
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_03/Export/Construction_Male_03.fbx",
+    "size": 629920
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_03/Export/Construction_Male_03_facial.fbx",
+    "size": 2086576
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_04/Construction_Male_04.png",
+    "size": 449388
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_04/Export/Construction_Male_04.fbx",
+    "size": 663472
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_04/Export/Construction_Male_04_facial.fbx",
+    "size": 2125072
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_05/Construction_Male_05.png",
+    "size": 460557
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_05/Export/Construction_Male_05.fbx",
+    "size": 530144
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_05/Export/Construction_Male_05_facial.fbx",
+    "size": 1972512
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_06/Construction_Male_06.png",
+    "size": 485331
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_06/Export/Construction_Male_06.fbx",
+    "size": 640288
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_06/Export/Construction_Male_06_facial.fbx",
+    "size": 2080528
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_07/Construction_Male_07.png",
+    "size": 454364
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_07/Export/Construction_Male_07.fbx",
+    "size": 566144
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_07/Export/Construction_Male_07_facial.fbx",
+    "size": 1997136
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_08/Construction_Male_08.png",
+    "size": 453205
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_08/Export/Construction_Male_08.fbx",
+    "size": 584816
+  },
+  {
+    "path": "Assets/Avatars/Professions/Construction_Male_08/Export/Construction_Male_08_facial.fbx",
+    "size": 2036240
+  },
+  {
+    "path": "Assets/Avatars/Professions/Delivery_Male_01/Delivery_Male_01.png",
+    "size": 502652
+  },
+  {
+    "path": "Assets/Avatars/Professions/Delivery_Male_01/Export/Delivery_Male_01.fbx",
+    "size": 511312
+  },
+  {
+    "path": "Assets/Avatars/Professions/Delivery_Male_01/Export/Delivery_Male_01_facial.fbx",
+    "size": 1804448
+  },
+  {
+    "path": "Assets/Avatars/Professions/Female_Party_01/Export/Female_Party_01_facial.fbx",
+    "size": 683648
+  },
+  {
+    "path": "Assets/Avatars/Professions/Female_Party_02/Export/Female_Party_02_facial.fbx",
+    "size": 657232
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_01/Export/Fire_Female_01.fbx",
+    "size": 763632
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_01/Export/Fire_Female_01_facial.fbx",
+    "size": 2609408
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_01/Fire_Female_01.png",
+    "size": 524973
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_02/Export/Fire_Female_02.fbx",
+    "size": 761296
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_02/Export/Fire_Female_02_facial.fbx",
+    "size": 2621616
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_02/Fire_Female_02.png",
+    "size": 555363
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_03/Export/Fire_Female_03.fbx",
+    "size": 769312
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_03/Export/Fire_Female_03_facial.fbx",
+    "size": 2651776
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Female_03/Fire_Female_03.png",
+    "size": 506645
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_01/Export/Fire_Male_01.fbx",
+    "size": 596000
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_01/Export/Fire_Male_01_facial.fbx",
+    "size": 2153328
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_01/Fire_Male_01.png",
+    "size": 531337
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_02/Export/Fire_Male_02.fbx",
+    "size": 585824
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_02/Export/Fire_Male_02_facial.fbx",
+    "size": 2058880
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_02/Fire_Male_02.png",
+    "size": 504436
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_03/Export/Fire_Male_03.fbx",
+    "size": 596944
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_03/Export/Fire_Male_03_facial.fbx",
+    "size": 2155536
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_03/Fire_Male_03.png",
+    "size": 516349
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_04/Export/Fire_Male_04.fbx",
+    "size": 814224
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_04/Export/Fire_Male_04_facial.fbx",
+    "size": 2832624
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_04/Fire_Male_04.png",
+    "size": 542394
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_05/Export/Fire_Male_05.fbx",
+    "size": 555040
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_05/Export/Fire_Male_05_facial.fbx",
+    "size": 2009968
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_05/Fire_Male_05.png",
+    "size": 526582
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_06/Export/Fire_Male_06.fbx",
+    "size": 555680
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_06/Export/Fire_Male_06_facial.fbx",
+    "size": 1979104
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_06/Fire_Male_06.png",
+    "size": 538343
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_07/Export/Fire_Male_07.fbx",
+    "size": 807456
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_07/Export/Fire_Male_07_facial.fbx",
+    "size": 2821952
+  },
+  {
+    "path": "Assets/Avatars/Professions/Fire_Male_07/Fire_Male_07.png",
+    "size": 577997
+  },
+  {
+    "path": "Assets/Avatars/Professions/Gardener_Male_01/Export/Gardener_Male_01.fbx",
+    "size": 517152
+  },
+  {
+    "path": "Assets/Avatars/Professions/Gardener_Male_01/Export/Gardener_Male_01_facial.fbx",
+    "size": 1972080
+  },
+  {
+    "path": "Assets/Avatars/Professions/Gardener_Male_01/Gardener_Male_01.png",
+    "size": 458679
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_01/Export/Medical_Female_01.fbx",
+    "size": 583200
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_01/Export/Medical_Female_01_facial.fbx",
+    "size": 2135088
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_01/Medical_Female_01.png",
+    "size": 295429
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_02/Export/Medical_Female_02.fbx",
+    "size": 629008
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_02/Export/Medical_Female_02_facial.fbx",
+    "size": 2185632
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_02/Medical_Female_02.png",
+    "size": 353174
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_03/Export/Medical_Female_03.fbx",
+    "size": 551376
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_03/Export/Medical_Female_03_facial.fbx",
+    "size": 2034544
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Female_03/Medical_Female_03.png",
+    "size": 458811
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_01/Export/Medical_Male_01.fbx",
+    "size": 552016
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_01/Export/Medical_Male_01_facial.fbx",
+    "size": 1955968
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_01/Medical_Male_01.png",
+    "size": 405256
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_02/Export/Medical_Male_02.fbx",
+    "size": 542416
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_02/Export/Medical_Male_02_facial.fbx",
+    "size": 2074880
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_02/Medical_Male_02.png",
+    "size": 492998
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_03/Export/Medical_Male_03.fbx",
+    "size": 573120
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_03/Export/Medical_Male_03_facial.fbx",
+    "size": 1934016
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_03/Medical_Male_03.png",
+    "size": 392458
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_04/Export/Medical_Male_04.fbx",
+    "size": 580928
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_04/Export/Medical_Male_04_facial.fbx",
+    "size": 2136048
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_04/Medical_Male_04.png",
+    "size": 452171
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_05/Export/Medical_Male_05.fbx",
+    "size": 613456
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_05/Export/Medical_Male_05_facial.fbx",
+    "size": 2212448
+  },
+  {
+    "path": "Assets/Avatars/Professions/Medical_Male_05/Medical_Male_05.png",
+    "size": 396635
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Female_01/Export/Military_Female_01.fbx",
+    "size": 800992
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Female_01/Export/Military_Female_01_facial.fbx",
+    "size": 2449120
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Female_01/Military_Female_01.png",
+    "size": 565025
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Female_02/Export/Military_Female_02.fbx",
+    "size": 798400
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Female_02/Export/Military_Female_02_facial.fbx",
+    "size": 2426880
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Female_02/Military_Female_02.png",
+    "size": 550605
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_01/Export/Military_Male_01.fbx",
+    "size": 908640
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_01/Export/Military_Male_01_facial.fbx",
+    "size": 2859824
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_01/Military_Male_01.png",
+    "size": 590272
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_02/Export/Military_Male_02.fbx",
+    "size": 573440
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_02/Export/Military_Male_02_facial.fbx",
+    "size": 1958736
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_02/Military_Male_02.png",
+    "size": 567519
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_03/Export/Military_Male_03.fbx",
+    "size": 914912
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_03/Export/Military_Male_03_facial.fbx",
+    "size": 2719328
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_03/Military_Male_03.png",
+    "size": 577260
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_04/Export/Military_Male_04.fbx",
+    "size": 880448
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_04/Export/Military_Male_04_facial.fbx",
+    "size": 2667440
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_04/Military_Male_04.png",
+    "size": 588434
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_05/Export/Military_Male_05.fbx",
+    "size": 524624
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_05/Export/Military_Male_05_facial.fbx",
+    "size": 1884032
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_05/Military_Male_05.png",
+    "size": 568534
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_06/Export/Military_Male_06.fbx",
+    "size": 520336
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_06/Export/Military_Male_06_facial.fbx",
+    "size": 1876752
+  },
+  {
+    "path": "Assets/Avatars/Professions/Military_Male_06/Military_Male_06.png",
+    "size": 556763
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Female_01/Export/Pilot_Female_01.fbx",
+    "size": 575424
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Female_01/Export/Pilot_Female_01_facial.fbx",
+    "size": 2056544
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Female_01/Pilot_Female_01.png",
+    "size": 279303
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Female_02/Export/Pilot_Female_02.fbx",
+    "size": 579008
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Female_02/Export/Pilot_Female_02_facial.fbx",
+    "size": 2057856
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Female_02/Pilot_Female_02.png",
+    "size": 306152
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_01/Export/Pilot_Male_01.fbx",
+    "size": 557424
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_01/Export/Pilot_Male_01_facial.fbx",
+    "size": 1943840
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_01/Pilot_Male_01.png",
+    "size": 437386
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_02/Export/Pilot_Male_02.fbx",
+    "size": 557856
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_02/Export/Pilot_Male_02_facial.fbx",
+    "size": 1959344
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_02/Pilot_Male_02.png",
+    "size": 445252
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_03/Export/Pilot_Male_03.fbx",
+    "size": 548656
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_03/Export/Pilot_Male_03_facial.fbx",
+    "size": 1970592
+  },
+  {
+    "path": "Assets/Avatars/Professions/Pilot_Male_03/Pilot_Male_03.png",
+    "size": 333891
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Female_01/Export/Police_Female_01.fbx",
+    "size": 827152
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Female_01/Export/Police_Female_01_facial.fbx",
+    "size": 2156576
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Female_01/Police_Female_01.png",
+    "size": 556220
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_01/Export/Police_Male_01.fbx",
+    "size": 602400
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_01/Export/Police_Male_01_facial.fbx",
+    "size": 1962848
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_01/Police_Male_01.png",
+    "size": 488207
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_02/Export/Police_Male_02.fbx",
+    "size": 695888
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_02/Export/Police_Male_02_facial.fbx",
+    "size": 1891440
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_02/Police_Male_02.png",
+    "size": 504919
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_03/Export/Police_Male_03.fbx",
+    "size": 725744
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_03/Export/Police_Male_03_facial.fbx",
+    "size": 2174528
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_03/Police_Male_03.png",
+    "size": 499622
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_04/Export/Police_Male_04.fbx",
+    "size": 790128
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_04/Export/Police_Male_04_facial.fbx",
+    "size": 2218384
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_04/Police_Male_04.png",
+    "size": 472241
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_05/Export/Police_Male_05.fbx",
+    "size": 519520
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_05/Export/Police_Male_05_facial.fbx",
+    "size": 1922336
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_05/Police_Male_05.png",
+    "size": 340688
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_06/Export/Police_Male_06.fbx",
+    "size": 512080
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_06/Export/Police_Male_06_facial.fbx",
+    "size": 1825168
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_06/Police_Male_06.png",
+    "size": 445694
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_07/Export/Police_Male_07.fbx",
+    "size": 509024
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_07/Export/Police_Male_07_facial.fbx",
+    "size": 1821344
+  },
+  {
+    "path": "Assets/Avatars/Professions/Police_Male_07/Police_Male_07.png",
+    "size": 413094
+  },
+  {
+    "path": "Assets/Avatars/Professions/Security_Female_01/Export/Security_Female_01.fbx",
+    "size": 626544
+  },
+  {
+    "path": "Assets/Avatars/Professions/Security_Female_01/Export/Security_Female_01_facial.fbx",
+    "size": 2082160
+  },
+  {
+    "path": "Assets/Avatars/Professions/Security_Female_01/Security_Female_01.png",
+    "size": 459985
+  },
+  {
+    "path": "Assets/Avatars/Professions/Security_Male_01/Export/Security_Male_01.fbx",
+    "size": 592928
+  },
+  {
+    "path": "Assets/Avatars/Professions/Security_Male_01/Export/Security_Male_01_facial.fbx",
+    "size": 1995008
+  },
+  {
+    "path": "Assets/Avatars/Professions/Security_Male_01/Security_Male_01.png",
+    "size": 448488
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Female_01/Export/Sports_Female_01.fbx",
+    "size": 593872
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Female_01/Export/Sports_Female_01_facial.fbx",
+    "size": 1991328
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Female_01/Sports_Female_01.png",
+    "size": 369363
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Female_02/Export/Sports_Female_02.fbx",
+    "size": 600576
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Female_02/Export/Sports_Female_02_facial.fbx",
+    "size": 2128096
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Female_02/Sports_Female_02.png",
+    "size": 406747
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_01/Export/Sports_Male_01.fbx",
+    "size": 509504
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_01/Export/Sports_Male_01_facial.fbx",
+    "size": 1822128
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_01/Sports_Male_01.png",
+    "size": 385802
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_02/Export/Sports_Male_02.fbx",
+    "size": 538656
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_02/Export/Sports_Male_02_facial.fbx",
+    "size": 1833440
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_02/Sports_Male_02.png",
+    "size": 410182
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_03/Export/Sports_Male_03.fbx",
+    "size": 592864
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_03/Export/Sports_Male_03_facial.fbx",
+    "size": 2266144
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_03/Sports_Male_03.png",
+    "size": 465534
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_04/Export/Sports_Male_04.fbx",
+    "size": 536704
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_04/Export/Sports_Male_04_facial.fbx",
+    "size": 1842592
+  },
+  {
+    "path": "Assets/Avatars/Professions/Sports_Male_04/Sports_Male_04.png",
+    "size": 389111
+  },
+  {
+    "path": "Assets/Avatars/Professions/Wood_Male_01/Export/Wood_Male_01.fbx",
+    "size": 501552
+  },
+  {
+    "path": "Assets/Avatars/Professions/Wood_Male_01/Export/Wood_Male_01_facial.fbx",
+    "size": 1802928
+  },
+  {
+    "path": "Assets/Avatars/Professions/Wood_Male_01/Wood_Male_01.png",
+    "size": 496354
+  },
+  {
+    "path": "Docs/AvatarsSample.jpg",
+    "size": 224644
+  },
+  {
+    "path": "LICENSE.md",
+    "size": 1066
+  },
+  {
+    "path": "Source/Animals/Bird_Chicken_Brown_01/Bird_Chicken_Brown_01.png",
+    "size": 838397
+  },
+  {
+    "path": "Source/Animals/Bird_Chicken_White_01/Bird_Chicken_White_01.png",
+    "size": 810182
+  },
+  {
+    "path": "Source/Animals/Bird_Duck_Female_01/Bird_Duck_Female_01.png",
+    "size": 736235
+  },
+  {
+    "path": "Source/Animals/Bird_Duck_Male_01/Bird_Duck_Male_01.png",
+    "size": 791964
+  },
+  {
+    "path": "Source/Animals/Bird_Goose_Grey_01/Bird_Goose_Grey_01.png",
+    "size": 634633
+  },
+  {
+    "path": "Source/Animals/Bird_Goose_White_01/Bird_Goose_White_01.png",
+    "size": 467969
+  },
+  {
+    "path": "Source/Animals/Bird_Rooster_Brown_01/Bird_Rooster_Brown_01.png",
+    "size": 666143
+  },
+  {
+    "path": "Source/Animals/Bird_Sparrow_01/Bird_Sparrow_01.png",
+    "size": 878679
+  },
+  {
+    "path": "Source/Animals/Bull_Brown_01/Bull_Brown_01.png",
+    "size": 1404972
+  },
+  {
+    "path": "Source/Animals/Camel_OneHump_01/Camel_OneHump_01.png",
+    "size": 1105749
+  },
+  {
+    "path": "Source/Animals/Camel_TwoHump_01/Camel_TwoHump_01.png",
+    "size": 1281578
+  },
+  {
+    "path": "Source/Animals/Cow_Black_01/Cow_Black_01.png",
+    "size": 880294
+  },
+  {
+    "path": "Source/Animals/Cow_Brown_01/Cow_Brown_01.png",
+    "size": 1376000
+  },
+  {
+    "path": "Source/Animals/Deer_Roe_Tabby_01/Deer_Roe_Tabby_01.png",
+    "size": 1177945
+  },
+  {
+    "path": "Source/Animals/Dog_Beagle_01/Dog_Beagle_01.png",
+    "size": 993185
+  },
+  {
+    "path": "Source/Animals/Dog_GermanShepard_01/Dog_GermanShepard_01.png",
+    "size": 900129
+  },
+  {
+    "path": "Source/Animals/Donkey_Grey_01/Donkey_Grey_01.png",
+    "size": 1054254
+  },
+  {
+    "path": "Source/Animals/Goat_Brown_01/Goat_Brown_01.png",
+    "size": 1043327
+  },
+  {
+    "path": "Source/Animals/Goat_White_01/Goat_White_01.png",
+    "size": 974221
+  },
+  {
+    "path": "Source/Animals/Horse_Brown_01/Horse_Brown_01.png",
+    "size": 650137
+  },
+  {
+    "path": "Source/Animals/Horse_Brown_Saddle_01/Horse_Brown_Saddle_01.png",
+    "size": 771901
+  },
+  {
+    "path": "Source/Animals/Horse_LightBrown_01/Horse_LightBrown_01.png",
+    "size": 843513
+  },
+  {
+    "path": "Source/Animals/Horse_LightBrown_Saddle_01/Horse_LightBrown_Saddle_01.png",
+    "size": 751806
+  },
+  {
+    "path": "Source/Animals/Pig_Pink_01/Pig_Pink_01.png",
+    "size": 1491304
+  },
+  {
+    "path": "Source/Animals/Sheep_White_01/Sheep_White_01.png",
+    "size": 892054
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_01/Female_Adult_01.png",
+    "size": 434013
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_02/Female_Adult_02.png",
+    "size": 415947
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_03/Female_Adult_03.png",
+    "size": 400279
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_04/Female_Adult_04.png",
+    "size": 430066
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_05/Female_Adult_05.png",
+    "size": 420293
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_06/Female_Adult_06.png",
+    "size": 466661
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_07/Female_Adult_07.png",
+    "size": 421304
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_08/Female_Adult_08.png",
+    "size": 407395
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_09/Female_Adult_09.png",
+    "size": 430008
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_10/Female_Adult_10.png",
+    "size": 549154
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_11/Female_Adult_11.png",
+    "size": 440534
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_12/Female_Adult_12.png",
+    "size": 419481
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_13/Female_Adult_13.png",
+    "size": 421123
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_14/Female_Adult_14.png",
+    "size": 446721
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_15/Female_Adult_15.png",
+    "size": 438817
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_16/Female_Adult_16.png",
+    "size": 662767
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Adult_17/Female_Adult_17.png",
+    "size": 409100
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Party_01/Female_Party_01.png",
+    "size": 352838
+  },
+  {
+    "path": "Source/Avatars/Adults/Female_Party_02/Female_Party_02.png",
+    "size": 434370
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_01/Male_Adult_01.png",
+    "size": 450889
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_02/Male_Adult_02.png",
+    "size": 478395
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_03/Male_Adult_03.png",
+    "size": 515426
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_04/Male_Adult_04.png",
+    "size": 511910
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_05/Male_Adult_05.png",
+    "size": 488838
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_06/Male_Adult_06.png",
+    "size": 485364
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_07/Male_Adult_07.png",
+    "size": 482710
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_08/Male_Adult_08.png",
+    "size": 448126
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_09/Male_Adult_09.png",
+    "size": 472224
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_10/Male_Adult_10.png",
+    "size": 457608
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_11/Male_Adult_11.png",
+    "size": 419506
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_12/Male_Adult_12.png",
+    "size": 506050
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_13/Male_Adult_13.png",
+    "size": 473462
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_14/Male_Adult_14.png",
+    "size": 465232
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_15/Male_Adult_15.png",
+    "size": 389579
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_16/Male_Adult_16.png",
+    "size": 462484
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_17/Male_Adult_17.png",
+    "size": 483358
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_18/Male_Adult_18.png",
+    "size": 458613
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_19/Male_Adult_19.png",
+    "size": 439455
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_20/Male_Adult_20.png",
+    "size": 463415
+  },
+  {
+    "path": "Source/Avatars/Adults/Male_Adult_21/Male_Adult_21.png",
+    "size": 352293
+  },
+  {
+    "path": "Source/Avatars/Children/Female_Child_01/Female_Child_01.png",
+    "size": 396354
+  },
+  {
+    "path": "Source/Avatars/Children/Female_Child_02/Female_Child_02.png",
+    "size": 436854
+  },
+  {
+    "path": "Source/Avatars/Children/Male_Child_01/Male_Child_01.png",
+    "size": 461151
+  },
+  {
+    "path": "Source/Avatars/Children/Male_Child_02/Male_Child_02.png",
+    "size": 416786
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Female_01/Business_Female_01.png",
+    "size": 420187
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Female_02/Business_Female_02.png",
+    "size": 455239
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Female_03/Business_Female_03.png",
+    "size": 418711
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Female_04/Business_Female_04.png",
+    "size": 399801
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_01/Business_Male_01.png",
+    "size": 429864
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_02/Business_Male_02.png",
+    "size": 454042
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_03/Business_Male_03.png",
+    "size": 455906
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_04/Business_Male_04.png",
+    "size": 472137
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_05/Business_Male_05.png",
+    "size": 429227
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_06/Business_Male_06.png",
+    "size": 297811
+  },
+  {
+    "path": "Source/Avatars/Professions/Business_Male_07/Business_Male_07.png",
+    "size": 413980
+  },
+  {
+    "path": "Source/Avatars/Professions/Chef_Female_01/Chef_Female_01.png",
+    "size": 285234
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Female_01/Construction_Female_01.png",
+    "size": 418231
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_01/Construction_Male_01.png",
+    "size": 516253
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_02/Construction_Male_02.png",
+    "size": 486142
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_03/Construction_Male_03.png",
+    "size": 489275
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_04/Construction_Male_04.png",
+    "size": 449388
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_05/Construction_Male_05.png",
+    "size": 460557
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_06/Construction_Male_06.png",
+    "size": 485331
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_07/Construction_Male_07.png",
+    "size": 454364
+  },
+  {
+    "path": "Source/Avatars/Professions/Construction_Male_08/Construction_Male_08.png",
+    "size": 453205
+  },
+  {
+    "path": "Source/Avatars/Professions/Delivery_Male_01/Delivery_Male_01.png",
+    "size": 502652
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Female_01/Fire_Female_01.png",
+    "size": 524973
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Female_02/Fire_Female_02.png",
+    "size": 555363
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Female_03/Fire_Female_03.png",
+    "size": 506645
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_01/Fire_Male_01.png",
+    "size": 531337
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_02/Fire_Male_02.png",
+    "size": 504436
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_03/Fire_Male_03.png",
+    "size": 516349
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_04/Fire_Male_04.png",
+    "size": 542394
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_05/Fire_Male_05.png",
+    "size": 526582
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_06/Fire_Male_06.png",
+    "size": 538343
+  },
+  {
+    "path": "Source/Avatars/Professions/Fire_Male_07/Fire_Male_07.png",
+    "size": 577997
+  },
+  {
+    "path": "Source/Avatars/Professions/Gardener_Male_01/Gardener_Male_01.png",
+    "size": 458679
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Female_01/Medical_Female_01.png",
+    "size": 295429
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Female_02/Medical_Female_02.png",
+    "size": 353174
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Female_03/Medical_Female_03.png",
+    "size": 458811
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Male_01/Medical_Male_01.png",
+    "size": 405256
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Male_02/Medical_Male_02.png",
+    "size": 492998
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Male_03/Medical_Male_03.png",
+    "size": 392458
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Male_04/Medical_Male_04.png",
+    "size": 452171
+  },
+  {
+    "path": "Source/Avatars/Professions/Medical_Male_05/Medical_Male_05.png",
+    "size": 396635
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Female_01/Military_Female_01.png",
+    "size": 565025
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Female_02/Military_Female_02.png",
+    "size": 550605
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Male_01/Military_Male_01.png",
+    "size": 590272
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Male_02/Military_Male_02.png",
+    "size": 567519
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Male_03/Military_Male_03.png",
+    "size": 577260
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Male_04/Military_Male_04.png",
+    "size": 588434
+  },
+  {
+    "path": "Source/Avatars/Professions/Military_Male_06/Military_Male_06.png",
+    "size": 556763
+  },
+  {
+    "path": "Source/Avatars/Professions/Pilot_Female_01/Pilot_Female_01.png",
+    "size": 279303
+  },
+  {
+    "path": "Source/Avatars/Professions/Pilot_Female_02/Pilot_Female_02.png",
+    "size": 306152
+  },
+  {
+    "path": "Source/Avatars/Professions/Pilot_Male_01/Pilot_Male_01.png",
+    "size": 437386
+  },
+  {
+    "path": "Source/Avatars/Professions/Pilot_Male_02/Pilot_Male_02.png",
+    "size": 445252
+  },
+  {
+    "path": "Source/Avatars/Professions/Pilot_Male_03/Pilot_Male_03.png",
+    "size": 333891
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Female_01/Police_Female_01.png",
+    "size": 556220
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_01/Police_Male_01.png",
+    "size": 488207
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_02/Police_Male_02.png",
+    "size": 504919
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_03/Police_Male_03.png",
+    "size": 499622
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_04/Police_Male_04.png",
+    "size": 472241
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_05/Police_Male_05.png",
+    "size": 340688
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_06/Police_Male_06.png",
+    "size": 445694
+  },
+  {
+    "path": "Source/Avatars/Professions/Police_Male_07/Police_Male_07.png",
+    "size": 413094
+  },
+  {
+    "path": "Source/Avatars/Professions/Security_Female_01/Security_Female_01.png",
+    "size": 459985
+  },
+  {
+    "path": "Source/Avatars/Professions/Security_Male_02/Security_Male_01.png",
+    "size": 448488
+  },
+  {
+    "path": "Source/Avatars/Professions/Sports_Female_01/Sports_Female_01.png",
+    "size": 369363
+  },
+  {
+    "path": "Source/Avatars/Professions/Sports_Female_02/Sports_Female_02.png",
+    "size": 406747
+  },
+  {
+    "path": "Source/Avatars/Professions/Sports_Male_01/Sports_Male_01.png",
+    "size": 385802
+  },
+  {
+    "path": "Source/Avatars/Professions/Sports_Male_02/Sports_Male_02.png",
+    "size": 410182
+  },
+  {
+    "path": "Source/Avatars/Professions/Sports_Male_03/Sports_Male_03.png",
+    "size": 465534
+  },
+  {
+    "path": "Source/Avatars/Professions/Sports_Male_04/Sports_Male_04.png",
+    "size": 389111
+  },
+  {
+    "path": "Source/Avatars/Professions/Wood_Male_01/Wood_Male_01.png",
+    "size": 496354
+  }
+]

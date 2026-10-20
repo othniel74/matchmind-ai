@@ -1,0 +1,226 @@
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.profile-panel {
+  grid-column: 1 / -1;
+}
+.profile-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+.profile-controls label {
+  display: grid;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.favourite-players {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.favourite-players > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.favourite-club-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #7b8799;
+  min-width: 90px;
+  text-transform: uppercase;
+}
+.player-chip {
+  min-height: 28px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #191d24;
+  border: 1px solid #343a45;
+  color: #b6bfcb;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.player-chip.on {
+  background: rgba(197, 242, 119, 0.14);
+  border-color: var(--lime);
+  color: var(--lime);
+}
+.dynamics-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.dynamics-chips span {
+  font-size: 11px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid #343a45;
+  color: #cbd3de;
+}
+.moment-list,
+.focus-timeline,
+.live-events,
+.live-moments,
+.recap ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.moment {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  gap: 10px;
+  padding: 9px 0;
+  border-top: 1px solid var(--border);
+}
+.moment strong,
+.live-moments b {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+.moment span:not(.moment-clock),
+.live-moments span {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.moment-clock {
+  font-size: 12px;
+  color: var(--lime);
+  font-variant-numeric: tabular-nums;
+}
+.moment.favourite strong,
+.live-moments .favourite b {
+  color: var(--lime);
+}
+.moment.kind-goal strong {
+  font-size: 14px;
+}
+.focus-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.focus-stats div {
+  display: grid;
+  gap: 2px;
+}
+.focus-stats span {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.focus-stats b {
+  font-size: 14px;
+  font-weight: 600;
+}
+.focus-timeline li,
+.live-events li {
+  font-size: 12px;
+  color: #c3cad5;
+  padding: 4px 0;
+  border-top: 1px solid var(--border);
+}
+.sparkline {
+  width: 100%;
+  height: 74px;
+  margin: 8px 0;
+}
+.sparkline polyline {
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+.sparkline .line-home,
+.sparkline .line-distance_km {
+  stroke: var(--home);
+}
+.sparkline .line-away {
+  stroke: var(--blue);
+}
+.sparkline-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+}
+.sparkline-legend .home {
+  color: var(--home);
+}
+.sparkline-legend .away {
+  color: var(--blue);
+}
+.metric-statement {
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+.recap-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.recap-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.recap h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+.recap p,
+.recap li,
+.ai-recap p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 4px 0;
+}
+.recap-score {
+  font-weight: 600;
+  color: var(--lime);
+}
+.recap-stats li {
+  color: #c3cad5;
+}
+.ai-recap {
+  border: 1px solid #3c4a2d;
+  background: rgba(197, 242, 119, 0.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.live-panel {
+  grid-column: 1 / -1;
+}
+.live-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.live-events span {
+  color: var(--lime);
+  font-variant-numeric: tabular-nums;
+}
+.live-events .team-away {
+  color: #b9cdf8;
+}
+.live-moments li {
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 600px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,25 @@
+node_modules/
+dist/
+__pycache__/
+.pytest_cache/
+.env
+*.pyc
+*.sqlite3
+*.sqlite3-*
+*.tsbuildinfo
+pytest-cache-files-*/
+.venv*/
+.asset-work/
+backend/data/research/
+
+.test-work/
+
+# Real match data (research only) stays out of the public, synthetic-only repository.
+# Recreate locally with tools/import-research-data.py.
+backend/data/
+frontend/public/tracking/
+frontend/public/datasets/
+**/.env
+**/.env.local
+playwright-report/
+test-results/
