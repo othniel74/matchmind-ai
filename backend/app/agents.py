@@ -119,8 +119,9 @@ class FoundryAgentRuntime:
                     'engine': 'deterministic_fallback', 'recap': recap}
         run_id = str(uuid.uuid4())
         with narrative_span(run_id, audience, language):
-            from .agent_workflow import NarrativeJob
-            job = NarrativeJob(events, [], audience, language, recap_minute=minute, recap_fallback=fallback)
+            def job():
+                from .agent_workflow import NarrativeJob
+                return NarrativeJob(events, [], audience, language, recap_minute=minute, recap_fallback=fallback)
             gate = {'agent': 'evidence_gate', 'status': 'passed', 'mode': 'recap'}
             return await self._execute(run_id, job, [fallback], gate)
 
@@ -132,10 +133,12 @@ class FoundryAgentRuntime:
         if not verified:
             return AgentResponse(narratives=[], trace=AgentTrace(run_id=run_id, engine='deterministic_fallback',
                                                                  steps=[gate], duration_ms=0))
-        from .agent_workflow import NarrativeJob
-        return await self._execute(run_id, NarrativeJob(events, insights, audience, language), fallback, gate)
+        def job():
+            from .agent_workflow import NarrativeJob
+            return NarrativeJob(events, insights, audience, language)
+        return await self._execute(run_id, job, fallback, gate)
 
-    async def _execute(self, run_id: str, job: Any, fallback: list[dict[str, Any]],
+    async def _execute(self, run_id: str, make_job: Any, fallback: list[dict[str, Any]],
                        gate: dict[str, Any]) -> AgentResponse:
         start = time.perf_counter()
         def response(narratives, engine, steps, reason=None, handoffs=(), provider=None):
@@ -145,8 +148,9 @@ class FoundryAgentRuntime:
                 fallback_reason=reason, duration_ms=int((time.perf_counter() - start) * 1000)))
         try:
             client = self._client()
+            # The workflow module imports the optional SDK; without it, fall back like any other failure.
             from .agent_workflow import run_workflow
-            outcome, handoffs = await run_workflow(client, job)
+            outcome, handoffs = await run_workflow(client, make_job())
             return response(outcome.narratives, outcome.engine, outcome.steps, outcome.fallback_reason,
                             handoffs, type(client).__name__)
         except Exception as exc:

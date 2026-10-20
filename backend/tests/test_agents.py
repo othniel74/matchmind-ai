@@ -2,6 +2,7 @@ import asyncio
 import json
 import re
 import pytest
+pytest.importorskip("agent_framework")  # optional SDK: requirements-agents.txt
 from app.agents import FoundryAgentRuntime
 from app.core import generate_match, detect_insights
 from app.languages import SUPPORTED
