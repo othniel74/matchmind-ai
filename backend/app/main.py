@@ -2,6 +2,7 @@ from __future__ import annotations
 import asyncio
 import os
 import math
+import time
 import logging
 import sqlite3
 from contextlib import asynccontextmanager
@@ -43,8 +44,12 @@ async def lifespan(app):
     global _mcp_app
     from .mcp_server import server as mcp_server
     _mcp_app = _mcp_http_app()
+    from . import feed
+    consumer = asyncio.create_task(feed.consume()) if feed.enabled() else None  # Event Hubs match feed
     async with mcp_server.session_manager.run():  # serves /mcp
         yield
+    if consumer is not None:
+        consumer.cancel()
     shutdown_tracing()
 
 app = FastAPI(title='MatchMind AI', version='0.1.0',lifespan=lifespan)
@@ -497,6 +502,60 @@ def graph_rebuild(http_request:Request,seed: int = Query(20261020, ge=0, le=2147
         return {'match_id': 'demo-001', 'upserted_events': repo.upsert_events(events), 'backend': repo.backend}
     finally:
         repo.close()
+
+
+_last_kickoff = 0.0
+
+
+@app.get('/api/feed')
+def feed_status():
+    """The Event Hubs match feed: consumer state, current run, counts and recent moments."""
+    from .feed import FEED
+    moments = [m for m in FEED.recent if m.get('type') == 'moment'][-12:]
+    return {**FEED.status(), 'kickoff_available': bool(os.getenv('FEED_JOB_RESOURCE_ID')),
+            'recent_moments': moments[::-1]}
+
+
+@app.post('/api/feed/kickoff')
+async def feed_kickoff(request: Request):
+    """Start the producer job, which publishes a synthetic match to Event Hubs. One feed at a time."""
+    from fastapi import HTTPException
+    from .feed import FEED, start_feed_job
+    from .guard import GUARD, visitor
+    global _last_kickoff
+    if not os.getenv('FEED_JOB_RESOURCE_ID'):
+        raise HTTPException(503, 'The Event Hubs feed is not configured in this environment.')
+    live = FEED.run is not None and FEED.run.get('status') == 'live'
+    if live or time.monotonic() - _last_kickoff < 60:
+        raise HTTPException(409, 'A match feed is already running. Watch it, or try again when it reaches full time.')
+    if is_demo() and not GUARD.allow(visitor(request)):
+        raise HTTPException(429, 'Too many requests from this visitor. Try again in a minute.', headers={'Retry-After': '60'})
+    _last_kickoff = time.monotonic()
+    try:
+        return {'status': 'starting', **await start_feed_job()}
+    except Exception as exc:
+        _last_kickoff = 0.0
+        logging.getLogger('matchmind.feed').warning('feed_kickoff_failed error_type=%s', type(exc).__name__)
+        raise HTTPException(502, 'Could not start the feed job.') from None
+
+
+@app.websocket('/ws/feed')
+async def feed_stream(ws: WebSocket):
+    """Everything the Event Hubs consumer produces, as it happens; recent messages first."""
+    from .feed import FEED
+    await ws.accept()
+    queue: asyncio.Queue = asyncio.Queue(maxsize=500)
+    for message in list(FEED.recent):
+        await ws.send_json(message)
+    FEED.subscribers.add(queue)
+    try:
+        await ws.send_json({'type': 'status', **FEED.status()})
+        while True:
+            await ws.send_json(await queue.get())
+    except WebSocketDisconnect:
+        pass
+    finally:
+        FEED.subscribers.discard(queue)
 
 
 SEED = Query(20261020, ge=0, le=2147483647)

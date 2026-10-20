@@ -17,6 +17,7 @@ This document lists what is already production-grade, what the gate is waiting f
 | **Observability** | OpenTelemetry traces to Application Insights. Prompts and generated text are not exported unless explicitly enabled. |
 | **Graph database** | A Memgraph sidecar holds a replayable copy, re-projected on every source change. Its counts are checked against NetworkX, and the app falls back to NetworkX if it is down. Real Memgraph and Neo4j parity tests run in Azure. |
 | **Quality gates** | About 240 backend tests, an offline evaluation, browser tests against the live URL, and CI on every push. |
+| **Event-driven ingestion** | Azure Event Hubs carries the match feed. A Container Apps Job publishes it; the API consumes, validates and interprets each event as it arrives; duplicates are skipped and bad events reported. All identity is managed, with no keys. |
 | **Interoperability** | A read-only MCP server exposes the same verified tools to other agents and to Copilot. |
 
 ## What the gate is waiting for
@@ -28,7 +29,7 @@ Each item states the production design, the Azure service, and how it will be ve
 | 1 | **User identity** | Microsoft Entra ID through Container Apps authentication (Easy Auth) for studio users, with app roles (`analyst`, `reviewer`, `publisher`) replacing local accounts and MFA enforced by Conditional Access | Role tests against Entra tokens; an anonymous write test must fail |
 | 2 | **Tenant isolation** | One workspace per broadcaster, with the tenant ID on every record and query, and row-level security in the database | Cross-tenant read and write tests |
 | 3 | **Managed data store** | Azure Database for PostgreSQL Flexible Server replaces SQLite for the event log, versions and provenance; migrations are versioned; point-in-time restore is on | Restore drill to a new server; a migration rollback rehearsal |
-| 4 | **Event ingestion at scale** | Match feeds arrive through Azure Event Hubs. Consumers validate each event with the existing `StreamValidator` and checkpoint progress. Container Apps scales consumers on backlog through KEDA. | Replay of a full match at 10× speed with zero rejected valid events; no lost events across a consumer restart |
+| 4 | **Event ingestion at scale** | *Done for one consumer:* match feeds already arrive through Azure Event Hubs, and a consumer validates each event with `StreamValidator` ([EVENT_DRIVEN.md](EVENT_DRIVEN.md)). *Still to do:* Blob checkpointing, state in the managed database, and consumers scaled on backlog through KEDA. | Replay of a full match at 10× speed with zero rejected valid events; no lost events across a consumer restart |
 | 5 | **Delivery guarantees** | Overlays and recaps leave through an outbox with acknowledgements and withdrawal messages for downstream renderers | A withdrawn overlay must disappear downstream within the SLO |
 | 6 | **Secrets and network** | Key Vault references for any remaining secrets; a private registry and database endpoints; Azure Front Door with WAF in front of the API | Configuration scan; penetration test findings closed |
 | 7 | **Release evaluations** | Foundry evaluations (groundedness, relevance, coherence, fluency and the custom fact-check scorer) run on a fixed set before each release, with thresholds in CI | A release fails automatically when a score drops below its threshold |

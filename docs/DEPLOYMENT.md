@@ -18,7 +18,9 @@ All resources are in resource group `rg-othniel.obasi-9233`, UK South.
 | --- | --- | --- | --- |
 | Container App | `matchmind-demo` | The app container serves the API, WebSockets and the built frontend. A Memgraph sidecar holds the match knowledge graph. | Consumption; 1 vCPU and 2 GiB for the app plus 0.5 vCPU and 1 GiB for Memgraph, always one replica |
 | Container Apps environment | `matchmind-env` | Hosting environment | Included |
-| Container registry | `ca7835cfc7a5acr` (Basic) | Image `matchmind-demo:v3`, plus imported `memgraph/memgraph:3.13.1`, `neo4j:5.26.32-community` and `python:3.12-slim` for graph tests | About $5 per month |
+| Event Hubs | `matchmind-feed-ca7835` (Basic), hub `match-events` | The live match feed; local (SAS) auth disabled | About $11 per month |
+| Container Apps Job | `matchmind-feed` (manual trigger) | Publishes a synthetic match to Event Hubs when a viewer kicks off a feed | Per second while running |
+| Container registry | `ca7835cfc7a5acr` (Basic) | Image `matchmind-demo:v6`, plus imported `memgraph/memgraph:3.13.1`, `neo4j:5.26.32-community` and `python:3.12-slim` for graph tests | About $5 per month |
 | Foundry resource / project | `matchmind-ai-studio` / `matchmind-ai` | Model deployment `gpt-4.1-mini`, GlobalStandard, 100 units | Per token |
 | Application Insights | `matchmind-ai-studio-appinsights` (connected to the Foundry project) | Agent and app traces, also visible in Foundry → Tracing; connection string stored as a Container App secret | Per GB ingested |
 
@@ -29,6 +31,10 @@ The app authenticates to Foundry with its **system-assigned managed identity**, 
 Memgraph 3.13.1 runs in the same Container App as a second container, with a 768 MiB memory limit and telemetry off. The app reaches it at `bolt://localhost:7687` (`GRAPH_BACKEND=memgraph`, `GRAPH_URI`). Ingress only goes to the app's port 8000, so Bolt is not reachable from outside. At startup the app projects the match knowledge graph into Memgraph, retrying while the sidecar starts. It projects again if the corrected source changes. `/api/graph/knowledge` shows the backend, the projected state version, and whether the stored counts match NetworkX. If Memgraph is unavailable, the app keeps working on NetworkX and reports that.
 
 The sidecar was added by a PATCH of the app template (`az rest`). `az containerapp update --image` changes only one container, so name it with `--container-name matchmind-demo` when updating the app image.
+
+## Event-driven feed
+
+The app consumes the `match-events` hub in a background task, and `POST /api/feed/kickoff` starts the `matchmind-feed` job through Azure Resource Manager. Roles: the job holds Event Hubs Data Sender on the hub and AcrPull on the registry; the app holds Data Receiver on the hub and Contributor on the job only. See [EVENT_DRIVEN.md](EVENT_DRIVEN.md). Verified in production on 20 October 2026: one kick-off streamed a full match, with 1,079 of 1,079 events accepted, 0 rejected, 59 moments detected live and a final score of 2–3.
 
 ## Demo-mode safeguards (`MATCHMIND_ENV=demo`)
 

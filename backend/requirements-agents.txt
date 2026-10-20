@@ -7,6 +7,8 @@ azure-ai-projects==2.7.0
 azure-identity==1.26.0
 openai==3.35.1
 mcp==1.30.0
+# Event Hubs match feed (app/feed.py)
+azure-eventhub==5.15.1
 # Tracing: MATCHMIND_TRACING=otlp uses the HTTP exporter; azure_monitor uses the Azure Monitor distro.
 opentelemetry-sdk==1.45.1
 opentelemetry-exporter-otlp-proto-http==1.45.1

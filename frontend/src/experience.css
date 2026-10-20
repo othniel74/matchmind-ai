@@ -252,3 +252,20 @@
     grid-template-columns: 1fr;
   }
 }
+.feed-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 10px 0 12px;
+}
+.feed-stats span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.feed-stats b {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}

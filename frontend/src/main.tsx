@@ -36,6 +36,7 @@ import Landing from "./Landing";
 import { LANGUAGES, directionOf, type LanguageCode } from "./languages";
 import { ExperiencePanels, LiveStreamPanel, ProfilePanel, RecapPanel, useProfile, useSquads } from "./Experience";
 import { AskPanel, GraphExplorer } from "./GraphExplorer";
+import { EventFeedPanel } from "./EventFeed";
 
 // Real-data research views are local-only; the product itself uses synthetic data, and the
 // research components load only when enabled.
@@ -1699,6 +1700,7 @@ function App() {
                     <RecapPanel minute={frame.minute} profile={profile} />
                   </div>
                   {squads && <GraphExplorer minute={frame.minute} stateVersion={frame.context?.state_version} clubs={squads.clubs} />}
+                  {squads && <EventFeedPanel clubs={squads.clubs} />}
                   <LiveStreamPanel profile={profile} />
                 </div>
                 <div className="dashboard-grid">
