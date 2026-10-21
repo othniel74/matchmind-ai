@@ -251,7 +251,8 @@ function App() {
     const connect = () => {
       const scheme = location.protocol === "https:" ? "wss" : "ws";
       socket = new WebSocket(
-        `${scheme}://${location.host}/ws/match?speed=${replaySpeed}&start_minute=${lastMinute + 1}`,
+        // The server's `speed` is seconds per match minute, so send the inverse.
+        `${scheme}://${location.host}/ws/match?speed=${1 / replaySpeed}&start_minute=${lastMinute + 1}`,
       );
       socket.onopen = () => {
         if (!disposed) setConnected(true);
