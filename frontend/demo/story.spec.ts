@@ -89,7 +89,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   // 4. Two genuinely different experiences
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
   await page.getByLabel("Experience language").selectOption("en");
-  await page.getByLabel("Viewing mode").selectOption("analyst");
+  await page.getByRole("group", { name: "Viewing mode" }).getByRole("button", { name: "Analyst" }).click();
   await page.getByLabel("Favourite club").selectOption("away");
   await page.getByLabel("Follow one player").selectOption("away-10");
   await caption(page, "Analyst or fan, favourite club, follow one player: same facts, a different experience", 3000);
@@ -97,10 +97,12 @@ test("MatchMind AI submission story", async ({ page }) => {
   await caption(page, "Player focus: rating, passes, xG, physical data and his role in the team's pass network", 3500);
 
   // 5. Graph intelligence
+  await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Analysis" }).click();
   await show(page, page.getByRole("region", { name: "Match graph" }));
   await caption(page, "Pass networks for both teams: hub, key link, PageRank and xG chain, mirrored in a Memgraph database", 4000);
 
   // 6. Event-driven on Azure
+await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Live data" }).click();
   const feed = page.getByRole("region", { name: "Azure Event Hubs feed" });
   if (await feed.count()) {
     await show(page, feed);
@@ -110,6 +112,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   }
 
   // 6b. Auto-eventing from video, scored against ground truth
+await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Video AI" }).click();
   const vision = page.getByRole("region", { name: "Auto-eventing from video" });
   await show(page, vision);
   await vision.locator("video").evaluate(async (v: HTMLVideoElement) => {
@@ -121,6 +124,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   await caption(page, "Because the video is synthetic, every number is checked against perfect ground truth", 4500);
 
   // 7. Recaps written by agents and checked by code
+await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Match centre" }).click();
   const recap = page.getByRole("region", { name: "Match recap" });
   await show(page, recap);
   await recap.getByRole("button", { name: "So far", exact: true }).click();

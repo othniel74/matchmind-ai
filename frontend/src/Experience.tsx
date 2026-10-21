@@ -106,15 +106,21 @@ export function ProfilePanel({ profile, onChange, squads }: { profile: Profile; 
   return (
     <section className="panel profile-panel" aria-label="Personalize your match">
       <div className="panel-title">
-        <h2><UserRound size={17} />Make it your match</h2>
-        <span className="panel-kicker">SAVED IN THIS BROWSER</span>
+        <h2><UserRound size={17} />Your view</h2>
+        <span className="panel-kicker quiet">Saved on this device</span>
       </div>
       <div className="profile-controls">
-        <label>Viewing mode
-          <select aria-label="Viewing mode" value={profile.audience} onChange={(e) => set({ audience: e.target.value as Audience })}>
-            <option value="fan">Fan</option><option value="analyst">Analyst</option><option value="broadcast">Broadcast</option>
-          </select>
-        </label>
+        <div className="profile-mode" role="group" aria-label="Viewing mode">
+          <span>Viewing mode</span>
+          <div className="segmented">
+            {(["fan", "analyst", "broadcast"] as const).map((mode) => (
+              <button key={mode} type="button" aria-pressed={profile.audience === mode}
+                      className={profile.audience === mode ? "on" : ""} onClick={() => set({ audience: mode })}>
+                {mode === "fan" ? "Fan" : mode === "analyst" ? "Analyst" : "Broadcast"}
+              </button>
+            ))}
+          </div>
+        </div>
         <label>Language
           <select aria-label="Experience language" value={profile.language} onChange={(e) => set({ language: e.target.value as LanguageCode })}>
             {LANGUAGES.map((l) => <option key={l.code} value={l.code}>{l.native}</option>)}

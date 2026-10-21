@@ -11,7 +11,7 @@ for (const [sizeName, viewport] of sizes) {
   const context = await browser.newContext({ viewport, deviceScaleFactor: 1 });
   const page = await context.newPage();
   for (const [name, path] of pages) {
-    await page.goto(base + path, { waitUntil: "networkidle" }).catch(() => undefined);
+    await page.goto(base + path, { waitUntil: "load" }).catch(() => undefined);
     await page.waitForTimeout(name === "landing" ? 2500 : 12000);
     await page.screenshot({ path: `${out}/${label}-${name}-${sizeName}.png`, fullPage: true });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

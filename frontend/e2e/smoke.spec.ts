@@ -40,7 +40,7 @@ test("landing preview cycles through every language, Arabic right to left", asyn
 
 test("dashboard replays and shows the new match statistics", async ({ page }) => {
   const errors = watchErrors(page);
-  await page.goto("/app");
+  await page.goto("/app?view=analysis");
   await expect(page.getByText("Possession (time)")).toBeVisible({ timeout: 30_000 });
   await expect(page.locator(".comparison-row", { hasText: "Expected goals (xG)" })).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/dashboard.png`, fullPage: false });
@@ -96,7 +96,8 @@ test("personalized experience, recap and live event stream", async ({ page }) =>
   await expect(page.locator(".ai-recap")).toContainText(/showing the verified recap|fact-checked/, { timeout: 60_000 });
   await page.screenshot({ path: `${SHOTS}/experience-es.png`, fullPage: true });
 
-  // Event-by-event stream: events are ingested and moments appear as they happen.
+  // Event-by-event stream (Live data section): events are ingested and moments appear as they happen.
+  await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Live data" }).click();
   await page.getByRole("button", { name: "Start live stream" }).click();
   await expect(page.locator(".live-events li").first()).toBeVisible({ timeout: 15_000 });
   await expect(page.locator(".live-moments li").first()).toBeVisible({ timeout: 30_000 });
@@ -107,7 +108,7 @@ test("personalized experience, recap and live event stream", async ({ page }) =>
 test("match graph, why-this-moment and ask the match", async ({ page }) => {
   test.setTimeout(180_000);
   const errors = watchErrors(page);
-  await page.goto("/app");
+  await page.goto("/app?view=analysis");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   const graph = page.getByRole("region", { name: "Match graph" });
@@ -115,6 +116,7 @@ test("match graph, why-this-moment and ask the match", async ({ page }) => {
   await expect(graph.locator("svg.pass-network .node").first()).toBeVisible({ timeout: 60_000 });
   await expect(graph.getByRole("table", { name: "xG chain" })).toBeVisible();
   await graph.getByRole("button", { name: "Last 15 min" }).click();
+  await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Match centre" }).click();
   // The first goal comes in the 9th minute of the replay; its moment offers an explanation.
   const why = page.locator(".why-button").first();
   await expect(why).toBeVisible({ timeout: 120_000 });
@@ -125,5 +127,32 @@ test("match graph, why-this-moment and ask the match", async ({ page }) => {
   await ask.getByRole("button", { name: "Ask" }).click();
   await expect(ask.getByTestId("ask-answer")).toContainText(/Goals|No goal/);
   await page.screenshot({ path: `${SHOTS}/graph-explorer.png`, fullPage: true });
+  expect(errors).toEqual([]);
+});
+
+test("workspace sections: one navigation, shareable URLs, the right panels", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/app");
+  const nav = page.getByRole("navigation", { name: "Workspace" });
+  const sections: [string, string | null, string][] = [
+    ["Match centre", null, "Your moments"],
+    ["Analysis", "analysis", "Match graph"],
+    ["Video AI", "video", "Auto-eventing from video"],
+    ["Live data", "live", "Live event stream"],
+    ["Broadcast Studio", "studio", "Overlay control room"],
+  ];
+  for (const [label, view, region] of sections) {
+    await nav.getByRole("button", { name: label }).click();
+    await expect(nav.getByRole("button", { name: label })).toHaveAttribute("aria-current", "page");
+    expect(new URL(page.url()).searchParams.get("view")).toBe(view);
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(label === "Match centre" ? "Match centre" : label);
+    if (region === "Overlay control room") await expect(page.getByText(region)).toBeVisible({ timeout: 20_000 });
+    else await expect(page.getByRole("region", { name: region })).toBeVisible({ timeout: 20_000 });
+  }
+  // Panels that belong elsewhere are not repeated on the match centre.
+  await nav.getByRole("button", { name: "Match centre" }).click();
+  await expect(page.getByRole("region", { name: "Match graph" })).toHaveCount(0);
+  await expect(page.getByRole("tablist", { name: "Match views" })).toHaveCount(0);
+  await page.screenshot({ path: `${SHOTS}/sections.png`, fullPage: false });
   expect(errors).toEqual([]);
 });

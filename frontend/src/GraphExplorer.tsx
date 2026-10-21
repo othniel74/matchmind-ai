@@ -41,8 +41,20 @@ function PassNetwork({ roles }: { roles: TeamRoles }) {
   const pos = (id: string) => roles.positions[id] ?? { x: 50, y: 50 };
   const surname = (n: string) => n.split(" ").slice(-1)[0];
   // Label the six most involved players (and the hub and key link); the rest show on hover.
-  const labelled = new Set([...roles.players].sort((x, y) => y.pass_share - x.pass_share).slice(0, 6)
-    .map((p) => p.player_id).concat([roles.hub ?? "", roles.connector ?? ""]));
+  // Label the most involved players first, skipping any label that would overlap one already placed.
+  const labelled = new Set<string>();
+  const placed: [number, number][] = [];
+  const priority = [roles.connector ?? "", roles.hub ?? "",
+    ...[...roles.players].sort((x, y) => y.pass_share - x.pass_share).map((p) => p.player_id)];
+  for (const id of priority) {
+    const p = roles.positions[id];
+    if (!p || labelled.has(id) || labelled.size >= 7) continue;
+    const at: [number, number] = [p.x, p.y * 0.68];
+    if (placed.every(([x, y]) => Math.abs(x - at[0]) > 9 || Math.abs(y - at[1]) > 4)) {
+      labelled.add(id);
+      placed.push(at);
+    }
+  }
   return (
     <svg className="pass-network" viewBox="-4 -4 108 76" role="img"
          aria-label={`Pass network: hub ${names[roles.hub ?? ""] ?? "none"}, key connector ${names[roles.connector ?? ""] ?? "none"}`}>
@@ -62,9 +74,12 @@ function PassNetwork({ roles }: { roles: TeamRoles }) {
             <circle cx={p.x} cy={p.y * 0.68} r={1.4 + 9 * (share[id] ?? 0)}>
               <title>{`${names[id]}: ${pct(share[id] ?? 0)} of passes`}</title>
             </circle>
-            {labelled.has(id) && <text x={p.x} y={p.y * 0.68 - 2.6 - 9 * (share[id] ?? 0)}>{surname(names[id])}</text>}
           </g>
         );
+      })}
+      {[...labelled].map((id) => {
+        const p = pos(id);
+        return <text key={`label-${id}`} className="node-label" x={p.x} y={p.y * 0.68 - 2.6 - 9 * (share[id] ?? 0)}>{surname(names[id])}</text>;
       })}
     </svg>
   );

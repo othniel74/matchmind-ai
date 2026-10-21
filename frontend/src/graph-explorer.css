@@ -183,3 +183,11 @@
 .ask-answer.unsupported p {
   color: var(--muted);
 }
+.pass-network .node-label {
+  font-size: 2.6px;
+  fill: #e7edf5;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: #0d1117;
+  stroke-width: 0.6px;
+}

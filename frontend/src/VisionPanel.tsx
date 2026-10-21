@@ -109,7 +109,7 @@ export function VisionPanel() {
       </p>
       <div className="vision-body">
         <div className="vision-video">
-          <video ref={video} muted playsInline controls loop preload="metadata">
+          <video ref={video} muted playsInline controls loop preload="metadata" poster="/vision/poster.jpg">
             <source src="/vision/clip.webm" type="video/webm" />
             <source src="/vision/clip.mp4" type="video/mp4" />
           </video>

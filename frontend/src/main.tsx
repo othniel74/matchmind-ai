@@ -6,6 +6,9 @@ import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Activity,
+  BarChart3,
+  CloudLightning,
+  ScanEye,
   ArrowDownToLine,
   ArrowRight,
   AudioLines,
@@ -884,6 +887,20 @@ function PreviewWindow() {
     </div>
   );
 }
+type Section = "match" | "analysis" | "video" | "live" | "studio";
+const SECTIONS: { id: Section; label: string; title: string; summary: string; scoreboard: boolean; icon: React.ReactNode }[] = [
+  { id: "match", label: "Match centre", title: "Match centre", scoreboard: true, icon: <LayoutDashboard size={18} />,
+    summary: "Live moments, answers and recaps, shaped for you. Every fact is verified." },
+  { id: "analysis", label: "Analysis", title: "Analysis", scoreboard: true, icon: <BarChart3 size={18} />,
+    summary: "Team statistics, pass networks and the evidence behind every number." },
+  { id: "video", label: "Video AI", title: "Video AI", scoreboard: false, icon: <ScanEye size={18} />,
+    summary: "Events recovered from broadcast video, scored against ground truth." },
+  { id: "live", label: "Live data", title: "Live data", scoreboard: false, icon: <CloudLightning size={18} />,
+    summary: "The match feed through Azure Event Hubs, validated event by event." },
+  { id: "studio", label: "Broadcast Studio", title: "Broadcast Studio", scoreboard: true, icon: <MonitorPlay size={18} />,
+    summary: "Turn verified observations into broadcast-ready moments." },
+];
+
 function App() {
   const [reviewWindow,setReviewWindow]=useState<ReviewContext|null>(null);
   const openReview=()=>setReviewWindow({minute:frame.minute,seed:frame.context?.seed??20261020});
@@ -892,9 +909,24 @@ function App() {
   const [connected, setConnected] = useState(false);
   const [mode, setMode] = useState<"analyst" | "fan">("analyst");
   const [history, setHistory] = useState<Insight[]>([]);
-  const [studio, setStudio] = useState(
-    new URLSearchParams(location.search).get("view") === "studio",
-  );
+  const [section, setSectionState] = useState<Section>(() => {
+    const view = new URLSearchParams(location.search).get("view");
+    return SECTIONS.some((x) => x.id === view) ? (view as Section) : "match";
+  });
+  const setSection = (next: Section) => {
+    setSectionState(next);
+    const url = new URL(location.href);
+    if (next === "match") url.searchParams.delete("view"); else url.searchParams.set("view", next);
+    window.history.replaceState(null, "", url);
+    window.scrollTo({ top: 0 });
+  };
+  const studio = section === "studio";
+  const setStudio = (on: boolean) => setSection(on ? "studio" : "match");
+  const page = SECTIONS.find((x) => x.id === section)!;
+  const [readOnlyDemo, setReadOnlyDemo] = useState(false);
+  useEffect(() => {
+    fetch("/ready").then((r) => r.json()).then((j) => setReadOnlyDemo(j.mode === "demo")).catch(() => undefined);
+  }, []);
   const [profile, setProfile] = useProfile();
   const squads = useSquads();
   const [momentCount, setMomentCount] = useState(0);
@@ -1225,28 +1257,22 @@ function App() {
             matchmind<span className="brand-ai">AI</span>
           </span>
         </a>
-        <div className="workspace-label">INTELLIGENCE WORKSPACE</div>
+        <div className="workspace-label">Match workspace</div>
         <nav className="side-nav" aria-label="Workspace">
-          <button
-            aria-label="Match overview"
-            className={!studio ? "active" : ""}
-            aria-current={!studio ? "page" : undefined}
-            onClick={() => setStudio(false)}
-          >
-            <LayoutDashboard size={18} />
-            <span>Match overview</span>
-            {!studio && <i />}
-          </button>
-          <button
-            aria-label="Broadcast Studio"
-            className={studio ? "active" : ""}
-            aria-current={studio ? "page" : undefined}
-            onClick={() => setStudio(true)}
-          >
-            <MonitorPlay size={18} />
-            <span>Broadcast Studio</span>
-            {studio && <i />}
-          </button>
+          {SECTIONS.map((item) => (
+            <button
+              key={item.id}
+              aria-label={item.label}
+              title={item.label}
+              className={section === item.id ? "active" : ""}
+              aria-current={section === item.id ? "page" : undefined}
+              onClick={() => setSection(item.id)}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+              {section === item.id && <i />}
+            </button>
+          ))}
         </nav>
         <div className="sidebar-session">
           <div className="section-label">
@@ -1284,20 +1310,26 @@ function App() {
           <div className="breadcrumbs">
             <span className="breadcrumb-root">Workspace</span>{" "}
             <ChevronRight size={13} />
-            <span>{studio ? "Broadcast Studio" : "Match overview"}</span>
+            <span>{page.label}</span>
           </div>
           <div className="topbar-right">
-            <span className="synthetic-label">SYNTHETIC DATA</span>
-            <button
-              className="workspace-exit"
-              onClick={exitWorkspace}
-              title="Sign out of the local session and return to the landing page"
-            >
-              <LogOut size={14} />
-              <span>Sign out & exit</span>
-            </button>
-            {accessError&&<span role="alert">{accessError}</span>}
-            <button className="button secondary" onClick={()=>setReviewWindow({minute:frame.minute,seed:frame.context?.seed??20261020,accountOnly:true})}>Account & access</button>
+            <span className="synthetic-label">Synthetic data</span>
+            {readOnlyDemo ? (
+              <span className="synthetic-label">Read-only demo</span>
+            ) : (
+              <>
+                <button
+                  className="workspace-exit"
+                  onClick={exitWorkspace}
+                  title="Sign out of the local session and return to the landing page"
+                >
+                  <LogOut size={14} />
+                  <span>Sign out & exit</span>
+                </button>
+                {accessError&&<span role="alert">{accessError}</span>}
+                <button className="button secondary" onClick={()=>setReviewWindow({minute:frame.minute,seed:frame.context?.seed??20261020,accountOnly:true})}>Account & access</button>
+              </>
+            )}
             <div className="avatar" aria-label="MatchMind workspace">
               MM
             </div>
@@ -1310,27 +1342,23 @@ function App() {
                 <span /> THE GAME, EXPLAINED
               </div>
               <h1>
-                {studio ? "Broadcast Studio" : "Match intelligence"}
-                <span className="live-pill">
+                {page.title}
+                {page.scoreboard && <span className="live-pill">
                   <i className={connected ? "pulsing" : ""} />
                   {status}
-                </span>
+                </span>}
               </h1>
-              <p>
-                {studio
-                  ? "Turn verified observations into broadcast-ready moments."
-                  : "A clearer view of the match. Every observation backed by evidence."}
-              </p>
+              <p>{page.summary}</p>
             </div>
-            <div className="page-actions">
-              <button
-                className="button secondary"
+            {page.scoreboard && <div className="page-actions">
+              {section !== "match" && <button
+                className="button ghost"
                 onClick={exportSnapshot}
                 title="Download current match state as JSON"
               >
                 <ArrowDownToLine size={15} />
                 <span>Export snapshot</span>
-              </button>
+              </button>}
               <button
                 className="button primary"
                 onClick={() => setRun((x) => x + 1)}
@@ -1338,9 +1366,10 @@ function App() {
                 <RotateCcw size={15} />
                 Replay match
               </button>
-              <button className="button secondary" onClick={openReview} disabled={frame.minute<20||trackingMode} title={trackingMode?"Research playback uses a different source; this review is for the synthetic match.":frame.minute<20?"Two complete ten-minute windows are needed before review.":"Inspect and review the current passing observation"}><ShieldCheck size={15}/> Inspect evidence</button>
-            </div>
+              {section !== "match" && <button className="button ghost" onClick={openReview} disabled={frame.minute<20||trackingMode} title={trackingMode?"Research playback uses a different source; this review is for the synthetic match.":frame.minute<20?"Two complete ten-minute windows are needed before review.":"Inspect and review the current passing observation"}><ShieldCheck size={15}/> Inspect evidence</button>}
+            </div>}
           </div>
+          {page.scoreboard && <>
           <section className="match-card" aria-label="Match scoreboard">
             <div className="match-card-top">
               <span>
@@ -1441,70 +1470,20 @@ function App() {
             </div>
             <div className="metric accent-metric">
               <span className="metric-label">
-                {studio ? "Verified overlays" : "Key moments"}
+                {studio ? "Verified overlays" : section === "analysis" ? "Expected goals" : "Key moments"}
                 <Sparkles size={16} />
               </span>
               <div>
-                {studio ? queue.length : momentCount}
+                {studio ? queue.length : section === "analysis" ? `${home.xg.toFixed(2)} – ${away.xg.toFixed(2)}` : momentCount}
                 <span className="verified-chip">
                   <Check size={12} /> Evidence linked
                 </span>
               </div>
-              <span className="metric-note">{studio ? "Ready for the rendering partner" : "Verified, for your profile"}</span>
+              <span className="metric-note">{studio ? "Ready for the rendering partner" : section === "analysis" ? "Calderbrook – Merridge" : "Verified, for your profile"}</span>
             </div>
           </section>
-          <div className="content-tabs">
-            <div
-              role="tablist"
-              aria-label="Match views"
-              onKeyDown={(e) => {
-                if (
-                  ["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)
-                ) {
-                  e.preventDefault();
-                  const next =
-                    e.key === "Home" ? false : e.key === "End" ? true : !studio;
-                  setStudio(next);
-                  document
-                    .getElementById(next ? "tab-studio" : "tab-live")
-                    ?.focus();
-                }
-              }}
-            >
-              <button
-                id="tab-live"
-                role="tab"
-                tabIndex={studio ? -1 : 0}
-                aria-controls="match-view"
-                aria-selected={!studio}
-                className={!studio ? "selected" : ""}
-                onClick={() => setStudio(false)}
-              >
-                <Activity size={15} />
-                Live match
-              </button>
-              <button
-                id="tab-studio"
-                role="tab"
-                tabIndex={studio ? 0 : -1}
-                aria-controls="match-view"
-                aria-selected={studio}
-                className={studio ? "selected" : ""}
-                onClick={() => setStudio(true)}
-              >
-                <MonitorPlay size={15} />
-                Broadcast Studio
-              </button>
-            </div>
-            <span>
-              <ShieldCheck size={13} /> Evidence-first intelligence
-            </span>
-          </div>
-          <div
-            id="match-view"
-            role="tabpanel"
-            aria-labelledby={studio ? "tab-studio" : "tab-live"}
-          >
+          </>}
+          <div id="match-view">
             {studio ? (
               <div className="studio-grid">
                 <section
@@ -1569,11 +1548,11 @@ function App() {
                     title="Broadcast preview"
                     kicker={previewSource==='statsbomb'?"SOURCE EVENT ANALYSIS":trackingMode ? "RECORDED TRACKING" : "MATCH-CLOCK SYNC"}
                   />
-                  <label className="tracking-source">Preview source
+                  {RESEARCH && <label className="tracking-source">Preview source
                     <select aria-label="Preview source" value={previewSource} onChange={e=>setPreviewSource(e.target.value)}>
                       <option value="synthetic">Synthetic demo</option>{RESEARCH && <><option value="tracking">Real tracking - SkillCorner</option><option value="metrica">Metrica - tracking + events</option><option value="statsbomb">StatsBomb - real event analysis</option></>}
                     </select>
-                  </label>
+                  </label>}
                   {previewSource==='statsbomb' ? <StatsBombResearch/> : trackingMode ? <TrackingReplay key={previewSource} source={previewSource==='metrica'?'metrica':'skillcorner'}/> : <BroadcastCanvas frame={frame} overlay={currentOverlay} />}
                   <div className="preview-caption">
                     <span>
@@ -1692,6 +1671,7 @@ function App() {
               </div>
             ) : (
               <>
+                {section === "match" && (
                 <div className="experience-grid">
                   <ProfilePanel profile={profile} onChange={setProfile} squads={squads} />
                   <ExperiencePanels minute={frame.minute} stateVersion={frame.context?.state_version} profile={profile}
@@ -1700,10 +1680,18 @@ function App() {
                     <AskPanel minute={frame.minute} profile={profile} />
                     <RecapPanel minute={frame.minute} profile={profile} />
                   </div>
+                </div>
+                )}
+                {section === "video" && <div className="section-stack"><VisionPanel /></div>}
+                {section === "live" && (
+                  <div className="section-stack">
+                    {squads && <EventFeedPanel clubs={squads.clubs} />}
+                    <LiveStreamPanel profile={profile} />
+                  </div>
+                )}
+                {section === "analysis" && (<>
+                <div className="section-stack">
                   {squads && <GraphExplorer minute={frame.minute} stateVersion={frame.context?.state_version} clubs={squads.clubs} />}
-                  {squads && <EventFeedPanel clubs={squads.clubs} />}
-                  <VisionPanel />
-                  <LiveStreamPanel profile={profile} />
                 </div>
                 <div className="dashboard-grid">
                   <div className="main-column">
@@ -1775,56 +1763,6 @@ function App() {
                         home={home.final_third_entries}
                         away={away.final_third_entries}
                       />
-                    </section>
-                    <section className="panel activity-panel">
-                      <PanelTitle
-                        icon={<TrendingUp size={17} />}
-                        title="Advanced-area activity"
-                        kicker="CUMULATIVE EVENTS"
-                      />
-                      <div className="activity-legend">
-                        <span>
-                          <i className="home-dot" />
-                          Calderbrook <b>{home.advanced_events}</b>
-                        </span>
-                        <span>
-                          <i className="away-dot" />
-                          Merridge <b>{away.advanced_events}</b>
-                        </span>
-                      </div>
-                      <svg
-                        className="activity-chart"
-                        viewBox="0 0 500 120"
-                        role="img"
-                        aria-label="Cumulative advanced-area events through the current match minute"
-                      >
-                        <path
-                          d="M0 24H500M0 60H500M0 96H500"
-                          className="chart-grid"
-                        />
-                        {(["home", "away"] as const).map((team) => (
-                          <polyline
-                            key={team}
-                            className={`chart-line ${team}`}
-                            points={samples
-                              .map(
-                                (s) =>
-                                  `${(s.minute / 90) * 500},${110 - (s[team] / Math.max(10, home.advanced_events, away.advanced_events)) * 96}`,
-                              )
-                              .join(" ")}
-                          />
-                        ))}
-                      </svg>
-                      <div className="chart-axis">
-                        <span>00′</span>
-                        <span>30′</span>
-                        <span>60′</span>
-                        <span>90′</span>
-                      </div>
-                      <p className="subtle-note">
-                        Event activity in advanced areas, rather than possession
-                        or causal tactical pressure.
-                      </p>
                     </section>
                   </div>
                   <div className="side-column">
@@ -1990,6 +1928,56 @@ function App() {
                       </div>
                     )}
                   </section>
+                  <section className="panel activity-panel">
+                    <PanelTitle
+                      icon={<TrendingUp size={17} />}
+                      title="Advanced-area activity"
+                      kicker="CUMULATIVE EVENTS"
+                    />
+                    <div className="activity-legend">
+                      <span>
+                        <i className="home-dot" />
+                        Calderbrook <b>{home.advanced_events}</b>
+                      </span>
+                      <span>
+                        <i className="away-dot" />
+                        Merridge <b>{away.advanced_events}</b>
+                      </span>
+                    </div>
+                    <svg
+                      className="activity-chart"
+                      viewBox="0 0 500 120"
+                      role="img"
+                      aria-label="Cumulative advanced-area events through the current match minute"
+                    >
+                      <path
+                        d="M0 24H500M0 60H500M0 96H500"
+                        className="chart-grid"
+                      />
+                      {(["home", "away"] as const).map((team) => (
+                        <polyline
+                          key={team}
+                          className={`chart-line ${team}`}
+                          points={samples
+                            .map(
+                              (s) =>
+                                `${(s.minute / 90) * 500},${110 - (s[team] / Math.max(10, home.advanced_events, away.advanced_events)) * 96}`,
+                            )
+                            .join(" ")}
+                        />
+                      ))}
+                    </svg>
+                    <div className="chart-axis">
+                      <span>00′</span>
+                      <span>30′</span>
+                      <span>60′</span>
+                      <span>90′</span>
+                    </div>
+                    <p className="subtle-note">
+                      Event activity in advanced areas, rather than possession
+                      or causal tactical pressure.
+                    </p>
+                  </section>
                   </div>
                 </div>
                 {history.length > 0 && (
@@ -2040,6 +2028,7 @@ function App() {
                   )}
                 </section>
                 )}
+                </>)}
               </>
             )}
           </div>
