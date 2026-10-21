@@ -630,16 +630,20 @@ def graph_roles(team: str | None = Query(None, pattern='^(home|away)$'), start: 
                 end: int | None = Query(None, ge=1, le=90), minute: int = Query(90, ge=1, le=90), seed: int = SEED):
     """Both teams' pass networks with player names, hubs, connectors, betweenness and PageRank."""
     from .graph import projection
-    from .knowledge import average_positions, network_roles, passing_graph
+    from .knowledge import average_positions, network_detail, network_roles
     end = min(end or minute, minute)
     g, _, context = _knowledge(seed, minute)
     repo = projection.ready(seed)
     teams = {}
     for t in ([team] if team else ['home', 'away']):
         teams[t] = network_roles(g, t, start, end)
-        net = passing_graph(g, t, start, end)
-        teams[t]['edges'] = [{'from': u, 'to': v, 'passes': d['weight']} for u, v, d in net.edges(data=True)]
+        teams[t].update(network_detail(g, t, start, end))
         teams[t]['positions'] = average_positions(g, t, start, end)
+        if start > 0:  # the same length of play just before, to show what changed
+            before = network_detail(g, t, max(0, 2 * start - end), start)
+            teams[t]['previous'] = {'window': [max(0, 2 * start - end), start], 'network': before['network'],
+                                    'edges': [{'from': e['from'], 'to': e['to'], 'passes': e['passes']}
+                                              for e in before['edges']]}
         if repo is not None:
             # Pass lanes are also read with Cypher; the counts must agree with NetworkX.
             stored = repo.kg_pass_lanes(context['match_id'], t, start, end)

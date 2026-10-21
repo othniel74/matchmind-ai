@@ -36,36 +36,264 @@
 }
 .pass-network .pitch {
   fill: #12301f;
-  stroke: #2c5a3d;
-  stroke-width: 0.4;
 }
-.pass-network .pitch-line {
+.pass-network .pitch-markings rect,
+.pass-network .pitch-markings line,
+.pass-network .pitch-markings ellipse {
   fill: none;
-  stroke: #2c5a3d;
+  stroke: #2f6043;
   stroke-width: 0.3;
 }
+.pass-network .pitch-markings .pitch {
+  fill: #12301f;
+  stroke-width: 0.4;
+}
+.pass-network .attack-label {
+  font-size: 2.4px;
+  fill: var(--muted);
+  text-anchor: middle;
+  letter-spacing: 0.2px;
+}
 .pass-network .lane {
-  stroke: #e7edf5;
+  fill: none;
+  stroke: #cfd6e2;
   stroke-linecap: round;
+}
+.pass-network .lane.forward { stroke: var(--lime); }
+.pass-network .lane.grew { stroke: #5ad19a; }
+.pass-network .lane.faded { stroke: #ef6b6b; }
+.pass-network .lane.steady { stroke: #8a93a3; }
+.pass-network .lane.dashed { stroke-dasharray: 1 0.8; }
+.pass-network .arrow path { fill: #cfd6e2; }
+.pass-network .arrow.forward path { fill: var(--lime); }
+.pass-network .arrow.grew path { fill: #5ad19a; }
+.pass-network .arrow.faded path { fill: #ef6b6b; }
+.pass-network .arrow.steady path { fill: #8a93a3; }
+.pass-network .lane-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 2.4;
+  cursor: pointer;
+  pointer-events: stroke;
+}
+.pass-network .lane-hit:focus-visible {
+  outline: none;
+  stroke: rgba(255, 255, 255, 0.25);
+}
+.pass-network .lane-group,
+.pass-network .node {
+  transition: opacity 0.15s ease;
+}
+.pass-network .node {
+  cursor: pointer;
+}
+.pass-network .node:focus,
+.pass-network .lane-hit:focus {
+  outline: none;
+}
+.pass-network .node:focus-visible circle:first-child,
+.pass-network .node.selected circle:first-child {
+  stroke: #ffffff;
+  stroke-width: 0.6;
 }
 .pass-network .node circle {
   fill: var(--blue);
   stroke: #0d1117;
   stroke-width: 0.4;
 }
-.pass-network .node.hub circle {
+.pass-network .node.hub circle:first-child {
   fill: var(--home);
 }
-.pass-network .node.connector circle {
+.pass-network .node.connector circle:first-child {
   fill: var(--lime);
 }
-.pass-network .node text {
-  font-size: 2.6px;
-  fill: #e7edf5;
+.pass-network .node .ring {
+  fill: none;
+  stroke: var(--home);
+  stroke-width: 0.35;
+}
+.pass-network .node.connector .ring {
+  stroke: var(--lime);
+  stroke-dasharray: 0.9 0.6;
+}
+.pass-network .node.selected .ring {
+  stroke: #ffffff;
+  stroke-dasharray: none;
+}
+.pass-network .node .shirt {
+  font-size: 2.3px;
+  font-weight: 700;
+  fill: #0d1117;
   text-anchor: middle;
-  paint-order: stroke;
-  stroke: #0d1117;
-  stroke-width: 0.5px;
+  pointer-events: none;
+}
+.pass-network .node-label {
+  pointer-events: none;
+}
+.control-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.graph-controls .lane-filter {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.graph-controls button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.network-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.network-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.network-legend .key-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.network-legend .key-ring {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--home);
+}
+.network-legend .key-ring.connector {
+  border: 2px dashed var(--lime);
+}
+.network-legend .key-line {
+  width: 18px;
+  height: 0;
+  border-top: 2px solid #cfd6e2;
+}
+.network-legend .key-line.forward { border-color: var(--lime); }
+.network-legend .key-line.grew { border-color: #5ad19a; }
+.network-legend .key-line.faded { border-color: #ef6b6b; }
+.network-legend .key-line.dashed { border-top-style: dashed; }
+.network-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.network-card h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+.network-card h3 em {
+  font-style: normal;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--lime);
+}
+.network-card .shirt-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 6px;
+  background: var(--blue);
+  color: #0d1117;
+  font-size: 11px;
+  font-weight: 700;
+}
+.network-card .lane-arrow {
+  color: var(--muted);
+}
+.card-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 8px 12px;
+  margin: 0;
+}
+.card-stats dt {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.card-stats dd {
+  margin: 2px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.card-stats small {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.card-stats small.up { color: #5ad19a; }
+.card-stats small.down { color: #ef6b6b; }
+.partners {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+.partners > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.partners span {
+  width: 100%;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.network-card .subtle-note {
+  margin: 10px 0 0;
+}
+button.link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+button.link:hover,
+button.link:focus-visible {
+  color: var(--lime);
+  text-decoration: underline;
+}
+.graph-table tbody tr {
+  cursor: pointer;
+}
+.graph-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+.graph-table tr.is-selected td {
+  background: rgba(119, 158, 249, 0.12);
+}
+.graph-table .empty-row {
+  color: var(--muted);
+  text-align: left !important;
+  cursor: default;
 }
 .graph-roles {
   display: grid;

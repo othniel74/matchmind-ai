@@ -478,7 +478,8 @@ class StreamValidator:
         if e.event_type == 'substitution':
             self.unavailable.add(e.player_id)
             self.seen_players.add(e.replacement_player_id)
-        self.seen_players.add(e.player_id)
+        if e.event_type != 'card':  # substitutes can be booked on the bench before they come on
+            self.seen_players.add(e.player_id)
         if e.recipient_player_id:
             self.seen_players.add(e.recipient_player_id)
         self.previous = (e.period or 0, e.minute, e.second, e.sequence)

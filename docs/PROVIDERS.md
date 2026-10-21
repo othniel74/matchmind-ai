@@ -41,9 +41,28 @@ Checked locally on the StatsBomb open-data file for the 2022 World Cup final (th
 | xG | 2.76 – 2.27 |
 | Pass networks | hub Enzo Fernández (Argentina), Dayot Upamecano (France) |
 
-Real data exposed two contract gaps, and both are now fixed:
+### A whole competition: all 64 matches of the 2022 World Cup
+
+`tools/validate-statsbomb-competition.py` runs every match of a competition through the adapter and MatchMind's validator. It compares MatchMind's score with the official result. Only totals are saved, in [validation/statsbomb-wc2022.json](validation/statsbomb-wc2022.json), never provider events.
+
+| Check | Result |
+| --- | --- |
+| Matches | 64 (group stage to final) |
+| Source events | 234,637 |
+| **Accepted by MatchMind's validator** | **81,931** |
+| **Rejected** | **0** |
+| **Scores matching the official result** | **64 of 64** |
+| Matches with extra time | 5 |
+| Own goals | 3 |
+| Stoppage-time events kept | 8,093 |
+| Time | 12 s for all 64 matches (at most 0.07 s per match to adapt and validate) |
+
+Real data exposed five gaps, all now fixed and covered by tests:
 1. **Stoppage and extra time.** Events now carry an optional `period`. The validator orders by period and accepts minutes beyond 90 when a period is present; synthetic streams are unchanged.
-2. **Bench cards.** A player who has gone off can still be booked, but a player who has gone off still cannot play the ball.
+2. **Cards for players who have gone off.** A substituted player can still be booked, but still cannot play the ball.
+3. **Substitutes booked on the bench before coming on.** Weghorst was booked at 45+2′ of Netherlands v Argentina and came on at 78′. A card no longer counts as having been on the pitch, so the later substitution is valid.
+4. **A card in the same second as a pass.** An adapter bug gave Bad Behaviour cards the provider's raw sequence number. Fixed.
+5. **Own goals.** The contract has no own-goal event, so the adapter counts own goals in its report and adds them to the score. It does not invent a shot that never happened.
 
 `tests/test_providers.py` uses a hand-written fixture in StatsBomb's format with fictional teams. It covers every mapped type, both halves with stoppage time, a penalty goal, a second yellow card, a bench card, a substitution, unsupported types and the shoot-out.
 

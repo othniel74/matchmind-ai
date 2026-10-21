@@ -16,6 +16,7 @@ with the change and state plainly that this does not show the change caused it.
 """
 from __future__ import annotations
 import math
+from dataclasses import replace
 from functools import lru_cache
 from typing import Any
 from .core import SENDING_OFF, TEAMS, Event
@@ -111,6 +112,35 @@ def _clock(e: Event) -> int:
     return e.minute * 60 + e.second
 
 
+def played_time(events: list[Event]) -> list[Event]:
+    """Provider events carry a period and a scoreboard clock whose stoppage time overlaps the next
+    period (first-half 45:00+ and second-half 45:00). Re-time them on one continuous clock of time
+    played, so ten-minute windows never mix periods and extra time is included. Synthetic events
+    (no period) are returned unchanged."""
+    if not any(e.period for e in events):
+        return events
+    nominal = {1: 0, 2: 45 * 60, 3: 90 * 60, 4: 105 * 60}
+    length: dict[int, int] = {}
+    for e in events:
+        length[e.period] = max(length.get(e.period, 0), _clock(e) - nominal[e.period] + 1)
+    offset, total = {}, 0
+    for period in sorted(length):
+        offset[period] = total
+        total += length[period]
+    out = []
+    for e in events:
+        elapsed = offset[e.period] + _clock(e) - nominal[e.period]
+        out.append(replace(e, minute=elapsed // 60, second=elapsed % 60, period=None))
+    return out
+
+
+def scoreboard(e: Event) -> str:
+    """The minute a scoreboard shows for a provider event: 23', 45+2', 90+4', 105+1'."""
+    end = {1: 45, 2: 90, 3: 105, 4: 120}.get(e.period or 0)
+    shown = e.minute + 1
+    return f"{end}+{shown - end}'" if end and shown > end else f"{shown}'"
+
+
 def change_points(events: list[Event], minute: int = 90) -> list[dict[str, Any]]:
     """Substitutions and red cards before `minute`, simultaneous changes for a team grouped."""
     points: list[dict[str, Any]] = []
@@ -197,7 +227,8 @@ def shape(events: list[Event], start: int, end: int) -> dict[str, dict[str, floa
 @lru_cache(maxsize=8)
 def _windows(events: tuple, team: str) -> dict[int, dict[str, Any]]:
     """Every ten-minute window of the match, starting on each minute, computed once."""
-    return {t: window_metrics(list(events), team, t, t + WINDOW) for t in range(0, 90 * 60 - WINDOW + 1, 60)}
+    last = max((_clock(e) for e in events), default=0)
+    return {t: window_metrics(list(events), team, t, t + WINDOW) for t in range(0, max(90 * 60, last) - WINDOW + 1, 60)}
 
 
 def swing_percentile(events: list[Event], team: str, metric: str, delta: float, upto: int) -> int | None:
@@ -208,6 +239,8 @@ def swing_percentile(events: list[Event], team: str, metric: str, delta: float, 
     windows = _windows(tuple(events), team)
     swings = []
     for t in range(WINDOW, upto - WINDOW + 1, 60):
+        if t not in windows:  # past the last event
+            break
         a, b = windows[t - WINDOW][metric]['value'], windows[t][metric]['value']
         if a is not None and b is not None:
             swings.append(abs(b - a))
@@ -221,8 +254,13 @@ def _involvement(events: list[Event], team: str, start: int, end: int) -> dict[s
     return {p['player_id']: p['pass_share'] for p in window['players']}
 
 
-def impact(events: list[Event], point: dict[str, Any], minute: int, code: str = 'en') -> dict[str, Any]:
-    """Before/after comparison for a change point; available once ten minutes have passed."""
+def impact(events: list[Event], point: dict[str, Any], minute: int, code: str = 'en', names=None, clubs=None,
+           with_shape: bool = True) -> dict[str, Any]:
+    """Before/after comparison for a change point; available once ten minutes have passed.
+    `names`/`clubs` override the demo squads (provider rosters); `with_shape=False` leaves out the
+    shape measures when there is no tracking for the match."""
+    name = names or globals()['name']
+    club_name = (lambda t: clubs[t]) if clubs else (lambda t: CLUBS[t].short)
     t = point['clock']
     upto = minute * 60
     if t + WINDOW > upto or t - WINDOW < 0:
@@ -232,7 +270,8 @@ def impact(events: list[Event], point: dict[str, Any], minute: int, code: str = 
     changes = [text['sub'].format(on=name(c['on']), off=name(c['off'])) if c['kind'] == 'substitution'
                else text['red'].format(player=name(c['player'])) for c in point['changes']]
     label = ', '.join(changes)
-    shape_before, shape_after = shape(events, t - WINDOW, t), shape(events, t, t + WINDOW)
+    if with_shape:
+        shape_before, shape_after = shape(events, t - WINDOW, t), shape(events, t, t + WINDOW)
     teams = {}
     for team in TEAMS:
         before, after = window_metrics(events, team, t - WINDOW, t), window_metrics(events, team, t, t + WINDOW)
@@ -246,14 +285,14 @@ def impact(events: list[Event], point: dict[str, Any], minute: int, code: str = 
             metrics.append({'metric': key, 'label': text[key], 'before': a, 'after': b, 'delta': delta,
                             'swing_percentile': pct, 'notable': notable,
                             'evidence_event_ids': sorted(set(before[key]['evidence'] + after[key]['evidence']))})
-        for key in ('line_height', 'width', 'compactness'):
+        for key in ('line_height', 'width', 'compactness') if with_shape else ():
             a, b = shape_before[team][key], shape_after[team][key]
             metrics.append({'metric': key, 'label': text[key], 'before': a, 'after': b,
                             'delta': None if a is None or b is None else round(b - a, 1), 'unit': 'm',
                             'swing_percentile': None, 'notable': False, 'evidence_event_ids': [],
                             'source': 'synthetic_tracking'})
         statements = []
-        club = CLUBS[team].short
+        club = club_name(team)
         for m in metrics:
             if not m['notable']:
                 continue
@@ -281,11 +320,11 @@ def impact(events: list[Event], point: dict[str, Any], minute: int, code: str = 
             'caveat': text['caveat'], 'language': code}
 
 
-def pressing(events: list[Event], minute: int, window_minutes: int = 15) -> dict[str, Any]:
+def pressing(events: list[Event], minute: int, window_minutes: int = 15, with_shape: bool = True) -> dict[str, Any]:
     """Pressing and shape for both teams over the last `window_minutes`."""
     end = minute * 60
     start = max(0, end - window_minutes * 60)
-    sh = shape(events, start, end)
+    sh = shape(events, start, end) if with_shape else {t: {} for t in TEAMS}
     out = {}
     for team in TEAMS:
         m = window_metrics(events, team, start, end)

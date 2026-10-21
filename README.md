@@ -32,7 +32,7 @@ All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional 
 3. **Agents that use tools through MCP.** MatchMind serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
 5. **Tactical change, explained honestly.** For every substitution and red card MatchMind compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
-6. **Ready for real data.** A StatsBomb adapter maps a real provider's events into MatchMind's contract. On the 2022 World Cup final it gave 1,561 events accepted, 0 rejected, stoppage time kept and the 3–3 score reproduced, without storing any provider data. See [PROVIDERS.md](docs/PROVIDERS.md).
+6. **Ready for real data.** A StatsBomb adapter maps a real provider's events into MatchMind's contract. Across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
 7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, about 270 backend tests, browser tests against the live site, and CI on every push.
 
 ## The pipeline
@@ -102,7 +102,7 @@ On the [live demo](https://matchmind-demo.mangograss-8c9a0131.uksouth.azureconta
 2. In **Your view**, switch the language to Arabic, the mode to Analyst, and follow a player.
 3. **Ask the match** "Who is Merridge's key player?". The answer is labelled *Foundry agent via MCP*.
 4. Open **Video AI** in the sidebar and play the clip: these are detections from the pixels, compared live with the truth.
-5. Open **Live data → Kick off a live match** to stream a match through Event Hubs. **Analysis** has the pass networks and team statistics.
+5. Open **Live data → Kick off a live match** to stream a match through Event Hubs. **Analysis** has the explorable pass network and team statistics. Lanes are directed and forward lanes highlighted. Click a player for their passing partners or a lane for its evidence, and use *Show change* to compare with the previous 15 minutes.
 
 ## Repository map
 
@@ -136,7 +136,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 268 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 277 passed with the agent SDK; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
 | Browser | `cd frontend && npx playwright test` (also against the live URL) | 6 passed |

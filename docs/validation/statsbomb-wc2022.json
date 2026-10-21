@@ -1,0 +1,1647 @@
+{
+  "summary": {
+    "competition": "FIFA World Cup 2022",
+    "matches": 64,
+    "scores_agree": 64,
+    "matches_with_rejections": 0,
+    "source_events": 234637,
+    "accepted": 81931,
+    "rejected": 0,
+    "rejected_reasons": {},
+    "own_goals": 3,
+    "extra_time_matches": 5,
+    "stoppage_time_events": 8093,
+    "not_represented": {
+      "Ball Receipt*": 63699,
+      "Carry": 53764,
+      "Pressure": 16554,
+      "Clearance": 2684,
+      "Block": 2386,
+      "Duel": 2204,
+      "Dribble": 1793,
+      "Miscontrol": 1755,
+      "Goal Keeper": 1749,
+      "Foul Won": 1693,
+      "Dispossessed": 1431,
+      "Dribbled Past": 1036,
+      "Injury Stoppage": 403,
+      "Half Start": 276,
+      "Half End": 276,
+      "Tactical Shift": 243,
+      "50/50": 236,
+      "Referee Ball-Drop": 162,
+      "Starting XI": 128,
+      "penalty shoot-out": 106,
+      "Shield": 104,
+      "Player Off": 74,
+      "Player On": 74,
+      "Error": 28,
+      "Offside": 26,
+      "Own Goal Against": 3
+    },
+    "seconds_total": 12.4,
+    "seconds_per_match_max": 0.14
+  },
+  "matches": [
+    {
+      "match_id": 3857286,
+      "date": "2022-11-20",
+      "stage": "Group Stage",
+      "match": "Qatar v Ecuador",
+      "official": [
+        0,
+        2
+      ],
+      "matchmind": [
+        0,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3299,
+      "accepted": 1147,
+      "rejected": 0,
+      "stoppage_time_events": 160,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857271,
+      "date": "2022-11-21",
+      "stage": "Group Stage",
+      "match": "England v Iran",
+      "official": [
+        6,
+        2
+      ],
+      "matchmind": [
+        6,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3649,
+      "accepted": 1296,
+      "rejected": 0,
+      "stoppage_time_events": 364,
+      "extra_time": false,
+      "seconds": 0.04
+    },
+    {
+      "match_id": 3857285,
+      "date": "2022-11-21",
+      "stage": "Group Stage",
+      "match": "Senegal v Netherlands",
+      "official": [
+        0,
+        2
+      ],
+      "matchmind": [
+        0,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3133,
+      "accepted": 1110,
+      "rejected": 0,
+      "stoppage_time_events": 130,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857282,
+      "date": "2022-11-21",
+      "stage": "Group Stage",
+      "match": "United States v Wales",
+      "official": [
+        1,
+        1
+      ],
+      "matchmind": [
+        1,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3687,
+      "accepted": 1267,
+      "rejected": 0,
+      "stoppage_time_events": 183,
+      "extra_time": false,
+      "seconds": 0.04
+    },
+    {
+      "match_id": 3857300,
+      "date": "2022-11-22",
+      "stage": "Group Stage",
+      "match": "Argentina v Saudi Arabia",
+      "official": [
+        1,
+        2
+      ],
+      "matchmind": [
+        1,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3329,
+      "accepted": 1151,
+      "rejected": 0,
+      "stoppage_time_events": 209,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857254,
+      "date": "2022-11-22",
+      "stage": "Group Stage",
+      "match": "Denmark v Tunisia",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3680,
+      "accepted": 1280,
+      "rejected": 0,
+      "stoppage_time_events": 82,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857265,
+      "date": "2022-11-22",
+      "stage": "Group Stage",
+      "match": "Mexico v Poland",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3184,
+      "accepted": 1111,
+      "rejected": 0,
+      "stoppage_time_events": 114,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857279,
+      "date": "2022-11-22",
+      "stage": "Group Stage",
+      "match": "France v Australia",
+      "official": [
+        4,
+        1
+      ],
+      "matchmind": [
+        4,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3963,
+      "accepted": 1439,
+      "rejected": 0,
+      "stoppage_time_events": 207,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857277,
+      "date": "2022-11-23",
+      "stage": "Group Stage",
+      "match": "Morocco v Croatia",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3719,
+      "accepted": 1287,
+      "rejected": 0,
+      "stoppage_time_events": 118,
+      "extra_time": false,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3857284,
+      "date": "2022-11-23",
+      "stage": "Group Stage",
+      "match": "Germany v Japan",
+      "official": [
+        1,
+        2
+      ],
+      "matchmind": [
+        1,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3717,
+      "accepted": 1322,
+      "rejected": 0,
+      "stoppage_time_events": 150,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857291,
+      "date": "2022-11-23",
+      "stage": "Group Stage",
+      "match": "Spain v Costa Rica",
+      "official": [
+        7,
+        0
+      ],
+      "matchmind": [
+        7,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4351,
+      "accepted": 1520,
+      "rejected": 0,
+      "stoppage_time_events": 187,
+      "extra_time": false,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3857268,
+      "date": "2022-11-23",
+      "stage": "Group Stage",
+      "match": "Belgium v Canada",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3499,
+      "accepted": 1224,
+      "rejected": 0,
+      "stoppage_time_events": 126,
+      "extra_time": false,
+      "seconds": 0.14
+    },
+    {
+      "match_id": 3857290,
+      "date": "2022-11-24",
+      "stage": "Group Stage",
+      "match": "Switzerland v Cameroon",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3601,
+      "accepted": 1265,
+      "rejected": 0,
+      "stoppage_time_events": 93,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857287,
+      "date": "2022-11-24",
+      "stage": "Group Stage",
+      "match": "Uruguay v South Korea",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3462,
+      "accepted": 1217,
+      "rejected": 0,
+      "stoppage_time_events": 96,
+      "extra_time": false,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3857298,
+      "date": "2022-11-24",
+      "stage": "Group Stage",
+      "match": "Portugal v Ghana",
+      "official": [
+        3,
+        2
+      ],
+      "matchmind": [
+        3,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3738,
+      "accepted": 1293,
+      "rejected": 0,
+      "stoppage_time_events": 131,
+      "extra_time": false,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3857258,
+      "date": "2022-11-24",
+      "stage": "Group Stage",
+      "match": "Brazil v Serbia",
+      "official": [
+        2,
+        0
+      ],
+      "matchmind": [
+        2,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3656,
+      "accepted": 1272,
+      "rejected": 0,
+      "stoppage_time_events": 115,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857273,
+      "date": "2022-11-25",
+      "stage": "Group Stage",
+      "match": "Wales v Iran",
+      "official": [
+        0,
+        2
+      ],
+      "matchmind": [
+        0,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3133,
+      "accepted": 1160,
+      "rejected": 0,
+      "stoppage_time_events": 141,
+      "extra_time": false,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3857301,
+      "date": "2022-11-25",
+      "stage": "Group Stage",
+      "match": "Qatar v Senegal",
+      "official": [
+        1,
+        3
+      ],
+      "matchmind": [
+        1,
+        3
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3546,
+      "accepted": 1198,
+      "rejected": 0,
+      "stoppage_time_events": 177,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857274,
+      "date": "2022-11-25",
+      "stage": "Group Stage",
+      "match": "Netherlands v Ecuador",
+      "official": [
+        1,
+        1
+      ],
+      "matchmind": [
+        1,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3563,
+      "accepted": 1226,
+      "rejected": 0,
+      "stoppage_time_events": 95,
+      "extra_time": false,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3857272,
+      "date": "2022-11-25",
+      "stage": "Group Stage",
+      "match": "England v United States",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3519,
+      "accepted": 1191,
+      "rejected": 0,
+      "stoppage_time_events": 34,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857288,
+      "date": "2022-11-26",
+      "stage": "Group Stage",
+      "match": "Tunisia v Australia",
+      "official": [
+        0,
+        1
+      ],
+      "matchmind": [
+        0,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3359,
+      "accepted": 1195,
+      "rejected": 0,
+      "stoppage_time_events": 148,
+      "extra_time": false,
+      "seconds": 0.1
+    },
+    {
+      "match_id": 3857297,
+      "date": "2022-11-26",
+      "stage": "Group Stage",
+      "match": "Poland v Saudi Arabia",
+      "official": [
+        2,
+        0
+      ],
+      "matchmind": [
+        2,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3202,
+      "accepted": 1121,
+      "rejected": 0,
+      "stoppage_time_events": 177,
+      "extra_time": false,
+      "seconds": 0.04
+    },
+    {
+      "match_id": 3857266,
+      "date": "2022-11-26",
+      "stage": "Group Stage",
+      "match": "France v Denmark",
+      "official": [
+        2,
+        1
+      ],
+      "matchmind": [
+        2,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3853,
+      "accepted": 1307,
+      "rejected": 0,
+      "stoppage_time_events": 143,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857289,
+      "date": "2022-11-26",
+      "stage": "Group Stage",
+      "match": "Argentina v Mexico",
+      "official": [
+        2,
+        0
+      ],
+      "matchmind": [
+        2,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3375,
+      "accepted": 1155,
+      "rejected": 0,
+      "stoppage_time_events": 165,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857295,
+      "date": "2022-11-27",
+      "stage": "Group Stage",
+      "match": "Japan v Costa Rica",
+      "official": [
+        0,
+        1
+      ],
+      "matchmind": [
+        0,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3825,
+      "accepted": 1317,
+      "rejected": 0,
+      "stoppage_time_events": 67,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857283,
+      "date": "2022-11-27",
+      "stage": "Group Stage",
+      "match": "Belgium v Morocco",
+      "official": [
+        0,
+        2
+      ],
+      "matchmind": [
+        0,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3620,
+      "accepted": 1234,
+      "rejected": 0,
+      "stoppage_time_events": 39,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857281,
+      "date": "2022-11-27",
+      "stage": "Group Stage",
+      "match": "Croatia v Canada",
+      "official": [
+        4,
+        1
+      ],
+      "matchmind": [
+        4,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3724,
+      "accepted": 1254,
+      "rejected": 0,
+      "stoppage_time_events": 138,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857263,
+      "date": "2022-11-27",
+      "stage": "Group Stage",
+      "match": "Spain v Germany",
+      "official": [
+        1,
+        1
+      ],
+      "matchmind": [
+        1,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3603,
+      "accepted": 1252,
+      "rejected": 0,
+      "stoppage_time_events": 91,
+      "extra_time": false,
+      "seconds": 0.1
+    },
+    {
+      "match_id": 3857259,
+      "date": "2022-11-28",
+      "stage": "Group Stage",
+      "match": "Cameroon v Serbia",
+      "official": [
+        3,
+        3
+      ],
+      "matchmind": [
+        3,
+        3
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3270,
+      "accepted": 1153,
+      "rejected": 0,
+      "stoppage_time_events": 110,
+      "extra_time": false,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3857299,
+      "date": "2022-11-28",
+      "stage": "Group Stage",
+      "match": "South Korea v Ghana",
+      "official": [
+        2,
+        3
+      ],
+      "matchmind": [
+        2,
+        3
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3346,
+      "accepted": 1158,
+      "rejected": 0,
+      "stoppage_time_events": 162,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857269,
+      "date": "2022-11-28",
+      "stage": "Group Stage",
+      "match": "Brazil v Switzerland",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3786,
+      "accepted": 1329,
+      "rejected": 0,
+      "stoppage_time_events": 93,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857270,
+      "date": "2022-11-28",
+      "stage": "Group Stage",
+      "match": "Portugal v Uruguay",
+      "official": [
+        2,
+        0
+      ],
+      "matchmind": [
+        2,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3441,
+      "accepted": 1255,
+      "rejected": 0,
+      "stoppage_time_events": 130,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857294,
+      "date": "2022-11-29",
+      "stage": "Group Stage",
+      "match": "Netherlands v Qatar",
+      "official": [
+        2,
+        0
+      ],
+      "matchmind": [
+        2,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4311,
+      "accepted": 1500,
+      "rejected": 0,
+      "stoppage_time_events": 159,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857267,
+      "date": "2022-11-29",
+      "stage": "Group Stage",
+      "match": "Ecuador v Senegal",
+      "official": [
+        1,
+        2
+      ],
+      "matchmind": [
+        1,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 2827,
+      "accepted": 982,
+      "rejected": 0,
+      "stoppage_time_events": 92,
+      "extra_time": false,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3857278,
+      "date": "2022-11-29",
+      "stage": "Group Stage",
+      "match": "Iran v United States",
+      "official": [
+        0,
+        1
+      ],
+      "matchmind": [
+        0,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3596,
+      "accepted": 1248,
+      "rejected": 0,
+      "stoppage_time_events": 199,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857261,
+      "date": "2022-11-29",
+      "stage": "Group Stage",
+      "match": "Wales v England",
+      "official": [
+        0,
+        3
+      ],
+      "matchmind": [
+        0,
+        3
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3315,
+      "accepted": 1141,
+      "rejected": 0,
+      "stoppage_time_events": 102,
+      "extra_time": false,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3857275,
+      "date": "2022-11-30",
+      "stage": "Group Stage",
+      "match": "Tunisia v France",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3564,
+      "accepted": 1264,
+      "rejected": 0,
+      "stoppage_time_events": 131,
+      "extra_time": false,
+      "seconds": 0.1
+    },
+    {
+      "match_id": 3857257,
+      "date": "2022-11-30",
+      "stage": "Group Stage",
+      "match": "Australia v Denmark",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3594,
+      "accepted": 1260,
+      "rejected": 0,
+      "stoppage_time_events": 104,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857260,
+      "date": "2022-11-30",
+      "stage": "Group Stage",
+      "match": "Saudi Arabia v Mexico",
+      "official": [
+        1,
+        2
+      ],
+      "matchmind": [
+        1,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 2912,
+      "accepted": 1083,
+      "rejected": 0,
+      "stoppage_time_events": 159,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857264,
+      "date": "2022-11-30",
+      "stage": "Group Stage",
+      "match": "Poland v Argentina",
+      "official": [
+        0,
+        2
+      ],
+      "matchmind": [
+        0,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4052,
+      "accepted": 1436,
+      "rejected": 0,
+      "stoppage_time_events": 145,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857276,
+      "date": "2022-12-01",
+      "stage": "Group Stage",
+      "match": "Canada v Morocco",
+      "official": [
+        1,
+        2
+      ],
+      "matchmind": [
+        1,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 1,
+        "away": 0
+      },
+      "source_events": 3388,
+      "accepted": 1167,
+      "rejected": 0,
+      "stoppage_time_events": 97,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3857296,
+      "date": "2022-12-01",
+      "stage": "Group Stage",
+      "match": "Croatia v Belgium",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4116,
+      "accepted": 1426,
+      "rejected": 0,
+      "stoppage_time_events": 119,
+      "extra_time": false,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3857255,
+      "date": "2022-12-01",
+      "stage": "Group Stage",
+      "match": "Japan v Spain",
+      "official": [
+        2,
+        1
+      ],
+      "matchmind": [
+        2,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4450,
+      "accepted": 1527,
+      "rejected": 0,
+      "stoppage_time_events": 111,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3857292,
+      "date": "2022-12-01",
+      "stage": "Group Stage",
+      "match": "Costa Rica v Germany",
+      "official": [
+        2,
+        4
+      ],
+      "matchmind": [
+        2,
+        4
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 1,
+        "away": 0
+      },
+      "source_events": 3869,
+      "accepted": 1373,
+      "rejected": 0,
+      "stoppage_time_events": 157,
+      "extra_time": false,
+      "seconds": 0.11
+    },
+    {
+      "match_id": 3857293,
+      "date": "2022-12-02",
+      "stage": "Group Stage",
+      "match": "Ghana v Uruguay",
+      "official": [
+        0,
+        2
+      ],
+      "matchmind": [
+        0,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3495,
+      "accepted": 1214,
+      "rejected": 0,
+      "stoppage_time_events": 229,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857262,
+      "date": "2022-12-02",
+      "stage": "Group Stage",
+      "match": "South Korea v Portugal",
+      "official": [
+        2,
+        1
+      ],
+      "matchmind": [
+        2,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3378,
+      "accepted": 1188,
+      "rejected": 0,
+      "stoppage_time_events": 74,
+      "extra_time": false,
+      "seconds": 0.04
+    },
+    {
+      "match_id": 3857256,
+      "date": "2022-12-02",
+      "stage": "Group Stage",
+      "match": "Serbia v Switzerland",
+      "official": [
+        2,
+        3
+      ],
+      "matchmind": [
+        2,
+        3
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3210,
+      "accepted": 1191,
+      "rejected": 0,
+      "stoppage_time_events": 116,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3857280,
+      "date": "2022-12-02",
+      "stage": "Group Stage",
+      "match": "Cameroon v Brazil",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3299,
+      "accepted": 1148,
+      "rejected": 0,
+      "stoppage_time_events": 122,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3869117,
+      "date": "2022-12-03",
+      "stage": "Round of 16",
+      "match": "Netherlands v United States",
+      "official": [
+        3,
+        1
+      ],
+      "matchmind": [
+        3,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3582,
+      "accepted": 1275,
+      "rejected": 0,
+      "stoppage_time_events": 93,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3869151,
+      "date": "2022-12-03",
+      "stage": "Round of 16",
+      "match": "Argentina v Australia",
+      "official": [
+        2,
+        1
+      ],
+      "matchmind": [
+        2,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 1
+      },
+      "source_events": 4150,
+      "accepted": 1409,
+      "rejected": 0,
+      "stoppage_time_events": 136,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3869152,
+      "date": "2022-12-04",
+      "stage": "Round of 16",
+      "match": "France v Poland",
+      "official": [
+        3,
+        1
+      ],
+      "matchmind": [
+        3,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3618,
+      "accepted": 1277,
+      "rejected": 0,
+      "stoppage_time_events": 81,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3869118,
+      "date": "2022-12-04",
+      "stage": "Round of 16",
+      "match": "England v Senegal",
+      "official": [
+        3,
+        0
+      ],
+      "matchmind": [
+        3,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3505,
+      "accepted": 1222,
+      "rejected": 0,
+      "stoppage_time_events": 75,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3869219,
+      "date": "2022-12-05",
+      "stage": "Round of 16",
+      "match": "Japan v Croatia",
+      "official": [
+        1,
+        1
+      ],
+      "matchmind": [
+        1,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4559,
+      "accepted": 1639,
+      "rejected": 0,
+      "stoppage_time_events": 74,
+      "extra_time": true,
+      "seconds": 0.08
+    },
+    {
+      "match_id": 3869253,
+      "date": "2022-12-05",
+      "stage": "Round of 16",
+      "match": "Brazil v South Korea",
+      "official": [
+        4,
+        1
+      ],
+      "matchmind": [
+        4,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4046,
+      "accepted": 1403,
+      "rejected": 0,
+      "stoppage_time_events": 141,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3869220,
+      "date": "2022-12-06",
+      "stage": "Round of 16",
+      "match": "Morocco v Spain",
+      "official": [
+        0,
+        0
+      ],
+      "matchmind": [
+        0,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4750,
+      "accepted": 1667,
+      "rejected": 0,
+      "stoppage_time_events": 51,
+      "extra_time": true,
+      "seconds": 0.12
+    },
+    {
+      "match_id": 3869254,
+      "date": "2022-12-06",
+      "stage": "Round of 16",
+      "match": "Portugal v Switzerland",
+      "official": [
+        6,
+        1
+      ],
+      "matchmind": [
+        6,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3422,
+      "accepted": 1183,
+      "rejected": 0,
+      "stoppage_time_events": 83,
+      "extra_time": false,
+      "seconds": 0.05
+    },
+    {
+      "match_id": 3869420,
+      "date": "2022-12-09",
+      "stage": "Quarter-finals",
+      "match": "Croatia v Brazil",
+      "official": [
+        1,
+        1
+      ],
+      "matchmind": [
+        1,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 5145,
+      "accepted": 1757,
+      "rejected": 0,
+      "stoppage_time_events": 64,
+      "extra_time": true,
+      "seconds": 0.1
+    },
+    {
+      "match_id": 3869321,
+      "date": "2022-12-09",
+      "stage": "Quarter-finals",
+      "match": "Netherlands v Argentina",
+      "official": [
+        2,
+        2
+      ],
+      "matchmind": [
+        2,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4708,
+      "accepted": 1602,
+      "rejected": 0,
+      "stoppage_time_events": 142,
+      "extra_time": true,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3869486,
+      "date": "2022-12-10",
+      "stage": "Quarter-finals",
+      "match": "Morocco v Portugal",
+      "official": [
+        1,
+        0
+      ],
+      "matchmind": [
+        1,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3381,
+      "accepted": 1182,
+      "rejected": 0,
+      "stoppage_time_events": 105,
+      "extra_time": false,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3869354,
+      "date": "2022-12-10",
+      "stage": "Quarter-finals",
+      "match": "England v France",
+      "official": [
+        1,
+        2
+      ],
+      "matchmind": [
+        1,
+        2
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3239,
+      "accepted": 1140,
+      "rejected": 0,
+      "stoppage_time_events": 123,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3869519,
+      "date": "2022-12-13",
+      "stage": "Semi-finals",
+      "match": "Argentina v Croatia",
+      "official": [
+        3,
+        0
+      ],
+      "matchmind": [
+        3,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3806,
+      "accepted": 1300,
+      "rejected": 0,
+      "stoppage_time_events": 102,
+      "extra_time": false,
+      "seconds": 0.09
+    },
+    {
+      "match_id": 3869552,
+      "date": "2022-12-14",
+      "stage": "Semi-finals",
+      "match": "France v Morocco",
+      "official": [
+        2,
+        0
+      ],
+      "matchmind": [
+        2,
+        0
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3551,
+      "accepted": 1225,
+      "rejected": 0,
+      "stoppage_time_events": 84,
+      "extra_time": false,
+      "seconds": 0.06
+    },
+    {
+      "match_id": 3869684,
+      "date": "2022-12-17",
+      "stage": "3rd Place Final",
+      "match": "Croatia v Morocco",
+      "official": [
+        2,
+        1
+      ],
+      "matchmind": [
+        2,
+        1
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 3560,
+      "accepted": 1235,
+      "rejected": 0,
+      "stoppage_time_events": 85,
+      "extra_time": false,
+      "seconds": 0.07
+    },
+    {
+      "match_id": 3869685,
+      "date": "2022-12-18",
+      "stage": "Final",
+      "match": "Argentina v France",
+      "official": [
+        3,
+        3
+      ],
+      "matchmind": [
+        3,
+        3
+      ],
+      "score_agrees": true,
+      "own_goals": {
+        "home": 0,
+        "away": 0
+      },
+      "source_events": 4407,
+      "accepted": 1561,
+      "rejected": 0,
+      "stoppage_time_events": 163,
+      "extra_time": true,
+      "seconds": 0.07
+    }
+  ]
+}

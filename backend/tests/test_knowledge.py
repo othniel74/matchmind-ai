@@ -186,3 +186,26 @@ def test_fans_see_speed_records_not_every_speed_tag(events):
     assert len(speeds) < sum(m['kind'] == 'top_speed' for m in analyst)
     mine = experience(events, SEED, 30, Profile(audience='fan', players=('away-05',)))['moments']
     assert any(m['kind'] == 'top_speed' and 'away-05' in m['player_ids'] for m in mine)
+
+
+def test_network_detail_lanes_players_measures_and_previous_window():
+    from app.core import generate_match
+    body = TestClient(app).get('/api/graph/roles?minute=67&start=52&team=away').json()['teams']['away']
+    events = {e.event_id: e for e in generate_match(SEED)}
+    assert sum(e['passes'] for e in body['edges']) == body['completed_passes']
+    for lane in body['edges']:
+        passes = [events[i] for i in lane['event_ids']]
+        assert len(passes) == lane['passes'] and all(52 <= p.minute < 67 for p in passes)
+        assert all(p.player_id == lane['from'] and p.recipient_player_id == lane['to'] for p in passes)
+        assert lane['progressive'] == sum((p.end_x - p.x) * 1.05 >= 10 for p in passes)
+        assert lane['minutes'] == [min(p.minute for p in passes), max(p.minute for p in passes)]
+    stats = body['player_stats']
+    assert sum(p['made'] for p in stats.values()) == sum(p['received'] for p in stats.values()) == body['completed_passes']
+    assert all(p['shirt'] for p in stats.values())
+    network = body['network']
+    assert network['lanes'] == len(body['edges']) and 0 < network['density'] <= 1
+    assert 0 <= network['two_way'] <= 1 and 0 < network['top_three_share'] <= 1 and 0 <= network['progressive_share'] <= 1
+    previous = body['previous']
+    assert previous['window'] == [37, 52] and previous['edges']
+    whole = TestClient(app).get('/api/graph/roles?minute=67&team=away').json()['teams']['away']
+    assert 'previous' not in whole  # nothing before the start of the match

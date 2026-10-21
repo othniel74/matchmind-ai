@@ -56,12 +56,14 @@ def roster(events: list[dict], lineups: list[dict] | None, home_team_id: int | N
         shirt = number if number is not None else 90 + len([p for p in players.values() if p.startswith(side[team_id])])
         pid = f'{side[team_id]}-{shirt:02d}'
         players[player['id']] = pid
-        names[pid] = {'name': player.get('name') or player.get('player_name'), 'team_id': side[team_id],
+        full = player.get('name') or player.get('player_name')
+        names[pid] = {'name': player.get('nickname') or full, 'full_name': full, 'team_id': side[team_id],
                       'provider_id': player['id'], 'shirt': shirt}
 
     for team in lineups or []:
         for p in team.get('lineup', []):
-            add(team['team_id'], {'id': p['player_id'], 'name': p.get('player_name')}, p.get('jersey_number'))
+            add(team['team_id'], {'id': p['player_id'], 'name': p.get('player_name'), 'nickname': p.get('player_nickname')},
+                p.get('jersey_number'))
     for e in starting:
         for p in e.get('tactics', {}).get('lineup', []):
             add(e['team']['id'], p['player'], p.get('jersey_number'))
@@ -83,6 +85,7 @@ def adapt(events: list[dict], lineups: list[dict] | None = None, home_team_id: i
     accepted: list[Event] = []
     rejected: list[dict] = []
     unsupported: Counter = Counter()
+    own_goals = {'home': 0, 'away': 0}  # the contract has no own-goal event: counted here, for the score
     ordered = sorted(events, key=lambda e: (e['period'], e['minute'], e['second'], e['index']))
     for e in ordered:
         kind = e['type']['name']
@@ -126,10 +129,13 @@ def adapt(events: list[dict], lineups: list[dict] | None = None, home_team_id: i
                               'outcome': CARDS[foul['card']['name']], 'sequence': base['sequence'] * 10 + 1, 'under_pressure': None})
         elif kind == 'Bad Behaviour' and player and e.get('bad_behaviour', {}).get('card'):
             built.append({**base, 'event_type': 'card', 'outcome': CARDS[e['bad_behaviour']['card']['name']],
-                          'under_pressure': None})
+                          'sequence': base['sequence'] * 10, 'under_pressure': None})
         elif kind == 'Substitution' and player:
             built.append({**base, 'event_type': 'substitution', 'outcome': 'success', 'under_pressure': None,
                           'replacement_player_id': players.get(e['substitution']['replacement']['id'])})
+        elif kind == 'Own Goal For':
+            own_goals[team] += 1
+            continue
         else:
             unsupported[kind] += 1
             continue
@@ -146,7 +152,7 @@ def adapt(events: list[dict], lineups: list[dict] | None = None, home_team_id: i
     return {'events': accepted, 'roster': names,
             'report': {'provider': 'StatsBomb', 'match_id': match_id, 'source_events': len(events),
                        'accepted': len(accepted), 'accepted_by_type': dict(by_type), 'rejected': rejected,
-                       'not_represented': dict(unsupported.most_common()),
+                       'not_represented': dict(unsupported.most_common()), 'own_goals': own_goals,
                        'stoppage_time_events': sum(1 for e in accepted if (e.period == 1 and e.minute >= 45)
                                                    or (e.period == 2 and e.minute >= 90))}}
 

@@ -96,3 +96,28 @@ def test_tactics_api_mcp_and_ask():
         assert answer['intent'] == 'change' and 'does not show' in answer['answer']
         press = client.get('/api/ask?q=Who%20is%20pressing%20more%3F&minute=67').json()
         assert press['intent'] == 'pressing' and 'PPDA' in press['answer']
+
+
+def test_real_match_clock_extra_time_names_and_no_simulated_shape():
+    # Provider events: first-half stoppage overlaps the second half's 45:00, and extra time runs past 90.
+    from app.core import Event
+    from app.tactics import played_time, scoreboard
+    rows = [(1, 0, 'pass'), (1, 46, 'pass'), (2, 45, 'pass'), (2, 93, 'pass'), (3, 95, 'pass'), (3, 100, 'substitution'),
+            (4, 112, 'pass'), (4, 121, 'pass')]
+    events = [Event(f'e{i}', 'm', i * 10, minute, 0, 'home', 'home-08', kind, 60, 50, outcome='success', period=period,
+                    replacement_player_id='home-14' if kind == 'substitution' else None,
+                    recipient_player_id='home-09' if kind == 'pass' else None)
+              for i, (period, minute, kind) in enumerate(rows)]
+    timed = played_time(events)
+    clocks = [e.minute * 60 + e.second for e in timed]
+    assert all(a < b for a, b in zip(clocks, clocks[1:]))  # one continuous clock, no overlap
+    assert clocks[2] == clocks[1] + 1  # the second half follows the first half's stoppage time
+    assert clocks[-1] > 120 * 60 and all(e.period is None for e in timed)
+    assert [scoreboard(e) for e in events] == ["1'", "45+2'", "46'", "90+4'", "96'", "101'", "113'", "120+2'"]
+    point = change_points(timed, 200)[0]
+    result = impact(timed, point, 200, names=lambda p: {'home-08': 'Out', 'home-14': 'In'}.get(p, p),
+                    clubs={'home': 'Northbank', 'away': 'Southvale'}, with_shape=False)
+    assert result['available'] and result['label'] == 'In on for Out'
+    assert not any(m['metric'] in ('line_height', 'width', 'compactness') for m in result['teams']['home']['metrics'])
+    synthetic = generate_match()
+    assert played_time(synthetic) is synthetic  # synthetic streams are untouched

@@ -73,7 +73,7 @@ def build_graph(events: list[Event], seed: int, minute: int, match_id: str, stat
         node = f'event:{e.event_id}'
         g.add_node(node, kind='Event', event_id=e.event_id, event_type=e.event_type, outcome=e.outcome,
                    team_id=e.team_id, clock=_clock(e), minute=e.minute, xg=e.xg, speed_kmh=e.speed_kmh,
-                   set_piece=e.set_piece, x=e.x, y=e.y,
+                   set_piece=e.set_piece, x=e.x, y=e.y, end_x=e.end_x, end_y=e.end_y,
                    pass_difficulty=pass_difficulty(e) if e.event_type == 'pass' else None)
         g.add_edge(f'player:{e.player_id}', node, key='PERFORMED')
         if e.possession_id:
@@ -144,6 +144,50 @@ def average_positions(g: nx.MultiDiGraph, team: str, start: int = 0, end: int = 
         entry[1] += data['y']
         entry[2] += 1
     return {p: {'x': round(x / n, 1), 'y': round(y / n, 1), 'actions': n} for p, (x, y, n) in sums.items()}
+
+
+PROGRESSIVE_M = 10.0  # a pass that moves the ball at least 10 m towards the opponent's goal
+
+
+def network_detail(g: nx.MultiDiGraph, team: str, start: int = 0, end: int = 90) -> dict[str, Any]:
+    """The pass network for exploring: each lane's passes, direction and forward progress, each
+    player's passes made and received, and whole-network measures. Every lane keeps its evidence."""
+    lanes: dict[tuple[str, str], dict[str, Any]] = {}
+    for u, v, key in g.edges(keys=True):
+        if key != 'RECEIVED_BY':
+            continue
+        event = g.nodes[u]
+        if event['team_id'] != team or not start <= event['minute'] < end:
+            continue
+        passer = next(p for p, _, k in g.in_edges(u, keys=True) if k == 'PERFORMED').removeprefix('player:')
+        lane = lanes.setdefault((passer, v.removeprefix('player:')), {'passes': 0, 'progressive': 0, 'gain': 0.0,
+                                                                     'minutes': [], 'event_ids': []})
+        gain = ((event.get('end_x') if event.get('end_x') is not None else event['x']) - event['x']) * 1.05
+        lane['passes'] += 1
+        lane['progressive'] += gain >= PROGRESSIVE_M
+        lane['gain'] += gain
+        lane['minutes'].append(event['minute'])
+        lane['event_ids'].append(event['event_id'])
+    edges = [{'from': a, 'to': b, 'passes': d['passes'], 'progressive': d['progressive'],
+              'gain_m': round(d['gain'] / d['passes'], 1), 'minutes': [min(d['minutes']), max(d['minutes'])],
+              'event_ids': d['event_ids']} for (a, b), d in sorted(lanes.items())]
+    total = sum(e['passes'] for e in edges)
+    players: dict[str, dict[str, Any]] = {}
+    for e in edges:
+        for pid, field in ((e['from'], 'made'), (e['to'], 'received')):
+            p = players.setdefault(pid, {'shirt': PLAYERS[pid].shirt if pid in PLAYERS else None,
+                                         'made': 0, 'received': 0, 'progressive': 0})
+            p[field] += e['passes']
+        players[e['from']]['progressive'] += e['progressive']
+    used = {(e['from'], e['to']) for e in edges}
+    n = len(players)
+    involvement = sorted((p['made'] + p['received'] for p in players.values()), reverse=True)
+    network = {'players': n, 'lanes': len(edges),
+               'density': round(len(used) / (n * (n - 1)), 3) if n > 1 else 0.0,
+               'two_way': round(sum((b, a) in used for a, b in used) / len(used), 3) if used else 0.0,
+               'top_three_share': round(sum(involvement[:3]) / (2 * total), 3) if total else 0.0,
+               'progressive_share': round(sum(e['progressive'] for e in edges) / total, 3) if total else 0.0}
+    return {'edges': edges, 'player_stats': players, 'network': network}
 
 
 def network_roles(g: nx.MultiDiGraph, team: str, start: int = 0, end: int = 90) -> dict[str, Any]:

@@ -83,6 +83,30 @@ def test_cards_follow_real_rules():
     assert cards == [('away-04', 'yellow'), ('home-11', 'yellow'), ('away-04', 'second_yellow')]
 
 
+def test_bench_booking_then_substitution_same_second_card_and_own_goal():
+    # Found on the 2022 World Cup: substitutes booked on the bench before coming on, a Bad Behaviour
+    # card in the same second as a pass, and own goals (counted in the report, not invented as shots).
+    def e(i, kind, minute, second, team, player=None, **extra):
+        d = {'id': f'x{i}', 'index': i, 'period': 1, 'minute': minute, 'second': second, 'type': {'name': kind},
+             'team': team, 'possession': 1, 'location': [60, 40], **extra}
+        return {**d, 'player': player} if player else d
+    lineup = {'lineup': [{'player': P[n], 'jersey_number': n} for n in range(1, 12)]}
+    away_lineup = {'lineup': [{'player': P[n], 'jersey_number': n - 11} for n in range(12, 23)]}
+    events = [e(1, 'Starting XI', 0, 0, HOME, tactics=lineup), e(2, 'Starting XI', 0, 0, AWAY, tactics=away_lineup),
+              e(3, 'Bad Behaviour', 10, 0, HOME, P[25], bad_behaviour={'card': {'name': 'Yellow Card'}}),
+              e(4, 'Pass', 20, 5, HOME, P[8], **{'pass': {'end_location': [70, 40], 'recipient': P[9]}}),
+              e(5, 'Bad Behaviour', 20, 5, AWAY, P[13], bad_behaviour={'card': {'name': 'Yellow Card'}}),
+              e(6, 'Substitution', 30, 0, HOME, P[10], substitution={'replacement': P[25]}),
+              e(7, 'Own Goal Against', 35, 0, AWAY, P[14]), e(8, 'Own Goal For', 35, 0, HOME)]
+    result = adapt(events, home_team_id=1)
+    report = result['report']
+    assert report['rejected'] == []
+    assert report['accepted_by_type'] == {'card': 2, 'pass': 1, 'substitution': 1}
+    assert report['own_goals'] == {'home': 1, 'away': 0} and report['not_represented']['Own Goal Against'] == 1
+    sub = next(x for x in result['events'] if x.event_type == 'substitution')
+    assert result['roster'][sub.replacement_player_id]['name'] == 'Player 25'
+
+
 def test_matchmind_analytics_run_on_adapted_data():
     result = adapt(EVENTS, home_team_id=1)
     summary = summarize(result)

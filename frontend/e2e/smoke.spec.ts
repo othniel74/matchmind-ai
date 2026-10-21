@@ -115,6 +115,12 @@ test("match graph, why-this-moment and ask the match", async ({ page }) => {
   await expect(graph.getByTestId("graph-source")).toContainText("NODES", { timeout: 30_000 });
   await expect(graph.locator("svg.pass-network .node").first()).toBeVisible({ timeout: 60_000 });
   await expect(graph.getByRole("table", { name: "xG chain" })).toBeVisible();
+  // The network is explorable: a player opens their passing partners, a partner opens that lane.
+  await expect(graph.getByTestId("network-card")).toContainText("Network at a glance");
+  await graph.locator("svg.pass-network .node").first().click();
+  await expect(graph.getByTestId("network-card")).toContainText("Passes most to");
+  await graph.getByTestId("network-card").locator(".partners .player-chip").first().click();
+  await expect(graph.getByTestId("network-card")).toContainText("evidence event");
   await graph.getByRole("button", { name: "Last 15 min" }).click();
   await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Match centre" }).click();
   // The first goal comes in the 9th minute of the replay; its moment offers an explanation.
