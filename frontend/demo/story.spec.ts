@@ -104,6 +104,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   // 6. Event-driven on Azure
 await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Live data" }).click();
   const feed = page.getByRole("region", { name: "Azure Event Hubs feed" });
+  await feed.waitFor({ timeout: 20_000 }).catch(() => undefined);  // the panel appears once the feed status loads
   if (await feed.count()) {
     await show(page, feed);
     await expect(feed.getByText(/Live ·/)).toBeVisible({ timeout: 60_000 }).catch(() => undefined);

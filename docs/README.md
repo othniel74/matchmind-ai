@@ -6,7 +6,7 @@
 | --- | --- |
 | [Submission](SUBMISSION.md) | Pitch, prize category, Microsoft technologies, step-by-step testing instructions |
 | [Hackathon brief coverage](HACKATHON_COVERAGE.md) | Every requirement of the brief mapped to code and to how it is verified |
-| [Demo video (1:46)](demo/matchmind-submission.mp4) | Recorded against the live deployment |
+| [Demo video (1:52)](demo/matchmind-submission.mp4) | Recorded against the live deployment |
 
 ## How it works
 

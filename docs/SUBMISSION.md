@@ -48,4 +48,4 @@ Model-backed actions are limited to 4 per visitor per minute, and repeated reque
 ## Links
 
 - Repository: https://github.com/othniel74/matchmind-ai
-- Video: upload `docs/demo/matchmind-submission.mp4` (1:46) to YouTube or Vimeo and paste the public link here.
+- Video: upload `docs/demo/matchmind-submission.mp4` (1:52) to YouTube or Vimeo and paste the public link here.
