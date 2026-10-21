@@ -22,7 +22,7 @@ READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotent
                             openWorldHint=False)
 Team = Literal['home', 'away']
 Language = Literal['en', 'es', 'fr', 'pt', 'de', 'it', 'ar']
-Intent = Literal['score', 'scorers', 'stat', 'player', 'why_moment', 'key_player', 'buildup', 'momentum',
+Intent = Literal['score', 'scorers', 'stat', 'player', 'why_moment', 'key_player', 'buildup', 'momentum', 'change', 'pressing',
                  'unsupported']
 
 
@@ -192,6 +192,27 @@ def answer_question(question: str, minute: int = 90, language: Language = 'en',
     routed = (validate_intent({'intent': intent, 'team': team, 'player': player, 'metric': metric}, question[:300])
               if intent else keyword_intent(question[:300]))
     return {**answer(g, events, SEED, minute, routed, language), 'context': context}
+
+
+@server.tool(annotations=READ_ONLY)
+def tactical_changes(minute: int = 90, language: Language = 'en') -> dict[str, Any]:
+    """What changed after each substitution and red card: ten minutes before vs after for both teams
+    (final-third entries, shots, xG, pass completion, possession, PPDA, high turnovers, defensive line
+    height, width, compactness, pass-network risers). Each swing is ranked against the match's own
+    ten-minute swings. Coincidence only: never report these as causes."""
+    from .tactics import change_points, impact
+    _, events, context = _graph(_minute(minute))
+    return {'changes': [impact(events, p, minute, language) for p in change_points(events, minute)], 'context': context}
+
+
+@server.tool(annotations=READ_ONLY)
+def pressing_and_shape(minute: int = 90, window_minutes: int = 15) -> dict[str, Any]:
+    """Pressing (PPDA: lower is more intense; high turnovers) and defensive shape (line height, width,
+    compactness in metres) for both teams over the last `window_minutes`."""
+    from .tactics import pressing
+    _, events, context = _graph(_minute(minute))
+    visible = [e for e in events if e.minute < minute]
+    return {**pressing(visible, minute, max(5, min(window_minutes, 45))), 'context': context}
 
 
 @server.tool(annotations=READ_ONLY)

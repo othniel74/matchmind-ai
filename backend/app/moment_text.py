@@ -39,6 +39,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'No goal yet in this match.',
         'ask_unsupported': "I can only answer questions about this match's verified facts: the score, scorers, statistics, players, key moments, momentum and build-up.",
         'ask_player_role': "{player}: rating {rating}, involved in {share} of {club}'s completed passes, xG chain {chain}",
+        'ask_no_change': 'No substitution or red card has ten minutes either side yet, so there is nothing to compare.',
+        'ask_change_quiet': 'Nothing unusual changed in the ten minutes after {change}: every swing was within the normal range for this match.',
+        'ask_pressing': '{club}: PPDA {ppda} (lower means more intense pressing), {high} high turnovers, defensive line {line} from goal',
         'your_club': 'Your club', 'your_player': 'Your player',
     },
     'es': {
@@ -73,6 +76,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'Todavía no hay goles en este partido.',
         'ask_unsupported': 'Solo puedo responder sobre hechos verificados de este partido: marcador, goleadores, estadísticas, jugadores, momentos clave, impulso y construcción del juego.',
         'ask_player_role': '{player}: nota {rating}, participa en el {share} de los pases completados de {club}, cadena de xG {chain}',
+        'ask_no_change': 'Aún no hay ningún cambio ni expulsión con diez minutos antes y después para comparar.',
+        'ask_change_quiet': 'Nada inusual cambió en los diez minutos tras {change}: todas las variaciones están dentro de lo normal en este partido.',
+        'ask_pressing': '{club}: PPDA {ppda} (más bajo significa presión más intensa), {high} recuperaciones altas, línea defensiva a {line} de su portería',
         'your_club': 'Tu club', 'your_player': 'Tu jugador',
     },
     'fr': {
@@ -108,6 +114,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'Pas encore de but dans ce match.',
         'ask_unsupported': 'Je ne réponds qu’aux questions sur les faits vérifiés de ce match\xa0: score, buteurs, statistiques, joueurs, moments clés, temps forts et construction.',
         'ask_player_role': '{player}\xa0: note {rating}, impliqué dans {share} des passes réussies de {club}, chaîne xG {chain}',
+        'ask_no_change': "Aucun remplacement ni expulsion n'a encore dix minutes avant et après pour comparer.",
+        'ask_change_quiet': "Rien d'inhabituel dans les dix minutes après {change} : tous les écarts restent dans la normale de ce match.",
+        'ask_pressing': '{club} : PPDA {ppda} (plus bas = pressing plus intense), {high} récupérations hautes, ligne défensive à {line} de son but',
         'your_club': 'Votre club', 'your_player': 'Votre joueur',
     },
     'pt': {
@@ -142,6 +151,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'Ainda não houve gols nesta partida.',
         'ask_unsupported': 'Só posso responder sobre fatos verificados desta partida: placar, autores dos gols, estatísticas, jogadores, momentos principais, momento do jogo e construção.',
         'ask_player_role': '{player}: nota {rating}, participa de {share} dos passes certos do {club}, cadeia de xG {chain}',
+        'ask_no_change': 'Ainda não há substituição ou expulsão com dez minutos antes e depois para comparar.',
+        'ask_change_quiet': 'Nada incomum mudou nos dez minutos após {change}: todas as variações ficaram dentro do normal nesta partida.',
+        'ask_pressing': '{club}: PPDA {ppda} (menor significa pressão mais intensa), {high} recuperações altas, linha defensiva a {line} do gol',
         'your_club': 'Seu time', 'your_player': 'Seu jogador',
     },
     'de': {
@@ -176,6 +188,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'In diesem Spiel ist noch kein Tor gefallen.',
         'ask_unsupported': 'Ich beantworte nur Fragen zu geprüften Fakten dieses Spiels: Spielstand, Torschützen, Statistiken, Spieler, Schlüsselmomente, Momentum und Spielaufbau.',
         'ask_player_role': '{player}: Note {rating}, an {share} der angekommenen Pässe von {club} beteiligt, xG-Kette {chain}',
+        'ask_no_change': 'Noch kein Wechsel und kein Platzverweis mit zehn Minuten davor und danach zum Vergleich.',
+        'ask_change_quiet': 'In den zehn Minuten nach {change} änderte sich nichts Ungewöhnliches: alle Veränderungen lagen im normalen Rahmen dieses Spiels.',
+        'ask_pressing': '{club}: PPDA {ppda} (niedriger bedeutet intensiveres Pressing), {high} hohe Ballgewinne, Abwehrlinie {line} vor dem eigenen Tor',
         'your_club': 'Dein Verein', 'your_player': 'Dein Spieler',
     },
     'it': {
@@ -211,6 +226,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'Ancora nessun gol in questa partita.',
         'ask_unsupported': 'Posso rispondere solo sui fatti verificati di questa partita: risultato, marcatori, statistiche, giocatori, momenti chiave, momento della gara e costruzione.',
         'ask_player_role': '{player}: voto {rating}, coinvolto nel {share} dei passaggi riusciti del {club}, catena xG {chain}',
+        'ask_no_change': 'Non ci sono ancora cambi o espulsioni con dieci minuti prima e dopo da confrontare.',
+        'ask_change_quiet': 'Niente di insolito nei dieci minuti dopo {change}: tutte le variazioni rientrano nella norma di questa partita.',
+        'ask_pressing': '{club}: PPDA {ppda} (più basso significa pressing più intenso), {high} recuperi alti, linea difensiva a {line} dalla propria porta',
         'your_club': 'La tua squadra', 'your_player': 'Il tuo giocatore',
     },
     'ar': {
@@ -245,6 +263,9 @@ MOMENT_TEXT: dict[str, dict[str, str]] = {
         'ask_no_goal': 'لا أهداف حتى الآن في هذه المباراة.',
         'ask_unsupported': 'أجيب فقط عن الحقائق الموثقة في هذه المباراة: النتيجة والهدافين والإحصاءات واللاعبين واللحظات الحاسمة والزخم وبناء اللعب.',
         'ask_player_role': '{player}: التقييم {rating}، شارك في {share} من التمريرات الصحيحة لـ{club}، سلسلة xG {chain}',
+        'ask_no_change': 'لا يوجد تبديل أو طرد بعد يتيح عشر دقائق قبله وبعده للمقارنة.',
+        'ask_change_quiet': 'لم يتغير شيء غير معتاد في الدقائق العشر بعد {change}: كل التغيرات ضمن المعدل الطبيعي لهذه المباراة.',
+        'ask_pressing': '{club}: PPDA {ppda} (الأقل يعني ضغطاً أشد)، {high} استعادات متقدمة، خط الدفاع على بعد {line} من المرمى',
         'your_club': 'ناديك', 'your_player': 'لاعبك',
     },
 }

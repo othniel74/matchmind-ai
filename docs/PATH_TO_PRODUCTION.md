@@ -19,6 +19,7 @@ This document lists what is already production-grade, what the gate is waiting f
 | **Quality gates** | About 240 backend tests, an offline evaluation, browser tests against the live URL, and CI on every push. |
 | **Event-driven ingestion** | Azure Event Hubs carries the match feed. A Container Apps Job publishes it; the API consumes, validates and interprets each event as it arrives; duplicates are skipped and bad events reported. All identity is managed, with no keys. |
 | **Auto-eventing from video** | Broadcast video becomes validated events through Event Hubs. Each stage is scored against ground truth ([VISION.md](VISION.md)), and favours precision: a false event costs more than a missed one. |
+| **Real-data readiness** | A provider adapter (StatsBomb) maps real events into the validated contract; on the 2022 World Cup final, 1,561 events were accepted and 0 rejected. The contract supports periods and stoppage time ([PROVIDERS.md](PROVIDERS.md)). |
 | **Interoperability** | A read-only MCP server exposes the same verified tools to other agents and to Copilot. |
 
 ## What the gate is waiting for

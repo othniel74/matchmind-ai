@@ -15,9 +15,11 @@
 | [Auto-eventing from video](VISION.md) | Ground-truth tracking, the broadcast renderer, the vision pipeline (calibration, RT-DETR, teams, identity, ball, events), measured accuracy, the Azure job |
 | [Agent workflow](AGENT_WORKFLOW.md) | The Agent Framework graph, the fact checker, recaps, rate limits, tracing, live fact-check results |
 | [Microsoft Foundry](FOUNDRY.md) | Models, tracing in Foundry, release evaluations and their results |
-| [MCP server](MCP.md) | The 13 match tools, the MCP-calling Q&A agent, use from VS Code / Copilot |
+| [MCP server](MCP.md) | The 15 match tools, the MCP-calling Q&A agent, use from VS Code / Copilot |
 | [Event-driven feed](EVENT_DRIVEN.md) | Event Hubs, the producer job, the consumer, delivery guarantees |
 | [Knowledge graph](GRAPH_INTELLIGENCE_ARCHITECTURE.md) | The match knowledge graph, network roles, xG chain, Memgraph/Neo4j projection and parity tests |
+| [Tactical changes](TACTICS.md) | Before/after impact of substitutions and red cards, pressing and defensive shape, with the swing ranking and causal caveat |
+| [Real data providers](PROVIDERS.md) | The StatsBomb adapter, its verification on a real match, the contract changes real data required |
 | [Claim contracts](CLAIM_CONTRACTS.md) | Typed, evidence-backed claims with exact recomputation |
 | [Languages](LANGUAGES.md) | The seven languages, number formats, right-to-left handling, how to add one |
 | [Synthetic simulator](SYNTHETIC_SIMULATOR.md) | The possession-based generator, ground-truth tracking for video, realism checks, scenario labels and detector precision |

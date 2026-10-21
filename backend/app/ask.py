@@ -21,7 +21,8 @@ from .moments import render
 from .players import player_stats
 from .squads import CLUBS, PLAYERS, name
 
-INTENTS = ('score', 'scorers', 'stat', 'player', 'why_moment', 'key_player', 'buildup', 'momentum', 'unsupported')
+INTENTS = ('score', 'scorers', 'stat', 'player', 'why_moment', 'key_player', 'buildup', 'momentum', 'change',
+           'pressing', 'unsupported')
 
 
 def _fold(text: str) -> str:
@@ -30,6 +31,11 @@ def _fold(text: str) -> str:
 
 # Keyword fallback, checked in order; the first intent with a matching word wins.
 KEYWORDS: list[tuple[str, tuple[str, ...]]] = [
+    ('change', ('substitution', 'after the change', 'what changed', 'sub ', 'red card', 'sustitucion', 'cambio',
+                'remplacement', 'changement', 'substituicao', 'mudanca', 'wechsel', 'einwechslung', 'sostituzione',
+                'cambio', 'تبديل', 'تغيير')),
+    ('pressing', ('pressing', 'press ', 'pressure', 'ppda', 'defensive line', 'compact', 'presion', 'presión',
+                  'pression', 'pressao', 'pressão', 'pressing', 'abwehrlinie', 'pressione', 'ضغط')),
     ('buildup', ('build-up', 'build up', 'buildup', 'construccion', 'construction', 'construcao', 'aufbau',
                  'costruzione', 'بناء')),
     ('why_moment', ('why', 'por que', 'porque', 'pourquoi', 'warum', 'perche', 'لماذا')),
@@ -100,6 +106,8 @@ Call answer_question exactly once. Pass the question in clear English, plus the 
 - key_player: the key player, main man, playmaker or who the team plays through
 - buildup: how a goal was built
 - momentum: who is on top, in control or has momentum
+- change: what changed after a substitution or red card
+- pressing: who is pressing more, how high the defensive line is, how compact a team is
 - unsupported: anything else (other matches, predictions, opinions, the weather)
 Set team to home (%s) or away (%s) when the question names a club. Pass minute and language exactly as
 given. Never answer the question yourself; the tool's answer is shown to the viewer.""" % (
@@ -245,6 +253,32 @@ def answer(g, events: list[Event], seed: int, minute: int, intent: dict[str, Any
                            evidence_event_ids=[s['event_id'] for s in chain['steps']], buildup=chain)
             else:
                 out['answer'] = text['ask_no_goal']
+    elif kind == 'change':
+        from .tactics import change_points, impact
+        available = [impact(events, p, minute, code) for p in change_points(events, minute)]
+        available = [c for c in available if c['available'] and (team is None or c['team_id'] == team)]
+        if not available:
+            out['answer'] = text['ask_no_change']
+        else:
+            latest = available[-1]
+            lines = latest['teams'][latest['team_id']]['statements'] + [
+                s for t, v in latest['teams'].items() if t != latest['team_id'] for s in v['statements']]
+            body = ' '.join(lines[:3]) if lines else text['ask_change_quiet'].format(change=latest['label'])
+            out.update(answer=f"{body} {latest['caveat']}", change=latest,
+                       evidence_event_ids=sorted({i for v in latest['teams'].values() for m in v['metrics']
+                                                  if m['notable'] for i in m['evidence_event_ids']}))
+    elif kind == 'pressing':
+        from .tactics import pressing
+        if minute < 5:
+            out.update(answer=text['ask_unsupported'], supported=False)
+        else:
+            p = pressing(visible, minute)
+            parts = [text['ask_pressing'].format(club=_club(t, code), ppda=format_number(v['ppda'], '', code) if v['ppda'] else '-',
+                                                 high=format_number(v['high_turnovers'], '', code),
+                                                 line=format_number(v['line_height'], ' m', code) if v['line_height'] else '-')
+                     for t, v in p['teams'].items() if team is None or t == team]
+            out.update(answer='. '.join(parts) + '.', pressing=p,
+                       evidence_event_ids=sorted(i for v in p['teams'].values() for i in v['evidence_event_ids']))
     elif kind == 'momentum':
         state = state_at(visible, minute)
         if state and state['momentum'] and state['momentum']['team_id']:

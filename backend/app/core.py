@@ -49,6 +49,7 @@ class Event:
     replacement_player_id: str | None = None
     speed_kmh: float | None = None        # ball speed for passes and shots (synthetic)
     under_pressure: bool | None = None    # an opponent was close when a pass or shot was made
+    period: int | None = None             # 1 or 2 (3-4 extra time) for provider feeds; None for synthetic streams
     def json(self) -> dict[str, Any]:
         return asdict(self)
 
@@ -404,7 +405,7 @@ class StreamValidator:
     def __init__(self) -> None:
         self.ids: set[str] = set()
         self.match_id: str | None = None
-        self.previous = (-1, -1, -1)
+        self.previous = (-1, -1, -1, -1)
         self.seen_players: set[str] = set()
         self.unavailable: set[str] = set()
         self.booked: set[str] = set()
@@ -416,9 +417,15 @@ class StreamValidator:
             raise ValueError('Duplicate event ID')
         if e.team_id not in TEAMS or e.event_type not in EVENT_TYPES:
             raise ValueError('Unsupported team or event type')
-        if not (0 <= e.minute < 90 and 0 <= e.second < 60 and 0 <= e.x <= 100 and 0 <= e.y <= 100):
+        # Provider feeds carry a period, so stoppage time (45+2', 90+4') and extra time are valid;
+        # synthetic streams have no period and stay within the 90 regulation minutes.
+        max_minute = 130 if e.period else 90
+        if e.period is not None and e.period not in (1, 2, 3, 4):
+            raise ValueError('Invalid period')
+        if not (0 <= e.minute < max_minute and 0 <= e.second < 60 and 0 <= e.x <= 100 and 0 <= e.y <= 100):
             raise ValueError('Invalid clock or pitch coordinates')
-        if e.player_id in self.unavailable or e.recipient_player_id in self.unavailable:
+        # A player who has gone off can still be shown a card (from the bench), but cannot play the ball.
+        if (e.event_type != 'card' and e.player_id in self.unavailable) or e.recipient_player_id in self.unavailable:
             raise ValueError('Player is no longer on the pitch')
         if e.event_type == 'pass':
             if e.end_x is None or e.end_y is None or not (0 <= e.end_x <= 100 and 0 <= e.end_y <= 100):
@@ -459,7 +466,7 @@ class StreamValidator:
                 raise ValueError('Invalid substitution')
         elif e.replacement_player_id is not None:
             raise ValueError('Only substitutions can have replacements')
-        if (e.minute, e.second, e.sequence) <= self.previous:
+        if (e.period or 0, e.minute, e.second, e.sequence) <= self.previous:
             raise ValueError('Events out of order')
         # Every check passed: commit.
         self.match_id = e.match_id
@@ -474,7 +481,7 @@ class StreamValidator:
         self.seen_players.add(e.player_id)
         if e.recipient_player_id:
             self.seen_players.add(e.recipient_player_id)
-        self.previous = (e.minute, e.second, e.sequence)
+        self.previous = (e.period or 0, e.minute, e.second, e.sequence)
 
 
 def validate_event_stream(events: list[Event]) -> None:

@@ -41,6 +41,7 @@ import { ExperiencePanels, LiveStreamPanel, ProfilePanel, RecapPanel, useProfile
 import { AskPanel, GraphExplorer } from "./GraphExplorer";
 import { EventFeedPanel } from "./EventFeed";
 import { VisionPanel } from "./VisionPanel";
+import { TacticsPanel } from "./TacticsPanel";
 
 // Real-data research views are local-only; the product itself uses synthetic data, and the
 // research components load only when enabled.
@@ -1692,6 +1693,7 @@ function App() {
                 {section === "analysis" && (<>
                 <div className="section-stack">
                   {squads && <GraphExplorer minute={frame.minute} stateVersion={frame.context?.state_version} clubs={squads.clubs} />}
+                  {squads && <TacticsPanel minute={frame.minute} language={profile.language} clubs={squads.clubs} />}
                 </div>
                 <div className="dashboard-grid">
                   <div className="main-column">

@@ -21,6 +21,8 @@ MatchMind publishes its verified match intelligence as a [Model Context Protocol
 | `correction_impact` | Every moment, claim, overlay and recap that depends on an event |
 | `match_recap` | Half-time, full-time or so-far recap, where every number is a validated claim |
 | `answer_question` | A viewer's question answered from fixed templates with evidence. It takes a typed intent; off-topic questions are refused. |
+| `tactical_changes` | Before/after impact of each substitution and red card, ranked against the match's own swings; coincidence only |
+| `pressing_and_shape` | PPDA, high turnovers, defensive line height, width and compactness for both teams |
 | `squads` | Both fictional squads |
 
 Tool annotations declare `readOnlyHint: true` and `destructiveHint: false`. Invalid arguments return MCP tool errors with a reason, not server errors.

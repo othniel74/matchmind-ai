@@ -29,9 +29,11 @@ All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional 
 
    It runs as an Azure Container Apps Job that streams the recovered events through Event Hubs into the live app. See [VISION.md](docs/VISION.md).
 2. **Agents that are checked, not trusted.** A Microsoft Agent Framework workflow writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks. In the Foundry release evaluation, 8 of 21 drafts were blocked and replaced with verified text.
-3. **Agents that use tools through MCP.** MatchMind serves its verified match intelligence as an MCP server with 13 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
+3. **Agents that use tools through MCP.** MatchMind serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
-5. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, about 250 backend tests, browser tests against the live site, and CI on every push.
+5. **Tactical change, explained honestly.** For every substitution and red card MatchMind compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
+6. **Ready for real data.** A StatsBomb adapter maps a real provider's events into MatchMind's contract. On the 2022 World Cup final it gave 1,561 events accepted, 0 rejected, stoppage time kept and the 3–3 score reproduced, without storing any provider data. See [PROVIDERS.md](docs/PROVIDERS.md).
+7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, about 270 backend tests, browser tests against the live site, and CI on every push.
 
 ## The pipeline
 
@@ -58,7 +60,7 @@ flowchart LR
     subgraph CA["Container App: matchmind-demo"]
       API[FastAPI: validation, claims,<br/>moments, knowledge graph]
       WF[Agent Framework workflow<br/>writers, fact checker, gate]
-      MCP[MCP server /mcp<br/>13 read-only tools]
+      MCP[MCP server /mcp<br/>15 read-only tools]
       UI[React web app<br/>workspace and Broadcast Studio]
     end
     MG[(Memgraph<br/>sidecar)]
@@ -83,7 +85,7 @@ Every Azure call uses **managed identity**; no keys are stored anywhere. Product
 | --- | --- |
 | **Microsoft Foundry** | `gpt-4.1-mini` for every agent; release evaluations with Azure AI Evaluation; tracing of agent, model and MCP tool calls. See [FOUNDRY.md](docs/FOUNDRY.md). |
 | **Microsoft Agent Framework** | The multi-agent workflow (typed executors, conditional edges, handoffs, retries, fallback) and the MCP-calling Q&A agent. See [AGENT_WORKFLOW.md](docs/AGENT_WORKFLOW.md). |
-| **Model Context Protocol** | 13 read-only, time-scoped match tools at `/mcp` and over stdio; `.vscode/mcp.json` for GitHub Copilot agent mode. See [MCP.md](docs/MCP.md). |
+| **Model Context Protocol** | 15 read-only, time-scoped match tools at `/mcp` and over stdio; `.vscode/mcp.json` for GitHub Copilot agent mode. See [MCP.md](docs/MCP.md). |
 | **Azure Container Apps** | The API and web app, with a Memgraph sidecar |
 | **Azure Container Apps Jobs** | The feed producer, and the vision job that turns broadcast video into events |
 | **Azure Event Hubs** | The live match feed: Entra ID only (SAS disabled), ordered per match, carrying the data feed and events recovered from video. See [EVENT_DRIVEN.md](docs/EVENT_DRIVEN.md). |
@@ -110,6 +112,7 @@ On the [live demo](https://matchmind-demo.mangograss-8c9a0131.uksouth.azureconta
 | `backend/app/claims.py`, `moments.py`, `dynamics.py`, `players.py` | Typed claims, key moments and why they matter, control/chaos/momentum, player statistics |
 | `backend/app/knowledge.py`, `graph/` | Match knowledge graph, NetworkX analytics, Memgraph/Neo4j projection |
 | `backend/app/agents.py`, `agent_workflow.py`, `ask.py`, `mcp_server.py` | Foundry runtime, multi-agent workflow and fact checker, Ask the match, MCP server |
+| `backend/app/tactics.py`, `backend/app/providers/` | Tactical change impact, pressing and shape; provider adapters (StatsBomb) |
 | `backend/app/tracking.py`, `backend/vision/` | Ground-truth tracking; the vision pipeline, its scorer and its Azure publisher |
 | `backend/evaluation/` | Offline evaluation, live fact-check holdouts, Foundry release evaluation |
 | `frontend/src/` | Workspace, Broadcast Studio, graph explorer, vision panel; `render.html` is the broadcast renderer |
@@ -133,16 +136,16 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 249 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 268 passed with the agent SDK; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
-| Browser | `cd frontend && npx playwright test` (also against the live URL) | 5 passed |
+| Browser | `cd frontend && npx playwright test` (also against the live URL) | 6 passed |
 | Foundry release evaluation | `backend/evaluation/foundry_eval.py` | groundedness 4.71/5, 0 unsupported numbers ([report](foundry-eval-report.json)) |
 | Vision vs ground truth | `python -m vision.run` | [vision-report.json](vision-report.json) |
 
 ## Documentation
 
-Start with the [documentation index](docs/README.md). Key documents: [Brief coverage](docs/HACKATHON_COVERAGE.md) · [Auto-eventing from video](docs/VISION.md) · [Agent workflow](docs/AGENT_WORKFLOW.md) · [Foundry](docs/FOUNDRY.md) · [MCP](docs/MCP.md) · [Event-driven feed](docs/EVENT_DRIVEN.md) · [Knowledge graph](docs/GRAPH_INTELLIGENCE_ARCHITECTURE.md) · [Deployment](docs/DEPLOYMENT.md) · [Path to production](docs/PATH_TO_PRODUCTION.md)
+Start with the [documentation index](docs/README.md). Key documents: [Brief coverage](docs/HACKATHON_COVERAGE.md) · [Auto-eventing from video](docs/VISION.md) · [Tactical changes](docs/TACTICS.md) · [Real data providers](docs/PROVIDERS.md) · [Agent workflow](docs/AGENT_WORKFLOW.md) · [Foundry](docs/FOUNDRY.md) · [MCP](docs/MCP.md) · [Event-driven feed](docs/EVENT_DRIVEN.md) · [Knowledge graph](docs/GRAPH_INTELLIGENCE_ARCHITECTURE.md) · [Deployment](docs/DEPLOYMENT.md) · [Path to production](docs/PATH_TO_PRODUCTION.md)
 
 ## Licence
 

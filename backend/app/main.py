@@ -40,6 +40,17 @@ async def lifespan(app):
     if projection.enabled():
         import threading
         threading.Thread(target=projection.project_at_startup, daemon=True, name='graph-projection').start()
+    import threading as _threading
+
+    def _warm_tactics():  # tracking-based shape is the slow part; compute the default match once
+        try:
+            from .tactics import change_points, impact
+            source = match_repository().snapshot(20261020)[2]
+            for point in change_points(source, 90):
+                impact(source, point, 90, 'en')
+        except Exception:
+            pass
+    _threading.Thread(target=_warm_tactics, daemon=True, name='tactics-warmup').start()
     # A session manager runs once, so each startup builds a fresh MCP app (tests start many).
     global _mcp_app
     from .mcp_server import server as mcp_server
@@ -685,6 +696,26 @@ def graph_impact(event_id: str = Query(..., max_length=80), seed: int = SEED):
         result.update(repo.kg_impact(context['match_id'], event_id))
         source = repo.backend
     return {**result, 'event_id': event_id, 'source': source, 'context': context}
+
+
+@app.get('/api/tactics/changes')
+def tactical_changes(minute: int = Query(90, ge=1, le=90), language: str = Query('en', pattern=LANGUAGE_PATTERN),
+                     seed: int = SEED):
+    """What changed after each substitution and red card: ten minutes before vs after for both teams,
+    each swing ranked against the match's own ten-minute swings, with evidence and a causal caveat."""
+    from .tactics import change_points, impact
+    stream, version, source = match_repository().snapshot(seed)
+    return {'context': {'match_id': stream, 'state_version': version, 'minute': minute},
+            'changes': [impact(source, p, minute, language) for p in change_points(source, minute)]}
+
+
+@app.get('/api/tactics/pressing')
+def tactical_pressing(minute: int = Query(67, ge=5, le=90), window: int = Query(15, ge=5, le=45), seed: int = SEED):
+    """Pressing (PPDA, high turnovers) and defensive shape (line height, width, compactness) for both teams."""
+    from .tactics import pressing
+    stream, version, source = match_repository().snapshot(seed)
+    visible = [e for e in source if e.minute < minute]
+    return {'context': {'match_id': stream, 'state_version': version, 'minute': minute}, **pressing(visible, minute, window)}
 
 
 @app.get('/api/ask')

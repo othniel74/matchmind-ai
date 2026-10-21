@@ -35,7 +35,9 @@ This document maps each requirement of the brief to what MatchMind does, where t
 
 ## (iv) Explainability
 
-Control vs chaos (turnovers per minute, passes per possession, pass share), tempo (on-ball events per minute) and momentum (share of attacking-area actions). The thresholds are percentiles of the simulator's own distribution. Tactical interpretations stay in review, because their measured precision is below the bar for unreviewed publication (see `SYNTHETIC_SIMULATOR.md`).
+Control vs chaos (turnovers per minute, passes per possession, pass share), tempo (on-ball events per minute) and momentum (share of attacking-area actions).
+
+**Tactical pressure changes:** for every substitution and red card, MatchMind compares the ten minutes before and after. It measures pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness), attacking output and pass-network shifts. Each swing is ranked against the match's own ten-minute swings, and the wording never claims a cause ([TACTICS.md](TACTICS.md)). Ask "Who is pressing more?" or "What changed after the substitution?" in any language. The thresholds are percentiles of the simulator's own distribution. Tactical interpretations stay in review, because their measured precision is below the bar for unreviewed publication (see `SYNTHETIC_SIMULATOR.md`).
 
 ## (v) Data innovation
 
@@ -44,7 +46,7 @@ The possession-based synthetic generator produces:
 - shot xG, ball and shot speed, and pressure flags
 - hidden scenario labels for evaluation
 
-Realism checks: all 11 per-team averages fall within broad top-league ranges on held-out seeds.
+Realism checks: all 11 per-team averages fall within broad top-league ranges on held-out seeds. The same pipeline also runs on real provider data through an adapter ([PROVIDERS.md](PROVIDERS.md)); none is stored in this repository.
 
 It also produces **25 Hz ground-truth tracking** for the ball and every player, and renders it as **broadcast video** with the exact camera for every frame. The result is a labelled video dataset that real football cannot provide, used to measure auto-eventing from video stage by stage ([SYNTHETIC_SIMULATOR.md](SYNTHETIC_SIMULATOR.md), [VISION.md](VISION.md)).
 

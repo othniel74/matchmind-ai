@@ -149,6 +149,9 @@ test("workspace sections: one navigation, shareable URLs, the right panels", asy
     if (region === "Overlay control room") await expect(page.getByText(region)).toBeVisible({ timeout: 20_000 });
     else await expect(page.getByRole("region", { name: region })).toBeVisible({ timeout: 20_000 });
   }
+  // Analysis also explains tactical changes and pressing, with the causal caveat.
+  await nav.getByRole("button", { name: "Analysis" }).click();
+  await expect(page.getByRole("region", { name: "Tactical changes" })).toBeVisible({ timeout: 20_000 });
   // Panels that belong elsewhere are not repeated on the match centre.
   await nav.getByRole("button", { name: "Match centre" }).click();
   await expect(page.getByRole("region", { name: "Match graph" })).toHaveCount(0);
