@@ -1,0 +1,38 @@
+{
+  "frames_processed": 751,
+  "calibration_ground_error_m": {
+    "median": 0.032,
+    "p95": 0.056
+  },
+  "player_detection_recall": 0.866,
+  "player_position_error_m": {
+    "median": 0.177,
+    "p95": 0.621
+  },
+  "team_accuracy": 0.978,
+  "identity_accuracy": 0.792,
+  "ball_detection_rate": 0.736,
+  "ball_position_error_m": 0.887,
+  "events": {
+    "true": 13,
+    "predicted": 8,
+    "matched": 7,
+    "precision": 0.875,
+    "recall": 0.538,
+    "f1": 0.667,
+    "passer_correct": 0.857,
+    "ball_speed_error_kmh": 2.55,
+    "goals": {
+      "true": 1,
+      "found": 1
+    }
+  },
+  "top_speed_error_kmh": 2.787,
+  "processing": {
+    "seconds": 1898.4,
+    "per_frame_s": 2.528,
+    "stride": 4,
+    "device": "cpu (4 cores)",
+    "note": "full detection pass; later stages re-run in about 1 s from cached detections"
+  }
+}

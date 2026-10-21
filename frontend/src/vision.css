@@ -1,0 +1,94 @@
+.vision-panel {
+  grid-column: 1 / -1;
+}
+.vision-body {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 16px;
+  margin: 12px 0;
+}
+@media (max-width: 860px) {
+  .vision-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.vision-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.vision-video video,
+.vision-video canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.vision-video canvas {
+  pointer-events: none;
+}
+.vision-side {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  min-width: 0;
+}
+.vision-minimap {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.vision-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+.vision-events li {
+  padding: 5px 0;
+  border-top: 1px solid var(--border);
+}
+.vision-events span {
+  color: var(--lime);
+  margin-right: 4px;
+}
+.vision-events b {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+}
+.vision-events .matched b {
+  color: var(--lime);
+}
+.vision-events .unmatched b {
+  color: #e8a87c;
+}
+.vision-scores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+.vision-scores div {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.vision-scores span {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.vision-scores b {
+  display: block;
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+.vision-scores i {
+  font-size: 11px;
+  font-style: normal;
+  color: var(--muted);
+}

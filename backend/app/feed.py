@@ -75,7 +75,8 @@ class FeedHub:
         kind = body.get('type')
         if kind == 'kickoff':
             self.run = {'feed_run': body['feed_run'], 'match_id': body['match_id'], 'speed': body.get('speed'),
-                        'started': body.get('sent_at'), 'status': 'live'}
+                        'started': body.get('sent_at'), 'status': 'live', 'source': body.get('source', 'data_feed'),
+                        'stats': body.get('stats')}
             self.live = LiveMatch(int(body.get('seed', SEED)), Profile(audience='broadcast'))
             self.counts = {'accepted': 0, 'rejected': 0, 'duplicates': 0, 'moments': 0}
             self.last_error = None
@@ -85,7 +86,9 @@ class FeedHub:
             return []  # joined mid-run without its kick-off: wait for the next one
         elif kind == 'full_time':
             self.run['status'] = 'full_time'
-            out = [*self.live.finish(), {'type': 'full_time', 'run': self.run}]
+            # A video clip covers minutes, not a match: do not close the remaining minutes for it.
+            closing = self.live.finish() if self.run.get('source') != 'vision' else []
+            out = [*closing, {'type': 'full_time', 'run': self.run}]
         elif kind == 'event':
             data = body['event']
             if data.get('event_id') in self.live.validator.ids:

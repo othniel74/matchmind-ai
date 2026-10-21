@@ -1,0 +1,17 @@
+# Vision auto-eventing job (Container Apps Job `matchmind-vision`): broadcast clip -> events -> Event Hubs.
+# CPU inference with RT-DETR; the model weights are baked in at build time.
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 MATCHMIND_SKIP_DOTENV=1 HF_HOME=/opt/hf
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
+COPY backend/requirements*.txt ./
+RUN pip install --no-cache-dir torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu \
+ && pip install --no-cache-dir -r requirements-vision.txt azure-eventhub==5.15.1 azure-identity==1.26.0
+RUN python -c "from transformers import RTDetrForObjectDetection, RTDetrImageProcessor as P; \
+P.from_pretrained('PekingU/rtdetr_r50vd'); RTDetrForObjectDetection.from_pretrained('PekingU/rtdetr_r50vd')"
+COPY backend/app ./app
+COPY backend/vision ./vision
+COPY frontend/public/vision/clip.mp4 ./clip/clip.mp4
+RUN useradd --create-home vision && chown -R vision /opt/hf
+USER vision
+CMD ["python", "-m", "vision.publish", "--video", "/app/clip/clip.mp4", "--start", "450", "--stride", "5"]

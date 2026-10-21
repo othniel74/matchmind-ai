@@ -1,0 +1,111 @@
+{
+ "recovered": [
+  {
+   "t": 12.64,
+   "clock": "07:42",
+   "type": "pass",
+   "outcome": "failed",
+   "team": "away",
+   "player": "Ivo Brankov",
+   "recipient": null,
+   "speed_kmh": 10.5,
+   "matched": true,
+   "truth_speed_kmh": 35.6,
+   "passer_correct": true
+  },
+  {
+   "t": 40.8,
+   "clock": "08:10",
+   "type": "pass",
+   "outcome": "success",
+   "team": "away",
+   "player": "Jonah Whitlock",
+   "recipient": "Lorenzo Bassi",
+   "speed_kmh": 16.7,
+   "matched": true,
+   "truth_speed_kmh": 24.4,
+   "passer_correct": true
+  },
+  {
+   "t": 42.72,
+   "clock": "08:12",
+   "type": "pass",
+   "outcome": "success",
+   "team": "away",
+   "player": "Lorenzo Bassi",
+   "recipient": "Kofi Asante-Reyes",
+   "speed_kmh": 31.3,
+   "matched": true,
+   "truth_speed_kmh": 30.7,
+   "passer_correct": true
+  },
+  {
+   "t": 45.6,
+   "clock": "08:15",
+   "type": "pass",
+   "outcome": "success",
+   "team": "away",
+   "player": "Kofi Asante-Reyes",
+   "recipient": "Bastien Moreau-Diallo",
+   "speed_kmh": 44.9,
+   "matched": true,
+   "truth_speed_kmh": 42.8,
+   "passer_correct": true
+  },
+  {
+   "t": 49.6,
+   "clock": "08:19",
+   "type": "pass",
+   "outcome": "failed",
+   "team": "away",
+   "player": "Bastien Moreau-Diallo",
+   "recipient": null,
+   "speed_kmh": 49.9,
+   "matched": true,
+   "truth_speed_kmh": 46.9,
+   "passer_correct": true
+  },
+  {
+   "t": 50.4,
+   "clock": "08:20",
+   "type": "pass",
+   "outcome": "failed",
+   "team": "home",
+   "player": "Samuel Adeyemi-Brook",
+   "recipient": null,
+   "speed_kmh": 48.3,
+   "matched": false,
+   "truth_speed_kmh": null,
+   "passer_correct": false
+  },
+  {
+   "t": 75.84,
+   "clock": "08:45",
+   "type": "pass",
+   "outcome": "failed",
+   "team": "away",
+   "player": "Amadou Fofanah-Clarke",
+   "recipient": null,
+   "speed_kmh": 38.8,
+   "matched": true,
+   "truth_speed_kmh": 38.3,
+   "passer_correct": true
+  },
+  {
+   "t": 81.52,
+   "clock": "08:51",
+   "type": "shot",
+   "outcome": "goal",
+   "team": "away",
+   "player": "Bastien Moreau-Diallo",
+   "recipient": null,
+   "speed_kmh": null,
+   "matched": true,
+   "truth_speed_kmh": 89.3,
+   "passer_correct": false
+  }
+ ],
+ "truth_count": 13,
+ "validated": 12,
+ "rejected": []
+}
