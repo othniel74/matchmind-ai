@@ -36,7 +36,7 @@ Microsoft Foundry (models, evaluations, tracing) · Microsoft Agent Framework ·
 
 No sign-in is needed. The demo is free, read-only and uses synthetic data.
 
-1. Open https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io and choose **Experience the match**, or go straight to `/app`.
+1. Open https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io and choose **Experience the match**, or go straight to `/app`.
 2. The match replays in about 90 seconds (add `?speed=2` to the URL for a faster replay). In **Your moments**, press **Why?** on a goal.
 3. In **Your view**, change the viewing mode, language (try Arabic), favourite club, followed player or tracked metric.
 4. **Ask the match:** try "Who is Merridge's key player?" or a question in Spanish. The answer is labelled *Foundry agent via MCP*.
@@ -51,5 +51,5 @@ Model-backed actions are limited to 4 per visitor per minute, and repeated reque
 
 ## Links
 
-- Repository: https://github.com/othniel74/matchmind-ai
+- Repository: https://github.com/othniel74/pitchlight
 - Video: upload `docs/demo/pitchlight-submission.mp4` to YouTube or Vimeo and paste the public link here.

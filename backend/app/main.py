@@ -30,8 +30,15 @@ from .runtime import validate_runtime, RuntimeBoundary, apply_demo_restrictions,
 from .languages import LANGUAGE_PATTERN, catalogue
 from .live import enrich
 
+# A retired deployment (the old MatchMind address) only redirects to the current one.
+REDIRECT_URL = os.getenv('PITCHLIGHT_REDIRECT_URL', '').rstrip('/')
+
+
 @asynccontextmanager
 async def lifespan(app):
+    if REDIRECT_URL:  # no data store, graph, warm-up, MCP session or Event Hubs consumer
+        yield
+        return
     apply_demo_restrictions(validate_runtime())
     from .telemetry import configure_tracing, shutdown_tracing
     configure_tracing()  # MATCHMIND_TRACING selects the exporter; off by default.
@@ -763,3 +770,21 @@ if _static and Path(_static).is_dir():
         return FileResponse(Path(_static) / 'index.html')
 
     app.mount('/', StaticFiles(directory=_static, html=True), name='frontend')
+
+
+if REDIRECT_URL:
+    from starlette.responses import RedirectResponse
+
+    class _RedirectEverything:
+        """Outermost ASGI layer: every HTTP request goes to the same path on the current address."""
+        def __init__(self, inner):
+            self.inner = inner
+
+        async def __call__(self, scope, receive, send):
+            if scope['type'] != 'http':
+                return await self.inner(scope, receive, send)
+            query = scope.get('query_string', b'').decode('latin-1')
+            target = REDIRECT_URL + scope.get('path', '/') + (f'?{query}' if query else '')
+            await RedirectResponse(target, status_code=301)(scope, receive, send)
+
+    app.add_middleware(_RedirectEverything)

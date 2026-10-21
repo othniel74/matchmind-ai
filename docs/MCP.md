@@ -4,7 +4,7 @@ Pitchlight publishes its verified match intelligence as a [Model Context Protoco
 
 | Endpoint | Transport |
 | --- | --- |
-| `https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` | Streamable HTTP, stateless, JSON responses |
+| `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` | Streamable HTTP, stateless, JSON responses |
 | `python -m app.mcp_server` (from `backend/`) | stdio |
 
 ## Tools

@@ -1,6 +1,6 @@
 # Pitchlight
 
-*Formerly MatchMind. The repository, the demo URL and Azure resource names keep the old name.*
+*Formerly MatchMind. Some Azure resource names and settings (`MATCHMIND_*`) keep the old name; the old demo address redirects here.*
 
 **Explainable match intelligence from synthetic football events, and from broadcast video: live, personalized, in seven languages, on Azure and Microsoft Foundry.**
 
@@ -10,9 +10,9 @@ Every number it publishes is recomputed from the events. Every agent-written sen
 
 | | |
 | --- | --- |
-| **Live demo** | https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
+| **Live demo** | https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
 | **Video (1:47)** | [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4) |
-| **MCP server** | `https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
+| **MCP server** | `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
 | **Submission** | [docs/SUBMISSION.md](docs/SUBMISSION.md): pitch, category and testing instructions |
 
 All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional and synthetic. Pitchlight is not affiliated with the Premier League.
@@ -98,7 +98,7 @@ Every Azure call uses **managed identity**; no keys are stored anywhere. Product
 
 ## Try it in two minutes
 
-On the [live demo](https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/app):
+On the [live demo](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/app):
 
 1. Watch **Your moments** fill in as the match replays, then press **Why?** on a goal.
 2. In **Your view**, switch the language to Arabic, the mode to Analyst, and follow a player.

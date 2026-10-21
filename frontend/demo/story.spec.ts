@@ -174,6 +174,6 @@ test("Pitchlight submission story", async ({ page }) => {
     "Microsoft Foundry  ·  Agent Framework multi-agent workflow  ·  MCP server  ·  RT-DETR vision",
     "Azure Container Apps  ·  Event Hubs  ·  Container Apps Jobs  ·  Memgraph  ·  Application Insights",
     "Managed identity throughout: no keys  ·  Synthetic data, fictional clubs",
-    "github.com/othniel74/matchmind-ai",
+    "github.com/othniel74/pitchlight",
   ], 5000);
 });

@@ -1,6 +1,6 @@
 # Public demo deployment — updated 21 October 2026
 
-**URL:** https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io
+**URL:** https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io
 
 The app's routes:
 
