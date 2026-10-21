@@ -137,11 +137,11 @@ def parse_intent(text: str, question: str) -> dict[str, Any]:
 
 
 async def mcp_agent_answer(client: Any, question: str, minute: int, language: str, url: str) -> dict[str, Any] | None:
-    """An Agent Framework agent calls MatchMind's answer_question tool over MCP. The viewer gets
+    """An Agent Framework agent calls Pitchlight's answer_question tool over MCP. The viewer gets
     the tool's verified result, never the model's own text. None if the tool was not called."""
     from agent_framework import MCPStreamableHTTPTool
     from .agent_workflow import _run_agent
-    tool = MCPStreamableHTTPTool(name='matchmind', url=url, allowed_tools=['answer_question'], load_prompts=False,
+    tool = MCPStreamableHTTPTool(name='pitchlight', url=url, allowed_tools=['answer_question'], load_prompts=False,
                                  request_timeout=20)
     async with tool:
         agent = client.as_agent(name='match-qa', instructions=AGENT_INSTRUCTIONS, tools=[tool])

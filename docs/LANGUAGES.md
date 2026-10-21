@@ -1,6 +1,6 @@
 # Languages — 19 October 2026
 
-MatchMind supports seven languages. The supported set is identical across narratives, overlays, claim statements, the agent workflow, the API and the UI.
+Pitchlight supports seven languages. The supported set is identical across narratives, overlays, claim statements, the agent workflow, the API and the UI.
 
 | Code | Language | Direction | Number style |
 | --- | --- | --- | --- |

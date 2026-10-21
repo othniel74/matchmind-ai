@@ -1,6 +1,6 @@
-# MatchMind on Microsoft Foundry
+# Pitchlight on Microsoft Foundry
 
-MatchMind uses one Foundry project (`matchmind-ai` on the `matchmind-ai-studio` resource, UK South) for three things: the models its agents run on, the traces of every agent run, and release evaluations.
+Pitchlight uses one Foundry project (`matchmind-ai` on the `matchmind-ai-studio` resource, UK South) for three things: the models its agents run on, the traces of every agent run, and release evaluations.
 
 ## 1. Models for the agent workflow
 
@@ -8,7 +8,7 @@ MatchMind uses one Foundry project (`matchmind-ai` on the `matchmind-ai-studio` 
 | --- | --- |
 | Model | `gpt-4.1-mini` deployment, GlobalStandard, 100 units |
 | Client | Agent Framework `FoundryChatClient` (Responses API), authenticated with Entra ID: `az login` locally, the Container App's managed identity in Azure. No keys are stored. |
-| Agents | The narrative workflow (insight ranker, tactical analyst, storyteller, audience editor, fact checker, publication gate; see [AGENT_WORKFLOW.md](AGENT_WORKFLOW.md)), the recap writers, and the **match-qa** agent, which calls MatchMind's MCP tools ([MCP.md](MCP.md)) |
+| Agents | The narrative workflow (insight ranker, tactical analyst, storyteller, audience editor, fact checker, publication gate; see [AGENT_WORKFLOW.md](AGENT_WORKFLOW.md)), the recap writers, and the **match-qa** agent, which calls Pitchlight's MCP tools ([MCP.md](MCP.md)) |
 
 ## 2. Tracing in Foundry
 
@@ -20,7 +20,7 @@ Agent Framework records spans with the OpenTelemetry GenAI conventions. One Ask 
 invoke_agent match-qa
 ├── chat gpt-4.1-mini              (POST …/openai/v1/responses)
 └── execute_tool answer_question
-    └── POST /mcp → tools/call answer_question   (MatchMind's own MCP server)
+    └── POST /mcp → tools/call answer_question   (Pitchlight's own MCP server)
 ```
 
 Narrative and recap runs show each workflow executor and handoff (`edge_group.process…`), the model calls, and the publication gate's decision. Prompts and generated text are **not** exported unless `MATCHMIND_TRACE_SENSITIVE=true`.
@@ -34,7 +34,7 @@ Verified on 20 October 2026: after live requests to the deployment, the project'
 1. **Generate.** It runs the live workflow for 21 outputs: a half-time recap, a full-time recap and an insight narrative in each of the 7 languages. When the fact checker blocks a draft, the verified fallback is what gets published, so that is what is scored.
 2. **Score.** It uses Azure AI Evaluation:
    - Microsoft's AI-assisted evaluators: **groundedness** (against the verified facts the writers receive), **relevance**, **coherence** and **fluency**, judged by the project's own deployment;
-   - MatchMind's code evaluator **numbers_verified**: the share of numbers in the text that appear in the verified facts.
+   - Pitchlight's code evaluator **numbers_verified**: the share of numbers in the text that appear in the verified facts.
 3. **Log.** It logs the run to the Foundry project, where it appears under **Evaluations** as `matchmind-release-evaluation`, with every row's scores and reasons.
 4. **Gate.** It checks the release thresholds. The exit code is non-zero when one fails, so the script can block a release in CI.
 

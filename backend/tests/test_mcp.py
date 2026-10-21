@@ -1,4 +1,4 @@
-"""MatchMind's MCP server: protocol, tool contract and answers, over the API's /mcp endpoint."""
+"""Pitchlight's MCP server: protocol, tool contract and answers, over the API's /mcp endpoint."""
 import json
 
 import pytest
@@ -30,7 +30,7 @@ def call(client, name, arguments):
 def test_initialize_announces_tools(client):
     result = rpc(client, 'initialize', {'protocolVersion': '2025-06-18', 'capabilities': {},
                                         'clientInfo': {'name': 'test', 'version': '1'}})['result']
-    assert result['serverInfo']['name'] == 'matchmind' and 'tools' in result['capabilities']
+    assert result['serverInfo']['name'] == 'pitchlight' and 'tools' in result['capabilities']
     assert 'synthetic' in result['instructions'].lower() or 'fictional' in result['instructions'].lower()
 
 

@@ -1,10 +1,10 @@
-> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+> **Historical document.** It records Pitchlight at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
 
 # Update 17 October 2026
 
 See `VERIFICATION_2026_10_17.md` for the current results. Synthetic scoring, explicit generated pass recipients, optional durable SQLite replay storage, local Vite proxy, and frontend compilation are now implemented and verified locally. The graph adapter now replaces a match projection in one transaction, with mocked transaction checks; real Bolt integration remains unverified. Prior dated inventory follows for historical context.
 
-# MatchMind AI — Implementation status (15 October 2026)
+# Pitchlight — Implementation status (15 October 2026)
 
 ## Scope and truthfulness
 This is a **synthetic football intelligence prototype** and submission foundation, not a production service. All football teams/events are fictional. The README contains an early M1 overview plus subsequent M1–M4 update notes; the latest functionality is described here. Do not present fallback agent text as genuine Microsoft AI output.

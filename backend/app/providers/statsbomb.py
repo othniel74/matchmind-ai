@@ -1,8 +1,8 @@
-"""StatsBomb event data (open-data JSON format) -> MatchMind events.
+"""StatsBomb event data (open-data JSON format) -> Pitchlight events.
 
-StatsBomb publishes free open data for research under its own licence; MatchMind does not
+StatsBomb publishes free open data for research under its own licence; Pitchlight does not
 include any. Point this adapter at a downloaded `events/<match_id>.json` (and optionally the
-matching `lineups/<match_id>.json`) to run MatchMind's validation, claims and analytics on it:
+matching `lineups/<match_id>.json`) to run Pitchlight's validation, claims and analytics on it:
 
     python -m app.providers.statsbomb events.json [--lineups lineups.json] [--home-team-id 779]
 
@@ -10,7 +10,7 @@ Mapping:
 - teams: the home team (given, or the first team in the Starting XI events) is `home`;
 - players: `<team>-<shirt number>` from the lineups or the Starting XI tactics, with the
   provider's names kept in the returned roster;
-- coordinates: StatsBomb's 120 x 80 pitch, each team attacking left to right, becomes MatchMind's
+- coordinates: StatsBomb's 120 x 80 pitch, each team attacking left to right, becomes Pitchlight's
   team-relative 0-100 scale;
 - clock: the provider's minute and second with the `period`, so stoppage and extra time stay valid;
 - types: Pass, Shot, Duel (tackle), Ball Recovery, Interception, Foul Committed, cards (from fouls
@@ -42,7 +42,7 @@ def _xy(location: list[float] | None) -> tuple[float, float]:
 
 
 def roster(events: list[dict], lineups: list[dict] | None, home_team_id: int | None) -> tuple[dict[int, str], dict[int, str], dict[str, dict]]:
-    """Team id -> 'home'/'away', provider player id -> MatchMind player id, and the roster."""
+    """Team id -> 'home'/'away', provider player id -> Pitchlight player id, and the roster."""
     starting = [e for e in events if e['type']['name'] == 'Starting XI']
     team_ids = [e['team']['id'] for e in starting] or sorted({e['team']['id'] for e in events if 'team' in e})
     home = home_team_id if home_team_id in team_ids else team_ids[0]
@@ -158,7 +158,7 @@ def adapt(events: list[dict], lineups: list[dict] | None = None, home_team_id: i
 
 
 def summarize(result: dict[str, Any]) -> dict[str, Any]:
-    """MatchMind's own analytics on the adapted stream: statistics and both pass networks."""
+    """Pitchlight's own analytics on the adapted stream: statistics and both pass networks."""
     from ..core import statistics
     from ..graph.analytics import passing_graph, roles
     events = result['events']
@@ -173,7 +173,7 @@ def summarize(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description='Run MatchMind validation and analytics on StatsBomb event data.')
+    parser = argparse.ArgumentParser(description='Run Pitchlight validation and analytics on StatsBomb event data.')
     parser.add_argument('events')
     parser.add_argument('--lineups')
     parser.add_argument('--home-team-id', type=int)

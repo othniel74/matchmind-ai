@@ -56,7 +56,7 @@ The app consumes the `match-events` hub in a background task, and `POST /api/fee
 - **Live AI from the cloud.** An agent recap was written through the managed identity and fact-checked (FoundryChatClient, `live: true`, about 17 s).
 - **Browser.** All 5 Playwright smoke tests pass against the public URL. They cover WebSocket streaming, Arabic right-to-left, the match graph, the "Why?" explanations and Ask the match.
 - **Graph database (20 October 2026).** Memgraph holds 1,487 nodes and 7,118 relationships, projected in 0.4 s, and its counts match NetworkX. `/api/graph/impact` and `/api/graph/why` answer from Memgraph, and `/api/graph/roles` reports that the database's pass lanes agree. Graph rebuild over the API returns 403.
-- **Ask the match from the cloud.** A Foundry agent calls MatchMind's MCP tools through the managed identity (`router: mcp_agent`), in English, Spanish and French; answers come from the tools.
+- **Ask the match from the cloud.** A Foundry agent calls Pitchlight's MCP tools through the managed identity (`router: mcp_agent`), in English, Spanish and French; answers come from the tools.
 - **MCP (20 October 2026).** All 13 tools answer at `/mcp` from an external MCP client.
 - **Event Hubs feed (20 October 2026).** One kick-off streamed a full match: 1,079 of 1,079 events accepted, 0 rejected.
 - **Vision job (21 October 2026).** 601 frames processed in 10.3 minutes; 12 events recovered, and all 12 accepted by the app from Event Hubs.

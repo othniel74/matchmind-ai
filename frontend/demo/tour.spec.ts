@@ -27,9 +27,9 @@ async function scrollTo(page: Page, selector: string) {
   await page.waitForTimeout(900);
 }
 
-test("MatchMind AI product tour", async ({ page }) => {
+test("Pitchlight product tour", async ({ page }) => {
   await page.goto("/");
-  await caption(page, "MatchMind AI: explainable match intelligence from synthetic football events", 3500);
+  await caption(page, "Pitchlight: explainable match intelligence from synthetic football events", 3500);
   await scrollTo(page, ".lp-narrative");
   await caption(page, "Every observation is verified against its source events, in seven languages", 2000);
   await page.locator("button.lp-language").click();

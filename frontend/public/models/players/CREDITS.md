@@ -13,6 +13,6 @@ Animations:
 - `Assets/Animations/all_animations_max_motextr_static/m_idle_breathe_01.max.fbx`
 - `Assets/Animations/all_animations_max_motextr_xy/m_run_neutral_01.max.fbx`
 
-MatchMind adaptations: FBX to GLB conversion, standard PBR materials, embedded 1024-pixel texture maps (WebP colour / PNG normals), in-place locomotion, preserved character limb lengths, runtime fictional team kit colours and shirt numbers. Both characters are reused across the 22-player simulation; this is not a collection of 22 unique people. Models do not represent the named fictional teams or real match participants.
+Pitchlight adaptations: FBX to GLB conversion, standard PBR materials, embedded 1024-pixel texture maps (WebP colour / PNG normals), in-place locomotion, preserved character limb lengths, runtime fictional team kit colours and shirt numbers. Both characters are reused across the 22-player simulation; this is not a collection of 22 unique people. Models do not represent the named fictional teams or real match participants.
 
 These detailed real-time characters improve realism, but are not claimed to be photorealistic scans or real match footage. All files are hosted locally; no account, purchase or cloud service is required.

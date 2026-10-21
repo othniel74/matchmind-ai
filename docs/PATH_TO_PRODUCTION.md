@@ -1,6 +1,6 @@
 # Path to production
 
-MatchMind runs publicly today in **demo mode** on Azure Container Apps. `MATCHMIND_ENV=production` refuses to start, and that is deliberate. It is a **release gate, a safety control**, not a missing feature. A service that publishes match narratives to millions of viewers must not be switched to production by flipping a variable. It goes live when the controls below are in place and verified, and the code enforces that.
+Pitchlight runs publicly today in **demo mode** on Azure Container Apps. `MATCHMIND_ENV=production` refuses to start, and that is deliberate. It is a **release gate, a safety control**, not a missing feature. A service that publishes match narratives to millions of viewers must not be switched to production by flipping a variable. It goes live when the controls below are in place and verified, and the code enforces that.
 
 This document lists what is already production-grade, what the gate is waiting for, and the Azure services that close each gap.
 
@@ -16,7 +16,8 @@ This document lists what is already production-grade, what the gate is waiting f
 | **Cost and abuse control** | Model-backed endpoints are cached per match state and limited per visitor (HTTP 429). MCP tools and graph queries make no model calls. |
 | **Observability** | OpenTelemetry traces to Application Insights. Prompts and generated text are not exported unless explicitly enabled. |
 | **Graph database** | A Memgraph sidecar holds a replayable copy, re-projected on every source change. Its counts are checked against NetworkX, and the app falls back to NetworkX if it is down. Real Memgraph and Neo4j parity tests run in Azure. |
-| **Quality gates** | About 240 backend tests, an offline evaluation, browser tests against the live URL, and CI on every push. |
+| **Performance under load** | `tools/load-test.py`: 25 concurrent viewers for 60 s on one replica (1 vCPU), each asking for a random minute, the worst case. Before: 8.3 requests/s, median 1.5 s, 95th percentile 8.8 s. Profiling showed every request regenerated the synthetic match. After caching the stream and the parsed events by `state_version`, which every correction bumps: **31.8 requests/s, median 110 ms, 95th percentile 708 ms, 0 errors** ([validation/load-test.json](validation/load-test.json)). A test proves a correction is never served from a stale cache. |
+| **Quality gates** | About 285 backend tests, an offline evaluation, browser tests against the live URL, and CI on every push. |
 | **Event-driven ingestion** | Azure Event Hubs carries the match feed. A Container Apps Job publishes it; the API consumes, validates and interprets each event as it arrives; duplicates are skipped and bad events reported. All identity is managed, with no keys. |
 | **Auto-eventing from video** | Broadcast video becomes validated events through Event Hubs. Each stage is scored against ground truth ([VISION.md](VISION.md)), and favours precision: a false event costs more than a missed one. |
 | **Real-data readiness** | A provider adapter (StatsBomb) maps real events into the validated contract; across all 64 matches of the 2022 World Cup, 81,931 events were accepted, 0 were rejected and every score matched the official result. The contract supports periods, stoppage time and extra time ([PROVIDERS.md](PROVIDERS.md)). |

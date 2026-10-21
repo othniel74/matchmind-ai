@@ -3,8 +3,8 @@ from docx import Document
 from docx.shared import Pt
 
 root = Path(__file__).resolve().parents[1]
-source = root/'docs/product/MatchMind_AI_Product_Strategy.docx'
-target = root/'docs/product/MatchMind_AI_Product_Strategy_v2.docx'
+source = root/'docs/product/Pitchlight_AI_Product_Strategy.docx'
+target = root/'docs/product/Pitchlight_AI_Product_Strategy_v2.docx'
 doc = Document(source)
 
 replacements = {

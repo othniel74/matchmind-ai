@@ -2,7 +2,7 @@
 
 ## Current scope
 
-MatchMind now has a local, single-workspace workflow from versioned synthetic events to evidence-backed drafts, authenticated review and controlled local publication. This is a development milestone. It does not establish production readiness, external broadcast delivery or general hallucination detection.
+Pitchlight now has a local, single-workspace workflow from versioned synthetic events to evidence-backed drafts, authenticated review and controlled local publication. This is a development milestone. It does not establish production readiness, external broadcast delivery or general hallucination detection.
 
 ## Try it
 

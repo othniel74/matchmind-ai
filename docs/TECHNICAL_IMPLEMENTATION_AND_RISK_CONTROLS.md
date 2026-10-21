@@ -1,14 +1,14 @@
-> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+> **Historical document.** It records Pitchlight at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
 
-# MatchMind AI technical implementation and risk controls
+# Pitchlight technical implementation and risk controls
 
 > Implementation update (19 October 2026): the local Evidence Lab now includes versioned provenance, deterministic claim checks, local password sessions, analyst/reviewer roles, account-attributed review, controlled local publication and atomic withdrawal on supporting corrections. See [local evidence foundation](LOCAL_EVIDENCE_FOUNDATION.md) for current scope and 79-test verification. Cloud identity, tenant isolation, external delivery and production evaluation remain incomplete.
 
 Production architecture and verification specification
 
-Prepared for the MatchMind product and engineering team. Baseline: 18 October 2026. This document consolidates the implementation plan and the risks behind evidence-backed football storytelling. It complements Product Strategy Version 2 and preserves the earlier architecture and requirements documents.
+Prepared for the Pitchlight product and engineering team. Baseline: 18 October 2026. This document consolidates the implementation plan and the risks behind evidence-backed football storytelling. It complements Product Strategy Version 2 and preserves the earlier architecture and requirements documents.
 
-MatchMind is intended to help producers and match analysts discover, verify and publish useful football stories. The production design combines a shared match context, deterministic analysis, NetworkX, a knowledge graph, constrained AI and editorial approval. The local prototype implements only part of this design. This specification does not establish production readiness or guarantee zero hallucinations.
+Pitchlight is intended to help producers and match analysts discover, verify and publish useful football stories. The production design combines a shared match context, deterministic analysis, NetworkX, a knowledge graph, constrained AI and editorial approval. The local prototype implements only part of this design. This specification does not establish production readiness or guarantee zero hallucinations.
 
 ## How status is reported
 
@@ -275,7 +275,7 @@ Results begin as NOT_RUN. Engineering thresholds are proposed internal choices, 
 | D2 Claim and language | Gold facts, support labels, answerable and unanswerable questions, and EN/ES audience variants. Keep tuning and release matches disjoint. Evaluate model, prompt and retrieval changes. |
 | D3 Adversarial and faults | Invented identities, irrelevant citations, causal paraphrases, injection, duplicate/late events, corrections, outages and unauthorized workspaces. Run before pilot releases. |
 | D4 Load and recovery | Fix match/user concurrency, event/tracking rates, region, model, hardware, duration and fault schedule. Benchmark each workload profile separately. |
-| D5 User workflow | Equivalent producer tasks in the current workflow and MatchMind. Counterbalance order; record experience, completion and failures. |
+| D5 User workflow | Equivalent producer tasks in the current workflow and Pitchlight. Counterbalance order; record experience, completion and failures. |
 
 Authorized research samples can supplement appropriate packs, but synthetic performance is not proof of generalization. Do not redistribute restricted source data in evaluation assets. The existing five-seed checks are a baseline consistency check, not a labeled semantic or adoption benchmark.
 
@@ -348,7 +348,7 @@ Specify the D4 workload and target budget in the run manifest before executing a
 
 ## Proposed pilot protocol
 
-Use D5 with representative broadcast producers and match analysts doing equivalent discovery, evidence-review and publishing tasks. Compare MatchMind with their current workflow, not an invented manual baseline. Record training time, match familiarity, task difficulty, incomplete tasks and reasons for rejection. Counterbalance task order to reduce practice effects. Pilot duration, participant count and success thresholds must be agreed before data collection.
+Use D5 with representative broadcast producers and match analysts doing equivalent discovery, evidence-review and publishing tasks. Compare Pitchlight with their current workflow, not an invented manual baseline. Record training time, match familiarity, task difficulty, incomplete tasks and reasons for rejection. Counterbalance task order to reduce practice effects. Pilot duration, participant count and success thresholds must be agreed before data collection.
 
 | Metric | Definition window and approval rule |
 | --- | --- |

@@ -1,12 +1,12 @@
 """Release evaluation in Microsoft Foundry.
 
-Generates what MatchMind publishes, with the live agent workflow (Agent Framework on the
+Generates what Pitchlight publishes, with the live agent workflow (Agent Framework on the
 Foundry model), then scores it with Azure AI Evaluation and logs the run to the Foundry
 project, where it appears under Evaluations:
 
 - Microsoft's AI-assisted evaluators: groundedness (against the verified facts), relevance,
   coherence and fluency, each 1-5;
-- MatchMind's own code evaluator, numbers_verified: the share of numbers in the published text
+- Pitchlight's own code evaluator, numbers_verified: the share of numbers in the published text
   that appear in the verified facts (1.0 means no unsupported number).
 
 Release thresholds are checked at the end; the exit code is non-zero when one fails, so this

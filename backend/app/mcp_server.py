@@ -1,4 +1,4 @@
-"""MatchMind as a Model Context Protocol (MCP) server.
+"""Pitchlight as a Model Context Protocol (MCP) server.
 
 Any MCP client (an Agent Framework agent, Foundry, VS Code / GitHub Copilot, Claude Desktop)
 can query the same verified match intelligence the product shows: claims, moments and why
@@ -34,7 +34,7 @@ def _allowed_hosts() -> list[str]:
 
 
 server = FastMCP(
-    name='matchmind',
+    name='pitchlight',
     # Stateless JSON responses: any replica can answer any request, nothing is kept per client.
     streamable_http_path='/', stateless_http=True, json_response=True,
     transport_security=TransportSecuritySettings(allowed_hosts=_allowed_hosts(), allowed_origins=[]),

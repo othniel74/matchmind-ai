@@ -1,10 +1,10 @@
 {
   "servers": {
-    "matchmind-demo": {
+    "pitchlight-demo": {
       "type": "http",
       "url": "https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp"
     },
-    "matchmind-local": {
+    "pitchlight-local": {
       "type": "stdio",
       "command": "${workspaceFolder}/backend/.venv-agents/Scripts/python.exe",
       "args": ["-m", "app.mcp_server"],

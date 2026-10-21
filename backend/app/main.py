@@ -63,7 +63,7 @@ async def lifespan(app):
         consumer.cancel()
     shutdown_tracing()
 
-app = FastAPI(title='MatchMind AI', version='0.1.0',lifespan=lifespan)
+app = FastAPI(title='Pitchlight', version='0.1.0',lifespan=lifespan)
 # MATCHMIND_ALLOWED_HOSTS adds a deployment's hostname (for example the Container App's FQDN).
 _extra_hosts = [h.strip() for h in os.getenv('MATCHMIND_ALLOWED_HOSTS', '').split(',') if h.strip()]
 app.add_middleware(TrustedHostMiddleware,allowed_hosts=['localhost','127.0.0.1','[::1]','testserver', *_extra_hosts])

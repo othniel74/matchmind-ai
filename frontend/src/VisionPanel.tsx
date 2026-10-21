@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ScanEye } from "lucide-react";
 import "./vision.css";
 
-// Auto-eventing from video: MatchMind renders a synthetic match as broadcast video, a vision
+// Auto-eventing from video: Pitchlight renders a synthetic match as broadcast video, a vision
 // pipeline recovers players, ball and events from the pixels, and every number is scored against
 // the renderer's ground truth. Static artefacts from backend/vision (run offline on CPU).
 
@@ -102,7 +102,7 @@ export function VisionPanel() {
         <span className="panel-kicker">SCORED AGAINST GROUND TRUTH</span>
       </div>
       <p className="subtle-note">
-        MatchMind renders the synthetic match as broadcast video. A vision pipeline then works only from the pixels: it
+        Pitchlight renders the synthetic match as broadcast video. A vision pipeline then works only from the pixels: it
         calibrates the camera from the pitch lines, detects and tracks every player (RT-DETR), splits teams by kit,
         follows the ball, and detects passes and shots. Because the video is synthetic, every result is checked
         against the exact truth.
@@ -156,7 +156,7 @@ export function VisionPanel() {
       )}
       <p className="subtle-note">
         {events.validated} recovered events pass the same validation as a data provider's feed and can enter the
-        MatchMind pipeline. CPU processing: {report.processing.per_frame_s.toFixed(1)} s per frame at
+        Pitchlight pipeline. CPU processing: {report.processing.per_frame_s.toFixed(1)} s per frame at
         {` ${25 / report.processing.stride}`} frames per second of video; live use needs a GPU.
       </p>
     </section>

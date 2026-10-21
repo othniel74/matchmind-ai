@@ -1,50 +1,103 @@
 {
-  "summary": {
-    "users": 25,
-    "seconds": 60,
-    "requests": 500,
-    "requests_per_second": 8.3,
-    "errors": 1,
-    "p50_ms": 1503.0,
-    "p95_ms": 8840.5,
-    "p99_ms": 12990.1,
-    "mean_ms": 2474.1
-  },
-  "endpoints": {
-    "experience": {
-      "requests": 89,
-      "errors": 0,
-      "p50_ms": 903.9,
-      "p95_ms": 7111.5,
-      "p99_ms": 10846.2
-    },
-    "graph_roles": {
-      "requests": 99,
+  "test": "tools/load-test.py, 25 concurrent viewers for 60 s, random minutes (worst case: nothing shared between viewers), one replica with 1 vCPU",
+  "before_caching": {
+    "summary": {
+      "users": 25,
+      "seconds": 60,
+      "requests": 500,
+      "requests_per_second": 8.3,
       "errors": 1,
-      "p50_ms": 2677.9,
-      "p95_ms": 12142.8,
-      "p99_ms": 15605.3
+      "p50_ms": 1503.0,
+      "p95_ms": 8840.5,
+      "p99_ms": 12990.1,
+      "mean_ms": 2474.1
     },
-    "insights": {
-      "requests": 113,
+    "endpoints": {
+      "experience": {
+        "requests": 89,
+        "errors": 0,
+        "p50_ms": 903.9,
+        "p95_ms": 7111.5,
+        "p99_ms": 10846.2
+      },
+      "graph_roles": {
+        "requests": 99,
+        "errors": 1,
+        "p50_ms": 2677.9,
+        "p95_ms": 12142.8,
+        "p99_ms": 15605.3
+      },
+      "insights": {
+        "requests": 113,
+        "errors": 0,
+        "p50_ms": 1078.1,
+        "p95_ms": 8045.8,
+        "p99_ms": 11238.1
+      },
+      "recap": {
+        "requests": 102,
+        "errors": 0,
+        "p50_ms": 1651.2,
+        "p95_ms": 9208.8,
+        "p99_ms": 12929.4
+      },
+      "tactics": {
+        "requests": 97,
+        "errors": 0,
+        "p50_ms": 1161.6,
+        "p95_ms": 5217.5,
+        "p99_ms": 12990.1
+      }
+    }
+  },
+  "after_caching": {
+    "summary": {
+      "users": 25,
+      "seconds": 60,
+      "requests": 1905,
+      "requests_per_second": 31.8,
       "errors": 0,
-      "p50_ms": 1078.1,
-      "p95_ms": 8045.8,
-      "p99_ms": 11238.1
+      "p50_ms": 109.5,
+      "p95_ms": 708.0,
+      "p99_ms": 1539.2,
+      "mean_ms": 209.8
     },
-    "recap": {
-      "requests": 102,
-      "errors": 0,
-      "p50_ms": 1651.2,
-      "p95_ms": 9208.8,
-      "p99_ms": 12929.4
-    },
-    "tactics": {
-      "requests": 97,
-      "errors": 0,
-      "p50_ms": 1161.6,
-      "p95_ms": 5217.5,
-      "p99_ms": 12990.1
+    "endpoints": {
+      "experience": {
+        "requests": 368,
+        "errors": 0,
+        "p50_ms": 85.8,
+        "p95_ms": 394.7,
+        "p99_ms": 652.1
+      },
+      "graph_roles": {
+        "requests": 381,
+        "errors": 0,
+        "p50_ms": 369.4,
+        "p95_ms": 1539.2,
+        "p99_ms": 2823.6
+      },
+      "insights": {
+        "requests": 382,
+        "errors": 0,
+        "p50_ms": 76.1,
+        "p95_ms": 284.4,
+        "p99_ms": 515.7
+      },
+      "recap": {
+        "requests": 382,
+        "errors": 0,
+        "p50_ms": 115.5,
+        "p95_ms": 394.8,
+        "p99_ms": 604.7
+      },
+      "tactics": {
+        "requests": 392,
+        "errors": 0,
+        "p50_ms": 86.5,
+        "p95_ms": 359.7,
+        "p99_ms": 496.0
+      }
     }
   }
 }

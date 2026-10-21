@@ -24,7 +24,7 @@ def verify(path):
     with sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,factory=ClosingConnection) as db:
         if db.execute('PRAGMA quick_check').fetchall()!=[('ok',)]:raise ValueError('Database integrity check failed.')
         tables={r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-        if not REQUIRED.issubset(tables):raise ValueError('Not a complete MatchMind foundation database.')
+        if not REQUIRED.issubset(tables):raise ValueError('Not a complete Pitchlight foundation database.')
         counts={name:db.execute(f'SELECT COUNT(*) FROM "{name}"').fetchone()[0] for name in sorted((REQUIRED|OPTIONAL)&tables)}
     with path.open('rb') as handle:checksum=hashlib.file_digest(handle,'sha256').hexdigest()
     return {'path':str(path),'integrity':'ok','counts':counts,'sha256':checksum}

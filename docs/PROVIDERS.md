@@ -1,12 +1,12 @@
 # Real data providers
 
-MatchMind's analytics run on its own event contract (`core.Event`). A **provider adapter** maps a provider's events into that contract. The same `StreamValidator` that guards the synthetic feed then checks every adapted event, so claims, statistics, pass networks, narratives and tactical analysis run unchanged on real data.
+Pitchlight's analytics run on its own event contract (`core.Event`). A **provider adapter** maps a provider's events into that contract. The same `StreamValidator` that guards the synthetic feed then checks every adapted event, so claims, statistics, pass networks, narratives and tactical analysis run unchanged on real data.
 
 ## StatsBomb (open-data format)
 
 [app/providers/statsbomb.py](../backend/app/providers/statsbomb.py) adapts StatsBomb's JSON event format:
 
-| StatsBomb | MatchMind |
+| StatsBomb | Pitchlight |
 | --- | --- |
 | Home team (given, or the first Starting XI) | `home`, the other team `away` |
 | Players, with shirt numbers from lineups or the Starting XI | `<team>-<shirt>`, provider names kept in the returned roster |
@@ -34,7 +34,7 @@ Checked locally on the StatsBomb open-data file for the 2022 World Cup final (th
 | Check | Result |
 | --- | --- |
 | Source events | 4,407 |
-| **Accepted by MatchMind's validator** | **1,561**: 1,263 passes, 30 shots, 57 tackles, 143 recoveries, 48 fouls, 7 cards, 13 substitutions |
+| **Accepted by Pitchlight's validator** | **1,561**: 1,263 passes, 30 shots, 57 tackles, 143 recoveries, 48 fouls, 7 cards, 13 substitutions |
 | **Rejected** | **0** |
 | Stoppage-time events kept | 163 |
 | Score | 3–3 before the shoot-out, as in the match |
@@ -43,13 +43,13 @@ Checked locally on the StatsBomb open-data file for the 2022 World Cup final (th
 
 ### A whole competition: all 64 matches of the 2022 World Cup
 
-`tools/validate-statsbomb-competition.py` runs every match of a competition through the adapter and MatchMind's validator. It compares MatchMind's score with the official result. Only totals are saved, in [validation/statsbomb-wc2022.json](validation/statsbomb-wc2022.json), never provider events.
+`tools/validate-statsbomb-competition.py` runs every match of a competition through the adapter and Pitchlight's validator. It compares Pitchlight's score with the official result. Only totals are saved, in [validation/statsbomb-wc2022.json](validation/statsbomb-wc2022.json), never provider events.
 
 | Check | Result |
 | --- | --- |
 | Matches | 64 (group stage to final) |
 | Source events | 234,637 |
-| **Accepted by MatchMind's validator** | **81,931** |
+| **Accepted by Pitchlight's validator** | **81,931** |
 | **Rejected** | **0** |
 | **Scores matching the official result** | **64 of 64** |
 | Matches with extra time | 5 |
@@ -68,7 +68,7 @@ Real data exposed five gaps, all now fixed and covered by tests:
 
 ## Independent cross-check: Sportmonks
 
-Sportmonks does not publish every pass with pitch coordinates, so it is used as a **referee** rather than a feed. [app/providers/sportmonks.py](../backend/app/providers/sportmonks.py) fetches Sportmonks' official record of a match and compares it with what MatchMind computed from another provider's events for the same match:
+Sportmonks does not publish every pass with pitch coordinates, so it is used as a **referee** rather than a feed. [app/providers/sportmonks.py](../backend/app/providers/sportmonks.py) fetches Sportmonks' official record of a match and compares it with what Pitchlight computed from another provider's events for the same match:
 
 | Kind | Checks |
 | --- | --- |
@@ -77,7 +77,7 @@ Sportmonks does not publish every pass with pitch coordinates, so it is used as 
 
 - **Teams:** at neutral venues the two providers can list home and away the other way round, so sides are matched by team name.
 - **Goals:** the scoring side comes from Sportmonks' running score, whatever its own-goal convention.
-- **Cards:** MatchMind counts a second yellow as a yellow and a red, while Sportmonks records one yellow-red card. The check converts Sportmonks' record to MatchMind's rule and labels it.
+- **Cards:** Pitchlight counts a second yellow as a yellow and a red, while Sportmonks records one yellow-red card. The check converts Sportmonks' record to Pitchlight's rule and labels it.
 
 ```bash
 cd backend   # SPORTMONKS_API_TOKEN in backend/.env; sent as a header, never printed
@@ -96,7 +96,7 @@ python -m app.providers.sportmonks data/research/statsbomb/events.json     --lin
 
 ## Live feeds
 
-A live provider feed enters the same way as the synthetic one: an adapter publishes MatchMind events to Azure Event Hubs, and the consumer validates and interprets them ([EVENT_DRIVEN.md](EVENT_DRIVEN.md)).
+A live provider feed enters the same way as the synthetic one: an adapter publishes Pitchlight events to Azure Event Hubs, and the consumer validates and interprets them ([EVENT_DRIVEN.md](EVENT_DRIVEN.md)).
 
 ## Still open
 

@@ -9,7 +9,7 @@ PASSWORD='Only for isolated test accounts 937!'
 
 def post(client,path,body=None,**kwargs):
     session=client.get('/api/access/session').json()
-    headers={'X-MatchMind-Local':'1'}
+    headers={'X-Pitchlight-Local':'1'}
     if session['csrf_token']:headers['X-CSRF-Token']=session['csrf_token']
     return client.post(path,json=body or {},headers=headers,**kwargs)
 
@@ -65,7 +65,7 @@ def test_csrf_origin_and_role_enforcement(owner):
     v=view(owner)
     assert owner.post('/api/foundation/reviews',json=review_body(v)).status_code==403
     csrf=owner.get('/api/access/session').json()['csrf_token']
-    r=owner.post('/api/foundation/reviews',json=review_body(v),headers={'X-MatchMind-Local':'1','X-CSRF-Token':csrf,'Origin':'https://untrusted.example'})
+    r=owner.post('/api/foundation/reviews',json=review_body(v),headers={'X-Pitchlight-Local':'1','X-CSRF-Token':csrf,'Origin':'https://untrusted.example'})
     assert r.status_code==403
     assert post(owner,'/api/access/users',{'username':'analyst','password':PASSWORD,'role':'analyst'}).status_code==200
     analyst=TestClient(app)

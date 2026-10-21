@@ -1,4 +1,4 @@
-"""Reproducible offline release checks for MatchMind synthetic demo.
+"""Reproducible offline release checks for Pitchlight synthetic demo.
 
 Run: cd backend && python -m evaluation.run --output ../evaluation-report.json
 No cloud account, live feed, or model is required.

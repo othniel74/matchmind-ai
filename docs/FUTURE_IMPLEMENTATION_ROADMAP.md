@@ -1,8 +1,8 @@
-> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+> **Historical document.** It records Pitchlight at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
 
 > **17 October 2026 update:** Read [the current verification report](VERIFICATION_2026_10_17.md) before using this earlier plan. Frontend compilation and local browser checks now pass; synthetic scoring, explicit recipients, SQLite replay persistence and WebSocket resume are implemented. Optional SDK imports and client construction are checked with pinned dependencies. Docker/database integration, live Foundry inference and Azure deployment remain pending. The older milestone counts below are historical.
 
-# MatchMind AI — Future implementation instructions
+# Pitchlight — Future implementation instructions
 
 This document is a build backlog, not a claim that these features exist. Preserve the deterministic source-of-truth and evidence gate throughout.
 
@@ -33,7 +33,7 @@ This document is a build backlog, not a claim that these features exist. Preserv
 
 **F12. Licensed real-world feeds.** Obtain lawful data and video licenses before integrations. Build provider adapters and reconciliation; never imply rights to Premier League match media or branding.
 
-**F13. Product packaging.** MatchMind Studio, Intelligence, Fan and API; customer discovery with broadcasters/clubs/fan platforms, pricing tests, developer docs, quotas and tenant analytics.
+**F13. Product packaging.** Pitchlight Studio, Intelligence, Fan and API; customer discovery with broadcasters/clubs/fan platforms, pricing tests, developer docs, quotas and tenant analytics.
 
 ## Suggested development order
 1. F01 (full verification) → 2. F02 (live Foundry) → 3. F03 (genuine agents) → 4. F04 (Azure) → 5. F05 (submit); parallelize F06/F07 only if P0 remains on schedule. Prioritize a small real live end-to-end demonstration over broad unverified features.

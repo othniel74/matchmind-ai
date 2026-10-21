@@ -7,13 +7,13 @@ from docx.enum.table import WD_ROW_HEIGHT_RULE
 
 ROOT=Path(__file__).resolve().parents[1]
 source=ROOT/'docs/TECHNICAL_IMPLEMENTATION_AND_RISK_CONTROLS.md'
-out=ROOT/'docs/technical/MatchMind_AI_Technical_Implementation_and_Risk_Controls.docx'
+out=ROOT/'docs/technical/Pitchlight_AI_Technical_Implementation_and_Risk_Controls.docx'
 out.parent.mkdir(parents=True,exist_ok=True)
-doc=Document(ROOT/'docs/product/MatchMind_AI_Product_Strategy_v2.docx')
+doc=Document(ROOT/'docs/product/Pitchlight_AI_Product_Strategy_v2.docx')
 for element in list(doc.element.body):
     if element.tag!=qn('w:sectPr'):doc.element.body.remove(element)
 for section in doc.sections:
-    section.header.paragraphs[0].text='MATCHMIND AI   /   TECHNICAL IMPLEMENTATION'
+    section.header.paragraphs[0].text='PITCHLIGHT   /   TECHNICAL IMPLEMENTATION'
     section.header.paragraphs[0].runs[0].font.size=Pt(9)
     for p in section.footer.paragraphs:
         for r in p.runs:
@@ -91,7 +91,7 @@ while i<len(lines):
 for style in ['Title','Subtitle','Heading 1','Heading 2']:
     doc.styles[style].font.color.rgb=RGBColor(0,0,0)
 for border in list(doc.styles.element.iter(qn('w:pBdr'))):border.getparent().remove(border)
-doc.core_properties.title='MatchMind AI technical implementation and risk controls'
+doc.core_properties.title='Pitchlight technical implementation and risk controls'
 doc.core_properties.subject='Production architecture risk register acceptance tests and monitoring'
 doc.core_properties.comments='Consolidated specification. Implemented partial planned and unverified controls are distinguished. Earlier documents preserved.'
 doc.save(out)

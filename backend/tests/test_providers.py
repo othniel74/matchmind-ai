@@ -1,4 +1,4 @@
-"""Provider adapter: StatsBomb's open-data format mapped into MatchMind's event contract.
+"""Provider adapter: StatsBomb's open-data format mapped into Pitchlight's event contract.
 
 The fixture is written by hand in StatsBomb's format with fictional teams and players; no
 provider data is stored in this repository."""

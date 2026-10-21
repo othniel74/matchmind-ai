@@ -1,6 +1,6 @@
 import { defineConfig } from "@playwright/test";
 
-// Records the submission video against a deployed MatchMind (live Foundry model, real Event Hubs).
+// Records the submission video against a deployed Pitchlight (live Foundry model, real Event Hubs).
 // Run: MATCHMIND_URL=https://<app> npx playwright test -c playwright.video.config.ts
 export default defineConfig({
   testDir: "demo",

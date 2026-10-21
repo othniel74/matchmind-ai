@@ -9,7 +9,7 @@ def demo_app(monkeypatch, tmp_path):
     """A fresh app instance configured like the public demo container."""
     static = tmp_path / 'static'
     static.mkdir()
-    (static / 'index.html').write_text('<!doctype html><title>MatchMind</title>', encoding='utf-8')
+    (static / 'index.html').write_text('<!doctype html><title>Pitchlight</title>', encoding='utf-8')
     monkeypatch.setenv('MATCHMIND_ENV', 'demo')
     monkeypatch.setenv('MATCHMIND_ALLOWED_HOSTS', 'matchmind-demo.example.net')
     monkeypatch.setenv('MATCHMIND_STATIC_DIR', str(static))
@@ -35,7 +35,7 @@ def test_demo_is_read_only_and_serves_the_frontend(demo_app):
         assert os.environ['MATCHMIND_REVIEW_ENABLED'] == 'false'
         assert os.environ['MATCHMIND_RESEARCH_ENABLED'] == 'false' and 'MATCHMIND_INGEST_TOKEN' not in os.environ
         assert client.get('/health').json()['status'] == 'ok'
-        assert 'MatchMind' in client.get('/').text and 'MatchMind' in client.get('/app').text
+        assert 'Pitchlight' in client.get('/').text and 'Pitchlight' in client.get('/app').text
         assert client.post('/api/foundation/reviews', json={}).status_code in (403, 422)
         assert client.post('/api/live/sessions').status_code == 403
     with TestClient(demo_app, base_url='https://evil.example.com') as client:

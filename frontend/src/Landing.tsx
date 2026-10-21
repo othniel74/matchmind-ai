@@ -175,7 +175,7 @@ export default function Landing() {
         Skip to content
       </a>
       <header className="lp-nav">
-        <a className="lp-brand" href="/" aria-label="MatchMind home">
+        <a className="lp-brand" href="/" aria-label="Pitchlight home">
           <span>
             <AudioLines size={23} />
           </span>
@@ -647,7 +647,7 @@ export default function Landing() {
               ],
               [
                 "Is the demo powered by a live AI model?",
-                "Yes. The demo runs on Azure Container Apps. Narratives and recaps come from a Microsoft Agent Framework workflow on a Microsoft Foundry model: writers draft, a fact checker extracts every statement and code verifies it, and only verified text is published. Ask the match uses an agent that calls MatchMind's own MCP tools. When the model is unavailable, verified templates take over.",
+                "Yes. The demo runs on Azure Container Apps. Narratives and recaps come from a Microsoft Agent Framework workflow on a Microsoft Foundry model: writers draft, a fact checker extracts every statement and code verifies it, and only verified text is published. Ask the match uses an agent that calls Pitchlight's own MCP tools. When the model is unavailable, verified templates take over.",
               ],
               [
                 "What can I try right now?",
@@ -672,7 +672,7 @@ export default function Landing() {
             <em>Read the game.</em>
           </h2>
           <a href="/app" className="lp-button lp-button-lime">
-            Step inside MatchMind <ArrowUpRight size={20} />
+            Step inside Pitchlight <ArrowUpRight size={20} />
           </a>
           <span className="lp-final-note">
             A synthetic match. A real working experience.
@@ -682,7 +682,7 @@ export default function Landing() {
       </main>
       <footer className="lp-footer">
         <div>
-          <a className="lp-brand" href="/" aria-label="MatchMind home">
+          <a className="lp-brand" href="/" aria-label="Pitchlight home">
             <span>
               <AudioLines size={21} />
             </span>
@@ -700,7 +700,7 @@ export default function Landing() {
           </a>
         </nav>
         <div className="lp-footer-bottom">
-          <span>© {new Date().getFullYear()} MatchMind AI</span>
+          <span>© {new Date().getFullYear()} Pitchlight</span>
           <span>
             Synthetic data · AI-generated stadium artwork · Not affiliated with
             the Premier League

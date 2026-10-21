@@ -67,7 +67,7 @@ def test_disagreements_are_reported_not_hidden():
     failed = {c['check'] for c in report['checks'] if not c['agrees']}
     assert 'score' in failed
     assert any("60'" in c for c in failed) and any("80'" in c for c in failed)
-    assert any(c.startswith('goal only in MatchMind') for c in failed)
+    assert any(c.startswith('goal only in Pitchlight') for c in failed)
 
 
 def test_own_goal_side_comes_from_the_running_score():

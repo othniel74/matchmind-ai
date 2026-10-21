@@ -1,6 +1,6 @@
 # Event-driven match feed (Azure Event Hubs)
 
-In production, match events come from a data provider as a stream. MatchMind's demo runs the same architecture on Azure:
+In production, match events come from a data provider as a stream. Pitchlight's demo runs the same architecture on Azure:
 
 ```
 "Kick off a live match"         Container Apps Job            Azure Event Hubs               Container App (API)              Browser

@@ -1,8 +1,8 @@
 # Auto-eventing from video, scored against perfect ground truth
 
-The brief asks for "running a model over an incoming video feed to generate the pass and speed metrics automatically, rather than tagging them by hand". MatchMind does this, and it can also **prove how well it does it**.
+The brief asks for "running a model over an incoming video feed to generate the pass and speed metrics automatically, rather than tagging them by hand". Pitchlight does this, and it can also **prove how well it does it**.
 
-Real broadcast footage has no perfect labels: no one knows every player's exact position in every frame. Synthetic video does. MatchMind renders its own synthetic match as broadcast video, runs a vision pipeline on the pixels alone, and scores every stage against the exact truth the renderer knows.
+Real broadcast footage has no perfect labels: no one knows every player's exact position in every frame. Synthetic video does. Pitchlight renders its own synthetic match as broadcast video, runs a vision pipeline on the pixels alone, and scores every stage against the exact truth the renderer knows.
 
 ```
 synthetic events ──▶ ground-truth tracking (25 Hz, every player and the ball; app/tracking.py)
@@ -13,7 +13,7 @@ synthetic events ──▶ ground-truth tracking (25 Hz, every player and the ba
                        team from kit colour (the team sheet) · identity from the announced line-up
                        ball: small round white blobs of the size a ball has at that point on the pitch
                        events: possession, passes, interceptions, shots; ball speed; player speed and distance
-                 ──▶ standard MatchMind events (StreamValidator) ──▶ Azure Event Hubs ──▶ the live app
+                 ──▶ standard Pitchlight events (StreamValidator) ──▶ Azure Event Hubs ──▶ the live app
                  ──▶ scored against the truth, stage by stage (vision/evaluate.py)
 ```
 
@@ -39,18 +39,18 @@ Two minutes of broadcast video (the build-up to and the first goal, match time 7
 | Passer identified correctly | 86% of recovered events |
 | Ball speed of recovered passes | **2.6 km/h** median error |
 | Player top speed | **2.8 km/h** median error |
-| Recovered events accepted by MatchMind's validator | 12 of 12 |
+| Recovered events accepted by Pitchlight's validator | 12 of 12 |
 
 How it got there, measured at each step on the same clip:
 
 - **Team colours.** Fixed colour thresholds kept only two thirds of players, because a white shirt in shade reads as tan. Clustering the clip's kit colours and naming the clusters from the team sheet raised player recall from 67% to 80%.
 - **Identity.** Predicting a player who is out of view at their place in the team's current shape, instead of where they were last seen, raised identity from 65% to 79% and recall to 87%.
 - **Goals.** A close-range finish crosses the line in less than one sampled frame. Detecting the ball beyond the goal line between the posts found the goal that a flight-based shot detector missed.
-- **Precision first.** Requiring a pass's ball to travel faster than 8 km/h removes possession flicker between close players. Precision rose from 69% to 87.5% and recall fell from 69% to 54%. For on-screen graphics a false event costs more than a missed one, the same principle as MatchMind's fact checker.
+- **Precision first.** Requiring a pass's ball to travel faster than 8 km/h removes possession flicker between close players. Precision rose from 69% to 87.5% and recall fell from 69% to 54%. For on-screen graphics a false event costs more than a missed one, the same principle as Pitchlight's fact checker.
 
 ## In Azure
 
-The same pipeline runs as the **`matchmind-vision` Container Apps Job** (image `Dockerfile.vision`: CPU PyTorch with the RT-DETR weights baked in; 4 vCPU, 8 GiB). It processes the broadcast clip, converts what it recovers into validated MatchMind events, and publishes them to **Azure Event Hubs** as a run whose source is `vision`. The app consumes that run exactly as it consumes a data provider's feed. In the app, **Process this video on Azure** starts the job through Azure Resource Manager with the app's managed identity, one run at a time.
+The same pipeline runs as the **`matchmind-vision` Container Apps Job** (image `Dockerfile.vision`: CPU PyTorch with the RT-DETR weights baked in; 4 vCPU, 8 GiB). It processes the broadcast clip, converts what it recovers into validated Pitchlight events, and publishes them to **Azure Event Hubs** as a run whose source is `vision`. The app consumes that run exactly as it consumes a data provider's feed. In the app, **Process this video on Azure** starts the job through Azure Resource Manager with the app's managed identity, one run at a time.
 
 Verified on 21 October 2026: one run processed 601 frames (5 fps of video) in 10.3 minutes. It recovered 12 events, all 12 passed validation, and the app accepted all 12 from Event Hubs (0 rejected) and turned them into moments, including the goal. For a run recovered from video, the app shows only video-derived moments; speed tags from the synthetic physical model are left out.
 
@@ -79,4 +79,4 @@ python -c "import json; from app.core import generate_match; from app.tracking i
 .venv-vision/Scripts/python -m vision.export --result result.json --report ../vision-report.json --tracking tracking.json --clip clip --out ../frontend/public/vision
 ```
 
-Tests: `tests/test_vision.py` checks the camera geometry, calibration recovering pan, tilt and zoom from lines alone, team colours, event derivation, conversion into validated MatchMind events, and the consistency of the ground-truth tracking.
+Tests: `tests/test_vision.py` checks the camera geometry, calibration recovering pan, tilt and zoom from lines alone, team colours, event derivation, conversion into validated Pitchlight events, and the consistency of the ground-truth tracking.

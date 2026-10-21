@@ -1,4 +1,4 @@
-# MatchMind documentation
+# Pitchlight documentation
 
 ## Start here
 
@@ -45,4 +45,4 @@
 
 These earlier documents record how the project developed. Their test counts, limitations and plans describe the project at the date they were written; the documents above are current.
 
-[Build history (previous README)](HISTORY.md) · [Implementation status, 15–17 October](IMPLEMENTATION_STATUS.md) · [Verification, 17 October](VERIFICATION_2026_10_17.md) · [VS Code setup and test plan](VSCODE_SETUP_AND_TEST_PLAN.md) · [Future implementation roadmap](FUTURE_IMPLEMENTATION_ROADMAP.md) · [Technical implementation and risk controls](TECHNICAL_IMPLEMENTATION_AND_RISK_CONTROLS.md) ([Word](technical/MatchMind_AI_Technical_Implementation_and_Risk_Controls.docx)) · [Product strategy v2](product/MatchMind_AI_Product_Strategy_v2.docx) · [Gameplay preview](GAMEPLAY_PREVIEW.md) · [Production readiness audit](PRODUCTION_READINESS_AUDIT.md) · [Release checklist](RELEASE_CHECKLIST.md) · [Evaluation scorecard register](EVALUATION_SCORECARD.csv) · Earlier requirements: [product requirements](MatchMind_AI_Product_Requirements_Technical_Architecture.docx), [graph addendum](MatchMind_Graph_Intelligence_Requirements_Addendum.docx)
+[Build history (previous README)](HISTORY.md) · [Implementation status, 15–17 October](IMPLEMENTATION_STATUS.md) · [Verification, 17 October](VERIFICATION_2026_10_17.md) · [VS Code setup and test plan](VSCODE_SETUP_AND_TEST_PLAN.md) · [Future implementation roadmap](FUTURE_IMPLEMENTATION_ROADMAP.md) · [Technical implementation and risk controls](TECHNICAL_IMPLEMENTATION_AND_RISK_CONTROLS.md) ([Word](technical/Pitchlight_AI_Technical_Implementation_and_Risk_Controls.docx)) · [Product strategy v2](product/Pitchlight_AI_Product_Strategy_v2.docx) · [Gameplay preview](GAMEPLAY_PREVIEW.md) · [Production readiness audit](PRODUCTION_READINESS_AUDIT.md) · [Release checklist](RELEASE_CHECKLIST.md) · [Evaluation scorecard register](EVALUATION_SCORECARD.csv) · Earlier requirements: [product requirements](Pitchlight_AI_Product_Requirements_Technical_Architecture.docx), [graph addendum](Pitchlight_Graph_Intelligence_Requirements_Addendum.docx)

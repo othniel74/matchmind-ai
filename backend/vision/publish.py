@@ -1,7 +1,7 @@
 """Video -> events -> Azure Event Hubs: the vision job (Container Apps Job `matchmind-vision`).
 
 Processes a broadcast clip with the vision pipeline, converts what it recovers into validated
-MatchMind events, and publishes them to the match feed as a run whose source is 'vision', so the
+Pitchlight events, and publishes them to the match feed as a run whose source is 'vision', so the
 app ingests video-derived events exactly as it would a data provider's feed.
 
     python -m vision.publish --video /app/clip/clip.mp4 --start 450 --stride 5

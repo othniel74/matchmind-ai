@@ -415,7 +415,7 @@ function App() {
         Skip to match intelligence
       </a>
       <aside className="sidebar">
-        <a className="brand" href="/" aria-label="MatchMind home">
+        <a className="brand" href="/" aria-label="Pitchlight home">
           <div className="brand-mark">
             <AudioLines size={23} />
           </div>
@@ -496,7 +496,7 @@ function App() {
                 <button className="button secondary" onClick={()=>setReviewWindow({minute:frame.minute,seed:frame.context?.seed??20261020,accountOnly:true})}>Account & access</button>
               </>
             )}
-            <div className="avatar" aria-label="MatchMind workspace">
+            <div className="avatar" aria-label="Pitchlight workspace">
               MM
             </div>
           </div>
@@ -1201,7 +1201,7 @@ function App() {
           </div>
           <footer>
             <span>
-              <AudioLines size={14} /> MATCHMIND AI{" "}
+              <AudioLines size={14} /> PITCHLIGHT{" "}
               <span className="footer-divider">/</span> Explain the game.
             </span>
             <span>

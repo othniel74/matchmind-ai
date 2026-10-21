@@ -1,11 +1,11 @@
-> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+> **Historical document.** It records Pitchlight at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
 
 > **17 October 2026 update:** Read [the current verification report](VERIFICATION_2026_10_17.md) before using this earlier plan. Frontend compilation and local browser checks now pass; synthetic scoring, explicit recipients, SQLite replay persistence and WebSocket resume are implemented. Optional SDK imports and client construction are checked with pinned dependencies. Docker/database integration, live Foundry inference and Azure deployment remain pending. The older milestone counts below are historical.
 
-# MatchMind AI — VS Code setup and comprehensive test plan
+# Pitchlight — VS Code setup and comprehensive test plan
 
 ## 1. Open the project
-Use the accompanying ZIP and extract it, **or** run the single-file `MatchMind_AI_All_In_One.py` (Python 3.12+). In VS Code choose **File → Open Folder → matchmind-ai**. Use a terminal at the project root. Prerequisites: Python 3.12+, Node.js 22+, npm, Git, and Docker Desktop (optional until container checks). Never commit real API credentials.
+Use the accompanying ZIP and extract it, **or** run the single-file `Pitchlight_AI_All_In_One.py` (Python 3.12+). In VS Code choose **File → Open Folder → matchmind-ai**. Use a terminal at the project root. Prerequisites: Python 3.12+, Node.js 22+, npm, Git, and Docker Desktop (optional until container checks). Never commit real API credentials.
 
 ## 2. Backend setup and unit tests
 macOS/Linux:

@@ -50,14 +50,14 @@ async function show(page: Page, locator: ReturnType<Page["locator"]>) {
   await page.waitForTimeout(700);
 }
 
-test("MatchMind AI submission story", async ({ page }) => {
+test("Pitchlight submission story", async ({ page }) => {
   // Kick off the Event Hubs feed first: the job takes a little while to start, so the match is
   // streaming live by the time the video reaches the feed panel.
   await page.request.post("/api/feed/kickoff").catch(() => undefined);
 
   // 1. What it is
   await page.goto("/");
-  await caption(page, "MatchMind AI turns synthetic football events into explainable match intelligence, live, on Azure", 4000);
+  await caption(page, "Pitchlight turns synthetic football events into explainable match intelligence, live, on Azure", 4000);
 
   // 2. Live moments that explain why they matter
   await page.goto("/app");
@@ -81,7 +81,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   await show(page, ask);
   await ask.getByLabel("Your question").fill("¿Quién es el jugador clave de Merridge?");
   await ask.getByRole("button", { name: "Ask" }).click();
-  await caption(page, "Ask the match: a Microsoft Foundry agent calls MatchMind's own MCP tools", 2500);
+  await caption(page, "Ask the match: a Microsoft Foundry agent calls Pitchlight's own MCP tools", 2500);
   await expect(ask.getByTestId("ask-answer")).toBeVisible({ timeout: 40_000 });
   await expect(ask.getByTestId("ask-answer")).toContainText("Foundry agent via MCP");
   await caption(page, "The answer comes from the tool's verified facts, never the model's imagination", 3800);
@@ -152,7 +152,7 @@ await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { 
   await caption(page, "Broadcast Studio: timed, machine-readable overlays, here in Arabic, right to left", 6000);
 
   // 10. How it is built
-  await card(page, "MatchMind AI", [
+  await card(page, "Pitchlight", [
     "Microsoft Foundry  ·  Agent Framework multi-agent workflow  ·  MCP server  ·  RT-DETR vision",
     "Azure Container Apps  ·  Event Hubs  ·  Container Apps Jobs  ·  Memgraph  ·  Application Insights",
     "Managed identity throughout: no keys",

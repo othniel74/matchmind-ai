@@ -1,4 +1,4 @@
-"""Recovered vision events -> standard MatchMind events (the same contract as any data feed).
+"""Recovered vision events -> standard Pitchlight events (the same contract as any data feed).
 
 Coordinates become team-relative 0-100 (each team attacking left to right), times become match
 clock minute and second, and every event is checked by the same StreamValidator a provider feed

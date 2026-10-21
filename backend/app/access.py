@@ -56,7 +56,7 @@ def connection():
 
 def same_origin(request):
     # Custom header prevents simple cross-origin form requests, including login CSRF.
-    if request.headers.get('X-MatchMind-Local')!='1':raise HTTPException(403,'Missing local request header.')
+    if request.headers.get('X-Pitchlight-Local')!='1':raise HTTPException(403,'Missing local request header.')
     origin=request.headers.get('origin')
     permitted={str(request.base_url).rstrip('/'),'http://127.0.0.1:5173','http://localhost:5173',
                'http://127.0.0.1:5174','http://localhost:5174','http://localhost:8080','http://127.0.0.1:8080'}

@@ -2,7 +2,7 @@
 
 Sportmonks' football API gives the result, goals with scorers and minutes, cards, substitutions
 and team statistics, but not every pass with pitch coordinates, so it is used here as a referee:
-MatchMind runs on one provider's event stream (StatsBomb), and this module checks what MatchMind
+Pitchlight runs on one provider's event stream (StatsBomb), and this module checks what Pitchlight
 computed against what Sportmonks recorded for the same match.
 
     python -m app.providers.sportmonks data/research/statsbomb/events.json \
@@ -31,7 +31,7 @@ API = 'https://api.sportmonks.com/v3/football'
 INCLUDE = 'participants;scores;events.type;statistics.type;periods'
 GOAL_TYPES = {'GOAL', 'OWNGOAL', 'PENALTY'}
 CARD_TYPES = {'YELLOWCARD': 'yellow', 'REDCARD': 'red', 'YELLOWREDCARD': 'second_yellow'}
-# Sportmonks statistic developer names -> MatchMind statistics keys (first name found wins).
+# Sportmonks statistic developer names -> Pitchlight statistics keys (first name found wins).
 STATS = {'shots': ('SHOTS_TOTAL',), 'shots_on_target': ('SHOTS_ON_TARGET',), 'passes': ('PASSES',),
          'completed_passes': ('SUCCESSFUL_PASSES', 'ACCURATE_PASSES'),
          'pass_completion_pct': ('SUCCESSFUL_PASSES_PERCENTAGE', 'ACCURATE_PASSES_PERCENTAGE'),
@@ -129,7 +129,7 @@ def reference(fixture: dict) -> dict[str, Any]:
 
 
 def align(ref: dict[str, Any], names: dict[str, str]) -> dict[str, Any]:
-    """Use MatchMind's home/away: at neutral venues the providers can list the teams the other way round."""
+    """Use Pitchlight's home/away: at neutral venues the providers can list the teams the other way round."""
     if not (_norm(ref['teams'].get('home')) == _norm(names.get('away'))
             and _norm(ref['teams'].get('away')) == _norm(names.get('home'))):
         return ref
@@ -141,7 +141,7 @@ def align(ref: dict[str, Any], names: dict[str, str]) -> dict[str, Any]:
 
 
 def _display_minute(event) -> int:
-    """MatchMind/StatsBomb elapsed minute -> the minute a scoreboard shows, stoppage time added on."""
+    """Pitchlight/StatsBomb elapsed minute -> the minute a scoreboard shows, stoppage time added on."""
     return event.minute + 1
 
 
@@ -166,10 +166,10 @@ def compare(result: dict[str, Any], ref: dict[str, Any]) -> dict[str, Any]:
               {'minute': _display_minute(hit), 'scorer': names.get(hit.player_id, {}).get('name')} if hit else None,
               hit is not None)
     for e in unmatched:
-        check(f"goal only in MatchMind {_display_minute(e)}'", None, names.get(e.player_id, {}).get('name'), False)
+        check(f"goal only in Pitchlight {_display_minute(e)}'", None, names.get(e.player_id, {}).get('name'), False)
     for t in ('home', 'away'):
         label = ref['teams'].get(t, t)
-        # MatchMind counts a second yellow as a yellow and a red; Sportmonks records one yellow-red card.
+        # Pitchlight counts a second yellow as a yellow and a red; Sportmonks records one yellow-red card.
         cards = ref['cards'][t]
         check(f'{label} yellow cards (a second yellow counts)', cards['yellow'] + cards['second_yellow'],
               ours[t]['yellow_cards'])
@@ -201,7 +201,7 @@ def team_names(events: list[dict], lineups: list[dict] | None, home_team_id: int
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Check MatchMind's output on StatsBomb data against Sportmonks.")
+    parser = argparse.ArgumentParser(description="Check Pitchlight's output on StatsBomb data against Sportmonks.")
     parser.add_argument('events')
     parser.add_argument('--lineups')
     parser.add_argument('--home-team-id', type=int)

@@ -1,8 +1,10 @@
-# MatchMind AI
+# Pitchlight
+
+*Formerly MatchMind. The repository, the demo URL and Azure resource names keep the old name.*
 
 **Explainable match intelligence from synthetic football events, and from broadcast video: live, personalized, in seven languages, on Azure and Microsoft Foundry.**
 
-MatchMind turns football events into what a studio, a broadcaster or a fan needs. It finds the moments that matter and explains why. It writes recaps, answers questions, shapes everything for each viewer, and renders it as timed overlays. It can also **recover the events from video**, and prove how accurately it does so.
+Pitchlight turns football events into what a studio, a broadcaster or a fan needs. It finds the moments that matter and explains why. It writes recaps, answers questions, shapes everything for each viewer, and renders it as timed overlays. It can also **recover the events from video**, and prove how accurately it does so.
 
 Every number it publishes is recomputed from the events. Every agent-written sentence passes a fact checker before anyone sees it. Every claim cites the events it rests on.
 
@@ -13,11 +15,11 @@ Every number it publishes is recomputed from the events. Every agent-written sen
 | **MCP server** | `https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
 | **Submission** | [docs/SUBMISSION.md](docs/SUBMISSION.md): pitch, category and testing instructions |
 
-All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional and synthetic. MatchMind is not affiliated with the Premier League.
+All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional and synthetic. Pitchlight is not affiliated with the Premier League.
 
 ## What makes it different
 
-1. **Auto-eventing from video, scored against perfect ground truth.** MatchMind renders its synthetic match as broadcast video. A vision pipeline then recovers players, ball, passes, goals and speeds from the pixels alone: pitch-line camera calibration, RT-DETR player detection, team and identity tracking, and ball tracking. Real footage has no exact labels; synthetic video does, so every stage is measured:
+1. **Auto-eventing from video, scored against perfect ground truth.** Pitchlight renders its synthetic match as broadcast video. A vision pipeline then recovers players, ball, passes, goals and speeds from the pixels alone: pitch-line camera calibration, RT-DETR player detection, team and identity tracking, and ball tracking. Real footage has no exact labels; synthetic video does, so every stage is measured:
 
    | Stage | Result |
    | --- | --- |
@@ -29,9 +31,9 @@ All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional 
 
    It runs as an Azure Container Apps Job that streams the recovered events through Event Hubs into the live app. See [VISION.md](docs/VISION.md).
 2. **Agents that are checked, not trusted.** A Microsoft Agent Framework workflow writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks, and 20 of 21 live recaps across 7 languages published (structured output; the rest is blocked safely). Under every AI recap, the run is visible step by step: each agent's draft and every statement with code's verdict.
-3. **Agents that use tools through MCP.** MatchMind serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
+3. **Agents that use tools through MCP.** Pitchlight serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
-5. **Tactical change, explained honestly.** For every substitution and red card MatchMind compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
+5. **Tactical change, explained honestly.** For every substitution and red card Pitchlight compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
 6. **Built on synthetic data, ready for real data.** The product, the demo and every test run on synthetic data, as the brief requires. To show the path to production, a provider adapter was checked offline against public StatsBomb open data: across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
 7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, about 270 backend tests, browser tests against the live site, and CI on every push.
 

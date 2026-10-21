@@ -63,7 +63,7 @@ def main() -> None:
                                                  'validated': len(accepted), 'rejected': rejected}, indent=1))
     (out / 'report.json').write_text(json.dumps(report, indent=2))
     print(f'overlay {len(frames)} frames, {len(listed)} events ({sum(e["matched"] for e in listed)} matched), '
-          f'{len(accepted)} pass MatchMind validation, {len(rejected)} rejected')
+          f'{len(accepted)} pass Pitchlight validation, {len(rejected)} rejected')
 
 
 if __name__ == '__main__':

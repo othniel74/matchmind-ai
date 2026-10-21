@@ -83,7 +83,7 @@ The Bolt adapter now replaces all nodes belonging to the requested match and the
 
 Local frontend build and browser checks now pass; no Memgraph or Neo4j instance was available. Earlier design notes below describe the original implementation. Their missing-recipient and non-atomic replacement limitations are superseded by this update.
 
-# MatchMind AI — NetworkX + Portable Knowledge Graph
+# Pitchlight — NetworkX + Portable Knowledge Graph
 
 ## Status and architectural contract
 

@@ -1,10 +1,10 @@
 # Tactical change impact, pressing and defensive shape
 
-Coaches, analysts and broadcasters ask "what changed after the substitution?". MatchMind answers with measurements, puts each one in context, cites the evidence, and never says the change *caused* what followed.
+Coaches, analysts and broadcasters ask "what changed after the substitution?". Pitchlight answers with measurements, puts each one in context, cites the evidence, and never says the change *caused* what followed.
 
 ## What it measures
 
-For every **change point** (substitutions and red cards, with a team's simultaneous changes grouped) MatchMind compares the **ten minutes before** with the **ten minutes after**, for both teams ([app/tactics.py](../backend/app/tactics.py)):
+For every **change point** (substitutions and red cards, with a team's simultaneous changes grouped) Pitchlight compares the **ten minutes before** with the **ten minutes after**, for both teams ([app/tactics.py](../backend/app/tactics.py)):
 
 | Group | Measures |
 | --- | --- |
@@ -23,9 +23,9 @@ For PPDA the direction is interpreted, because a rise means *less* pressing. Eve
 
 ## On a real match: the 2022 World Cup final
 
-`tools/tactics-on-statsbomb.py` runs the same analysis on a StatsBomb match. Provider events are first moved onto one continuous clock of time played (`played_time`). Without this, first-half stoppage time would overlap the second half's 45:00, and extra time would be cut off. Change points are labelled with the scoreboard minute (45+2′, 120+1′). The shape measures are left out because the match has no tracking data, and MatchMind does not simulate it for real matches.
+`tools/tactics-on-statsbomb.py` runs the same analysis on a StatsBomb match. Provider events are first moved onto one continuous clock of time played (`played_time`). Without this, first-half stoppage time would overlap the second half's 45:00, and extra time would be cut off. Change points are labelled with the scoreboard minute (45+2′, 120+1′). The shape measures are left out because the match has no tracking data, and Pitchlight does not simulate it for real matches.
 
-| Change | What MatchMind found in the ten minutes of play after it |
+| Change | What Pitchlight found in the ten minutes of play after it |
 | --- | --- |
 | 41′ France: Kolo Muani and Thuram on for Dembélé and Giroud | Possession swung from 80% Argentina to 64% France; France's PPDA fell from 17.2 to 3.2 (much more pressing); Upamecano's part in France's passing rose from 18% to 43% |
 | 64′ Argentina: Acuña on for Di María | France's final-third entries rose from 2 to 8 |

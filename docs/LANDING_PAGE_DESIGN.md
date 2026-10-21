@@ -2,7 +2,7 @@
 
 ## Experience
 
-The local home page at `/` introduces MatchMind with a cinematic football editorial direction, a real backend-driven snapshot explorer, an evidence view, an explanation of the deterministic workflow, a Broadcast Studio showcase and an expandable FAQ. `/app` opens the match workspace; `/app?view=studio` opens Broadcast Studio directly. The existing `?preview=1&channel=...` detached-preview route takes precedence and remains supported.
+The local home page at `/` introduces Pitchlight with a cinematic football editorial direction, a real backend-driven snapshot explorer, an evidence view, an explanation of the deterministic workflow, a Broadcast Studio showcase and an expandable FAQ. `/app` opens the match workspace; `/app?view=studio` opens Broadcast Studio directly. The existing `?preview=1&channel=...` detached-preview route takes precedence and remains supported.
 
 The explorer requests state, NetworkX passing connections and narratives for the same selected minute. Audience and language controls request actual deterministic backend outputs. Empty detection windows do not invent an insight. No customer logos, testimonials, usage statistics or unverified live AI claims were added. All work remains local.
 

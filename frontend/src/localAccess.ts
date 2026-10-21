@@ -6,6 +6,6 @@ export async function getSession():Promise<LocalSession>{
 }
 export async function localPost(path:string,body:unknown={}){
  const session=await getSession();
- return fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-MatchMind-Local':'1',...(session.csrf_token?{'X-CSRF-Token':session.csrf_token}:{})},body:JSON.stringify(body)});
+ return fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-Pitchlight-Local':'1',...(session.csrf_token?{'X-CSRF-Token':session.csrf_token}:{})},body:JSON.stringify(body)});
 }
 export async function signOut(){const session=await getSession();if(session.user){const r=await localPost('/api/access/logout');if(!r.ok)throw Error('Sign-out failed. Please retry.');}}

@@ -1,4 +1,4 @@
-"""Run every match of a StatsBomb open-data competition through MatchMind and check it.
+"""Run every match of a StatsBomb open-data competition through Pitchlight and check it.
 
 Local research only: the provider files stay in backend/data/research (gitignored); this script
 prints and optionally writes aggregate results, never provider events.
@@ -6,8 +6,8 @@ prints and optionally writes aggregate results, never provider events.
     python tools/validate-statsbomb-competition.py backend/data/research/statsbomb \
         --dir wc2022 [--out docs/validation/statsbomb-wc2022.json]
 
-For each match: every event the adapter maps must pass MatchMind's validator, and the score
-MatchMind computes must equal the official result in the competition's matches file.
+For each match: every event the adapter maps must pass Pitchlight's validator, and the score
+Pitchlight computes must equal the official result in the competition's matches file.
 """
 import argparse
 import json

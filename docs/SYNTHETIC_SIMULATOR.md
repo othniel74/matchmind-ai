@@ -103,7 +103,7 @@ The simulator now also produces **positions**, not only events:
 - `app/tracking.py` turns the event stream into 25 Hz tracking for the ball and every player on the pitch. The ball is at each event's location at its time and flies along each pass at its ball speed. Players run, speed-limited at 8.5 m/s, between their team's shape and the actions they take part in. Substitutions and red cards are respected, and the output is deterministic.
 - `frontend/render.html` renders that tracking as broadcast video: a main camera panning with play, regulation markings, animated players in team kits, and the exact camera parameters recorded for every frame.
 
-Together they make a synthetic dataset that real football cannot provide: broadcast video with **perfect labels** for every player, the ball, the camera and every event. MatchMind uses it to measure auto-eventing from video stage by stage ([VISION.md](VISION.md)).
+Together they make a synthetic dataset that real football cannot provide: broadcast video with **perfect labels** for every player, the ball, the camera and every event. Pitchlight uses it to measure auto-eventing from video stage by stage ([VISION.md](VISION.md)).
 
 ## Compatibility
 

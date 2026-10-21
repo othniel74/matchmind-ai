@@ -1,5 +1,5 @@
 """Vision auto-eventing: camera geometry, calibration from pixels, team colours, event derivation
-and conversion into validated MatchMind events. Needs requirements-vision.txt (skipped otherwise)."""
+and conversion into validated Pitchlight events. Needs requirements-vision.txt (skipped otherwise)."""
 import math
 
 import pytest

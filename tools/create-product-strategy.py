@@ -29,7 +29,7 @@ styles['Heading 2'].font.size = Pt(13)
 styles['Heading 2'].paragraph_format.space_before = Pt(13)
 styles['Heading 2'].paragraph_format.space_after = Pt(6)
 header = sec.header.paragraphs[0]
-header.text = 'MATCHMIND AI   /   PRODUCT STRATEGY'
+header.text = 'PITCHLIGHT   /   PRODUCT STRATEGY'
 header.style = styles['Normal']
 header.runs[0].font.size = Pt(9)
 footer = sec.footer.paragraphs[0]
@@ -83,11 +83,11 @@ def table(headers, rows, widths):
     gap.paragraph_format.line_spacing = Pt(4)
     gap.add_run('').font.size = Pt(4)
 
-doc.add_heading('MatchMind AI product strategy', 0)
+doc.add_heading('Pitchlight product strategy', 0)
 doc.add_paragraph('Production vision and delivery priorities', style='Subtitle')
-p('Prepared for the MatchMind product and engineering team. This document consolidates our decisions about product value, real datasets, graph intelligence, production readiness and the hackathon milestone. Status reflects the local implementation discussed on 18 October 2026.')
+p('Prepared for the Pitchlight product and engineering team. This document consolidates our decisions about product value, real datasets, graph intelligence, production readiness and the hackathon milestone. Status reflects the local implementation discussed on 18 October 2026.')
 h('The product direction')
-p('We are building MatchMind for sustained production use. A successful hackathon demonstration is an early milestone; adoption depends on helping users make better editorial decisions with less effort and with evidence they can inspect.')
+p('We are building Pitchlight for sustained production use. A successful hackathon demonstration is an early milestone; adoption depends on helping users make better editorial decisions with less effort and with evidence they can inspect.')
 p('Our proposed product is a visual match-intelligence and storytelling workspace. It should identify a meaningful moment, explain why it matters, show the supporting evidence and help a producer turn it into an audience-appropriate story.')
 p('This is a product hypothesis. We have not established competitive uniqueness, customer demand or production readiness. Those claims need comparison with alternatives and observation of prospective users doing real work.')
 h('Who should use it first')
@@ -101,7 +101,7 @@ p('Recommended initial adoption audience: broadcast producers and match analysts
 page('A distinctive editorial workflow')
 p('The proposed differentiator is the connection between discovery, evidence and publication. Charts and fluent text alone do not establish a useful product. The system must help a user decide what to say, understand the support for it and control what reaches an audience.')
 h('An example worth testing')
-p('A team has been progressing through a particular midfielder. During a later passage, that player receives fewer completed passes and the usual passing route becomes less active. MatchMind identifies the change and retrieves the relevant sequences. If synchronized tracking is available, it examines the nearby passing options and spacing.')
+p('A team has been progressing through a particular midfielder. During a later passage, that player receives fewer completed passes and the usual passing route becomes less active. Pitchlight identifies the change and retrieves the relevant sequences. If synchronized tracking is available, it examines the nearby passing options and spacing.')
 p('The system must distinguish observation from explanation. A decline in passing connections does not by itself prove that an opponent caused it. A story should state the measured change, describe the available spatial evidence and qualify any suggested cause.')
 h('From event to approved story')
 for text in [
@@ -181,7 +181,7 @@ table(['Question', 'Measure'], [
 p('No adoption, accuracy, time-saving or uniqueness targets have yet been validated. Set thresholds with pilot users, include unsuccessful cases and avoid treating a compelling demonstration as proof of demand.')
 
 page('The hackathon milestone and decisions')
-p('MatchMind aligns with the Inside the Game challenge as a match-intelligence and storytelling studio. The hackathon should demonstrate a focused production-shaped workflow on synthetic football-realistic events. Real-data research remains supporting work, subject to source permissions.')
+p('Pitchlight aligns with the Inside the Game challenge as a match-intelligence and storytelling studio. The hackathon should demonstrate a focused production-shaped workflow on synthetic football-realistic events. Real-data research remains supporting work, subject to source permissions.')
 h('What the submission still needs')
 p('Complete the synthetic event-to-explanation-to-overlay flow and automated recaps. Demonstrate genuinely different audience experiences. Verify Microsoft AI execution and useful agent handoffs before describing them as working. Provide a reproducible public code repository, a working demo or test build, testing instructions and an English pitch with a demonstration video under two minutes. Cloud hosting is one access option; the rules also permit a functioning demo or test build.')
 p('The official rules specify synthetic data, third-party permissions and five equally weighted judging areas: technological implementation, agentic design and innovation, real-world impact, user experience and presentation, and category adherence. Listing Microsoft technologies is not equivalent to demonstrating their value. We should select a category only when the implementation supports it.')
@@ -214,10 +214,10 @@ table(['Evidence', 'Scope and limit'], [
 h('How to use this document')
 p('Use the product hypothesis to choose the next vertical slice and the roadmap to define its acceptance evidence. Keep status claims tied to dated tests. Update this document after customer interviews, provider agreements, live AI verification and a production pilot; do not carry prototype assumptions into a commercial launch unchanged.')
 
-doc.core_properties.title = 'MatchMind AI product strategy'
+doc.core_properties.title = 'Pitchlight product strategy'
 doc.core_properties.subject = 'Production vision adoption graph intelligence and delivery roadmap'
-doc.core_properties.author = 'MatchMind AI'
+doc.core_properties.author = 'Pitchlight'
 for border in list(doc.styles.element.iter(qn('w:pBdr'))):
     border.getparent().remove(border)
-doc.save(OUT / 'MatchMind_AI_Product_Strategy.docx')
-print(OUT / 'MatchMind_AI_Product_Strategy.docx')
+doc.save(OUT / 'Pitchlight_AI_Product_Strategy.docx')
+print(OUT / 'Pitchlight_AI_Product_Strategy.docx')
