@@ -75,7 +75,7 @@ From the repository root, in PowerShell:
 
 ```powershell
 az acr build --registry ca7835cfc7a5acr --image matchmind-demo:<tag> --no-logs .
-az containerapp update -n matchmind-demo -g rg-othniel.obasi-9233 --container-name matchmind-demo --image ca7835cfc7a5acr.azurecr.io/matchmind-demo:<tag>
+az containerapp update -n pitchlight -g rg-othniel.obasi-9233 --container-name matchmind-demo --image ca7835cfc7a5acr.azurecr.io/matchmind-demo:<tag>
 
 # the vision job
 az acr build --registry ca7835cfc7a5acr --image matchmind-vision:<tag> -f Dockerfile.vision --no-logs .
@@ -84,12 +84,18 @@ az containerapp job update -n matchmind-vision -g rg-othniel.obasi-9233 --image 
 
 `--no-logs` avoids an Azure CLI crash on Windows: streaming Vite's "✓" output fails under the cp1252 console encoding.
 
+## The pitchlight app and the old address
+
+The live app is the Container App **`pitchlight`** (its main container keeps the name `matchmind-demo`). It was created on 22 October 2026 from the old app's configuration. Its own managed identity holds the same roles: AcrPull on the registry, Foundry User on the Foundry resource, Azure Event Hubs Data Receiver on `match-events`, and Contributor on the `matchmind-feed` and `matchmind-vision` jobs. The old app `matchmind-demo` runs the same image with `PITCHLIGHT_REDIRECT_URL` set. It answers every HTTP request with a 301 to the same path on the new address, and starts no data store, graph, MCP session or Event Hubs consumer, so the two apps never compete for the feed.
+
+Verified on the new address after the move: health and readiness, Memgraph in sync (1,487 nodes), Ask the match through the Foundry agent and MCP, a live multi-agent recap, MCP `initialize` (server `pitchlight`, 15 tools), an Event Hubs match (1,079 of 1,079 events accepted), a vision job run (12 events accepted), all 6 browser tests, and a load test with 0 errors.
+
 ## Stop or remove
 
 - **Pause.** Scale to zero to stop compute charges while keeping everything:
 
   ```
-  az containerapp update -n matchmind-demo -g rg-othniel.obasi-9233 --min-replicas 0
+  az containerapp update -n pitchlight -g rg-othniel.obasi-9233 --min-replicas 0
   ```
 
 - **Remove.** Delete the app, environment, registry and Application Insights resources. Leave the Foundry resource if the local app still uses it.
