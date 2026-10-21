@@ -50,70 +50,64 @@ async function show(page: Page, locator: ReturnType<Page["locator"]>) {
   await page.waitForTimeout(700);
 }
 
+const workspace = (page: Page, name: string) =>
+  page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name }).click();
+
 test("Pitchlight submission story", async ({ page }) => {
   // Kick off the Event Hubs feed first: the job takes a little while to start, so the match is
   // streaming live by the time the video reaches the feed panel.
   await page.request.post("/api/feed/kickoff").catch(() => undefined);
+  // The full-time AI recap takes 10-25 s to write and check. Request it now for each audience (the
+  // demo caches it per match state); the story later shows an audience whose run was published.
+  const audiences = ["analyst", "fan", "broadcast"] as const;
+  const prefetched = Promise.all(audiences.map((a) =>
+    page.request.get(`/api/recap/agent?minute=90&language=en&audience=${a}`, { timeout: 120_000 })
+      .then((r) => r.json()).then((v) => ({ audience: a, published: v?.trace?.engine === "microsoft_agent_framework" }))
+      .catch(() => ({ audience: a, published: false }))));
 
   // 1. What it is
   await page.goto("/");
-  await caption(page, "Pitchlight turns synthetic football events into explainable match intelligence, live, on Azure", 4000);
+  await caption(page, "Pitchlight turns synthetic football events into explainable match intelligence, live, on Azure", 3000);
 
   // 2. Live moments that explain why they matter
-  await page.goto("/app");
+  // The replay runs at 2x so the match reaches the moments this story shows within two minutes.
+  await page.goto("/app?speed=2");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
   const moments = page.getByRole("region", { name: "Your moments" });
-  await show(page, page.getByRole("region", { name: "Personalize your match" }));
-  await caption(page, "Events stream in and are validated one by one. Every moment says why it matters", 3500);
   const why = page.locator(".why-button").first();
   await expect(why).toBeVisible({ timeout: 60_000 });
   await show(page, moments);
   await why.click();
   await expect(page.getByTestId("why-detail")).toBeVisible();
-  await caption(page, "Why? The knowledge graph gives the build-up, the players' roles in the pass network and the evidence", 4200);
+  await caption(page, "Every moment says why it matters: build-up, pass-network roles and the evidence events", 3800);
 
   // 3. Any language, and questions answered by an agent through MCP
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
   await page.getByLabel("Experience language").selectOption("es");
-  await caption(page, "Seven languages. Switch to Spanish: the same verified facts, in the viewer's language", 3500);
   const ask = page.getByRole("region", { name: "Ask the match" });
   await show(page, ask);
   await ask.getByLabel("Your question").fill("¿Quién es el jugador clave de Merridge?");
   await ask.getByRole("button", { name: "Ask" }).click();
-  await caption(page, "Ask the match: a Microsoft Foundry agent calls Pitchlight's own MCP tools", 2500);
+  await caption(page, "Seven languages. A Foundry agent picks the intent and calls Pitchlight's own MCP tools", 2500);
   await expect(ask.getByTestId("ask-answer")).toBeVisible({ timeout: 40_000 });
   await expect(ask.getByTestId("ask-answer")).toContainText("Foundry agent via MCP");
-  await caption(page, "The answer comes from the tool's verified facts, never the model's imagination", 3800);
+  await caption(page, "The viewer sees the tool's verified answer, never the model's own text", 3200);
 
-  // 4. Two genuinely different experiences
+  // 4. Event-driven on Azure
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
   await page.getByLabel("Experience language").selectOption("en");
-  await page.getByRole("group", { name: "Viewing mode" }).getByRole("button", { name: "Analyst" }).click();
-  await page.getByLabel("Favourite club").selectOption("away");
-  await page.getByLabel("Follow one player").selectOption("away-10");
-  await caption(page, "Analyst or fan, favourite club, follow one player: same facts, a different experience", 3000);
-  await show(page, page.getByRole("region", { name: "Player focus" }));
-  await caption(page, "Player focus: rating, passes, xG, physical data and his role in the team's pass network", 3500);
-
-  // 5. Graph intelligence
-  await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Analysis" }).click();
-  await show(page, page.getByRole("region", { name: "Match graph" }));
-  await caption(page, "Pass networks for both teams: hub, key link, PageRank and xG chain, mirrored in a Memgraph database", 4000);
-
-  // 6. Event-driven on Azure
-await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Live data" }).click();
+  await workspace(page, "Live data");
   const feed = page.getByRole("region", { name: "Azure Event Hubs feed" });
-  await feed.waitFor({ timeout: 20_000 }).catch(() => undefined);  // the panel appears once the feed status loads
+  await feed.waitFor({ timeout: 20_000 }).catch(() => undefined);
   if (await feed.count()) {
     await show(page, feed);
     await expect(feed.getByText(/Live ·/)).toBeVisible({ timeout: 60_000 }).catch(() => undefined);
-    await caption(page, "Kick off: a Container Apps Job streams a match through Azure Event Hubs", 3500);
-    await caption(page, "The app consumes it live, validates every event and detects moments as they happen", 4500);
+    await caption(page, "A Container Apps Job streams the match through Azure Event Hubs; every event is validated live", 4000);
   }
 
-  // 6b. Auto-eventing from video, scored against ground truth
-await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Video AI" }).click();
+  // 5. Auto-eventing from video, scored against ground truth
+  await workspace(page, "Video AI");
   const vision = page.getByRole("region", { name: "Auto-eventing from video" });
   await show(page, vision);
   await vision.locator("video").evaluate(async (v: HTMLVideoElement) => {
@@ -121,26 +115,44 @@ await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { 
     v.currentTime = 72;
     await v.play();
   });
-  await caption(page, "Auto-eventing from video: RT-DETR finds players, the pitch lines calibrate the camera, passes and goals are recovered", 4500);
-  await caption(page, "Because the video is synthetic, every number is checked against perfect ground truth", 4500);
+  await caption(page, "From broadcast video: players, ball, passes and goals recovered, and scored against perfect ground truth", 4500);
 
-  // 7. Recaps written by agents and checked by code
-await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name: "Match centre" }).click();
+  // 6. The connection graph: explorable, directed, and what changed
+  await workspace(page, "Analysis");
+  const graph = page.getByRole("region", { name: "Match graph" });
+  await show(page, graph);
+  await graph.locator("svg.pass-network .node.connector").first().click();
+  await expect(graph.getByTestId("network-card")).toContainText("Passes most to");
+  await caption(page, "The pass network: directed lanes, forward passes highlighted. Click a player for their partners", 4000);
+  await graph.getByRole("button", { name: "Last 15 min" }).click();
+  await graph.getByRole("button", { name: "Show change" }).click();
+  await caption(page, "Show change: lanes used more (green) or less (red) than in the previous fifteen minutes", 3500);
+
+  // 7. Tactical change, explained honestly
+  const tactics = page.getByRole("region", { name: "Tactical changes" });
+  await show(page, tactics);
+  await expect(tactics.getByTestId("tactics-findings")).toBeVisible({ timeout: 30_000 }).catch(() => undefined);
+  await caption(page, "After each substitution: before and after, ranked against the match's own swings, never claimed as the cause", 4500);
+
+  // 8. Recaps written by agents and checked by code, step by step
+  await workspace(page, "Match centre");
+  const choice = (await prefetched).find((p) => p.published) ?? { audience: "analyst" };
+  const mode = { analyst: "Analyst", fan: "Fan", broadcast: "Broadcast" }[choice.audience];
+  await show(page, page.getByRole("region", { name: "Personalize your match" }));
+  await page.getByRole("group", { name: "Viewing mode" }).getByRole("button", { name: mode }).click();
   const recap = page.getByRole("region", { name: "Match recap" });
-  await show(page, recap);
-  await recap.getByRole("button", { name: "So far", exact: true }).click();
-  await caption(page, "Recaps: an Agent Framework workflow drafts, a fact checker verifies every statement, a gate publishes", 4500);
-
-  // 8. Measured, not claimed
-  await card(page, "Evaluated in Microsoft Foundry", [
-    "21 published outputs in 7 languages, scored by Azure AI Evaluation",
-    "Groundedness 4.71 / 5  ·  0 unsupported numbers",
-    "8 drafts blocked by the fact checker and replaced with verified text",
-    "Agent, model and MCP tool calls traced in Foundry",
-  ], 6000);
+  await expect(recap.getByRole("button", { name: "Full-time" })).toBeEnabled({ timeout: 60_000 });
+  await recap.getByRole("button", { name: "AI recap" }).click();
+  const run = recap.getByTestId("agent-run");
+  await expect(run).toBeVisible({ timeout: 60_000 });
+  await run.locator("summary").click();
+  await show(page, run);
+  await caption(page, "Multi-agent recap: analyst, storyteller and editor write; a fact checker extracts every statement", 4200);
+  await run.locator(".run-step.agent").filter({ hasText: "Fact checker" }).first().scrollIntoViewIfNeeded();
+  await caption(page, "Code verifies each statement. Anything unsupported is sent back or blocked, never published", 4200);
 
   // 9. On screen, alongside the match
-  await page.goto("/app?view=studio");
+  await workspace(page, "Broadcast Studio");
   const picker = page.getByLabel("Language");
   await expect(picker).toBeVisible({ timeout: 30_000 });
   await picker.selectOption("ar");
@@ -149,13 +161,18 @@ await page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { 
   await overlay.click();
   await show(page, page.locator(".broadcast-screen"));
   await page.evaluate(() => window.scrollBy(0, -90));
-  await caption(page, "Broadcast Studio: timed, machine-readable overlays, here in Arabic, right to left", 6000);
+  await caption(page, "Broadcast Studio: timed, machine-readable overlays, here in Arabic, right to left", 4000);
 
-  // 10. How it is built
+  // 10. Measured, not claimed; how it is built
+  await card(page, "Measured", [
+    "Live recaps in 7 languages: 20 of 21 published; the rest blocked safely  ·  Foundry groundedness 4.71 / 5",
+    "Fact checker: 0 unsafe passes in 264 live checks  ·  Real-data adapter: 81,931 events, 0 rejected",
+    "Load test: 25 concurrent viewers, 32 requests/s, 95th percentile 0.7 s, 0 errors  ·  284 backend tests",
+  ], 5500);
   await card(page, "Pitchlight", [
     "Microsoft Foundry  ·  Agent Framework multi-agent workflow  ·  MCP server  ·  RT-DETR vision",
     "Azure Container Apps  ·  Event Hubs  ·  Container Apps Jobs  ·  Memgraph  ·  Application Insights",
-    "Managed identity throughout: no keys",
-    "Synthetic data, fictional clubs  ·  github.com/othniel74/matchmind-ai",
-  ], 6000);
+    "Managed identity throughout: no keys  ·  Synthetic data, fictional clubs",
+    "github.com/othniel74/matchmind-ai",
+  ], 5000);
 });

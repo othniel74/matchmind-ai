@@ -46,6 +46,8 @@ import { BroadcastCanvas, PreviewWindow, type PreviewPayload } from "./Broadcast
 // Real-data research views are local-only; the product itself uses synthetic data, and the
 // research components load only when enabled.
 const RESEARCH = import.meta.env.VITE_ENABLE_RESEARCH === "true";
+// Replay speed in match minutes per second: ?speed=2 for quick reviews and demos (0.5 to 5, default 1).
+const replaySpeed = Math.min(5, Math.max(0.5, Number(new URLSearchParams(location.search).get("speed")) || 1));
 const LazyStatsBomb = lazy(() => import("./StatsBombResearch"));
 const LazyTracking = lazy(() => import("./TrackingReplay.tsx"));
 const StatsBombResearch = (props: { standalone?: boolean }) =>
@@ -249,7 +251,7 @@ function App() {
     const connect = () => {
       const scheme = location.protocol === "https:" ? "wss" : "ws";
       socket = new WebSocket(
-        `${scheme}://${location.host}/ws/match?speed=1&start_minute=${lastMinute + 1}`,
+        `${scheme}://${location.host}/ws/match?speed=${replaySpeed}&start_minute=${lastMinute + 1}`,
       );
       socket.onopen = () => {
         if (!disposed) setConnected(true);
