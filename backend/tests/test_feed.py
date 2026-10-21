@@ -132,3 +132,32 @@ def test_producer_message_format(events):
     assert bodies[0]['type'] == 'kickoff' and bodies[-1]['type'] == 'full_time'
     assert [b['event']['event_id'] for b in bodies[1:-1]] == [e.event_id for e in events]
     assert result['messages'] == len(events) + 2 and {b['feed_run'] for b in bodies} == {result['feed_run']}
+
+
+def test_vision_kickoff_runs_once_at_a_time(monkeypatch):
+    import app.feed as feed
+    import app.main as main
+    started = []
+
+    async def fake_start(job=None):
+        started.append(job)
+        return {'execution': 'exec-1'}
+
+    monkeypatch.setenv('VISION_JOB_RESOURCE_ID', '/subscriptions/x/jobs/matchmind-vision')
+    monkeypatch.setattr(feed, 'start_feed_job', fake_start)
+    monkeypatch.setattr(main, '_last_vision', float('-inf'))
+    with TestClient(app) as client:
+        first = client.post('/api/feed/kickoff?source=vision')
+        assert first.status_code == 200 and first.json()['source'] == 'vision'  # a fresh server accepts the first run
+        assert client.post('/api/feed/kickoff?source=vision').status_code == 409
+        assert client.get('/api/feed').json()['vision_available'] is True
+    assert started == ['/subscriptions/x/jobs/matchmind-vision']
+
+
+def test_video_runs_show_only_video_derived_moments(events):
+    hub = FeedHub()
+    hub.handle({**kickoff('v'), 'source': 'vision'})
+    for e in events[:300]:
+        hub.handle(event(e, 'v'))
+    kinds = {m['moment']['kind'] for m in hub.recent if m.get('type') == 'moment'}
+    assert kinds and not kinds & {'top_speed', 'distance'}

@@ -20,6 +20,8 @@ The same intelligence becomes two genuinely different experiences: a data-rich a
 
 Foundry evaluations score what is published: groundedness 4.71/5 and no unsupported numbers across 21 outputs in 7 languages. Agent, model and tool calls are traced in Foundry. Everything authenticates with managed identity, with no keys.
 
+MatchMind also does **auto-eventing from video**. It renders its synthetic match as broadcast video, and a vision pipeline (pitch calibration, RT-DETR detection, team and identity tracking, ball tracking) recovers passes, goals and speeds from the pixels. Because the video is synthetic, every number is scored against perfect ground truth: calibration 3 cm, players 87%, events precision 87.5% including the goal. A Container Apps Job runs it in Azure and streams the recovered events through Event Hubs into the same verified pipeline.
+
 **The problem it solves:** live sports AI is only as useful as it is trustworthy. MatchMind makes match intelligence fast and personal enough for live play, and verifiable enough to put on screen.
 
 ## Microsoft and Azure technologies
@@ -38,7 +40,8 @@ No sign-in is needed. The demo is free, read-only and uses synthetic data.
 6. **Live from Azure Event Hubs:** press **Kick off a live match**. Events start arriving in about 30 seconds; one feed runs at a time.
 7. **Match recap:** choose **So far**, **Half-time** or **Full-time**, or **AI recap** for the agent-written, fact-checked version.
 8. **Broadcast Studio** (`/app?view=studio`): pick a language and select an overlay.
-9. MCP clients can connect to `/mcp` (streamable HTTP).
+9. **Auto-eventing from video:** play the clip in that panel. Boxes show what the vision pipeline recovers from the pixels, the minimap compares it with the truth, and the scorecard gives the measured accuracy. **Process this video on Azure** runs the vision job (about 15 minutes on CPU), and its events then arrive in the Event Hubs panel.
+10. MCP clients can connect to `/mcp` (streamable HTTP).
 
 Model-backed actions are limited to 4 per visitor per minute, and repeated requests are served from cache.
 

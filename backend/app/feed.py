@@ -31,6 +31,7 @@ from uuid import uuid4
 log = logging.getLogger('matchmind.feed')
 HUB = os.getenv('EVENTHUB_NAME', 'match-events')
 SEED = 20261020
+PHYSICAL_KINDS = {'top_speed', 'distance'}
 
 
 def enabled() -> bool:
@@ -103,6 +104,10 @@ class FeedHub:
                 out = [{'type': 'rejected', 'event_id': data.get('event_id'), 'reason': self.last_error}]
         else:
             return []
+        if self.run and self.run.get('source') == 'vision':
+            # Speed and distance tags come from the synthetic physical model, not from the video:
+            # a run recovered from video shows only what the video produced.
+            out = [m for m in out if not (m.get('type') == 'moment' and m['moment'].get('kind') in PHYSICAL_KINDS)]
         self.counts['moments'] += sum(m.get('type') == 'moment' for m in out)
         for message in out:
             self._publish(message)
@@ -205,10 +210,11 @@ async def publish(seed: int = SEED, speed: float = 30.0, namespace: str | None =
     return {'feed_run': run, 'match_id': match_id, 'messages': sent}
 
 
-async def start_feed_job() -> dict[str, Any]:
-    """Start the producer job through Azure Resource Manager with the app's managed identity."""
+async def start_feed_job(job: str | None = None) -> dict[str, Any]:
+    """Start a Container Apps Job (the feed producer by default) through Azure Resource Manager,
+    with the app's managed identity."""
     import httpx
-    job = os.environ['FEED_JOB_RESOURCE_ID']
+    job = job or os.environ['FEED_JOB_RESOURCE_ID']
     cred = credential()
     try:
         token = await cred.get_token('https://management.azure.com/.default')

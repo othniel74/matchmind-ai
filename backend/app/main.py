@@ -504,7 +504,9 @@ def graph_rebuild(http_request:Request,seed: int = Query(20261020, ge=0, le=2147
         repo.close()
 
 
-_last_kickoff = 0.0
+_last_kickoff = float('-inf')  # monotonic time of the last start; -inf means never
+_last_vision = float('-inf')
+VISION_COOLDOWN = 20 * 60  # a video takes about 15 minutes to process on the job's CPU
 
 
 @app.get('/api/feed')
@@ -513,30 +515,43 @@ def feed_status():
     from .feed import FEED
     moments = [m for m in FEED.recent if m.get('type') == 'moment'][-12:]
     return {**FEED.status(), 'kickoff_available': bool(os.getenv('FEED_JOB_RESOURCE_ID')),
+            'vision_available': bool(os.getenv('VISION_JOB_RESOURCE_ID')),
             'recent_moments': moments[::-1]}
 
 
 @app.post('/api/feed/kickoff')
-async def feed_kickoff(request: Request):
-    """Start the producer job, which publishes a synthetic match to Event Hubs. One feed at a time."""
+async def feed_kickoff(request: Request, source: str = Query('feed', pattern='^(feed|vision)$')):
+    """Start a feed: the synthetic match publisher, or the vision job that recovers events from
+    broadcast video. Both publish to Event Hubs; one of each runs at a time."""
     from fastapi import HTTPException
     from .feed import FEED, start_feed_job
     from .guard import GUARD, visitor
-    global _last_kickoff
-    if not os.getenv('FEED_JOB_RESOURCE_ID'):
-        raise HTTPException(503, 'The Event Hubs feed is not configured in this environment.')
-    live = FEED.run is not None and FEED.run.get('status') == 'live'
-    if live or time.monotonic() - _last_kickoff < 60:
-        raise HTTPException(409, 'A match feed is already running. Watch it, or try again when it reaches full time.')
+    global _last_kickoff, _last_vision
+    job = os.getenv('VISION_JOB_RESOURCE_ID' if source == 'vision' else 'FEED_JOB_RESOURCE_ID')
+    if not job:
+        raise HTTPException(503, 'This feed is not configured in this environment.')
+    if source == 'vision':
+        if time.monotonic() - _last_vision < VISION_COOLDOWN:
+            raise HTTPException(409, 'A video is already being processed. Its events will appear in the Event Hubs panel.')
+    else:
+        live = FEED.run is not None and FEED.run.get('status') == 'live'
+        if live or time.monotonic() - _last_kickoff < 60:
+            raise HTTPException(409, 'A match feed is already running. Watch it, or try again when it reaches full time.')
     if is_demo() and not GUARD.allow(visitor(request)):
         raise HTTPException(429, 'Too many requests from this visitor. Try again in a minute.', headers={'Retry-After': '60'})
-    _last_kickoff = time.monotonic()
+    if source == 'vision':
+        _last_vision = time.monotonic()
+    else:
+        _last_kickoff = time.monotonic()
     try:
-        return {'status': 'starting', **await start_feed_job()}
+        return {'status': 'starting', 'source': source, **await start_feed_job(job)}
     except Exception as exc:
-        _last_kickoff = 0.0
+        if source == 'vision':
+            _last_vision = float('-inf')
+        else:
+            _last_kickoff = float('-inf')
         logging.getLogger('matchmind.feed').warning('feed_kickoff_failed error_type=%s', type(exc).__name__)
-        raise HTTPException(502, 'Could not start the feed job.') from None
+        raise HTTPException(502, 'Could not start the job.') from None
 
 
 @app.websocket('/ws/feed')

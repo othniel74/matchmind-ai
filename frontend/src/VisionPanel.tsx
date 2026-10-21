@@ -29,6 +29,7 @@ export function VisionPanel() {
   const [events, setEvents] = useState<Events | null>(null);
   const [report, setReport] = useState<Report | null>(null);
   const [now, setNow] = useState(0);
+  const [azure, setAzure] = useState<{ available: boolean; notice: string }>({ available: false, notice: "" });
   const video = useRef<HTMLVideoElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const minimap = useRef<HTMLCanvasElement>(null);
@@ -38,6 +39,8 @@ export function VisionPanel() {
     Promise.all([get("overlay.json"), get("events.json"), get("report.json")]).then(([o, e, r]) => {
       setOverlay(o); setEvents(e); setReport(r);
     });
+    fetch("/api/feed").then((r) => (r.ok ? r.json() : null))
+      .then((f) => setAzure((a) => ({ ...a, available: !!f?.vision_available }))).catch(() => undefined);
   }, []);
 
   useEffect(() => {
@@ -135,6 +138,22 @@ export function VisionPanel() {
         <div><span>Ball found</span><b>{pct(report.ball_detection_rate)}</b><i>{metres(report.ball_position_error_m)} median error</i></div>
         <div><span>Passes and shots</span><b>F1 {report.events.f1.toFixed(2)}</b><i>{report.events.matched}/{report.events.true} recovered · precision {pct(report.events.precision)}</i></div>
       </div>
+      {azure.available && (
+        <div className="vision-azure">
+          <button className="button secondary" onClick={() => {
+            setAzure((a) => ({ ...a, notice: "Starting the vision job on Azure…" }));
+            fetch("/api/feed/kickoff?source=vision", { method: "POST" })
+              .then(async (r) => {
+                const notice = r.ok
+                  ? "The vision job is processing this video on Azure Container Apps (about 15 minutes on CPU). Its recovered events arrive in the Event Hubs panel, labelled as recovered from video."
+                  : (await r.json().catch(() => ({}))).detail ?? "Could not start the vision job.";
+                setAzure((a) => ({ ...a, notice }));
+              })
+              .catch(() => setAzure((a) => ({ ...a, notice: "Could not start the vision job." })));
+          }}>Process this video on Azure</button>
+          {azure.notice && <p className="subtle-note" role="status">{azure.notice}</p>}
+        </div>
+      )}
       <p className="subtle-note">
         {events.validated} recovered events pass the same validation as a data provider's feed and can enter the
         MatchMind pipeline. CPU processing: {report.processing.per_frame_s.toFixed(1)} s per frame at

@@ -32,6 +32,10 @@ Memgraph 3.13.1 runs in the same Container App as a second container, with a 768
 
 The sidecar was added by a PATCH of the app template (`az rest`). `az containerapp update --image` changes only one container, so name it with `--container-name matchmind-demo` when updating the app image.
 
+## Vision job
+
+`matchmind-vision` (Container Apps Job, manual trigger, 4 vCPU and 8 GiB, image `matchmind-vision:v2`) runs auto-eventing on the broadcast clip and publishes the recovered events to Event Hubs. Its identity holds AcrPull on the registry and Event Hubs Data Sender on the hub. The app holds Contributor on the job, so `POST /api/feed/kickoff?source=vision` can start it, with a 20-minute cooldown. See [VISION.md](VISION.md).
+
 ## Event-driven feed
 
 The app consumes the `match-events` hub in a background task, and `POST /api/feed/kickoff` starts the `matchmind-feed` job through Azure Resource Manager. Roles: the job holds Event Hubs Data Sender on the hub and AcrPull on the registry; the app holds Data Receiver on the hub and Contributor on the job only. See [EVENT_DRIVEN.md](EVENT_DRIVEN.md). Verified in production on 20 October 2026: one kick-off streamed a full match, with 1,079 of 1,079 events accepted, 0 rejected, 59 moments detected live and a final score of 2–3.

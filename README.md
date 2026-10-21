@@ -25,6 +25,7 @@ The brief's five stages, live:
 On top of the pipeline:
 
 - **Agent-written narratives and recaps.** A Microsoft Agent Framework workflow: insight ranker → tactical analyst → storyteller → audience editor ⇄ **fact checker** → publication gate. If a draft fails the check, verified text is published instead.
+- **Auto-eventing from video.** MatchMind renders its match as broadcast video. A vision pipeline (pitch calibration, RT-DETR player detection, team and identity tracking, ball tracking) recovers passes, goals and speeds from the pixels alone, and is **scored against perfect ground truth**, which real footage can never provide. See [VISION.md](docs/VISION.md).
 - **Ask the match.** A Foundry agent calls MatchMind's own **MCP** tools. Viewers see the tool's verified answer with its evidence, never the model's own text.
 
 ## Microsoft and Azure technology
@@ -35,7 +36,8 @@ On top of the pipeline:
 | **Microsoft Agent Framework** | The multi-agent workflow (typed executors, conditional edges, handoffs, retries, fallback) and the MCP-calling Q&A agent. See [AGENT_WORKFLOW.md](docs/AGENT_WORKFLOW.md). |
 | **Model Context Protocol** | 13 read-only match tools served at `/mcp` and over stdio; `.vscode/mcp.json` for GitHub Copilot agent mode. See [MCP.md](docs/MCP.md). |
 | **Azure Container Apps** | The API and web app, a Memgraph sidecar, and a Container Apps Job that produces the feed |
-| **Azure Event Hubs** | The live match feed, with Entra ID only (SAS disabled). See [EVENT_DRIVEN.md](docs/EVENT_DRIVEN.md). |
+| **Azure Event Hubs** | The live match feed, with Entra ID only (SAS disabled), carrying both the data feed and events recovered from video. See [EVENT_DRIVEN.md](docs/EVENT_DRIVEN.md). |
+| **Azure Container Apps Jobs** | The feed producer, and the **vision job**: RT-DETR on CPU (4 vCPU) turning broadcast video into events published to Event Hubs |
 | **Application Insights / OpenTelemetry** | Traces, connected to the Foundry project |
 | **Azure Container Registry Tasks** | Image builds and real Memgraph and Neo4j integration tests |
 | **Managed identity** | Every Azure call (Foundry, Event Hubs, ARM, registry); no keys anywhere |
@@ -71,7 +73,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 ## Documentation
 
-[Brief coverage](docs/HACKATHON_COVERAGE.md) · [Deployment](docs/DEPLOYMENT.md) · [Agent workflow](docs/AGENT_WORKFLOW.md) · [Foundry](docs/FOUNDRY.md) · [MCP](docs/MCP.md) · [Event-driven feed](docs/EVENT_DRIVEN.md) · [Knowledge graph](docs/GRAPH_INTELLIGENCE_ARCHITECTURE.md) · [Languages](docs/LANGUAGES.md) · [Synthetic simulator](docs/SYNTHETIC_SIMULATOR.md) · [Path to production](docs/PATH_TO_PRODUCTION.md) · [Submission](docs/SUBMISSION.md) · [Build history](docs/HISTORY.md)
+[Brief coverage](docs/HACKATHON_COVERAGE.md) · [Deployment](docs/DEPLOYMENT.md) · [Agent workflow](docs/AGENT_WORKFLOW.md) · [Foundry](docs/FOUNDRY.md) · [MCP](docs/MCP.md) · [Event-driven feed](docs/EVENT_DRIVEN.md) · [Knowledge graph](docs/GRAPH_INTELLIGENCE_ARCHITECTURE.md) · [Auto-eventing from video](docs/VISION.md) · [Languages](docs/LANGUAGES.md) · [Synthetic simulator](docs/SYNTHETIC_SIMULATOR.md) · [Path to production](docs/PATH_TO_PRODUCTION.md) · [Submission](docs/SUBMISSION.md) · [Build history](docs/HISTORY.md)
 
 ## Licence
 

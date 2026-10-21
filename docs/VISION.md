@@ -48,6 +48,12 @@ How it got there, measured at each step on the same clip:
 - **Goals.** A close-range finish crosses the line in less than one sampled frame. Detecting the ball beyond the goal line between the posts found the goal that a flight-based shot detector missed.
 - **Precision first.** Requiring a pass's ball to travel faster than 8 km/h removes possession flicker between close players. Precision rose from 69% to 87.5% and recall fell from 69% to 54%. For on-screen graphics a false event costs more than a missed one, the same principle as MatchMind's fact checker.
 
+## In Azure
+
+The same pipeline runs as the **`matchmind-vision` Container Apps Job** (image `Dockerfile.vision`: CPU PyTorch with the RT-DETR weights baked in; 4 vCPU, 8 GiB). It processes the broadcast clip, converts what it recovers into validated MatchMind events, and publishes them to **Azure Event Hubs** as a run whose source is `vision`. The app consumes that run exactly as it consumes a data provider's feed. In the app, **Process this video on Azure** starts the job through Azure Resource Manager with the app's managed identity, one run at a time.
+
+Verified on 21 October 2026: one run processed 601 frames (5 fps of video) in 10.3 minutes. It recovered 12 events, all 12 passed validation, and the app accepted all 12 from Event Hubs (0 rejected) and turned them into moments, including the goal. For a run recovered from video, the app shows only video-derived moments; speed tags from the synthetic physical model are left out.
+
 ## Honest limits
 
 - **Rendered video is cleaner than real broadcast:** there is no crowd, no motion blur, no camera cuts or replays, and the kits are simple. Real footage would need these handled: shot-boundary detection, replay filtering and a detector fine-tuned on broadcast frames.

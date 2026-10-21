@@ -7,7 +7,7 @@ import { CloudLightning } from "lucide-react";
 type FeedStatus = {
   enabled: boolean; kickoff_available: boolean; hub: string;
   consumer: { status: string; partition?: string; error?: string };
-  run: null | { feed_run: string; status: string; speed: number };
+  run: null | { feed_run: string; status: string; speed: number; source?: string };
   counts: { accepted: number; rejected: number; duplicates: number; moments: number };
   minute: number | null; score: null | { home: number; away: number };
 };
@@ -68,6 +68,7 @@ export function EventFeedPanel({ clubs }: { clubs: Record<string, { short: strin
       </p>
       <div className="feed-stats">
         <div><span>Run</span><b>{status.run ? (live ? `Live · ${status.minute ?? 0}′` : "Full time") : "Waiting"}</b></div>
+        <div><span>Source</span><b>{status.run?.source === "vision" ? "Recovered from video" : status.run ? "Data feed" : "—"}</b></div>
         <div><span>Score</span><b>{status.score ? `${clubs.home?.short ?? "Home"} ${status.score.home}–${status.score.away} ${clubs.away?.short ?? "Away"}` : "—"}</b></div>
         <div><span>Accepted</span><b>{status.counts.accepted}</b></div>
         <div><span>Rejected</span><b>{status.counts.rejected}</b></div>

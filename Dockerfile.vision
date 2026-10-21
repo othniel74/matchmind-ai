@@ -5,8 +5,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 MATCHMIND_SKIP_DOTENV=1 HF_HOME
 WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
 COPY backend/requirements*.txt ./
-RUN pip install --no-cache-dir torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu \
- && pip install --no-cache-dir -r requirements-vision.txt azure-eventhub==5.15.1 azure-identity==1.26.0
+# torchvision must come from the same CPU index as torch, or its compiled operators do not match.
+RUN pip install --no-cache-dir torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu \
+ && pip install --no-cache-dir -r requirements-vision.txt azure-eventhub==5.15.1 azure-identity==1.26.0 aiohttp
+# aiohttp: the async Azure identity client (managed identity) needs it to publish to Event Hubs.
 RUN python -c "from transformers import RTDetrForObjectDetection, RTDetrImageProcessor as P; \
 P.from_pretrained('PekingU/rtdetr_r50vd'); RTDetrForObjectDetection.from_pretrained('PekingU/rtdetr_r50vd')"
 COPY backend/app ./app

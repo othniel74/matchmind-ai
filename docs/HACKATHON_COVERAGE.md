@@ -21,7 +21,7 @@ This document maps each requirement of the brief to what MatchMind does, where t
 | Speed and distance indicators at thresholds | Synthetic physical model (distance and top speed per player-minute, causal, respecting substitutions and red cards). Tags fire at 33 km/h and at 5 km and 10 km covered; they are labelled synthetic. |
 | Pass quality | Pass distance, accuracy, and a deterministic 1–10 difficulty rating (length, direction, final-third target, pressure, set-piece type). |
 | Ball speed and shot speed | Every pass and shot carries a synthetic ball speed; team mean pass speed and maximum shot speed are reported. |
-| Auto-eventing from video | Not implemented. The brief lists it as a feature to consider; the product works from event feeds. |
+| Auto-eventing from video | **Implemented and measured.** MatchMind renders its synthetic match as broadcast video. A vision pipeline then works from the pixels: it calibrates the camera from the pitch lines, detects players with RT-DETR, assigns teams by kit and identities from the line-up and team shape, tracks the ball, and detects passes, goals and speeds. Every stage is scored against the renderer's exact ground truth: calibration 3 cm, players 87%, team 98%, identity 79%, events precision 87.5% including the goal, pass speed within 2.6 km/h. A Container Apps Job runs it in Azure and publishes the recovered events to Event Hubs. See [VISION.md](VISION.md). |
 
 ## (iii) Narrative generation
 

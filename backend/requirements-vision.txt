@@ -1,6 +1,6 @@
 # Vision auto-eventing (backend/vision). Kept out of the API image.
 #   python -m venv .venv-vision
-#   .venv-vision/Scripts/python -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+#   .venv-vision/Scripts/python -m pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu
 #   .venv-vision/Scripts/python -m pip install -r requirements-vision.txt
 -r requirements.txt
 transformers==5.20.2
