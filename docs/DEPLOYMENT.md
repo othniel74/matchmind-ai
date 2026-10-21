@@ -102,4 +102,4 @@ Verified on the new address after the move: health and readiness, Memgraph in sy
 
 ## Demo video
 
-`docs/demo/pitchlight-submission.mp4` (1:47) is the submission video, recorded against the live deployment with `MATCHMIND_URL=<url> npx playwright test -c playwright.video.config.ts`. The story replays the match at `?speed=2` and requests the full-time AI recap in advance, one request at a time, so nothing waits on camera. The recording is trimmed at the start and encoded as H.264.
+`docs/demo/pitchlight-submission.mp4` (1:36) is the submission video, recorded against the live deployment with `MATCHMIND_URL=<url> npx playwright test -c playwright.video.config.ts`. The story replays the match at `?speed=2` and requests the full-time AI recap in advance, one request at a time, so nothing waits on camera. The recording is trimmed at the start and encoded as H.264.
