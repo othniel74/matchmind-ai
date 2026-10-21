@@ -97,10 +97,10 @@ Every Azure call uses **managed identity**; no keys are stored anywhere. Product
 On the [live demo](https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/app):
 
 1. Watch **Your moments** fill in as the match replays, then press **Why?** on a goal.
-2. In **Make it your match**, switch the language to Arabic, the mode to Analyst, and follow a player.
+2. In **Your view**, switch the language to Arabic, the mode to Analyst, and follow a player.
 3. **Ask the match** "Who is Merridge's key player?". The answer is labelled *Foundry agent via MCP*.
-4. Scroll to **Auto-eventing from video** and play the clip: these are detections from the pixels, compared live with the truth.
-5. **Live from Azure Event Hubs → Kick off a live match** streams a match through Event Hubs.
+4. Open **Video AI** in the sidebar and play the clip: these are detections from the pixels, compared live with the truth.
+5. Open **Live data → Kick off a live match** to stream a match through Event Hubs. **Analysis** has the pass networks and team statistics.
 
 ## Repository map
 

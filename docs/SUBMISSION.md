@@ -34,13 +34,13 @@ No sign-in is needed. The demo is free, read-only and uses synthetic data.
 
 1. Open https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io and choose **Experience the match**, or go straight to `/app`.
 2. The match replays in about 90 seconds. In **Your moments**, press **Why?** on a goal.
-3. In **Make it your match**, change the viewing mode, language (try Arabic), favourite club, followed player or tracked metric.
+3. In **Your view**, change the viewing mode, language (try Arabic), favourite club, followed player or tracked metric.
 4. **Ask the match:** try "Who is Merridge's key player?" or a question in Spanish. The answer is labelled *Foundry agent via MCP*.
-5. **Match graph:** switch teams and windows.
-6. **Live from Azure Event Hubs:** press **Kick off a live match**. Events start arriving in about 30 seconds; one feed runs at a time.
+5. **Analysis** (sidebar): the match graph (switch teams and windows) and team statistics.
+6. **Live data** (sidebar): press **Kick off a live match**. Events start arriving in about 30 seconds; one feed runs at a time.
 7. **Match recap:** choose **So far**, **Half-time** or **Full-time**, or **AI recap** for the agent-written, fact-checked version.
 8. **Broadcast Studio** (`/app?view=studio`): pick a language and select an overlay.
-9. **Auto-eventing from video:** play the clip in that panel. Boxes show what the vision pipeline recovers from the pixels, the minimap compares it with the truth, and the scorecard gives the measured accuracy. **Process this video on Azure** runs the vision job (about 15 minutes on CPU), and its events then arrive in the Event Hubs panel.
+9. **Video AI** (sidebar): play the clip. Boxes show what the vision pipeline recovers from the pixels, the minimap compares it with the truth, and the scorecard gives the measured accuracy. **Process this video on Azure** runs the vision job (about 15 minutes on CPU), and its events then arrive in the Event Hubs panel.
 10. MCP clients can connect to `/mcp` (streamable HTTP).
 
 Model-backed actions are limited to 4 per visitor per minute, and repeated requests are served from cache.
