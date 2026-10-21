@@ -47,6 +47,34 @@ Real data exposed two contract gaps, and both are now fixed:
 
 `tests/test_providers.py` uses a hand-written fixture in StatsBomb's format with fictional teams. It covers every mapped type, both halves with stoppage time, a penalty goal, a second yellow card, a bench card, a substitution, unsupported types and the shoot-out.
 
+## Independent cross-check: Sportmonks
+
+Sportmonks does not publish every pass with pitch coordinates, so it is used as a **referee** rather than a feed. [app/providers/sportmonks.py](../backend/app/providers/sportmonks.py) fetches Sportmonks' official record of a match and compares it with what MatchMind computed from another provider's events for the same match:
+
+| Kind | Checks |
+| --- | --- |
+| Must agree exactly | the score; each goal (team, minute within one, scorer, matched across the providers' name spellings); yellow cards, sendings-off and substitutions per team |
+| Reported as differences | shots, shots on target, passes, pass completion, possession, corners, fouls. Providers define these differently, so differences are to be explained, not failed. |
+
+- **Teams:** at neutral venues the two providers can list home and away the other way round, so sides are matched by team name.
+- **Goals:** the scoring side comes from Sportmonks' running score, whatever its own-goal convention.
+- **Cards:** MatchMind counts a second yellow as a yellow and a red, while Sportmonks records one yellow-red card. The check converts Sportmonks' record to MatchMind's rule and labels it.
+
+```bash
+cd backend   # SPORTMONKS_API_TOKEN in backend/.env; sent as a header, never printed
+python -m app.providers.sportmonks data/research/statsbomb/events.json     --lineups data/research/statsbomb/lineups.json --date 2022-12-18
+```
+
+`tests/test_sportmonks.py` uses a hand-written fixture in Sportmonks' v3 format, with no network access. It covers:
+- side alignment;
+- skipping the shoot-out;
+- own goals;
+- the card convention;
+- name matching;
+- reporting a disagreement.
+
+**Status:** ready, but the live run against the real Sportmonks record of the 2022 World Cup final is pending; the Sportmonks API was down when this was built.
+
 ## Live feeds
 
 A live provider feed enters the same way as the synthetic one: an adapter publishes MatchMind events to Azure Event Hubs, and the consumer validates and interprets them ([EVENT_DRIVEN.md](EVENT_DRIVEN.md)).
