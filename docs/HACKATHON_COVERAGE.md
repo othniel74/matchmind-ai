@@ -1,4 +1,4 @@
-# Hackathon brief coverage — 20 October 2026
+# Hackathon brief coverage — updated 21 October 2026
 
 This document maps each requirement of the brief to what MatchMind does, where the code lives, and how it is verified. All data is synthetic, and all clubs and players are fictional.
 
@@ -29,7 +29,7 @@ This document maps each requirement of the brief to what MatchMind does, where t
 - **Player-performance context:** the player-focus card shows rating, goals, assists, xG, passes, pass difficulty, tackles, distance and top speed.
 - **Milestones:** 25, 50 and 75 completed passes, braces, hat-tricks, speed and distance.
 - **Why this moment:** each goal, big chance and key-link moment can be expanded. It shows the build-up, the players' network roles in the 15 minutes before, the previous moment, and the evidence.
-- **Ask the match:** viewers ask in any of the 7 languages. The model only routes the question to a fixed intent, and code answers from the graph, claims and statistics, with evidence. It refuses questions outside the match data.
+- **Ask the match:** viewers ask in any of the 7 languages. A Foundry agent calls MatchMind's MCP tools with a typed intent, and code answers from the graph, claims and statistics, with evidence. It refuses questions outside the match data.
 - **Correction impact:** a correction lists every moment, claim, overlay and recap that it changes.
 - **Match recaps:** half-time, full-time and so-far recaps, deterministic, in 7 languages, with every number a validated claim. An agent-written recap is fact-checked against verified results, scorers and statistic leaders.
 
@@ -46,6 +46,8 @@ The possession-based synthetic generator produces:
 
 Realism checks: all 11 per-team averages fall within broad top-league ranges on held-out seeds.
 
+It also produces **25 Hz ground-truth tracking** for the ball and every player, and renders it as **broadcast video** with the exact camera for every frame. The result is a labelled video dataset that real football cannot provide, used to measure auto-eventing from video stage by stage ([SYNTHETIC_SIMULATOR.md](SYNTHETIC_SIMULATOR.md), [VISION.md](VISION.md)).
+
 ## (vi) Multi-language storytelling
 
 Seven languages: English, Spanish, French, Portuguese (Brazil), German, Italian and Arabic (right to left). One registry holds every template, and facts are identical in every language.
@@ -56,6 +58,15 @@ Agent text in any language is checked by a fact checker: a model extracts statem
 | --- | --- |
 | Wrong statements let through | 0, across 264 scored checks on three held-out sets |
 | Correct sentences wrongly blocked (safe side) | about 4–7% |
+
+## Prize categories
+
+| Category | How MatchMind fits |
+| --- | --- |
+| **Best Multi-Agent System** (primary) | The agents have distinct roles: ranker, analyst, storyteller, audience editor, fact checker, publication gate, and an MCP-calling Q&A agent. They share state through an Agent Framework workflow, hand off along typed edges, retry when rate limited and fall back safely. The fact checker blocks unsupported drafts that a single agent would publish. See [AGENT_WORKFLOW.md](AGENT_WORKFLOW.md). |
+| **Best Use of Microsoft Foundry** | One Foundry project for models, tracing of agent, model and MCP tool calls, and release evaluations with thresholds. See [FOUNDRY.md](FOUNDRY.md). |
+| **Best Enterprise Solution** | Typed claims, provenance, correction impact, a release gate, managed identity, rate limits, measured evaluations, and a path to production. See [PATH_TO_PRODUCTION.md](PATH_TO_PRODUCTION.md). |
+| **Best Azure Cloud Native Integration** | Container Apps with a Memgraph sidecar; Container Apps Jobs for the feed and vision; Event Hubs; ACR Tasks for real database tests; Application Insights; managed identity throughout. See [EVENT_DRIVEN.md](EVENT_DRIVEN.md), [DEPLOYMENT.md](DEPLOYMENT.md). |
 
 ## Compliance
 

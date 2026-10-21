@@ -1,3 +1,5 @@
+> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+
 # MatchMind AI technical implementation and risk controls
 
 > Implementation update (19 October 2026): the local Evidence Lab now includes versioned provenance, deterministic claim checks, local password sessions, analyst/reviewer roles, account-attributed review, controlled local publication and atomic withdrawal on supporting corrections. See [local evidence foundation](LOCAL_EVIDENCE_FOUNDATION.md) for current scope and 79-test verification. Cloud identity, tenant isolation, external delivery and production evaluation remain incomplete.

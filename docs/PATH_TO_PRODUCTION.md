@@ -18,6 +18,7 @@ This document lists what is already production-grade, what the gate is waiting f
 | **Graph database** | A Memgraph sidecar holds a replayable copy, re-projected on every source change. Its counts are checked against NetworkX, and the app falls back to NetworkX if it is down. Real Memgraph and Neo4j parity tests run in Azure. |
 | **Quality gates** | About 240 backend tests, an offline evaluation, browser tests against the live URL, and CI on every push. |
 | **Event-driven ingestion** | Azure Event Hubs carries the match feed. A Container Apps Job publishes it; the API consumes, validates and interprets each event as it arrives; duplicates are skipped and bad events reported. All identity is managed, with no keys. |
+| **Auto-eventing from video** | Broadcast video becomes validated events through Event Hubs. Each stage is scored against ground truth ([VISION.md](VISION.md)), and favours precision: a false event costs more than a missed one. |
 | **Interoperability** | A read-only MCP server exposes the same verified tools to other agents and to Copilot. |
 
 ## What the gate is waiting for
@@ -32,8 +33,9 @@ Each item states the production design, the Azure service, and how it will be ve
 | 4 | **Event ingestion at scale** | *Done for one consumer:* match feeds already arrive through Azure Event Hubs, and a consumer validates each event with `StreamValidator` ([EVENT_DRIVEN.md](EVENT_DRIVEN.md)). *Still to do:* Blob checkpointing, state in the managed database, and consumers scaled on backlog through KEDA. | Replay of a full match at 10× speed with zero rejected valid events; no lost events across a consumer restart |
 | 5 | **Delivery guarantees** | Overlays and recaps leave through an outbox with acknowledgements and withdrawal messages for downstream renderers | A withdrawn overlay must disappear downstream within the SLO |
 | 6 | **Secrets and network** | Key Vault references for any remaining secrets; a private registry and database endpoints; Azure Front Door with WAF in front of the API | Configuration scan; penetration test findings closed |
-| 7 | **Release evaluations** | Foundry evaluations (groundedness, relevance, coherence, fluency and the custom fact-check scorer) run on a fixed set before each release, with thresholds in CI | A release fails automatically when a score drops below its threshold |
+| 7 | **Release evaluations** | *In place locally:* `evaluation/foundry_eval.py` scores published output with Azure AI Evaluation, logs it to Foundry and exits non-zero below its thresholds ([FOUNDRY.md](FOUNDRY.md)). *Still to do:* run it as a release gate in CI. Foundry evaluations (groundedness, relevance, coherence, fluency and the custom fact-check scorer) run on a fixed set before each release, with thresholds in CI | A release fails automatically when a score drops below its threshold |
 | 8 | **Reliability targets** | SLOs: insight latency under 2 s at p95 from event to overlay; 99.9% availability; alerts in Azure Monitor; at least 2 replicas across zones | Load and fault tests (a replica kill, a model outage, a database failover) |
+| 10 | **Vision on real broadcast video** | GPU inference (Container Apps serverless GPU or AKS); a detector fine-tuned on broadcast frames; shot-boundary and replay detection; jersey-number recognition from close-ups; confidence thresholds so low-confidence events are held for review, not published | Accuracy on annotated real clips against the synthetic-video scores; latency within the overlay SLO |
 | 9 | **Content safety** | Azure AI Content Safety on all generated text, in addition to the fact checker | Red-team prompt set with no unsafe outputs |
 
 ## Rollout
@@ -42,4 +44,4 @@ Each item states the production design, the Azure service, and how it will be ve
 2. **Assisted:** approved templates and claims publish automatically; agent narratives still need review.
 3. **Automated:** agent narratives publish automatically once the item 7 evaluations meet their thresholds. Reviewers keep the correction and withdrawal tools.
 
-When items 1–9 pass, the gate in `backend/app/runtime.py` is replaced by a startup check that verifies each control is configured. Production then starts only when all of them are present.
+When items 1–10 pass, the gate in `backend/app/runtime.py` is replaced by a startup check that verifies each control is configured. Production then starts only when all of them are present.

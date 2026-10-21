@@ -1,3 +1,5 @@
+> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+
 # Update 17 October 2026
 
 See `VERIFICATION_2026_10_17.md` for the current results. Synthetic scoring, explicit generated pass recipients, optional durable SQLite replay storage, local Vite proxy, and frontend compilation are now implemented and verified locally. The graph adapter now replaces a match projection in one transaction, with mocked transaction checks; real Bolt integration remains unverified. Prior dated inventory follows for historical context.

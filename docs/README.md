@@ -1,22 +1,46 @@
 # MatchMind documentation
 
-- [Hackathon brief coverage](HACKATHON_COVERAGE.md) - every requirement mapped to code and verification.
-- [Public demo deployment](DEPLOYMENT.md) - URL, Azure resources, safeguards, costs, updating and removal.
-- Demo video: [demo/matchmind-demo.webm](demo/matchmind-demo.webm).
+## Start here
 
-- [Synthetic simulator and evaluation](SYNTHETIC_SIMULATOR.md) - possession-based generator, hidden scenario labels, realism ranges and measured detector precision/recall.
-- [Claim contracts](CLAIM_CONTRACTS.md) - typed, evidence-backed match claims (score, shots, xG, possession, cards and more) with exact recomputation.
-- [Languages](LANGUAGES.md) - seven supported languages, the single registry, number formats, right-to-left handling and how to add one.
-- [Agent workflow](AGENT_WORKFLOW.md) - Agent Framework graph, output checks, trace fields and what remains for live Foundry.
-- [Local evidence foundation](LOCAL_EVIDENCE_FOUNDATION.md) - implemented versioned events, NetworkX provenance, correction sandbox, validation and remaining production work.
+| Document | What it covers |
+| --- | --- |
+| [Submission](SUBMISSION.md) | Pitch, prize category, Microsoft technologies, step-by-step testing instructions |
+| [Hackathon brief coverage](HACKATHON_COVERAGE.md) | Every requirement of the brief mapped to code and to how it is verified |
+| [Demo video (1:46)](demo/matchmind-submission.mp4) | Recorded against the live deployment |
 
-- [Technical implementation and risk controls](TECHNICAL_IMPLEMENTATION_AND_RISK_CONTROLS.md) — consolidated architecture, contracts, knowledge graph, 14 risks, mitigations, acceptance tests, monitoring and implementation sequence. Implemented, partial, planned and unverified controls are distinguished.
-- [Technical implementation and risk controls in Word](technical/MatchMind_AI_Technical_Implementation_and_Risk_Controls.docx).
-- [Product strategy version 2](product/MatchMind_AI_Product_Strategy_v2.docx) — adoption goals, user workflows and knowledge graph delivery plan.
-- [Real data sources](REAL_DATA_SOURCES.md) — imported research samples, limitations, permissions and verification.
-- [Verification record](VERIFICATION_2026_10_17.md) — dated implementation evidence and later additions.
-- [Graph architecture](GRAPH_INTELLIGENCE_ARCHITECTURE.md) and [test plan](VSCODE_SETUP_AND_TEST_PLAN.md) — detailed earlier implementation notes; read their dated updates before treating historical limitations or test counts as current.
+## How it works
 
-Earlier Word requirements and strategy documents are retained. The consolidated technical specification describes proposed production controls as well as current implementation; it is not a claim of production readiness.
+| Document | What it covers |
+| --- | --- |
+| [Auto-eventing from video](VISION.md) | Ground-truth tracking, the broadcast renderer, the vision pipeline (calibration, RT-DETR, teams, identity, ball, events), measured accuracy, the Azure job |
+| [Agent workflow](AGENT_WORKFLOW.md) | The Agent Framework graph, the fact checker, recaps, rate limits, tracing, live fact-check results |
+| [Microsoft Foundry](FOUNDRY.md) | Models, tracing in Foundry, release evaluations and their results |
+| [MCP server](MCP.md) | The 13 match tools, the MCP-calling Q&A agent, use from VS Code / Copilot |
+| [Event-driven feed](EVENT_DRIVEN.md) | Event Hubs, the producer job, the consumer, delivery guarantees |
+| [Knowledge graph](GRAPH_INTELLIGENCE_ARCHITECTURE.md) | The match knowledge graph, network roles, xG chain, Memgraph/Neo4j projection and parity tests |
+| [Claim contracts](CLAIM_CONTRACTS.md) | Typed, evidence-backed claims with exact recomputation |
+| [Languages](LANGUAGES.md) | The seven languages, number formats, right-to-left handling, how to add one |
+| [Synthetic simulator](SYNTHETIC_SIMULATOR.md) | The possession-based generator, ground-truth tracking for video, realism checks, scenario labels and detector precision |
+| [Local evidence foundation](LOCAL_EVIDENCE_FOUNDATION.md) | Versioned events, provenance, corrections, review and publication |
 
-- [Evaluation scorecard register](EVALUATION_SCORECARD.csv) � 22 defined metrics with blank measurements, unapproved targets and NOT_RUN status. Formulas, dataset packs, windows and release decisions are in the technical specification.
+## Running it
+
+| Document | What it covers |
+| --- | --- |
+| [Deployment](DEPLOYMENT.md) | The Azure resources, demo safeguards, verification and how to update |
+| [Path to production](PATH_TO_PRODUCTION.md) | Controls already in place, what the release gate waits for, rollout |
+
+## Assets and data
+
+| Document | What it covers |
+| --- | --- |
+| [Player assets](PLAYER_ASSETS.md) | The MIT-licensed Microsoft Rocketbox models and their credits |
+| [Landing page design](LANDING_PAGE_DESIGN.md) | Landing page artwork and design provenance |
+| [Real data sources](REAL_DATA_SOURCES.md) | Optional local research samples (not in this repository, off in the demo) |
+| [Real tracking replay](REAL_TRACKING_REPLAY.md) | The optional local research replay view |
+
+## History
+
+These earlier documents record how the project developed. Their test counts, limitations and plans describe the project at the date they were written; the documents above are current.
+
+[Build history (previous README)](HISTORY.md) · [Implementation status, 15–17 October](IMPLEMENTATION_STATUS.md) · [Verification, 17 October](VERIFICATION_2026_10_17.md) · [VS Code setup and test plan](VSCODE_SETUP_AND_TEST_PLAN.md) · [Future implementation roadmap](FUTURE_IMPLEMENTATION_ROADMAP.md) · [Technical implementation and risk controls](TECHNICAL_IMPLEMENTATION_AND_RISK_CONTROLS.md) ([Word](technical/MatchMind_AI_Technical_Implementation_and_Risk_Controls.docx)) · [Product strategy v2](product/MatchMind_AI_Product_Strategy_v2.docx) · [Gameplay preview](GAMEPLAY_PREVIEW.md) · [Production readiness audit](PRODUCTION_READINESS_AUDIT.md) · [Release checklist](RELEASE_CHECKLIST.md) · [Evaluation scorecard register](EVALUATION_SCORECARD.csv) · Earlier requirements: [product requirements](MatchMind_AI_Product_Requirements_Technical_Architecture.docx), [graph addendum](MatchMind_Graph_Intelligence_Requirements_Addendum.docx)

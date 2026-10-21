@@ -1,3 +1,5 @@
+> **Historical document.** It records MatchMind at the date it was written; its test counts, limitations and plans are not current. For the current state see the [README](../README.md) and the [documentation index](README.md).
+
 # Verification 17 October 2026
 
 ## Implemented and checked locally

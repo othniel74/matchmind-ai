@@ -651,7 +651,7 @@ export default function Landing() {
               ],
               [
                 "What can I try right now?",
-                "Replay a full synthetic match. Pick a viewing mode, language, favourite club and players, follow one player or track one metric. Ask the match a question, open a goal's build-up, explore both teams' pass networks, read a verified recap, and try the full-screen or pop-out Broadcast Studio.",
+                "Replay a full synthetic match. Pick a viewing mode, language, favourite club and players, follow one player or track one metric. Ask the match a question, open a goal's build-up, explore both teams' pass networks, read a verified recap, stream a match through Azure Event Hubs, watch the vision pipeline recover events from broadcast video, and try the full-screen or pop-out Broadcast Studio.",
               ],
             ].map(([q, a]) => (
               <details key={q}>
