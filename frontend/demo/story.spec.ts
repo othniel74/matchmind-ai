@@ -57,7 +57,7 @@ test("MatchMind AI submission story", async ({ page }) => {
 
   // 1. What it is
   await page.goto("/");
-  await caption(page, "MatchMind AI turns synthetic football events into explainable match intelligence, live, on Azure", 5000);
+  await caption(page, "MatchMind AI turns synthetic football events into explainable match intelligence, live, on Azure", 4000);
 
   // 2. Live moments that explain why they matter
   await page.goto("/app");
@@ -71,7 +71,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   await show(page, moments);
   await why.click();
   await expect(page.getByTestId("why-detail")).toBeVisible();
-  await caption(page, "Why? The knowledge graph gives the build-up, the players' roles in the pass network and the evidence", 5000);
+  await caption(page, "Why? The knowledge graph gives the build-up, the players' roles in the pass network and the evidence", 4200);
 
   // 3. Any language, and questions answered by an agent through MCP
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
@@ -84,7 +84,7 @@ test("MatchMind AI submission story", async ({ page }) => {
   await caption(page, "Ask the match: a Microsoft Foundry agent calls MatchMind's own MCP tools", 2500);
   await expect(ask.getByTestId("ask-answer")).toBeVisible({ timeout: 40_000 });
   await expect(ask.getByTestId("ask-answer")).toContainText("Foundry agent via MCP");
-  await caption(page, "The answer comes from the tool's verified facts, never the model's imagination", 4500);
+  await caption(page, "The answer comes from the tool's verified facts, never the model's imagination", 3800);
 
   // 4. Two genuinely different experiences
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
@@ -94,11 +94,11 @@ test("MatchMind AI submission story", async ({ page }) => {
   await page.getByLabel("Follow one player").selectOption("away-10");
   await caption(page, "Analyst or fan, favourite club, follow one player: same facts, a different experience", 3000);
   await show(page, page.getByRole("region", { name: "Player focus" }));
-  await caption(page, "Player focus: rating, passes, xG, physical data and his role in the team's pass network", 4500);
+  await caption(page, "Player focus: rating, passes, xG, physical data and his role in the team's pass network", 3500);
 
   // 5. Graph intelligence
   await show(page, page.getByRole("region", { name: "Match graph" }));
-  await caption(page, "Pass networks for both teams: hub, key link, PageRank and xG chain, mirrored in a Memgraph database", 5000);
+  await caption(page, "Pass networks for both teams: hub, key link, PageRank and xG chain, mirrored in a Memgraph database", 4000);
 
   // 6. Event-driven on Azure
   const feed = page.getByRole("region", { name: "Azure Event Hubs feed" });
@@ -106,14 +106,25 @@ test("MatchMind AI submission story", async ({ page }) => {
     await show(page, feed);
     await expect(feed.getByText(/Live ·/)).toBeVisible({ timeout: 60_000 }).catch(() => undefined);
     await caption(page, "Kick off: a Container Apps Job streams a match through Azure Event Hubs", 3500);
-    await caption(page, "The app consumes it live, validates every event and detects moments as they happen", 6000);
+    await caption(page, "The app consumes it live, validates every event and detects moments as they happen", 4500);
   }
+
+  // 6b. Auto-eventing from video, scored against ground truth
+  const vision = page.getByRole("region", { name: "Auto-eventing from video" });
+  await show(page, vision);
+  await vision.locator("video").evaluate(async (v: HTMLVideoElement) => {
+    if (v.readyState < 1) await new Promise((r) => v.addEventListener("loadedmetadata", r, { once: true }));
+    v.currentTime = 72;
+    await v.play();
+  });
+  await caption(page, "Auto-eventing from video: RT-DETR finds players, the pitch lines calibrate the camera, passes and goals are recovered", 4500);
+  await caption(page, "Because the video is synthetic, every number is checked against perfect ground truth", 4500);
 
   // 7. Recaps written by agents and checked by code
   const recap = page.getByRole("region", { name: "Match recap" });
   await show(page, recap);
   await recap.getByRole("button", { name: "So far", exact: true }).click();
-  await caption(page, "Recaps: an Agent Framework workflow drafts, a fact checker verifies every statement, a gate publishes", 5500);
+  await caption(page, "Recaps: an Agent Framework workflow drafts, a fact checker verifies every statement, a gate publishes", 4500);
 
   // 8. Measured, not claimed
   await card(page, "Evaluated in Microsoft Foundry", [
@@ -137,7 +148,7 @@ test("MatchMind AI submission story", async ({ page }) => {
 
   // 10. How it is built
   await card(page, "MatchMind AI", [
-    "Microsoft Foundry  ·  Agent Framework multi-agent workflow  ·  MCP server",
+    "Microsoft Foundry  ·  Agent Framework multi-agent workflow  ·  MCP server  ·  RT-DETR vision",
     "Azure Container Apps  ·  Event Hubs  ·  Container Apps Jobs  ·  Memgraph  ·  Application Insights",
     "Managed identity throughout: no keys",
     "Synthetic data, fictional clubs  ·  github.com/othniel74/matchmind-ai",

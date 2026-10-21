@@ -7,7 +7,7 @@ MatchMind turns a stream of football events into what a studio, a broadcaster or
 | | |
 | --- | --- |
 | **Live demo** | https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
-| **Video (1:44)** | [docs/demo/matchmind-submission.mp4](docs/demo/matchmind-submission.mp4) |
+| **Video (1:46)** | [docs/demo/matchmind-submission.mp4](docs/demo/matchmind-submission.mp4) |
 | **MCP server** | `https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
 
 All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional and synthetic. MatchMind is not affiliated with the Premier League.
