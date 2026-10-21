@@ -143,7 +143,7 @@ export function BroadcastCanvas({ frame, overlay }: PreviewPayload) {
         </div>
       </details>
       <div className="broadcast-bug">
-        <AudioLines size={17} /> MATCHMIND <span>DEMO</span>
+        <AudioLines size={17} /> PITCHLIGHT <span>DEMO</span>
       </div>
       <div className="broadcast-score">
         CAL{" "}

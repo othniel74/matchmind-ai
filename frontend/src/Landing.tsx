@@ -180,7 +180,7 @@ export default function Landing() {
             <AudioLines size={23} />
           </span>
           <strong>
-            matchmind<sup>AI</sup>
+            pitchlight
           </strong>
         </a>
         <nav aria-label="Main navigation" className={menu ? "open" : ""}>
@@ -687,7 +687,7 @@ export default function Landing() {
               <AudioLines size={21} />
             </span>
             <strong>
-              matchmind<sup>AI</sup>
+              pitchlight
             </strong>
           </a>
           <p>Explain the game. Not just the score.</p>

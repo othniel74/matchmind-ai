@@ -398,7 +398,7 @@ function App() {
     const url = URL.createObjectURL(blob),
       link = document.createElement("a");
     link.href = url;
-    link.download = `matchmind-minute-${frame.minute}.json`;
+    link.download = `pitchlight-minute-${frame.minute}.json`;
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -423,7 +423,7 @@ function App() {
             <AudioLines size={23} />
           </div>
           <span>
-            matchmind<span className="brand-ai">AI</span>
+            pitchlight
           </span>
         </a>
         <div className="workspace-label">Match workspace</div>

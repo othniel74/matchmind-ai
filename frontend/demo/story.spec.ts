@@ -57,13 +57,13 @@ test("Pitchlight submission story", async ({ page }) => {
   // Kick off the Event Hubs feed first: the job takes a little while to start, so the match is
   // streaming live by the time the video reaches the feed panel.
   await page.request.post("/api/feed/kickoff").catch(() => undefined);
-  // The full-time AI recap takes 10-25 s to write and check. Request it now for each audience (the
-  // demo caches it per match state); the story later shows an audience whose run was published.
-  const audiences = ["analyst", "fan", "broadcast"] as const;
-  const prefetched = Promise.all(audiences.map((a) =>
-    page.request.get(`/api/recap/agent?minute=90&language=en&audience=${a}`, { timeout: 120_000 })
-      .then((r) => r.json()).then((v) => ({ audience: a, published: v?.trace?.engine === "microsoft_agent_framework" }))
-      .catch(() => ({ audience: a, published: false }))));
+  // The full-time AI recap takes 10-25 s to write and check. Request it now (the demo caches it per
+  // match state). One at a time: parallel runs share the model's rate limit with Ask the match.
+  const recapFor = (audience: "analyst" | "fan" | "broadcast") =>
+    page.request.get(`/api/recap/agent?minute=90&language=en&audience=${audience}`, { timeout: 120_000 })
+      .then((r) => r.json()).then((v) => ({ audience, published: v?.trace?.engine === "microsoft_agent_framework" }))
+      .catch(() => ({ audience, published: false }));
+  const prefetched = recapFor("analyst");
 
   // 1. What it is
   await page.goto("/");
@@ -136,7 +136,8 @@ test("Pitchlight submission story", async ({ page }) => {
 
   // 8. Recaps written by agents and checked by code, step by step
   await workspace(page, "Match centre");
-  const choice = (await prefetched).find((p) => p.published) ?? { audience: "analyst" };
+  let choice = await prefetched;
+  if (!choice.published) choice = await recapFor("fan");  // rarely needed: about 1 run in 20 is blocked
   const mode = { analyst: "Analyst", fan: "Fan", broadcast: "Broadcast" }[choice.audience];
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
   await page.getByRole("group", { name: "Viewing mode" }).getByRole("button", { name: mode }).click();
