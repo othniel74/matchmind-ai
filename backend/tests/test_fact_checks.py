@@ -58,3 +58,24 @@ def test_structured_output_schema_requires_every_field():
     item = schema['$defs']['Statement']
     assert set(item['required']) == set(item['properties'])  # strict mode: every field answered
     assert set(FLAGS) <= set(item['properties'])
+
+
+def test_level_in_a_statistic_is_a_comparison_not_the_score():
+    # Seen live at minute 70: "both teams level in corners" was extracted as a result and checked against the score.
+    equal = minute_where(lambda m: measure(EVENTS, 'corners', 'home', m)[0] == measure(EVENTS, 'corners', 'away', m)[0]
+                         and recap_facts(EVENTS, m)['result']['home'] != 'level')
+    text = 'both teams level in corners'
+    assert verify_statements([stmt(text, 'result', relation='level', metric='corners')], text, None, EVENTS,
+                             equal)[0] is None
+
+
+def test_currently_is_the_state_of_play_not_a_match_time():
+    leading = minute_where(lambda m: recap_facts(EVENTS, m)['result']['away'] == 'leads')
+    text = 'Merridge is currently leading against Calderbrook'
+    flagged = {**stmt(text, 'result', 'away', 'leads'), 'mentions_match_time': True}
+    assert verify_statements([flagged], text, None, EVENTS, leading, language='en')[0] is None
+    # A real match time stays blocked, and other languages keep the extractor's judgement.
+    late = 'Merridge is currently leading in stoppage time'
+    assert verify_statements([{**flagged, 'quote': late}], late, None, EVENTS, leading,
+                             language='en')[0] == 'unsupported_mentions_match_time'
+    assert verify_statements([flagged], text, None, EVENTS, leading, language='de')[0] == 'unsupported_mentions_match_time'

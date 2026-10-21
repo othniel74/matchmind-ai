@@ -65,6 +65,10 @@ INTENSITIES = ('neutral', 'strong', 'extreme')
 # the same sentence: an amplifying word in any supported language makes a statement at least
 # "strong". Over-flagging can only block a narrow claim, never pass an overstated one.
 # "far", "way" and "a lot" only amplify before more/fewer/less ("so far" is not emphasis).
+# Words for the state of play so far, which are not match times (English and Spanish, where TIMING applies).
+TIMING_LANGUAGES = frozenset({'en', 'es'})
+STATE_OF_PLAY = re.compile(r'\b(currently|so far|at the moment|right now|still|now|actualmente|hasta ahora|'
+                           r'por ahora|en este momento|ahora|todav[ií]a|sigue)\b', re.I)
 AMPLIFYING_PHRASE = re.compile(r'\b(far|way|a lot|lots)\s+(more|fewer|less)\b', re.I)
 INTENSIFIERS = frozenset('''
     much significantly clearly considerably substantially vastly greatly
@@ -118,7 +122,9 @@ FACT_CHECKER_INSTRUCTIONS = (
     'statement in the text. Do not judge whether it is true; only describe it. For each statement give: '
     '"quote": the exact words from the text; '
     '"type": "activity_change" if it says a team is more active, more involved or appears more often in attacking '
-    'or advanced areas than before, "comparison" if it compares a counted statistic between the two teams, '
+    'or advanced areas than before, "comparison" if it compares a counted statistic between the two teams '
+    '(being level, equal or the same in a named statistic, such as corners, is a comparison with relation '
+    '"equal", not a result), '
     '"result" if it says a team won, lost, drew, leads, trails or is level, or that the match ended or finished '
     '(use won, lost or drew for those), "scorer" if it says a named player scored, or "other" for anything else; '
     '"team": "home" or "away" (home, local or host team versus away, visiting or guest team); '
@@ -261,7 +267,8 @@ def _words(text: str) -> set[str]:
 
 def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict[str, Any] | None,
                       events: list[Event], minute: int | None = None,
-                      verdicts: list[dict[str, Any]] | None = None) -> tuple[str | None, list[str], list[str]]:
+                      verdicts: list[dict[str, Any]] | None = None,
+                      language: str | None = None) -> tuple[str | None, list[str], list[str]]:
     """Check extracted statements against verified data. Returns (failure, claim_ids, rejected quotes);
     `verdicts`, when given, receives each statement's outcome for the run trace."""
     if not statements:
@@ -286,6 +293,10 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
                                        or AMPLIFYING_PHRASE.search(_normal(statement['quote']))):
             intensity = 'strong'
         ok, large = False, False
+        if statement['type'] == 'result' and statement.get('metric') in METRICS and relation in ('level', 'equal'):
+            # "Level in corners" compares a statistic; it is not the score.
+            statement = {**statement, 'type': 'comparison', 'relation': 'equal'}
+            relation = 'equal'
         if statement['type'] == 'activity_change' and insight is not None:
             ok = team == insight['team_id'] and relation == 'increase'
             reason = 'contradicts_evidence'
@@ -319,6 +330,11 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
         else:
             reason = 'unsupported_statement'
         flagged = [flag for flag in CHECKLIST if statement.get(flag)]
+        if flagged == ['mentions_match_time'] and language in TIMING_LANGUAGES and STATE_OF_PLAY.search(statement['quote']) \
+                and not TIMING.search(statement['quote']):
+            # "Currently leading" is the state of play, not a match time. In English and Spanish the
+            # deterministic TIMING filter is authoritative, so a flag raised only by such a word is cleared.
+            flagged = []
         if flagged:
             ok, reason = False, f'unsupported_{flagged[0]}'
         elif ok and (intensity == 'extreme' or (intensity == 'strong' and not large)):
@@ -407,7 +423,7 @@ def in_progress_note(draft: 'Draft') -> str:
     if minute is None or recap_facts(draft.job.events, minute)['final']:
         return ''
     return ('The match is still being played: describe the score only as leading, trailing or level, never as '
-            'won, lost, drawn, ended or finished. ')
+            'won, lost, drawn, ended or finished, and without words such as currently or at the moment. ')
 
 
 class EvidenceGate(Executor):
@@ -525,7 +541,8 @@ class FactChecker(Executor):
                     break
                 continue
             failure, draft.claim_ids, rejected = verify_statements(
-                statements, draft.text, draft.insight, draft.job.events, draft.job.recap_minute, verdicts)
+                statements, draft.text, draft.insight, draft.job.events, draft.job.recap_minute, verdicts,
+                draft.job.language)
             break
         step = {'agent': 'fact_checker', 'attempts': attempts, 'statements': len(statements), 'checked': verdicts,
                 'reason': failure, 'rate_limit_waits': len(waits),

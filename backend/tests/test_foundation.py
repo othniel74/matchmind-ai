@@ -50,3 +50,20 @@ def test_invalid_correction_rolls_back(tmp_path):
     event=before['evidence_packet']['events'][0]
     with pytest.raises(HTTPException):repo.correct(request(before,event,outcome='success'))
     assert repo.snapshot(20261020)[1]==1
+
+def test_snapshot_cache_never_serves_events_older_than_a_correction(tmp_path):
+    # Snapshots are cached by state_version; a correction bumps it, so the same repository
+    # (and a second one on the same database, as another worker would be) sees the new event at once.
+    path = str(tmp_path / 'foundation.sqlite3')
+    repo, other = MatchRepository(path), MatchRepository(path)
+    stream, state, events = repo.snapshot(20261020)
+    assert other.snapshot(20261020)[1] == state
+    events.clear()  # callers get a copy; the cache is unaffected
+    assert repo.snapshot(20261020)[2]
+    before = repo.view(20261020, 67, 'away')
+    event = next(e for e in before['evidence_packet']['events'] if e['outcome'] == 'success' and e['minute'] >= 57)
+    repo.correct(request(before, event, key='cache-correction-001'))
+    for r in (repo, other):
+        _, new_state, current = r.snapshot(20261020)
+        assert new_state == state + 1
+        assert next(e for e in current if e.event_id == event['event_id']).outcome == 'failed'

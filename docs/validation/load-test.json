@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "users": 25,
+    "seconds": 60,
+    "requests": 500,
+    "requests_per_second": 8.3,
+    "errors": 1,
+    "p50_ms": 1503.0,
+    "p95_ms": 8840.5,
+    "p99_ms": 12990.1,
+    "mean_ms": 2474.1
+  },
+  "endpoints": {
+    "experience": {
+      "requests": 89,
+      "errors": 0,
+      "p50_ms": 903.9,
+      "p95_ms": 7111.5,
+      "p99_ms": 10846.2
+    },
+    "graph_roles": {
+      "requests": 99,
+      "errors": 1,
+      "p50_ms": 2677.9,
+      "p95_ms": 12142.8,
+      "p99_ms": 15605.3
+    },
+    "insights": {
+      "requests": 113,
+      "errors": 0,
+      "p50_ms": 1078.1,
+      "p95_ms": 8045.8,
+      "p99_ms": 11238.1
+    },
+    "recap": {
+      "requests": 102,
+      "errors": 0,
+      "p50_ms": 1651.2,
+      "p95_ms": 9208.8,
+      "p99_ms": 12929.4
+    },
+    "tactics": {
+      "requests": 97,
+      "errors": 0,
+      "p50_ms": 1161.6,
+      "p95_ms": 5217.5,
+      "p99_ms": 12990.1
+    }
+  }
+}

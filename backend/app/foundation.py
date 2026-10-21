@@ -66,6 +66,11 @@ def passing_statement(team, minute, prior, current):
 class MatchRepository:
     def __init__(self, path: str):
         self.path = path
+        # Read caches. The stream id for a seed never changes once stored, and the current events
+        # change only with state_version (every correction bumps it in the same transaction), so
+        # requests no longer regenerate the match and re-parse every event (about 0.2 s each).
+        self._streams: dict[int, str] = {}
+        self._snapshots: dict[str, tuple[int, list[Event]]] = {}
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as db:
             db.executescript('''
@@ -176,6 +181,8 @@ class MatchRepository:
         db.execute('INSERT OR IGNORE INTO graph_edges VALUES(?,?,?,?)', (stream, source, target, relation))
 
     def ensure(self, seed):
+        if seed in self._streams:
+            return self._streams[seed]
         base = replay_events(seed)
         base_hash = digest([e.json() for e in base])
         stream = f'synthetic:{seed}:{base_hash[:16]}'
@@ -191,6 +198,7 @@ class MatchRepository:
                     eid = f'{e.event_id}@1'
                     self.node(db, stream, eid, 'EventVersion', 'current', {'event_id':e.event_id,'version':1,'hash':digest(payload)})
                     self.edge(db, stream, stream, eid, 'HAS_EVENT_VERSION')
+        self._streams[seed] = stream
         return stream
 
     @staticmethod
@@ -203,9 +211,19 @@ class MatchRepository:
         stream = self.ensure(seed)
         with self.connect() as db:
             db.execute('BEGIN')
-            state = db.execute('SELECT state_version FROM streams WHERE id=?', (stream,)).fetchone()[0]
+            row = db.execute('SELECT state_version FROM streams WHERE id=?', (stream,)).fetchone()
+            if row is None:  # the database was replaced underneath the cache: start again
+                self._streams.pop(seed, None)
+                self._snapshots.pop(stream, None)
+                return self.snapshot(seed)
+            state = row[0]
+            cached = self._snapshots.get(stream)
+            if cached is not None and cached[0] == state:
+                return stream, state, list(cached[1])
             rows = self.latest(db, stream)
-        return stream, state, sorted([Event(**json.loads(r['payload'])) for r in rows], key=lambda e:e.sequence)
+        events = sorted([Event(**json.loads(r['payload'])) for r in rows], key=lambda e:e.sequence)
+        self._snapshots[stream] = (state, events)
+        return stream, state, list(events)
 
     def validate_draft(self, db, stream, story):
         """Validate the supported deterministic template, not arbitrary natural language."""
