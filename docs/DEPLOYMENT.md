@@ -96,4 +96,4 @@ az containerapp job update -n matchmind-vision -g rg-othniel.obasi-9233 --image 
 
 ## Demo video
 
-`docs/demo/matchmind-submission.mp4` (1:52) is the submission video, recorded against the live deployment with `MATCHMIND_URL=<url> npx playwright test -c playwright.video.config.ts`. Waits are then cut and the result encoded as H.264. The earlier tour `docs/demo/matchmind-demo.webm` is kept.
+`docs/demo/pitchlight-submission.mp4` (1:47) is the submission video, recorded against the live deployment with `MATCHMIND_URL=<url> npx playwright test -c playwright.video.config.ts`. The story replays the match at `?speed=2` and requests the full-time AI recap in advance, one request at a time, so nothing waits on camera. The recording is trimmed at the start and encoded as H.264.

@@ -11,7 +11,7 @@ Every number it publishes is recomputed from the events. Every agent-written sen
 | | |
 | --- | --- |
 | **Live demo** | https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
-| **Video (1:52)** | [docs/demo/matchmind-submission.mp4](docs/demo/matchmind-submission.mp4) |
+| **Video (1:47)** | [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4) |
 | **MCP server** | `https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
 | **Submission** | [docs/SUBMISSION.md](docs/SUBMISSION.md): pitch, category and testing instructions |
 
