@@ -92,8 +92,9 @@ test("personalized experience, recap and live event stream", async ({ page }) =>
   await expect(page.locator(".recap h3")).toHaveText("Lo que va de partido");
   await expect(page.locator(".recap-score")).toContainText("Calderbrook");
   await page.getByRole("button", { name: "AI recap" }).click();
-  // Without a model this shows the verified recap; with one, the fact-checked agent text.
-  await expect(page.locator(".ai-recap")).toContainText(/showing the verified recap|fact-checked/, { timeout: 60_000 });
+  // Without a model this shows the verified recap; with one, the agent run (published or blocked).
+  await expect(page.locator(".ai-recap")).toContainText(/verified recap is shown|Fact-checked and published|Blocked: verified recap shown/,
+                                                        { timeout: 90_000 });
   await page.screenshot({ path: `${SHOTS}/experience-es.png`, fullPage: true });
 
   // Event-by-event stream (Live data section): events are ingested and moments appear as they happen.

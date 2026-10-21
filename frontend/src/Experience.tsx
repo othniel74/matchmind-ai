@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpen, Radio, Sparkles, Star, Target, UserRound } from "lucide-react";
 import { LANGUAGES, directionOf, type LanguageCode } from "./languages";
 import { WhyDetailView, type WhyDetail } from "./GraphExplorer";
+import { AgentRunView, type AgentTraceView } from "./AgentRun";
 import "./experience.css";
 
 // Personalization for one viewer: the same verified intelligence, shaped by their choices.
@@ -303,7 +304,7 @@ type Recap = {
 
 export function RecapPanel({ minute, profile }: { minute: number; profile: Profile }) {
   const [recap, setRecap] = useState<Recap | null>(null);
-  const [aiText, setAiText] = useState<{ body: string; engine: string; reason: string | null } | null>(null);
+  const [aiText, setAiText] = useState<{ body: string; trace: AgentTraceView } | null>(null);
   const [busy, setBusy] = useState("");
   const load = (at: number) => {
     setBusy("recap");
@@ -315,7 +316,7 @@ export function RecapPanel({ minute, profile }: { minute: number; profile: Profi
     setBusy("ai");
     fetch(`/api/recap/agent?minute=${at}&language=${profile.language}&audience=${profile.audience}`)
       .then((r) => (r.ok ? r.json() : null))
-      .then((v) => v && setAiText({ body: v.narratives[0].body, engine: v.trace.engine, reason: v.trace.fallback_reason }))
+      .then((v) => v && setAiText({ body: v.narratives[0].body, trace: v.trace }))
       .catch(() => setAiText(null)).finally(() => setBusy(""));
   };
   const at = minute >= 90 ? 90 : minute;
@@ -336,10 +337,9 @@ export function RecapPanel({ minute, profile }: { minute: number; profile: Profi
       {aiText && (
         <div className="ai-recap" dir={directionOf(profile.language)} lang={profile.language}>
           <p>{aiText.body.split("\n")[0]}</p>
-          <span className="subtle-note">
-            {aiText.engine === "microsoft_agent_framework" ? "Written by the agent workflow and fact-checked." :
-              `Model unavailable or blocked (${aiText.reason ?? "not configured"}); showing the verified recap.`}
-          </span>
+          {aiText.trace.steps.length > 2 ? <AgentRunView trace={aiText.trace} /> : (
+            <span className="subtle-note">The AI model is unavailable right now, so the verified recap is shown.</span>
+          )}
         </div>
       )}
       {recap ? (

@@ -28,11 +28,11 @@ All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional 
    | Pass speed | within 2.6 km/h |
 
    It runs as an Azure Container Apps Job that streams the recovered events through Event Hubs into the live app. See [VISION.md](docs/VISION.md).
-2. **Agents that are checked, not trusted.** A Microsoft Agent Framework workflow writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks. In the Foundry release evaluation, 8 of 21 drafts were blocked and replaced with verified text.
+2. **Agents that are checked, not trusted.** A Microsoft Agent Framework workflow writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks, and 20 of 21 live recaps across 7 languages published (structured output; the rest is blocked safely). Under every AI recap, the run is visible step by step: each agent's draft and every statement with code's verdict.
 3. **Agents that use tools through MCP.** MatchMind serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
 5. **Tactical change, explained honestly.** For every substitution and red card MatchMind compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
-6. **Ready for real data.** A StatsBomb adapter maps a real provider's events into MatchMind's contract. Across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
+6. **Built on synthetic data, ready for real data.** The product, the demo and every test run on synthetic data, as the brief requires. To show the path to production, a provider adapter was checked offline against public StatsBomb open data: across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
 7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, about 270 backend tests, browser tests against the live site, and CI on every push.
 
 ## The pipeline
@@ -136,7 +136,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 277 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 281 passed with the agent SDK; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
 | Browser | `cd frontend && npx playwright test` (also against the live URL) | 6 passed |

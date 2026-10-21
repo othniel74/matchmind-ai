@@ -29,7 +29,10 @@ import unicodedata
 from dataclasses import dataclass, field, replace
 from typing import Any
 
+from typing import Literal, Optional
+
 from agent_framework import Executor, WorkflowBuilder, WorkflowContext, handler
+from pydantic import BaseModel, create_model
 from typing_extensions import Never
 
 from .claims import METRICS, make_claim, measure
@@ -95,8 +98,9 @@ RECAP_RULES = (' Respond with only a JSON object of the form {"text": "..."}. Do
 CHECKLIST = {
     'mentions_match_time': 'says when in the match (before half-time, late on, as the game went on, in stoppage '
                            'time, juste avant la mi-temps, nos acréscimos, في نهاية الشوط); comparing the latest '
-                           'period with the earlier one, in any language, is not a match time (now, recently, than '
-                           'before, que antes, ahora, qu\'auparavant, maintenant, do que antes, agora, als zuvor, '
+                           'period with the earlier one, or the state of play so far, in any language, is not a match time (now, '
+                           'currently, so far, at the moment, still, recently, actualmente, hasta ahora, actuellement, pour le moment, '
+                           'atualmente, até agora, aktuell, bisher, attualmente, finora, حاليا, حتى الآن, than before, que antes, ahora, qu\'auparavant, maintenant, do que antes, agora, als zuvor, '
                            'jetzt, rispetto a prima, ora, من قبل, الآن)',
     'gives_cause': 'gives a reason or cause (because, thanks to, due to, after, grâce à, porque, gracias a, weil, '
                    'perché, بسبب, بفضل)',
@@ -104,7 +108,9 @@ CHECKLIST = {
     'is_prediction': 'says what will or may happen next',
     'judges_performance': 'judges how well a team plays (stepped up, playing better, sharp, impressive, '
                           'making things happen, juega mejor, spielt stark)',
-    'claims_dominance': 'says a team dominates, controls, takes over, overwhelms or is on top of the match',
+    'claims_dominance': 'says a team dominates, controls, takes over, overwhelms or is on top of the match; '
+                        'leading or having more of one named statistic (led in shots, más córners, mehr '
+                        'Ballbesitz) is a comparison, not dominance',
 }
 
 FACT_CHECKER_INSTRUCTIONS = (
@@ -130,6 +136,30 @@ FACT_CHECKER_INSTRUCTIONS = (
     + '; '.join(f'"{flag}": true if it {meaning}' for flag, meaning in CHECKLIST.items()) + '. '
     'Split sentences into separate statements where you can, but always answer every field. '
     'Respond with only JSON: {"statements": [...]}. Purely stylistic words are not statements.')
+
+
+# Structured output: the model service guarantees these shapes, so a reply can no longer arrive as
+# malformed JSON (seen live: escaped quotes inside the fact checker's JSON). Checking is unchanged.
+class WriterOutput(BaseModel):
+    text: str
+
+
+Statement = create_model(
+    'Statement',
+    quote=(str, ...),
+    type=(Literal['activity_change', 'comparison', 'result', 'scorer', 'other'], ...),
+    team=(Optional[Literal['home', 'away']], ...),
+    relation=(Optional[Literal['increase', 'more', 'fewer', 'equal', 'won', 'lost', 'drew', 'leads', 'trails',
+                               'level']], ...),
+    player=(Optional[str], ...),
+    metric=(Optional[Literal[tuple(METRICS)]], ...),
+    intensity=(Literal[INTENSITIES], ...),
+    **{flag: (bool, ...) for flag in CHECKLIST},
+)
+
+
+class Statements(BaseModel):
+    statements: list[Statement]  # type: ignore[valid-type]
 
 
 @dataclass
@@ -230,8 +260,10 @@ def _words(text: str) -> set[str]:
 
 
 def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict[str, Any] | None,
-                      events: list[Event], minute: int | None = None) -> tuple[str | None, list[str], list[str]]:
-    """Check extracted statements against verified data. Returns (failure, claim_ids, rejected quotes)."""
+                      events: list[Event], minute: int | None = None,
+                      verdicts: list[dict[str, Any]] | None = None) -> tuple[str | None, list[str], list[str]]:
+    """Check extracted statements against verified data. Returns (failure, claim_ids, rejected quotes);
+    `verdicts`, when given, receives each statement's outcome for the run trace."""
     if not statements:
         return 'no_factual_statement', [], []
     # A quote is grounded when every one of its words appears in the text. Exact substrings
@@ -258,6 +290,12 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
             ok = team == insight['team_id'] and relation == 'increase'
             reason = 'contradicts_evidence'
             large = insight['current_count'] >= STRONG_CHANGE_RATIO * max(insight['previous_count'], 1)
+        elif statement['type'] == 'result' and team is None and relation in ('level', 'drew'):
+            # "The teams are level" names no single team: both results must say so.
+            ok = all(r == relation for r in facts['result'].values())
+            reason = 'contradicts_result'
+            if ok:
+                claim_ids.append(make_claim(events, 'score', 'goals', minute)['claim_id'])
         elif statement['type'] == 'result' and team in TEAMS:
             ok = facts['result'][team] == relation
             reason = 'contradicts_result'
@@ -267,8 +305,9 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
         elif statement['type'] == 'scorer' and team in TEAMS:
             goals = scorers.get((_normal(statement.get('player') or ''), team), 0)
             ok, reason, large = goals > 0, 'contradicts_scorers', goals >= 2
-        elif statement['type'] == 'comparison' and statement.get('metric') in METRICS and team in TEAMS \
-                and relation in RELATIONS:
+        elif statement['type'] == 'comparison' and statement.get('metric') in METRICS and relation in RELATIONS \
+                and (team in TEAMS or (team is None and relation == 'equal')):
+            team = team or 'home'  # "both teams had the same number of corners"
             mine = measure(events, statement['metric'], team, minute)[0]
             other = measure(events, statement['metric'], 'away' if team == 'home' else 'home', minute)[0]
             ok = {'more': mine > other, 'fewer': mine < other, 'equal': mine == other}[relation]
@@ -287,6 +326,9 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
         if not ok:
             rejected.append(statement['quote'])
             failure = failure or reason
+        if verdicts is not None:
+            verdicts.append({'quote': statement['quote'], 'type': statement['type'], 'supported': ok,
+                             'reason': None if ok else reason})
     return failure, sorted(set(claim_ids)), rejected
 
 
@@ -327,9 +369,12 @@ def recap_prompt(facts: dict[str, Any]) -> str:
     scorers = '; '.join(f"{s['player']} ({club(s['team_id'])}, goals={s['goals']})" for s in facts['scorers']) or 'none'
     leaders = '; '.join(f"{metric}: {club(t) if t else 'equal'}" for metric, t in facts['leaders'].items())
     state = 'full time' if facts['final'] else 'so far'
+    progress = ('' if facts['final'] else ' The match is still being played: describe the score as leading, '
+                'trailing or level, never as won, lost, drawn or finished.')
     return (f"Verified match facts ({state}): result: {club('home')} {facts['result']['home']}, "
             f"{club('away')} {facts['result']['away']}. Scorers: {scorers}. Statistic leaders: {leaders}. "
-            "Write a short match recap in English using only these facts, without numbers or match times.")
+            "Write a short match recap in English using only these facts, without numbers or match times."
+            + progress)
 
 
 def checker_prompt(text: str) -> str:
@@ -353,6 +398,16 @@ async def _run_agent(agent: Any, prompt: str, waits: list[float] | None = None) 
                 waits.append(wait)
             await asyncio.sleep(wait)
     raise RuntimeError('unreachable')
+
+
+def in_progress_note(draft: 'Draft') -> str:
+    """Every recap writer must know when the match is still being played; a rewrite lost it otherwise
+    ("the match ended" at minute 45, "won" at minute 75, seen live)."""
+    minute = draft.job.recap_minute
+    if minute is None or recap_facts(draft.job.events, minute)['final']:
+        return ''
+    return ('The match is still being played: describe the score only as leading, trailing or level, never as '
+            'won, lost, drawn, ended or finished. ')
 
 
 class EvidenceGate(Executor):
@@ -391,10 +446,11 @@ class WriterAgent(Executor):
         super().__init__(id=role)
         self.role = role
         # Foundry agent names allow only letters, digits and inner hyphens; executor IDs keep underscores.
-        self.agent = client.as_agent(name=role.replace('_', '-'), instructions=instructions + rules)
+        self.agent = client.as_agent(name=role.replace('_', '-'), instructions=instructions + rules,
+                                     default_options={'response_format': WriterOutput})
 
     def prompt(self, draft: Draft) -> str:
-        return draft.text or ''
+        return in_progress_note(draft) + (draft.text or '')
 
     @handler
     async def write(self, draft: Draft, ctx: WorkflowContext[Draft]) -> None:
@@ -420,6 +476,7 @@ class WriterAgent(Executor):
         draft.failure = None if error is None else f'{self.role}:{error}'
         draft.feedback, draft.needs_revision = '', False
         draft.steps.append({'agent': self.role, 'status': 'completed' if error is None else 'blocked',
+                            'output': draft.text if error is None else None,
                             'attempts': attempts, 'reason': error, 'rate_limit_waits': len(waits),
                             'latency_ms': int((time.perf_counter() - started) * 1000)})
         await ctx.send_message(draft)
@@ -441,7 +498,7 @@ class AudienceEditor(WriterAgent):
     def prompt(self, draft: Draft) -> str:
         spec = language_spec(draft.job.language)
         return (f'audience={draft.job.audience}; write the final text in {spec.name} (language code '
-                f'{spec.code}); text={draft.text}{draft.feedback}')
+                f'{spec.code}); {in_progress_note(draft)}text={draft.text}{draft.feedback}')
 
 
 class FactChecker(Executor):
@@ -450,13 +507,14 @@ class FactChecker(Executor):
         super().__init__(id='fact_checker')
         # Extraction should not vary between runs: a live retest let the same sentence through once.
         self.agent = client.as_agent(name='fact-checker', instructions=FACT_CHECKER_INSTRUCTIONS,
-                                     default_options={'temperature': 0})
+                                     default_options={'temperature': 0, 'response_format': Statements})
 
     @handler
     async def check(self, draft: Draft, ctx: WorkflowContext[Draft]) -> None:
         draft = draft.handoff()
         started = time.perf_counter()
         attempts, failure, rejected, statements, waits = 0, 'invalid_output', [], [], []
+        verdicts: list[dict[str, Any]] = []
         while attempts < AGENT_ATTEMPTS:
             attempts += 1
             try:
@@ -467,9 +525,9 @@ class FactChecker(Executor):
                     break
                 continue
             failure, draft.claim_ids, rejected = verify_statements(
-                statements, draft.text, draft.insight, draft.job.events, draft.job.recap_minute)
+                statements, draft.text, draft.insight, draft.job.events, draft.job.recap_minute, verdicts)
             break
-        step = {'agent': 'fact_checker', 'attempts': attempts, 'statements': len(statements),
+        step = {'agent': 'fact_checker', 'attempts': attempts, 'statements': len(statements), 'checked': verdicts,
                 'reason': failure, 'rate_limit_waits': len(waits),
                 'latency_ms': int((time.perf_counter() - started) * 1000)}
         if failure is None:
@@ -478,9 +536,12 @@ class FactChecker(Executor):
             # Send the editor back once with the statements that failed verification.
             draft.revisions += 1
             draft.needs_revision = True
+            # Remove, do not replace: asked to "fix" a statement, the editor once swapped a correct
+            # lead for a wrong "level" (seen live). Every other verified statement must survive.
             draft.feedback = (' Your previous text was rejected because these statements are not supported by '
                               'the verified data: ' + '; '.join(f'"{q}"' for q in rejected) +
-                              '. Rewrite it so it states only the supplied observation.')
+                              '. Rewrite it without those statements: delete them, do not replace them with new '
+                              'facts, and keep every other statement exactly as it was.')
             step['status'] = 'revision_requested'
         else:
             draft.failure = f'fact_checker:{failure}'

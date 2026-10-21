@@ -1,5 +1,17 @@
 # Agent workflow — 19 October 2026 (updated 21 October)
 
+## Update — 21 October 2026 (later): visible runs, structured output, higher publication rate
+
+- **The run is visible.** Under every AI recap, *How the agent steps wrote this* shows each step in order: code gates and Foundry agents, status, time and attempts. It also shows each writer's draft, every statement the fact checker extracted with code's verdict and reason, and any rewrite loop. The steps and verdicts come from the workflow's own trace (`checked` on each fact-check step). Rejected statements appear only in this audit view, struck through, and are never published.
+- **Structured output.** The writers (`{"text"}`) and the fact checker (`{"statements": [...]}`, every field required) now use the model service's structured output via Agent Framework's `response_format`. Live, the fact checker had occasionally returned malformed JSON (escaped quotes); twice in one request this blocked a full-time recap on the demo. Verification is unchanged: a model still never decides what is true.
+- **Fixes found by reading the verdicts:**
+  - Every recap writer is now told when the match is still being played. Before, rewrites said "the match ended" at half-time or "won" at minute 75.
+  - A level score or an equal statistic that names no single team is now verified against both teams. Before, it could never pass.
+  - "Currently" and "so far", in all 7 languages, no longer count as a match time.
+  - Leading one named statistic is no longer read as dominance.
+  - A rewrite after a failed check must delete the rejected statements, not replace them. Once, an editor swapped a correct lead for a wrong "level"; the checker caught it.
+- **Result.** `evaluation/recap_pass_rate.py` runs 21 live recaps on Foundry: half-time, minute 70 and full time, in 7 languages. **20 of 21 were published, up from 12 of 21 before these fixes.** The remaining run was blocked safely because the extraction did not match the text, and the verified recap was shown instead.
+
 ## Update — 21 October 2026
 
 - **An MCP-calling agent.** Ask the match runs a fourth kind of agent, `match-qa`. It is an Agent Framework agent on the Foundry model whose only tool is MatchMind's own MCP server (`MCPStreamableHTTPTool`, limited to `answer_question`). It understands the question in any language and fills a typed intent (for example "main man in midfield" becomes `key_player`); the tool validates that intent and computes the answer. The viewer sees the tool's verified result, never the model's text. See [MCP.md](MCP.md).
