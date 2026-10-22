@@ -11,7 +11,12 @@ counted and reported, never applied.
 
 State is held in memory and rebuilt from the log: on start the consumer reads the last
 FEED_REPLAY_MINUTES of the hub and resumes from the latest kick-off (event sourcing), so no
-separate checkpoint store is needed for this single-replica consumer.
+separate checkpoint store is needed.
+
+With more than one replica (REDIS_URL, see shared.py) exactly one replica consumes: it holds a
+lease in Redis and relays every message and its status there. The others follow, fanning the
+relayed messages out to their own viewers, and take over when the lease lapses (about 15 s);
+the new leader rebuilds the run from the log as above.
 
 All Azure access uses Entra ID (managed identity in Azure, `az login` locally); no connection
 strings. Configure with EVENTHUB_NAMESPACE (for example `matchmind-feed.servicebus.windows.net`)
@@ -27,6 +32,8 @@ from collections import deque
 from datetime import datetime, timedelta, timezone
 from typing import Any
 from uuid import uuid4
+
+from . import shared
 
 log = logging.getLogger('matchmind.feed')
 HUB = os.getenv('EVENTHUB_NAME', 'match-events')
@@ -50,22 +57,46 @@ class FeedHub:
         self.recent: deque[dict[str, Any]] = deque(maxlen=backlog)
         self.subscribers: set[asyncio.Queue] = set()
         self.consumer: dict[str, Any] = {'status': 'disabled' if not enabled() else 'starting'}
+        self.role = 'single'                 # 'leader' or 'follower' when replicas share state
+        self.relay: asyncio.Queue | None = None
 
-    def status(self) -> dict[str, Any]:
+    def local_status(self) -> dict[str, Any]:
         state = self.live.state() if self.live is not None else None
         return {'enabled': enabled(), 'consumer': self.consumer, 'hub': HUB, 'run': self.run,
                 'counts': self.counts, 'last_error': self.last_error, 'last_enqueued': self.last_enqueued,
                 'minute': state['minute'] if state else None,
-                'score': {t: state['statistics'][t]['goals'] for t in ('home', 'away')} if state else None,
-                'subscribers': len(self.subscribers)}
+                'score': {t: state['statistics'][t]['goals'] for t in ('home', 'away')} if state else None}
 
-    def _publish(self, message: dict[str, Any]) -> None:
-        self.recent.append(message)
+    def status(self) -> dict[str, Any]:
+        snapshot = None
+        if self.role == 'follower':
+            try:
+                raw = shared.client().get(STATUS_KEY)
+                snapshot = json.loads(raw) if raw else None
+            except Exception:
+                snapshot = None
+        base = snapshot or self.local_status()
+        return {**base, 'subscribers': len(self.subscribers), 'replica_role': self.role}
+
+    def fan_out(self, message: dict[str, Any]) -> None:
         for queue in list(self.subscribers):
             if queue.full():
                 self.subscribers.discard(queue)  # a stalled browser is dropped, not waited for
             else:
                 queue.put_nowait(message)
+
+    def _publish(self, message: dict[str, Any]) -> None:
+        self.recent.append(message)
+        self.fan_out(message)
+        if self.role == 'leader' and self.relay is not None:
+            self.relay.put_nowait(message)  # relayed to the other replicas in order
+
+    def apply_relayed(self, message: dict[str, Any]) -> None:
+        """A follower receives the leader's message: keep it for late joiners and pass it on."""
+        if message.get('type') == 'kickoff':
+            self.recent.clear()
+        self.recent.append(message)
+        self.fan_out(message)
 
     def handle(self, body: dict[str, Any], enqueued: datetime | None = None) -> list[dict[str, Any]]:
         """Apply one message from the hub. Returns the messages fanned out to viewers."""
@@ -116,6 +147,95 @@ class FeedHub:
 
 FEED = FeedHub()
 
+LEASE_SECONDS = 15
+STATUS_KEY = shared.key('feed', 'status')
+RECENT_KEY = shared.key('feed', 'recent')
+LEADER_KEY = shared.key('feed', 'leader')
+CHANNEL = shared.key('feed', 'messages')
+
+
+async def run_feed() -> None:
+    """The feed task of the API: the consumer on one replica, or lead/follow across replicas."""
+    if not shared.enabled():
+        await consume()
+        return
+    while True:
+        r = shared.async_client()
+        try:
+            if await r.set(LEADER_KEY, shared.REPLICA, nx=True, ex=LEASE_SECONDS):
+                await lead(r)
+            else:
+                await follow(r)
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:  # Redis unreachable: stand alone until it is back
+            FEED.role = 'single'
+            log.warning('feed_shared_state_failed error_type=%s', type(exc).__name__)
+            await asyncio.sleep(10)
+        finally:
+            try:
+                await r.aclose()
+            except Exception:
+                pass
+
+
+async def lead(r, hub: FeedHub | None = None) -> None:
+    """Consume the hub and relay to the other replicas while the lease is ours."""
+    hub = hub or FEED
+    hub.role, hub.relay = 'leader', asyncio.Queue()
+    consumer = asyncio.create_task(consume())
+    relay = asyncio.create_task(_relay(r, hub))
+    try:
+        while True:
+            await r.set(STATUS_KEY, json.dumps(hub.local_status(), default=str), ex=LEASE_SECONDS * 4)
+            await asyncio.sleep(LEASE_SECONDS / 3)
+            if await r.get(LEADER_KEY) != shared.REPLICA:
+                return  # the lease went elsewhere: step down
+            await r.expire(LEADER_KEY, LEASE_SECONDS)
+    finally:
+        consumer.cancel()
+        relay.cancel()
+        hub.relay = None
+
+
+async def _relay(r, hub: FeedHub) -> None:
+    while True:
+        message = await hub.relay.get()
+        body = json.dumps(message, default=str)
+        if message.get('type') == 'kickoff':
+            await r.delete(RECENT_KEY)
+        await r.rpush(RECENT_KEY, body)
+        await r.ltrim(RECENT_KEY, -hub.recent.maxlen, -1)
+        await r.set(STATUS_KEY, json.dumps(hub.local_status(), default=str), ex=LEASE_SECONDS * 4)
+        await r.publish(CHANNEL, body)
+
+
+async def follow(r, hub: FeedHub | None = None) -> None:
+    """Serve viewers from the leader's relay; return when the lease is free, to try for it."""
+    hub = hub or FEED
+    hub.role = 'follower'
+    hub.recent.clear()
+    for raw in await r.lrange(RECENT_KEY, 0, -1):
+        hub.recent.append(json.loads(raw))
+    pubsub = r.pubsub()
+    await pubsub.subscribe(CHANNEL)
+    try:
+        checked = time.monotonic()
+        while True:
+            message = await pubsub.get_message(ignore_subscribe_messages=True, timeout=1.0)
+            if message and message.get('type') == 'message':
+                hub.apply_relayed(json.loads(message['data']))
+            if time.monotonic() - checked > LEASE_SECONDS / 3:
+                checked = time.monotonic()
+                if not await r.exists(LEADER_KEY):
+                    return
+    finally:
+        try:
+            await pubsub.unsubscribe(CHANNEL)
+            await pubsub.aclose()
+        except Exception:
+            pass
+
 
 def credential():
     from azure.identity.aio import DefaultAzureCredential
@@ -134,16 +254,16 @@ async def consume(replay_minutes: int | None = None) -> None:
             if event is None:
                 return
             try:
-                FEED.handle(json.loads(event.body_as_str()), event.enqueued_time)
+                hub.handle(json.loads(event.body_as_str()), event.enqueued_time)
             except Exception as exc:  # a malformed message must not stop the feed
-                FEED.counts['rejected'] += 1
-                FEED.last_error = f'malformed message: {type(exc).__name__}'
+                hub.counts['rejected'] += 1
+                hub.last_error = f'malformed message: {type(exc).__name__}'
 
         async def on_error(partition, error):
-            FEED.consumer = {'status': 'error', 'error': type(error).__name__, 'at': time.time()}
+            hub.consumer = {'status': 'error', 'error': type(error).__name__, 'at': time.time()}
 
         async def on_init(partition):
-            FEED.consumer = {'status': 'connected', 'partition': partition.partition_id}
+            hub.consumer = {'status': 'connected', 'partition': partition.partition_id}
 
         try:
             client = EventHubConsumerClient(fully_qualified_namespace=os.environ['EVENTHUB_NAMESPACE'],
@@ -154,7 +274,7 @@ async def consume(replay_minutes: int | None = None) -> None:
         except asyncio.CancelledError:
             raise
         except Exception as exc:
-            FEED.consumer = {'status': 'reconnecting', 'error': type(exc).__name__}
+            hub.consumer = {'status': 'reconnecting', 'error': type(exc).__name__}
             log.warning('feed_consumer_failed error_type=%s', type(exc).__name__)
             await asyncio.sleep(10)
         finally:

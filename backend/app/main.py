@@ -63,7 +63,8 @@ async def lifespan(app):
     from .mcp_server import server as mcp_server
     _mcp_app = _mcp_http_app()
     from . import feed
-    consumer = asyncio.create_task(feed.consume()) if feed.enabled() else None  # Event Hubs match feed
+    # Event Hubs match feed: the consumer, or lead/follow across replicas when state is shared.
+    consumer = asyncio.create_task(feed.run_feed()) if feed.enabled() else None
     warm = asyncio.create_task(_warm_recaps())  # demo with a model only; returns at once otherwise
     async with mcp_server.session_manager.run():  # serves /mcp
         yield
@@ -137,7 +138,11 @@ def readiness():
             db.execute('SELECT state_version FROM streams LIMIT 1').fetchone()
     except (sqlite3.Error,OSError):
         return JSONResponse(status_code=503,content={'status':'not_ready','checks':{'foundation_store':'unavailable'},'production_ready':False},headers={'Cache-Control':'no-store'})
-    return JSONResponse({'status':'ready','mode':mode,'checks':{'foundation_store':'available'},'production_ready':False},headers={'Cache-Control':'no-store'})
+    from . import shared
+    from .feed import FEED
+    # Shared state is optional: if Redis is unreachable, each replica falls back to its own memory.
+    checks = {'foundation_store': 'available', **shared.status(), 'feed_role': FEED.role}
+    return JSONResponse({'status':'ready','mode':mode,'checks':checks,'production_ready':False},headers={'Cache-Control':'no-store'})
 
 @app.get('/api/runtime')
 def runtime_status():
@@ -680,21 +685,28 @@ async def feed_kickoff(request: Request, source: str = Query('feed', pattern='^(
     """Start a feed: the synthetic match publisher, or the vision job that recovers events from
     broadcast video. Both publish to Event Hubs; one of each runs at a time."""
     from fastapi import HTTPException
+    from . import shared
     from .feed import FEED, start_feed_job
     from .guard import GUARD, visitor
     global _last_kickoff, _last_vision
     job = os.getenv('VISION_JOB_RESOURCE_ID' if source == 'vision' else 'FEED_JOB_RESOURCE_ID')
     if not job:
         raise HTTPException(503, 'This feed is not configured in this environment.')
-    if source == 'vision':
-        if time.monotonic() - _last_vision < VISION_COOLDOWN:
-            raise HTTPException(409, 'A video is already being processed. Its events will appear in the Event Hubs panel.')
-    else:
-        live = FEED.run is not None and FEED.run.get('status') == 'live'
-        if live or time.monotonic() - _last_kickoff < 60:
-            raise HTTPException(409, 'A match feed is already running. Watch it, or try again when it reaches full time.')
+    busy = (HTTPException(409, 'A video is already being processed. Its events will appear in the Event Hubs panel.')
+            if source == 'vision' else
+            HTTPException(409, 'A match feed is already running. Watch it, or try again when it reaches full time.'))
+    # The run's status comes from the replica leading the feed when state is shared.
+    if source != 'vision' and (FEED.status().get('run') or {}).get('status') == 'live':
+        raise busy
+    lock, cooldown = ('vision', VISION_COOLDOWN) if source == 'vision' else ('kickoff', 60)
+    last = _last_vision if source == 'vision' else _last_kickoff
+    if shared.client() is None and time.monotonic() - last < cooldown:
+        raise busy
     if is_demo() and not GUARD.allow(visitor(request)):
         raise HTTPException(429, 'Too many requests from this visitor. Try again in a minute.', headers={'Retry-After': '60'})
+    # Every replica respects one lock in Redis; without Redis, this replica's clock decides.
+    if shared.claim(lock, cooldown) is False:
+        raise busy
     if source == 'vision':
         _last_vision = time.monotonic()
     else:
@@ -702,6 +714,7 @@ async def feed_kickoff(request: Request, source: str = Query('feed', pattern='^(
     try:
         return {'status': 'starting', 'source': source, **await start_feed_job(job)}
     except Exception as exc:
+        shared.release(lock)
         if source == 'vision':
             _last_vision = float('-inf')
         else:
