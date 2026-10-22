@@ -138,7 +138,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 292 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 295 passed with the agent SDK; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
 | Browser | `cd frontend && npx playwright test` (also against the live URL) | 6 passed |
