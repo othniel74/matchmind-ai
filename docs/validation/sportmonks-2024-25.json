@@ -1,0 +1,21 @@
+{
+  "summary": {
+    "calls": 25,
+    "matches": 1158,
+    "scores_agree": 1158,
+    "by_league": {
+      "Carabao Cup": 93,
+      "La Liga": 380,
+      "Premier League": 380,
+      "Bundesliga": 305
+    },
+    "own_goals": 71,
+    "penalty_goals": 176,
+    "matches_with_shootouts": 15,
+    "states": {
+      "FT": 1143,
+      "FT_PEN": 15
+    }
+  },
+  "disagreements": []
+}

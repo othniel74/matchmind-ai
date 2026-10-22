@@ -96,6 +96,16 @@ python -m app.providers.sportmonks data/research/statsbomb/events.json     --lin
 
 - **Plan coverage.** The account is on Sportmonks' free plan, which covers the Danish Superliga and the Scottish Premiership. StatsBomb's open data includes neither, so the same-match comparison needs a plan that covers a competition both providers have, such as a World Cup, a Euro or the Bundesliga.
 - **Reading a real record.** On Celtic 7–1 Hearts (Scottish Premiership, 18 October 2026), the reference parser returned the final score Sportmonks reports (7–1), all 8 goals with team, minute and scorer, an own goal credited to the right side, 4 yellow cards, 10 substitutions, possession and corners. The free plan's team statistics stop at possession and corners, but it does give 61 player statistics per match (`lineups.details`). So the referee now sums shots, shots on target, passes, accurate passes and fouls from the players when the team figure is missing, and lists which figures it derived. A team figure from the provider always takes precedence, and a pass percentage is derived only from two player sums. On this match: Celtic 18 shots (10 on target), 491 passes at 86.4%, 17 fouls; Hearts 20 shots (5 on target), 525 passes at 86.9%, 8 fouls. Player expected goals (`xGlineup`) is a paid add-on and was refused on this plan.
+- **Every finished match of three seasons.** `tools/validate-sportmonks-season.py` reads every finished match in the Premier League, Bundesliga, La Liga and Carabao Cup through Pitchlight's reader, and compares the score it computes from the goal events with Sportmonks' official final score. Only totals are saved, in `validation/`.
+
+  | Season | Matches | Scores agree | Own goals | Penalty goals | Shootouts kept out of the score |
+  | --- | --- | --- | --- | --- | --- |
+  | 2024/25 | 1,158 | 1,158 | 71 | 176 | 15 |
+  | 2025/26 | 1,158 | 1,158 | 90 | 271 | 19 |
+  | 2026/27 (to 22 October) | 289 | 289 | 32 | 46 | 13 |
+  | **Total** | **2,605** | **2,605** | **193** | **493** | **47** |
+
+  This proves the integration reads real records correctly at scale. It compares two parts of the same provider's record (goal events and the final score), so it is not an independent second source; the StatsBomb comparison below is.
 - **Premier League, on a Starter trial.** Manchester United 5–2 Ipswich Town (30 August 2026) parsed correctly: all 7 goals (a Bruno Fernandes hat-trick including a penalty), an own goal by Ipswich's Jacob Greaves credited to Manchester United, cards, substitutions, and team totals from player statistics (Manchester United 33 shots, 561 passes at 89.5%).
 - **Why there is still no same-match comparison.** The trial covers the Premier League, Bundesliga, La Liga and Carabao Cup, but only from the 2024/25 season (Bundesliga seasons listed: 2024/25 to 2026/27). StatsBomb's newest free men's club season is the Bundesliga 2023/24, so the two sources share no match. Either historical access to 2023/24 on Sportmonks or newer StatsBomb data would enable it; the command is ready.
 - **Club names across providers.** Fixture lookup and side alignment match club names when every distinctive word of one appears in the other ('Bayer Leverkusen' / 'Bayer 04 Leverkusen', 'Bayern Munich' / 'FC Bayern München'), so 'Manchester United' never matches 'Manchester City' (tested).
