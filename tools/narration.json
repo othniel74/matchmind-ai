@@ -7,6 +7,10 @@
       "text": "This is Pitchlight: explainable match intelligence from synthetic football events, live on Azure."
     },
     {
+      "id": "open",
+      "text": "Open the match, and events stream in, each one validated as it arrives."
+    },
+    {
       "id": "moment",
       "text": "Every moment explains why it matters, with the build-up and the evidence behind it."
     },

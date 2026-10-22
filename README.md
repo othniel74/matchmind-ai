@@ -11,7 +11,7 @@ Every number it publishes is recomputed from the events. Every agent-written sen
 | | |
 | --- | --- |
 | **Live demo** | https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
-| **Video (1:36)** | [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4) |
+| **Video (1:46, narrated)** | [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4) |
 | **MCP server** | `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
 | **Submission** | [docs/SUBMISSION.md](docs/SUBMISSION.md): pitch, category and testing instructions |
 

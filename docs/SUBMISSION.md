@@ -30,7 +30,7 @@ It is built for production: 25 concurrent viewers are served at 32 requests per 
 
 ## Microsoft and Azure technologies
 
-Microsoft Foundry (models, evaluations, tracing) · Microsoft Agent Framework · Model Context Protocol · Azure Container Apps and Container Apps Jobs · Azure Event Hubs · Azure Container Registry (Tasks) · Application Insights / OpenTelemetry · Managed identity and Azure RBAC · GitHub Actions · GitHub Copilot agent mode (via `.vscode/mcp.json`)
+Microsoft Foundry (models, evaluations, tracing) · Microsoft Agent Framework · Model Context Protocol · Azure AI Speech (video narration) · Azure Container Apps and Container Apps Jobs · Azure Event Hubs · Azure Container Registry (Tasks) · Application Insights / OpenTelemetry · Managed identity and Azure RBAC · GitHub Actions · GitHub Copilot agent mode (via `.vscode/mcp.json`)
 
 ## Testing instructions
 
