@@ -39,7 +39,7 @@ from .claims import METRICS, make_claim, measure
 from .core import TEAMS, Event, validate_insight
 from .languages import language as language_spec
 from .narratives import publish_narratives
-from .recap import recap_facts
+from .recap import FACT_METRICS, recap_facts
 from .squads import CLUBS, PLAYERS
 
 AGENT_TIMEOUT_SECONDS = 20
@@ -92,8 +92,9 @@ RULES = (' Respond with only a JSON object of the form {"text": "..."}. Do not u
          'team is playing.')
 # Recaps restate verified results, scorers and statistic leaders, so they get their own rules.
 RECAP_RULES = (' Respond with only a JSON object of the form {"text": "..."}. Do not use digits. Mention only the '
-               'supplied facts: the result, the scorers (names exactly as supplied) and which team led each listed '
-               'statistic. Do not mention causes, tactics, pressure, dominance, chances, predictions, certainty or '
+               'supplied facts: the result, the scorers (names exactly as supplied), which team led each listed '
+               'statistic, and any listed passing role (the player\'s name exactly as supplied, described as the '
+               'player most involved in that team\'s passing). Do not mention causes, tactics, pressure, dominance, chances, predictions, certainty or '
                'how well anyone played, and do not say when anything happened in the match. Keep a measured tone: '
                'no hype, superlatives or absolute words. Do not describe attacking activity or trends.')
 
@@ -108,7 +109,9 @@ CHECKLIST = {
                            'jetzt, rispetto a prima, ora, من قبل, الآن)',
     'gives_cause': 'gives a reason or cause (because, thanks to, due to, after, grâce à, porque, gracias a, weil, '
                    'perché, بسبب, بفضل)',
-    'mentions_chances_or_threat': 'mentions chances, opportunities, danger, goal threat or near misses',
+    'mentions_chances_or_threat': 'mentions chances, opportunities, danger, goal threat or near misses; naming a '
+                                  'statistic (shots, shots on target, expected goals, buts attendus, gols esperados) '
+                                  'or a goal that was scored is not a mention of chances',
     'is_prediction': 'says what will or may happen next',
     'judges_performance': 'judges how well a team plays (stepped up, playing better, sharp, impressive, '
                           'making things happen, juega mejor, spielt stark)',
@@ -126,11 +129,14 @@ FACT_CHECKER_INSTRUCTIONS = (
     '(being level, equal or the same in a named statistic, such as corners, is a comparison with relation '
     '"equal", not a result), '
     '"result" if it says a team won, lost, drew, leads, trails or is level, or that the match ended or finished '
-    '(use won, lost or drew for those), "scorer" if it says a named player scored, or "other" for anything else; '
+    '(use won, lost or drew for those), "scorer" if it says a named player scored, "role" if it says a named '
+    'player is central to, the key figure in or the most involved in a team\'s passing (relation "hub"), or '
+    'explicitly that most of its passing routes run through them (relation "key_link"), or "other" for anything '
+    'else; '
     '"team": "home" or "away" (home, local or host team versus away, visiting or guest team); '
-    '"relation": "increase" for activity_change, "more", "fewer" or "equal" for comparison, and "won", "lost", '
-    '"drew", "leads", "trails" or "level" for result; '
-    '"player": for scorer only, the matching name from the roster supplied with the text, whatever the script '
+    '"relation": "increase" for activity_change, "more", "fewer" or "equal" for comparison, "won", "lost", '
+    '"drew", "leads", "trails" or "level" for result, and "hub" or "key_link" for role; '
+    '"player": for scorer and role, the matching name from the roster supplied with the text, whatever the script '
     'or spelling in the text (for example a transliteration); '
     '"metric": for comparison only, one of ' + ', '.join(METRICS) + '; '
     '"intensity": "neutral" for a plain statement (more often, more active, slightly more, a little more), '
@@ -153,10 +159,10 @@ class WriterOutput(BaseModel):
 Statement = create_model(
     'Statement',
     quote=(str, ...),
-    type=(Literal['activity_change', 'comparison', 'result', 'scorer', 'other'], ...),
+    type=(Literal['activity_change', 'comparison', 'result', 'scorer', 'role', 'other'], ...),
     team=(Optional[Literal['home', 'away']], ...),
     relation=(Optional[Literal['increase', 'more', 'fewer', 'equal', 'won', 'lost', 'drew', 'leads', 'trails',
-                               'level']], ...),
+                               'level', 'hub', 'key_link']], ...),
     player=(Optional[str], ...),
     metric=(Optional[Literal[tuple(METRICS)]], ...),
     intensity=(Literal[INTENSITIES], ...),
@@ -168,6 +174,37 @@ class Statements(BaseModel):
     statements: list[Statement]  # type: ignore[valid-type]
 
 
+# The match researcher investigates with Pitchlight's read-only MCP tools and chooses the recap's
+# angle. It chooses; code computes every fact it chose, so no number or name comes from a model.
+RESEARCH_TOOLS = ['match_state', 'list_claims', 'network_roles', 'key_moments', 'goal_buildups']
+RESEARCH_TIMEOUT_SECONDS = 45
+MAX_RESEARCH_METRICS = 3
+MAX_RESEARCH_ROLES = 2
+
+
+class RoleChoice(BaseModel):
+    # One role only: "most involved in the team's passing" reads the same in every language, while
+    # "hub" and "key link" were confused once translated (6 rejected statements in a live run).
+    team: Literal['home', 'away']
+    role: Literal['hub']
+
+
+class ResearchBrief(BaseModel):
+    angle: str
+    metrics: list[Literal[FACT_METRICS]]  # type: ignore[valid-type]
+    roles: list[RoleChoice]
+
+
+RESEARCHER_INSTRUCTIONS = (
+    'You are a football match researcher. Use the tools to investigate the match up to the given minute: the '
+    'state and score, the verified statistic claims, both teams\' pass networks, the key moments and how the goals '
+    'were built. Then choose the angle of a short recap. Choose up to ' + str(MAX_RESEARCH_METRICS) + ' statistics, '
+    'from ' + ', '.join(FACT_METRICS) + ', that best tell the story of this match, and up to '
+    + str(MAX_RESEARCH_ROLES) + ' teams whose hub, the player most involved in its passing, is worth '
+    'mentioning. Do not write the recap. "angle" is one short '
+    'sentence saying why you chose these.')
+
+
 @dataclass
 class NarrativeJob:
     events: list[Event]
@@ -176,6 +213,7 @@ class NarrativeJob:
     language: str
     recap_minute: int | None = None          # set to write a match recap instead of an insight narrative
     recap_fallback: dict[str, Any] | None = None
+    mcp_url: str | None = None               # the match researcher's MCP server; None skips research
 
 
 @dataclass
@@ -191,6 +229,7 @@ class Draft:
     needs_revision: bool = False
     claim_ids: list[str] = field(default_factory=list)
     steps: list[dict[str, Any]] = field(default_factory=list)
+    brief: dict[str, Any] | None = None      # the researcher's choices, resolved to facts by code
 
     def handoff(self) -> 'Draft':
         # Edge conditions are evaluated after delivery, so each step hands on its own copy.
@@ -241,7 +280,7 @@ def parse_statements(raw: str) -> list[dict[str, Any]]:
         raise ValueError('Output does not match the {"statements": [...]} schema')
     for item in value['statements']:
         if not isinstance(item, dict) or not isinstance(item.get('quote'), str) or item.get('type') not in {
-                'activity_change', 'comparison', 'result', 'scorer', 'other'} \
+                'activity_change', 'comparison', 'result', 'scorer', 'role', 'other'} \
                 or item.get('intensity', 'neutral') not in INTENSITIES \
                 or any(not isinstance(item.get(flag), bool) for flag in CHECKLIST):
             raise ValueError('Malformed statement')
@@ -313,6 +352,10 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
             large = abs(facts['goals']['home'] - facts['goals']['away']) >= 2
             if ok:
                 claim_ids.append(make_claim(events, 'score', 'goals', minute)['claim_id'])
+        elif statement['type'] == 'role' and team in TEAMS and relation in ('hub', 'key_link'):
+            holder = role_holder(events, team, minute, relation)
+            ok = holder is not None and _normal(holder) == _normal(statement.get('player') or '')
+            reason = 'contradicts_roles'
         elif statement['type'] == 'scorer' and team in TEAMS:
             goals = scorers.get((_normal(statement.get('player') or ''), team), 0)
             ok, reason, large = goals > 0, 'contradicts_scorers', goals >= 2
@@ -379,18 +422,61 @@ def call_failure(exc: BaseException) -> str:
     raise exc
 
 
-def recap_prompt(facts: dict[str, Any]) -> str:
-    """Verified recap facts for the analyst, by club name; numbers stay in the deterministic recap."""
+def recap_prompt(facts: dict[str, Any], brief: dict[str, Any] | None = None) -> str:
+    """Verified recap facts for the analyst, by club name; numbers stay in the deterministic recap.
+    With a research brief, only the statistics it chose and the passing roles it asked for."""
     club = lambda t: CLUBS[t].short
     scorers = '; '.join(f"{s['player']} ({club(s['team_id'])}, goals={s['goals']})" for s in facts['scorers']) or 'none'
-    leaders = '; '.join(f"{metric}: {club(t) if t else 'equal'}" for metric, t in facts['leaders'].items())
+    chosen = brief['metrics'] if brief and brief['metrics'] else list(facts['leaders'])
+    leaders = '; '.join(f"{metric}: {club(facts['leaders'][metric]) if facts['leaders'][metric] else 'equal'}"
+                        for metric in chosen)
+    roles = '; '.join(f"most involved in {club(r['team'])}'s passing: {r['player']}"
+                      for r in (brief or {}).get('roles', []))
     state = 'full time' if facts['final'] else 'so far'
     progress = ('' if facts['final'] else ' The match is still being played: describe the score as leading, '
                 'trailing or level, never as won, lost, drawn or finished.')
     return (f"Verified match facts ({state}): result: {club('home')} {facts['result']['home']}, "
             f"{club('away')} {facts['result']['away']}. Scorers: {scorers}. Statistic leaders: {leaders}. "
-            "Write a short match recap in English using only these facts, without numbers or match times."
+            + (f"Passing roles: {roles}. " if roles else '')
+            + "Write a short match recap in English using only these facts, without numbers or match times."
             + progress)
+
+
+def role_holder(events: list[Event], team: str, minute: int, role: str) -> str | None:
+    """Who holds a pass-network role for a team, from the events before `minute` (code, not a model)."""
+    from .graph.analytics import passing_graph, roles
+    from .squads import name
+    net = roles(passing_graph([e for e in events if e.minute < minute], team, 0, 200), team, 0, 200)
+    pid = net['hub'] if role == 'hub' else net['connector']
+    return name(pid) if pid else None
+
+
+def resolve_brief(brief: ResearchBrief, events: list[Event], minute: int) -> dict[str, Any]:
+    """Turn the researcher's choices into facts computed by code; drop anything not resolvable."""
+    metrics = list(dict.fromkeys(brief.metrics))[:MAX_RESEARCH_METRICS]
+    roles, seen = [], set()
+    for choice in brief.roles:
+        if (choice.team, choice.role) in seen or len(roles) >= MAX_RESEARCH_ROLES:
+            continue
+        seen.add((choice.team, choice.role))
+        player = role_holder(events, choice.team, minute, choice.role)
+        if player:
+            roles.append({'team': choice.team, 'role': choice.role, 'player': player})
+    return {'metrics': metrics, 'roles': roles}
+
+
+async def run_research(client: Any, url: str, minute: int) -> tuple[ResearchBrief, list[dict[str, Any]]]:
+    """The researcher agent investigates through MCP; returns its brief and the tool calls it made."""
+    from agent_framework import MCPStreamableHTTPTool
+    tool = MCPStreamableHTTPTool(name='pitchlight', url=url, allowed_tools=RESEARCH_TOOLS, load_prompts=False,
+                                 request_timeout=20)
+    async with tool:
+        agent = client.as_agent(name='match-researcher', instructions=RESEARCHER_INSTRUCTIONS, tools=[tool],
+                                default_options={'response_format': ResearchBrief})
+        response = await agent.run(f'Investigate the match up to minute {minute}, then choose the recap angle.')
+    calls = [{'tool': c.name, 'arguments': c.parse_arguments()}
+             for m in response.messages for c in m.contents if c.type == 'function_call']
+    return ResearchBrief.model_validate_json(response.text), calls
 
 
 def checker_prompt(text: str) -> str:
@@ -441,6 +527,35 @@ class EvidenceGate(Executor):
             await ctx.yield_output(WorkflowOutcome([], 'deterministic_fallback', None, [step]))
             return
         await ctx.send_message(Draft(job, verified, fallback, steps=[step]))
+
+
+class MatchResearcher(Executor):
+    """Recaps only: an agent investigates through Pitchlight's MCP tools and chooses the angle; code
+    resolves its choices to facts. Without an MCP server, or if research fails, the writers get the
+    standard verified facts and the trace says why."""
+    def __init__(self, client: Any):
+        super().__init__(id='match_researcher')
+        self.client = client
+
+    @handler
+    async def research(self, draft: Draft, ctx: WorkflowContext[Draft]) -> None:
+        draft = draft.handoff()
+        started = time.perf_counter()
+        step: dict[str, Any] = {'agent': 'match_researcher'}
+        if not draft.job.mcp_url:
+            step.update(status='skipped', reason='no_mcp_server')
+        else:
+            try:
+                brief, calls = await asyncio.wait_for(
+                    run_research(self.client, draft.job.mcp_url, draft.job.recap_minute), RESEARCH_TIMEOUT_SECONDS)
+                draft.brief = resolve_brief(brief, draft.job.events, draft.job.recap_minute)
+                step.update(status='completed', tool_calls=calls, chose=draft.brief, angle=brief.angle[:240])
+            except Exception as exc:  # research is optional: never block a recap on it
+                step.update(status='skipped', reason='timeout' if isinstance(exc, asyncio.TimeoutError)
+                            else type(exc).__name__)
+        step['latency_ms'] = int((time.perf_counter() - started) * 1000)
+        draft.steps.append(step)
+        await ctx.send_message(draft)
 
 
 class InsightRanker(Executor):
@@ -501,7 +616,7 @@ class WriterAgent(Executor):
 class TacticalAnalyst(WriterAgent):
     def prompt(self, draft: Draft) -> str:
         if draft.job.recap_minute is not None:
-            return recap_prompt(recap_facts(draft.job.events, draft.job.recap_minute))
+            return recap_prompt(recap_facts(draft.job.events, draft.job.recap_minute), draft.brief)
         i = draft.insight
         # The match minute is withheld: models turn it into phase claims the evidence does not support.
         return (f"Verified observation: team={i['team_id']} ({CLUBS[i['team_id']].short}); advanced-area on-ball "
@@ -613,8 +728,12 @@ def build_workflow(client: Any, recap: bool = False):
     fallback = DeterministicFallback(id='deterministic_fallback')
     ok = lambda draft: draft.failure is None
     failed = lambda draft: draft.failure is not None
-    builder = (WorkflowBuilder(name='matchmind-narrative-v2', start_executor=gate)
-               .add_edge(gate, ranker).add_edge(ranker, analyst))
+    builder = WorkflowBuilder(name='pitchlight-narrative-v3', start_executor=gate).add_edge(gate, ranker)
+    if recap:  # recaps: a researcher agent investigates through MCP and chooses the angle first
+        researcher = MatchResearcher(client)
+        builder.add_edge(ranker, researcher).add_edge(researcher, analyst)
+    else:
+        builder.add_edge(ranker, analyst)
     for writer, after in ((analyst, storyteller), (storyteller, editor), (editor, checker)):
         builder.add_edge(writer, after, condition=ok).add_edge(writer, fallback, condition=failed)
     builder.add_edge(checker, publication, condition=lambda d: d.failure is None and not d.needs_revision)

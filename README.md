@@ -30,7 +30,7 @@ All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional 
    | Pass speed | within 2.6 km/h |
 
    It runs as an Azure Container Apps Job that streams the recovered events through Event Hubs into the live app. See [VISION.md](docs/VISION.md).
-2. **Agents that are checked, not trusted.** A Microsoft Agent Framework workflow writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks, and 20 of 21 live recaps across 7 languages published (structured output; the rest is blocked safely). Under every AI recap, the run is visible step by step: each agent's draft and every statement with code's verdict.
+2. **Agents that investigate, write and check one another.** Each recap starts with a researcher agent that decides which of Pitchlight's MCP tools to call and chooses the angle; code turns its choices into facts. A Microsoft Agent Framework workflow then writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks, and 21 of 21 live recaps across 7 languages published, with the researcher choosing each angle. Under every AI recap, the run is visible step by step: each agent's draft and every statement with code's verdict.
 3. **Agents that use tools through MCP.** Pitchlight serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
 5. **Tactical change, explained honestly.** For every substitution and red card Pitchlight compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
@@ -138,7 +138,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 284 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 292 passed with the agent SDK; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
 | Browser | `cd frontend && npx playwright test` (also against the live URL) | 6 passed |

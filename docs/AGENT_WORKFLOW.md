@@ -1,5 +1,13 @@
 # Agent workflow — 19 October 2026 (updated 21 October)
 
+## Update — 22 October 2026: a researcher agent that uses MCP tools
+
+- **The match researcher.** Recaps now start with an Agent Framework agent, `match-researcher`, whose tools are Pitchlight's own MCP server (`MCPStreamableHTTPTool`, limited to `match_state`, `list_claims`, `network_roles`, `key_moments` and `goal_buildups`). It decides which tools to call. Live, it typically makes 6–7 calls, for example both teams' pass networks and goal build-ups. It then chooses the recap's angle as structured output (`ResearchBrief`): up to 3 statistics and up to 2 teams whose most involved passer is worth mentioning.
+- **The agent chooses; code computes.** `resolve_brief` turns those choices into facts from the events: which team led each chosen statistic, and who the most involved passer is. The writers receive only those facts, so no number or name comes from a model. The researcher's one-line reasoning appears in the run view as working notes and is never published.
+- **A new verified statement type.** The fact checker extracts `role` statements ("X was the most involved in Merridge's passing"), and code checks each one against the pass network. Two roles, hub and key link, were tried first, but their translations were confused (6 rejected statements in one run), so recaps use the hub only.
+- **Optional by design.** Without an MCP server (tests, injected clients) or if research fails, the step records why, and the writers get the standard verified facts. Research never blocks a recap.
+- **Result.** Live on Foundry, with the researcher: **21 of 21 recaps were published** across 7 languages at half-time, minute 70 and full time. Four statements were rejected, sent back and rewritten before publication (`evaluation/recap_pass_rate.py`).
+
 ## Update — 21 October 2026 (later): visible runs, structured output, higher publication rate
 
 - **The run is visible.** Under every AI recap, *How the agent steps wrote this* shows each step in order: code gates and Foundry agents, status, time and attempts. It also shows each writer's draft, every statement the fact checker extracted with code's verdict and reason, and any rewrite loop. The steps and verdicts come from the workflow's own trace (`checked` on each fact-check step). Rejected statements appear only in this audit view, struck through, and are never published.

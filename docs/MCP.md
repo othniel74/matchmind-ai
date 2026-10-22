@@ -31,6 +31,10 @@ Tool annotations declare `readOnlyHint: true` and `destructiveHint: false`. Inva
 
 `/api/ask` (Ask the match) runs an Agent Framework agent on the Foundry model, with Pitchlight's MCP server as its tool (`MCPStreamableHTTPTool`, limited to `answer_question`). The agent does three things: it understands a question in any language, picks the typed intent (for example "main man in midfield" becomes `key_player`), and calls the tool. **The viewer sees the tool's verified result, never the model's text.** The tool validates the agent's arguments again. If the model is unavailable or the visitor's rate limit is reached, the same tool logic runs on a 7-language keyword router. The response's `router` field reports `mcp_agent` or `keywords`, and `tool_call` shows the arguments the agent chose.
 
+## The recap researcher is an MCP client too
+
+Every agent-written recap starts with `match-researcher`, an Agent Framework agent whose tools are this MCP server, limited to `match_state`, `list_claims`, `network_roles`, `key_moments` and `goal_buildups`. It decides which tools to call (typically 6–7 calls), then chooses the recap's angle as structured output. Code turns that choice into facts before any writer sees it. The calls it made are shown in the run view under the recap. See [AGENT_WORKFLOW.md](AGENT_WORKFLOW.md).
+
 ## Use it from VS Code (GitHub Copilot agent mode)
 
 `.vscode/mcp.json` registers the deployed server (`matchmind-demo`) and a local stdio server (`matchmind-local`). Open the repository in VS Code, start the server from the MCP view, and ask Copilot Chat in agent mode, for example "Why did Merridge's opener matter?".

@@ -1,0 +1,66 @@
+{
+  "voice": "en-GB-RyanNeural",
+  "rate": "8%",
+  "lines": [
+    {
+      "id": "intro",
+      "text": "This is Pitchlight: explainable match intelligence from synthetic football events, live on Azure."
+    },
+    {
+      "id": "moment",
+      "text": "Every moment explains why it matters, with the build-up and the evidence behind it."
+    },
+    {
+      "id": "ask",
+      "text": "Ask anything, in seven languages. A Foundry agent calls Pitchlight's own MCP tools."
+    },
+    {
+      "id": "answer",
+      "text": "The viewer sees the tool's verified answer, never the model's own text."
+    },
+    {
+      "id": "feed",
+      "text": "A Container Apps job streams the match through Event Hubs, and every event is validated live."
+    },
+    {
+      "id": "video",
+      "text": "It even recovers passes and goals from broadcast video, scored against ground truth."
+    },
+    {
+      "id": "graph",
+      "text": "The pass network shows who passes to whom, and which lanes move the ball forward."
+    },
+    {
+      "id": "change",
+      "text": "Show change compares the last fifteen minutes with the fifteen before."
+    },
+    {
+      "id": "tactics",
+      "text": "After each substitution, it compares before and after, and never claims a cause."
+    },
+    {
+      "id": "research",
+      "text": "Recaps start with a researcher agent. It investigates through MCP and chooses the angle."
+    },
+    {
+      "id": "writers",
+      "text": "Writer agents draft the recap, and a fact checker extracts every statement."
+    },
+    {
+      "id": "verify",
+      "text": "Code verifies each one. Anything unsupported is never published."
+    },
+    {
+      "id": "studio",
+      "text": "The same verified facts become broadcast overlays, here in Arabic, right to left."
+    },
+    {
+      "id": "measured",
+      "text": "Measured, not claimed: live recaps in seven languages, and zero errors under load."
+    },
+    {
+      "id": "closing",
+      "text": "Pitchlight. Microsoft Foundry, Agent Framework, MCP, and Azure Container Apps."
+    }
+  ]
+}

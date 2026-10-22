@@ -9,6 +9,9 @@ export type AgentStep = {
   agent: string; status: string; attempts?: number; latency_ms?: number; reason?: string | null;
   output?: string | null; statements?: number; mode?: string;
   checked?: { quote: string; type: string; supported: boolean; reason: string | null }[];
+  tool_calls?: { tool: string; arguments: Record<string, unknown> }[];
+  chose?: { metrics: string[]; roles: { team: string; role: string; player: string }[] };
+  angle?: string;
 };
 export type AgentTraceView = { engine: string; steps: AgentStep[]; handoffs: string[]; duration_ms: number;
                                fallback_reason: string | null };
@@ -16,6 +19,7 @@ export type AgentTraceView = { engine: string; steps: AgentStep[]; handoffs: str
 const ROLES: Record<string, { label: string; kind: "agent" | "code"; does: string }> = {
   evidence_gate: { label: "Evidence gate", kind: "code", does: "Admits only facts recomputed from the events" },
   insight_ranker: { label: "Insight ranker", kind: "code", does: "Picks the insight to write about" },
+  match_researcher: { label: "Match researcher", kind: "agent", does: "Investigates through Pitchlight's MCP tools and chooses the angle" },
   tactical_analyst: { label: "Tactical analyst", kind: "agent", does: "Drafts from the verified facts" },
   match_storyteller: { label: "Match storyteller", kind: "agent", does: "Rewrites it for viewers, adding nothing" },
   audience_editor: { label: "Audience editor", kind: "agent", does: "Adapts it to your audience and language" },
@@ -27,6 +31,8 @@ const REASONS: Record<string, string> = {
   contradicts_result: "contradicts the score",
   contradicts_scorers: "contradicts the scorers",
   contradicts_claims: "contradicts the statistics",
+  contradicts_roles: "contradicts the pass network",
+  no_mcp_server: "no MCP server here, so the standard facts were used",
   contradicts_evidence: "contradicts the evidence",
   unsupported_statement: "not in the verified facts",
   overstated: "overstated",
@@ -50,10 +56,11 @@ const STATUS: Record<string, { text: string; tone: "ok" | "warn" | "bad" | "mute
 };
 
 function Step({ step, index, rewrite }: { step: AgentStep; index: number; rewrite: boolean }) {
-  const [open, setOpen] = useState(step.agent === "fact_checker");
+  const [open, setOpen] = useState(step.agent === "fact_checker" || step.agent === "match_researcher");
   const role = ROLES[step.agent] ?? { label: step.agent.replace(/_/g, " "), kind: "code" as const, does: "" };
   const status = STATUS[step.status] ?? { text: step.status, tone: "muted" as const };
-  const detail = !!(step.output || step.checked?.length);
+  const detail = !!(step.output || step.checked?.length || step.tool_calls?.length);
+  const metric = (m: string) => m.replace(/_/g, " ").replace("xg", "expected goals");
   return (
     <li className={`run-step ${role.kind} ${status.tone}`}>
       <span className="run-marker" aria-hidden="true">{role.kind === "agent" ? <Bot size={13} /> : <Cpu size={13} />}</span>
@@ -70,10 +77,26 @@ function Step({ step, index, rewrite }: { step: AgentStep; index: number; rewrit
         {detail && (
           <button className="run-toggle" aria-expanded={open} onClick={() => setOpen(!open)}>
             <ChevronDown size={12} className={open ? "open" : ""} />
-            {step.checked?.length ? `${step.checked.filter((c) => c.supported).length} of ${step.checked.length} statements verified` : "Draft"}
+            {step.checked?.length ? `${step.checked.filter((c) => c.supported).length} of ${step.checked.length} statements verified`
+              : step.tool_calls?.length ? `${step.tool_calls.length} MCP tool calls · what it chose` : "Draft"}
           </button>
         )}
         {open && step.output && <p className="run-draft">{step.output}</p>}
+        {open && !!step.tool_calls?.length && (
+          <div className="run-research">
+            <div className="run-tools">
+              {step.tool_calls.map((c, i) => (
+                <code key={i}>{c.tool}({Object.entries(c.arguments).map(([k, v]) => `${k}=${String(v)}`).join(", ")})</code>
+              ))}
+            </div>
+            {step.chose && (
+              <p><b>Chose:</b> {step.chose.metrics.map(metric).join(", ") || "no statistics"}
+                {step.chose.roles.map((r) => ` · ${r.player} (${r.role === "hub" ? "hub" : "key link"})`).join("")}
+                <span className="subtle-note"> Code computed these facts from the events.</span></p>
+            )}
+            {step.angle && <p className="run-notes"><b>Working notes, never published:</b> {step.angle}</p>}
+          </div>
+        )}
         {open && !!step.checked?.length && (
           <ul className="run-checks">
             {step.checked.map((c, i) => (
