@@ -111,3 +111,14 @@ def test_team_totals_are_summed_from_player_statistics_when_missing():
     assert 'ACCURATE_PASSES_PERCENTAGE' not in away
     assert home['PASSES'] == 10 and home['ACCURATE_PASSES'] == 5 and home['ACCURATE_PASSES_PERCENTAGE'] == 50.0
     assert 'home:PASSES' in ref['statistics_from_players'] and 'away:PASSES' not in ref['statistics_from_players']
+
+
+def test_club_names_match_across_providers_without_false_matches():
+    from app.providers.sportmonks import same_team
+    for a, b in [('Bayer Leverkusen', 'Bayer 04 Leverkusen'), ('Augsburg', 'FC Augsburg'),
+                 ('Bayern Munich', 'FC Bayern München'), ('Manchester United', 'Manchester United')]:
+        assert same_team(a, b) and same_team(b, a), (a, b)
+    for a, b in [('Manchester United', 'Manchester City'), ('Real Madrid', 'Atlético Madrid'),
+                 ('Borussia Dortmund', 'Borussia Mönchengladbach'), ('Bayer Leverkusen', 'Bayern Munich'),
+                 ('FC Augsburg', None)]:
+        assert not same_team(a, b), (a, b)

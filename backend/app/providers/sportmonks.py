@@ -75,14 +75,34 @@ def same_person(short: str | None, full: str | None) -> bool:
     return bool(a and b) and a[-1] in b
 
 
+# Words that carry no identity in club names; 'united', 'city', 'real' and the like do carry it.
+GENERIC = {'fc', 'cf', 'afc', 'sc', 'sv', 'ac', 'club', 'de', 'vfl', 'vfb', 'tsg', 'rb', 'calcio'}
+
+
+def _club_words(name: str | None) -> set[str]:
+    words = _norm(name).replace('munich', 'munchen').split()
+    return {w for w in words if w not in GENERIC and not w.isdigit()}
+
+
+def same_team(a: str | None, b: str | None) -> bool:
+    """Providers spell clubs differently ('Bayer Leverkusen' / 'Bayer 04 Leverkusen', 'Bayern Munich' /
+    'FC Bayern München'). Every distinctive word of the shorter name must appear in the other, so
+    'Manchester United' never matches 'Manchester City'."""
+    wa, wb = _club_words(a), _club_words(b)
+    if not wa or not wb:
+        return False
+    short, long_ = sorted((wa, wb), key=len)
+    return short <= long_
+
+
 def find_fixture(token: str, date: str, home: str, away: str) -> int:
     page, names = 1, []
     while True:
         data = get(f'fixtures/date/{date}', token, include='participants', page=str(page))
         for fixture in data.get('data', []):
-            teams = {_norm(p['name']) for p in fixture.get('participants', [])}
+            teams = [p['name'] for p in fixture.get('participants', [])]
             names.append(fixture.get('name', ''))
-            if _norm(home) in teams and _norm(away) in teams:
+            if any(same_team(home, t) for t in teams) and any(same_team(away, t) for t in teams):
                 return fixture['id']
         if not data.get('pagination', {}).get('has_more'):
             break
@@ -153,8 +173,8 @@ def reference(fixture: dict) -> dict[str, Any]:
 
 def align(ref: dict[str, Any], names: dict[str, str]) -> dict[str, Any]:
     """Use Pitchlight's home/away: at neutral venues the providers can list the teams the other way round."""
-    if not (_norm(ref['teams'].get('home')) == _norm(names.get('away'))
-            and _norm(ref['teams'].get('away')) == _norm(names.get('home'))):
+    if not (same_team(ref['teams'].get('home'), names.get('away'))
+            and same_team(ref['teams'].get('away'), names.get('home'))):
         return ref
     flip = {'home': 'away', 'away': 'home'}
     swap = lambda d: {flip[k]: v for k, v in d.items()}
