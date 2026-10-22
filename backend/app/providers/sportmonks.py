@@ -28,7 +28,10 @@ from ..core import statistics
 from .statsbomb import adapt
 
 API = 'https://api.sportmonks.com/v3/football'
-INCLUDE = 'participants;scores;events.type;statistics.type;periods'
+INCLUDE = 'participants;scores;events.type;statistics.type;periods;lineups.details.type'
+# Team totals summed from player statistics, for plans whose team statistics lack them (the free
+# plan gives possession and corners per team, but shots, passes and fouls only per player).
+PLAYER_TOTALS = ('SHOTS_TOTAL', 'SHOTS_ON_TARGET', 'PASSES', 'ACCURATE_PASSES', 'FOULS')
 GOAL_TYPES = {'GOAL', 'OWNGOAL', 'PENALTY'}
 CARD_TYPES = {'YELLOWCARD': 'yellow', 'REDCARD': 'red', 'YELLOWREDCARD': 'second_yellow'}
 # Sportmonks statistic developer names -> Pitchlight statistics keys (first name found wins).
@@ -125,7 +128,25 @@ def reference(fixture: dict) -> dict[str, Any]:
         name = (s.get('type') or {}).get('developer_name')
         if team in stats and name:
             stats[team][name] = (s.get('data') or {}).get('value')
-    return {'fixture_id': fixture.get('id'), 'name': fixture.get('name'), 'teams': teams,
+    summed = {t: {} for t in ('home', 'away')}
+    for row in fixture.get('lineups') or []:
+        team = side.get(row.get('team_id'))
+        for d in row.get('details') or []:
+            name = (d.get('type') or {}).get('developer_name')
+            value = (d.get('data') or {}).get('value')
+            if team in summed and name in PLAYER_TOTALS and isinstance(value, (int, float)):
+                summed[team][name] = summed[team].get(name, 0) + value
+    derived = []
+    for t in ('home', 'away'):
+        for name, value in summed[t].items():
+            if name not in stats[t]:
+                stats[t][name] = value
+                derived.append(f'{t}:{name}')
+        # A percentage only from two player sums, never a team count mixed with a player sum.
+        if (f'{t}:PASSES' in derived and f'{t}:ACCURATE_PASSES' in derived
+                and 'SUCCESSFUL_PASSES_PERCENTAGE' not in stats[t]):
+            stats[t]['ACCURATE_PASSES_PERCENTAGE'] = round(100 * summed[t]['ACCURATE_PASSES'] / summed[t]['PASSES'], 1)
+    return {'statistics_from_players': sorted(derived), 'fixture_id': fixture.get('id'), 'name': fixture.get('name'), 'teams': teams,
             'score': {t: sum(g['team'] == t for g in goals) for t in ('home', 'away')},
             'goals': goals, 'cards': cards, 'substitutions': subs, 'statistics': stats}
 

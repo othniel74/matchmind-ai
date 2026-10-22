@@ -90,3 +90,24 @@ def test_own_goal_without_a_running_score_goes_to_the_credited_team():
     fixture = copy.deepcopy(FIXTURE)
     fixture['events'].append(sm_event('OWNGOAL', 10, 75, player='Southvale defender'))  # credited to Northbank
     assert reference(fixture)['score'] == {'home': 0, 'away': 2}
+
+
+def test_team_totals_are_summed_from_player_statistics_when_missing():
+    # The free plan gives shots, passes and fouls per player only (lineups.details), not per team.
+    fixture = copy.deepcopy(FIXTURE)
+    detail = lambda name, value: {'type': {'developer_name': name}, 'data': {'value': value}}
+    fixture['lineups'] = [
+        {'team_id': 10, 'details': [detail('PASSES', 30), detail('ACCURATE_PASSES', 24), detail('SHOTS_TOTAL', 2),
+                                    detail('RATING', 7.1)]},
+        {'team_id': 10, 'details': [detail('PASSES', 20), detail('ACCURATE_PASSES', 16), detail('FOULS', 1)]},
+        {'team_id': 20, 'details': [detail('PASSES', 10), detail('ACCURATE_PASSES', 5)]},
+    ]
+    ref = reference(fixture)
+    away, home = ref['statistics']['away'], ref['statistics']['home']  # Northbank (10) is Sportmonks' away side
+    # Team statistics, when the plan provides them, are kept rather than the player sums.
+    assert away['SHOTS_TOTAL'] == 1 and away['PASSES'] == 2
+    # Missing ones come from the players; no percentage mixes a team count with a player sum.
+    assert away['ACCURATE_PASSES'] == 40 and away['FOULS'] == 1 and 'RATING' not in away
+    assert 'ACCURATE_PASSES_PERCENTAGE' not in away
+    assert home['PASSES'] == 10 and home['ACCURATE_PASSES'] == 5 and home['ACCURATE_PASSES_PERCENTAGE'] == 50.0
+    assert 'home:PASSES' in ref['statistics_from_players'] and 'away:PASSES' not in ref['statistics_from_players']
