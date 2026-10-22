@@ -119,7 +119,7 @@ class FoundryAgentRuntime:
             return result
 
     async def run_recap(self, events: list[Event], seed: int, minute: int, language: str,
-                        audience: str = 'fan') -> AgentResponse:
+                        audience: str = 'fan', on_step: Any = None) -> AgentResponse:
         """Agent-written recap, fact-checked against verified results, scorers and claims.
         Falls back to the deterministic recap, which is always returned alongside."""
         from .experience import Profile
@@ -132,15 +132,24 @@ class FoundryAgentRuntime:
                     'engine': 'deterministic_fallback', 'recap': recap}
         run_id = str(uuid.uuid4())
         with narrative_span(run_id, audience, language):
+            listener = run_id if on_step is not None else None
+
             def job():
                 from .agent_workflow import NarrativeJob
                 # Live runs give the match researcher Pitchlight's own MCP server; injected clients (tests,
                 # tools) run offline and the researcher records that it was skipped.
                 url = os.getenv('MATCHMIND_MCP_URL', 'http://127.0.0.1:8000/mcp') if self._owns_client else None
                 return NarrativeJob(events, [], audience, language, recap_minute=minute, recap_fallback=fallback,
-                                    mcp_url=url)
+                                    mcp_url=url, listener=listener)
             gate = {'agent': 'evidence_gate', 'status': 'passed', 'mode': 'recap'}
-            return await self._execute(run_id, job, [fallback], gate)
+            if listener is None:
+                return await self._execute(run_id, job, [fallback], gate)
+            from .agent_workflow import LISTENERS
+            LISTENERS[listener] = on_step
+            try:
+                return await self._execute(run_id, job, [fallback], gate)
+            finally:
+                LISTENERS.pop(listener, None)
 
     async def _run(self, run_id: str, events: list[Event], insights: list[dict[str, Any]], audience: str,
                    language: str) -> AgentResponse:

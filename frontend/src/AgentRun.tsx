@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Bot, Check, ChevronDown, Cpu, RotateCcw, ShieldCheck, X } from "lucide-react";
+import { Bot, Check, ChevronDown, Cpu, Loader2, RotateCcw, ShieldCheck, X } from "lucide-react";
 import "./agent-run.css";
 
 // The multi-agent run behind an AI recap, made visible: which agent did what, in what order, how
@@ -118,23 +118,44 @@ function Step({ step, index, rewrite }: { step: AgentStep; index: number; rewrit
   );
 }
 
-export function AgentRunView({ trace }: { trace: AgentTraceView }) {
+// The usual order of a recap run, to show which step is working while the run streams in.
+const RECAP_ORDER = ["evidence_gate", "insight_ranker", "match_researcher", "tactical_analyst", "match_storyteller",
+                     "audience_editor", "fact_checker", "publication_gate"];
+
+export function AgentRunView({ trace, running = false, cached = false }: { trace: AgentTraceView; running?: boolean;
+                                                                           cached?: boolean }) {
   const published = trace.engine === "microsoft_agent_framework";
+  const last = trace.steps[trace.steps.length - 1];
+  // After a fact check sends the text back, the editor works again; otherwise the next step in order.
+  const next = !running ? null : last?.status === "revision_requested" ? "audience_editor"
+    : RECAP_ORDER.find((a) => !trace.steps.some((s) => s.agent === a)) ?? null;
   const agents = trace.steps.filter((s) => ROLES[s.agent]?.kind === "agent").length;
   // A step after a "sent back" fact check is the rewrite loop.
   const rewrites = new Set(trace.steps.map((s, i) => (i > 0 && trace.steps[i - 1].status === "revision_requested" ? i : -1)));
   return (
-    <details className="agent-run" data-testid="agent-run">
+    <details className="agent-run" data-testid="agent-run" open={running || undefined}>
       <summary>
-        <ShieldCheck size={14} />
-        <span>How {agents} agent steps wrote this</span>
-        <span className={`run-status ${published ? "ok" : "warn"}`}>
-          {published ? "Fact-checked and published" : "Blocked: verified recap shown"}
-        </span>
-        <span className="run-meta">{(trace.duration_ms / 1000).toFixed(1)} s</span>
+        {running ? <Loader2 size={14} className="spin" /> : <ShieldCheck size={14} />}
+        <span>{running ? "Agents at work, live" : `How ${agents} agent steps wrote this`}</span>
+        {!running && (
+          <span className={`run-status ${published ? "ok" : "warn"}`}>
+            {published ? "Fact-checked and published" : "Blocked: verified recap shown"}
+          </span>
+        )}
+        {!running && <span className="run-meta">{cached ? "prepared earlier" : `${(trace.duration_ms / 1000).toFixed(1)} s`}</span>}
       </summary>
       <ol className="run-steps">
         {trace.steps.map((s, i) => <Step key={i} step={s} index={i} rewrite={rewrites.has(i)} />)}
+        {next && (
+          <li className="run-step working">
+            <span className="run-marker" aria-hidden="true"><Loader2 size={13} className="spin" /></span>
+            <div className="run-body">
+              <div className="run-head"><b>{trace.steps.length + 1}. {ROLES[next]?.label ?? next}</b>
+                <span className="run-status muted">Working…</span></div>
+              <p className="run-does">{ROLES[next]?.does}</p>
+            </div>
+          </li>
+        )}
       </ol>
       <p className="subtle-note">
         Microsoft Agent Framework workflow on Azure AI Foundry. Agents only write and extract; they never decide what is

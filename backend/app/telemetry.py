@@ -84,3 +84,14 @@ def narrative_span(run_id: str, audience: str, language: str) -> Iterator[Any]:
     with tracer.start_as_current_span('matchmind.narrative_run', attributes={
             'matchmind.run_id': run_id, 'matchmind.audience': audience, 'matchmind.language': language}) as span:
         yield span
+
+
+def record_feedback(feature: str, useful: bool, language: str) -> None:
+    """A viewer's 'was this useful?' answer, as a span in Application Insights (no text, no identity)."""
+    try:
+        from opentelemetry import trace
+    except ImportError:  # base install without the optional SDK
+        return
+    with trace.get_tracer('pitchlight').start_as_current_span('pitchlight.feedback', attributes={
+            'pitchlight.feature': feature, 'pitchlight.useful': useful, 'pitchlight.language': language}):
+        pass

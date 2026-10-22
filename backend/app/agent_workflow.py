@@ -136,8 +136,9 @@ FACT_CHECKER_INSTRUCTIONS = (
     '"team": "home" or "away" (home, local or host team versus away, visiting or guest team); '
     '"relation": "increase" for activity_change, "more", "fewer" or "equal" for comparison, "won", "lost", '
     '"drew", "leads", "trails" or "level" for result, and "hub" or "key_link" for role; '
-    '"count": for scorer only, how many goals the statement says the player scored (2 for twice or a brace, 3 for '
-    'a hat-trick), or null when it does not say; '
+    '"count": for scorer only, how many goals the statement says this one player scored (2 for twice or a brace, 3 '
+    'for a hat-trick), or null when it gives no number for this player (for example "X and Y scored" or "the goals '
+    'came from X and Y" give null for each); '
     '"player": for scorer and role, the matching name from the roster supplied with the text, whatever the script '
     'or spelling in the text (for example a transliteration); '
     '"metric": for comparison only, one of ' + ', '.join(METRICS) + '; '
@@ -217,6 +218,7 @@ class NarrativeJob:
     recap_minute: int | None = None          # set to write a match recap instead of an insight narrative
     recap_fallback: dict[str, Any] | None = None
     mcp_url: str | None = None               # the match researcher's MCP server; None skips research
+    listener: str | None = None              # key into LISTENERS: who hears each step as it completes
 
 
 @dataclass
@@ -525,6 +527,25 @@ async def _run_agent(agent: Any, prompt: str, waits: list[float] | None = None) 
     raise RuntimeError('unreachable')
 
 
+# Agent Framework deep-copies the workflow's input, and a live callback (a queue with a waiting reader)
+# cannot be copied, so the job carries only a key and the callbacks live here.
+LISTENERS: dict[str, Any] = {}
+
+
+def _notify(job: NarrativeJob, step: dict[str, Any]) -> None:
+    listener = LISTENERS.get(job.listener) if job.listener else None
+    if listener is not None:
+        try:
+            listener(dict(step))
+        except Exception:  # a listener must never break the run
+            pass
+
+
+def _record(draft: 'Draft', step: dict[str, Any]) -> None:
+    draft.steps.append(step)
+    _notify(draft.job, step)
+
+
 def in_progress_note(draft: 'Draft') -> str:
     """Every recap writer must know when the match is still being played; a rewrite lost it otherwise
     ("the match ended" at minute 45, "won" at minute 75, seen live)."""
@@ -541,6 +562,7 @@ class EvidenceGate(Executor):
         if job.recap_minute is not None:
             # A recap's facts come from recap_facts and claims, validated when the recap was built.
             step = {'agent': 'evidence_gate', 'status': 'passed', 'mode': 'recap'}
+            _notify(job, step)
             await ctx.send_message(Draft(job, [], [job.recap_fallback], steps=[step]))
             return
         verified = [i for i in job.insights if validate_insight(i, job.events)]
@@ -549,6 +571,7 @@ class EvidenceGate(Executor):
         if not verified:
             await ctx.yield_output(WorkflowOutcome([], 'deterministic_fallback', None, [step]))
             return
+        _notify(job, step)
         await ctx.send_message(Draft(job, verified, fallback, steps=[step]))
 
 
@@ -577,7 +600,7 @@ class MatchResearcher(Executor):
                 step.update(status='skipped', reason='timeout' if isinstance(exc, asyncio.TimeoutError)
                             else type(exc).__name__)
         step['latency_ms'] = int((time.perf_counter() - started) * 1000)
-        draft.steps.append(step)
+        _record(draft, step)
         await ctx.send_message(draft)
 
 
@@ -587,10 +610,10 @@ class InsightRanker(Executor):
     async def rank(self, draft: Draft, ctx: WorkflowContext[Draft]) -> None:
         draft = draft.handoff()
         if draft.job.recap_minute is not None:
-            draft.steps.append({'agent': 'insight_ranker', 'status': 'skipped', 'mode': 'recap'})
+            _record(draft, {'agent': 'insight_ranker', 'status': 'skipped', 'mode': 'recap'})
         else:
             draft.insight = max(draft.verified, key=lambda i: (i['current_count'] - i['previous_count'], i['minute']))
-            draft.steps.append({'agent': 'insight_ranker', 'status': 'completed', 'selected': draft.insight['id']})
+            _record(draft, {'agent': 'insight_ranker', 'status': 'completed', 'selected': draft.insight['id']})
         await ctx.send_message(draft)
 
 
@@ -629,7 +652,7 @@ class WriterAgent(Executor):
                         'Rewrite it following every rule.')
         draft.failure = None if error is None else f'{self.role}:{error}'
         draft.feedback, draft.needs_revision = '', False
-        draft.steps.append({'agent': self.role, 'status': 'completed' if error is None else 'blocked',
+        _record(draft, {'agent': self.role, 'status': 'completed' if error is None else 'blocked',
                             'output': draft.text if error is None else None,
                             'attempts': attempts, 'reason': error, 'rate_limit_waits': len(waits),
                             'latency_ms': int((time.perf_counter() - started) * 1000)})
@@ -701,7 +724,7 @@ class FactChecker(Executor):
         else:
             draft.failure = f'fact_checker:{failure}'
             step['status'] = 'blocked'
-        draft.steps.append(step)
+        _record(draft, step)
         await ctx.send_message(draft)
 
 
@@ -714,14 +737,14 @@ class PublicationGate(Executor):
         reason = None if recap or validate_insight(draft.insight, draft.job.events) else 'evidence_changed'
         reason = reason or claim_check(draft.text or '')
         if reason:
-            draft.steps.append({'agent': 'publication_gate', 'status': 'fallback', 'reason': reason})
+            _record(draft, {'agent': 'publication_gate', 'status': 'fallback', 'reason': reason})
             await ctx.yield_output(WorkflowOutcome(draft.fallback, 'deterministic_fallback', reason, draft.steps))
             return
         narratives = [dict(n) for n in draft.fallback]
         for narrative in narratives:
             if recap or narrative['insight_id'] == draft.insight['id']:
                 narrative.update(body=draft.text, engine='microsoft_agent_framework', claim_ids=draft.claim_ids)
-        draft.steps.append({'agent': 'publication_gate', 'status': 'approved', 'evidence_validated': True,
+        _record(draft, {'agent': 'publication_gate', 'status': 'approved', 'evidence_validated': True,
                             'fact_checked': True})
         await ctx.yield_output(WorkflowOutcome(narratives, 'microsoft_agent_framework', None, draft.steps))
 
@@ -730,7 +753,7 @@ class DeterministicFallback(Executor):
     @handler
     async def fall_back(self, draft: Draft, ctx: WorkflowContext[Never, WorkflowOutcome]) -> None:
         draft = draft.handoff()
-        draft.steps.append({'agent': 'publication_gate', 'status': 'fallback', 'reason': draft.failure})
+        _record(draft, {'agent': 'publication_gate', 'status': 'fallback', 'reason': draft.failure})
         await ctx.yield_output(WorkflowOutcome(draft.fallback, 'deterministic_fallback', draft.failure, draft.steps))
 
 

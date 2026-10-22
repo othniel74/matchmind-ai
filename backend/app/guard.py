@@ -18,12 +18,12 @@ class ModelCallGuard:
     def __init__(self, runs_per_minute: int = RUNS_PER_MINUTE, cache_seconds: int = CACHE_SECONDS):
         self.runs_per_minute = runs_per_minute
         self.cache_seconds = cache_seconds
-        self.cache: OrderedDict[tuple, tuple[float, Any]] = OrderedDict()
+        self.cache: OrderedDict[tuple, tuple[float, Any, float]] = OrderedDict()
         self.calls: dict[str, deque[float]] = defaultdict(deque)
 
     def cached(self, key: tuple) -> Any | None:
         hit = self.cache.get(key)
-        if hit and time.monotonic() - hit[0] < self.cache_seconds:
+        if hit and time.monotonic() - hit[0] < hit[2]:
             self.cache.move_to_end(key)
             return hit[1]
         self.cache.pop(key, None)
@@ -39,8 +39,9 @@ class ModelCallGuard:
         window.append(now)
         return True
 
-    def store(self, key: tuple, value: Any) -> None:
-        self.cache[key] = (time.monotonic(), value)
+    def store(self, key: tuple, value: Any, keep: float | None = None) -> None:
+        """`keep` overrides the default lifetime, for results keyed by the match state version."""
+        self.cache[key] = (time.monotonic(), value, keep if keep is not None else self.cache_seconds)
         self.cache.move_to_end(key)
         while len(self.cache) > CACHE_SIZE:
             self.cache.popitem(last=False)

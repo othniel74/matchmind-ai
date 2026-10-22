@@ -3,6 +3,7 @@ import { Check, ShieldAlert, ShieldCheck, X } from "lucide-react";
 import { reasonText } from "./AgentRun";
 import type { Profile } from "./Experience";
 import "./agent-run.css";
+import { Feedback } from "./Feedback";
 
 // Try to fool the fact checker: the viewer writes any sentence about the match, the workflow's fact
 // checker agent lists its statements, and code verifies each one against the match so far.
@@ -71,6 +72,7 @@ export function FactCheckPanel({ minute, profile }: { minute: number; profile: P
               ))}
             </ul>
           ) : <p className="subtle-note">No checkable statement found ({reasonText(result.failure)}).</p>}
+          <Feedback key={result.statements.map((v) => v.quote).join("|")} feature="fact_checker" language={profile.language} />
         </div>
       )}
     </section>

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { BookOpen, Radio, Sparkles, Star, Target, UserRound } from "lucide-react";
 import { LANGUAGES, directionOf, type LanguageCode } from "./languages";
 import { WhyDetailView, type WhyDetail } from "./GraphExplorer";
-import { AgentRunView, type AgentTraceView } from "./AgentRun";
+import { AgentRunView, type AgentStep, type AgentTraceView } from "./AgentRun";
+import { Feedback } from "./Feedback";
 import "./experience.css";
 
 // Personalization for one viewer: the same verified intelligence, shaped by their choices.
@@ -304,7 +305,9 @@ type Recap = {
 
 export function RecapPanel({ minute, profile }: { minute: number; profile: Profile }) {
   const [recap, setRecap] = useState<Recap | null>(null);
-  const [aiText, setAiText] = useState<{ body: string; trace: AgentTraceView } | null>(null);
+  const [aiText, setAiText] = useState<{ body: string; trace: AgentTraceView; cached: boolean } | null>(null);
+  const [live, setLive] = useState<AgentStep[] | null>(null);
+  const [aiError, setAiError] = useState("");
   const [busy, setBusy] = useState("");
   const load = (at: number) => {
     setBusy("recap");
@@ -312,12 +315,21 @@ export function RecapPanel({ minute, profile }: { minute: number; profile: Profi
     fetch(`/api/recap?${profileQuery(profile, { minute: at })}`)
       .then((r) => (r.ok ? r.json() : null)).then(setRecap).catch(() => setRecap(null)).finally(() => setBusy(""));
   };
+  // The agents' work streams in step by step (server-sent events), so the wait is the demo.
   const loadAi = (at: number) => {
-    setBusy("ai");
-    fetch(`/api/recap/agent?minute=${at}&language=${profile.language}&audience=${profile.audience}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((v) => v && setAiText({ body: v.narratives[0].body, trace: v.trace }))
-      .catch(() => setAiText(null)).finally(() => setBusy(""));
+    setBusy("ai"); setAiText(null); setAiError(""); setLive([]);
+    const query = new URLSearchParams({ minute: String(at), language: profile.language, audience: profile.audience });
+    const events = new EventSource(`/api/recap/agent/stream?${query}`);
+    const finish = () => { events.close(); setLive(null); setBusy(""); };
+    events.addEventListener("step", (e) => setLive((steps) => [...(steps ?? []), JSON.parse((e as MessageEvent).data)]));
+    events.addEventListener("done", (e) => {
+      const v = JSON.parse((e as MessageEvent).data);
+      setAiText({ body: v.narratives[0].body, trace: v.trace, cached: !!v.cached });
+      finish();
+    });
+    events.addEventListener("failed", (e) => { setAiError(JSON.parse((e as MessageEvent).data).message); finish(); });
+    events.onerror = () => { if (events.readyState === EventSource.CLOSED || events.readyState === EventSource.CONNECTING) {
+      setAiError("The connection to the agents was lost. Try again."); finish(); } };
   };
   const at = minute >= 90 ? 90 : minute;
   return (
@@ -334,10 +346,17 @@ export function RecapPanel({ minute, profile }: { minute: number; profile: Profi
           {busy === "ai" ? "Writing…" : "AI recap"}
         </button>
       </div>
+      {live && (
+        <div className="ai-recap">
+          <AgentRunView running trace={{ engine: "running", steps: live, handoffs: [], duration_ms: 0, fallback_reason: null }} />
+        </div>
+      )}
+      {aiError && <p className="subtle-note">{aiError}</p>}
       {aiText && (
         <div className="ai-recap" dir={directionOf(profile.language)} lang={profile.language}>
           <p>{aiText.body.split("\n")[0]}</p>
-          {aiText.trace.steps.length > 2 ? <AgentRunView trace={aiText.trace} /> : (
+          {aiText.trace.steps.length > 2 && <Feedback key={aiText.body} feature="ai_recap" language={profile.language} />}
+          {aiText.trace.steps.length > 2 ? <AgentRunView trace={aiText.trace} cached={aiText.cached} /> : (
             <span className="subtle-note">The AI model is unavailable right now, so the verified recap is shown.</span>
           )}
         </div>

@@ -64,8 +64,10 @@ async def lifespan(app):
     _mcp_app = _mcp_http_app()
     from . import feed
     consumer = asyncio.create_task(feed.consume()) if feed.enabled() else None  # Event Hubs match feed
+    warm = asyncio.create_task(_warm_recaps())  # demo with a model only; returns at once otherwise
     async with mcp_server.session_manager.run():  # serves /mcp
         yield
+    warm.cancel()
     if consumer is not None:
         consumer.cancel()
     shutdown_tracing()
@@ -228,7 +230,7 @@ async def recap_agent_endpoint(minute: int = Query(90, ge=1, le=90), seed: int =
     from .agents import FoundryAgentRuntime
     from .guard import GUARD, visitor
     stream, version, source = match_repository().snapshot(seed)
-    key = ('recap', stream, version, minute, audience, language)
+    key = _recap_key(stream, version, minute, audience, language)
     if is_demo() and (hit := GUARD.cached(key)) is not None:
         return hit
     if is_demo() and not GUARD.allow(visitor(http_request)):
@@ -239,8 +241,121 @@ async def recap_agent_endpoint(minute: int = Query(90, ge=1, le=90), seed: int =
         raise HTTPException(503, 'Live model execution unavailable; fallback is not accepted in this mode.')
     payload = {'context': {'match_id': stream, 'state_version': version}, **result.model_dump()}
     if is_demo():
-        GUARD.store(key, payload)
+        GUARD.store(key, payload, keep=RECAP_KEEP_SECONDS)
     return payload
+
+
+RECAP_KEEP_SECONDS = 24 * 3600  # keyed by the match state version, so a correction invalidates it
+WARM_RECAPS = [(90, audience, 'en') for audience in ('fan', 'analyst', 'broadcast')]
+
+
+def _recap_key(stream: str, version: int, minute: int, audience: str, language: str) -> tuple:
+    return ('recap', stream, version, minute, audience, language)
+
+
+async def _warm_recaps(seed: int = 20261020, delay: float = 20.0) -> None:
+    """Write the most requested recaps once at startup, one at a time, so viewers rarely wait."""
+    from .agents import FoundryAgentRuntime, selected_provider
+    from .guard import GUARD
+    if not is_demo() or selected_provider() is None:
+        return
+    await asyncio.sleep(delay)  # the API (and its MCP server) must be serving first
+    for minute, audience, language in WARM_RECAPS:
+        try:
+            stream, version, source = match_repository().snapshot(seed)
+            key = _recap_key(stream, version, minute, audience, language)
+            if GUARD.cached(key) is not None:
+                continue
+            result = await FoundryAgentRuntime().run_recap(source, seed, minute, language, audience)
+            GUARD.store(key, {'context': {'match_id': stream, 'state_version': version}, **result.model_dump()},
+                        keep=RECAP_KEEP_SECONDS)
+        except Exception:
+            logging.getLogger(__name__).warning('Recap warm-up failed for %s/%s', audience, language)
+
+
+@app.get('/api/recap/agent/stream')
+async def recap_agent_stream(minute: int = Query(90, ge=1, le=90), seed: int = Query(20261020, ge=0, le=2147483647),
+                             language: str = Query('en', pattern=LANGUAGE_PATTERN),
+                             audience: str = Query('fan', pattern='^(fan|analyst|broadcast)$'),
+                             http_request: Request = None):
+    """The agent recap as server-sent events: each workflow step as it completes, then the result."""
+    import json as _json
+    from fastapi.responses import StreamingResponse
+    from .agents import FoundryAgentRuntime
+    from .guard import GUARD, visitor
+    stream, version, source = match_repository().snapshot(seed)
+    key = _recap_key(stream, version, minute, audience, language)
+    event = lambda kind, data: f'event: {kind}\ndata: {_json.dumps(data, ensure_ascii=False, default=str)}\n\n'
+
+    async def events():
+        hit = GUARD.cached(key) if is_demo() else None
+        if hit is not None:  # already written: replay its steps at once, marked as cached
+            for step in hit['trace']['steps']:
+                yield event('step', step)
+            yield event('done', {**hit, 'cached': True})
+            return
+        if is_demo() and not GUARD.allow(visitor(http_request)):
+            yield event('failed', {'status': 429, 'message': 'Too many AI requests from this visitor. Try again in a minute.'})
+            return
+        queue: asyncio.Queue = asyncio.Queue()
+        task = asyncio.create_task(FoundryAgentRuntime().run_recap(source, seed, minute, language, audience,
+                                                                   on_step=queue.put_nowait))
+        sent = 0
+        while not task.done() or not queue.empty():
+            try:
+                yield event('step', await asyncio.wait_for(queue.get(), timeout=1.0))
+                sent += 1
+            except asyncio.TimeoutError:
+                yield ': working\n\n'  # keeps proxies from closing a quiet connection
+        result = task.result()
+        payload = {'context': {'match_id': stream, 'state_version': version}, **result.model_dump()}
+        if not sent:  # the workflow could not start (no model): show the steps it recorded
+            for step in payload['trace']['steps']:
+                yield event('step', step)
+        if is_demo():
+            GUARD.store(key, payload, keep=RECAP_KEEP_SECONDS)
+        yield event('done', payload)
+
+    return StreamingResponse(events(), media_type='text/event-stream',
+                             headers={'Cache-Control': 'no-cache', 'X-Accel-Buffering': 'no'})
+
+
+FEEDBACK_FEATURES = ('ai_recap', 'fact_checker', 'ask', 'tour')
+_feedback: dict[tuple[str, bool], int] = {}
+
+
+def _feedback_guard():
+    from .guard import ModelCallGuard
+    global _FEEDBACK_GUARD
+    if _FEEDBACK_GUARD is None:
+        _FEEDBACK_GUARD = ModelCallGuard(runs_per_minute=20)
+    return _FEEDBACK_GUARD
+
+
+_FEEDBACK_GUARD = None
+
+
+@app.post('/api/feedback')
+def feedback(body: dict, http_request: Request):
+    """'Was this useful?': counted here and sent to Application Insights. No free text, no identity."""
+    from fastapi import HTTPException
+    from .guard import visitor
+    from .telemetry import record_feedback
+    feature, useful, language = body.get('feature'), body.get('useful'), str(body.get('language', 'en'))
+    if feature not in FEEDBACK_FEATURES or not isinstance(useful, bool) or len(language) > 8:
+        raise HTTPException(422, 'Expected {"feature": one of ' + ', '.join(FEEDBACK_FEATURES) + ', "useful": true|false}')
+    if not _feedback_guard().allow(visitor(http_request)):
+        raise HTTPException(429, 'Too much feedback from this visitor. Try again in a minute.')
+    _feedback[(feature, useful)] = _feedback.get((feature, useful), 0) + 1
+    record_feedback(feature, useful, language)
+    return {'recorded': True}
+
+
+@app.get('/api/feedback/summary')
+def feedback_summary():
+    """Answers since this replica started; Application Insights keeps the full history."""
+    return {f: {'useful': _feedback.get((f, True), 0), 'not_useful': _feedback.get((f, False), 0)}
+            for f in FEEDBACK_FEATURES}
 
 
 @app.get('/api/factcheck')

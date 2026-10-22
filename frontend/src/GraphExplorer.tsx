@@ -3,6 +3,7 @@ import { Database, MessageCircleQuestion, Network } from "lucide-react";
 import { directionOf } from "./languages";
 import type { Profile } from "./Experience";
 import "./graph-explorer.css";
+import { Feedback } from "./Feedback";
 
 // The match knowledge graph, made visible: who each team's play runs through, which lanes move the
 // ball forward, what changed against the previous spell, how goals were built, and viewers' questions.
@@ -437,6 +438,7 @@ export function AskPanel({ minute, profile }: { minute: number; profile: Profile
             {answer.supported ? `${answer.evidence_event_ids.length} evidence event${answer.evidence_event_ids.length === 1 ? "" : "s"}` : "Outside what the match data can answer"}
             {answer.router === "mcp_agent" ? " · Foundry agent via MCP" : " · keyword router"}
           </span>
+          <Feedback key={answer.answer} feature="ask" language={profile.language} />
         </div>
       )}
     </section>
