@@ -19,6 +19,15 @@ MARKER = (1269, 709, 8, 8)  # x, y, w, h: the middle of the 14 px marker at the 
 FIRST, STEP = 16, 14         # grey level of scene n is FIRST + n * STEP (story.spec.ts `level`)
 LEAD_IN = 0.8                # seconds kept before the first scene
 VOICE_DELAY = 0.15           # the voice starts just after the caption
+LEAD_BEFORE = 0.4            # normal speed resumes this long before each scene
+HOLD_AFTER = 0.5             # and continues this long after its line ends
+FAST = 3.0                   # speed of the transitions between narrated scenes
+
+
+def video_length(ffmpeg: str, video: str) -> float:
+    out = subprocess.run([ffmpeg, '-hide_banner', '-i', video], capture_output=True, text=True).stderr
+    hours, minutes, seconds = out.split('Duration: ')[1].split(',')[0].split(':')
+    return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
 
 
 def scene_starts(ffmpeg: str, video: str, scenes: int) -> dict[int, float]:
@@ -53,11 +62,30 @@ def main() -> None:
     if missing:
         raise SystemExit(f'No marker found for scenes: {missing}')
     trim = max(0.0, starts[1] - LEAD_IN)
-    x, y = MARKER[0] - 3, MARKER[1] - 3
-    inputs, labels = ['-ss', f'{trim:.3f}', '-i', args.video], []
-    filters = [f'[0:v]drawbox=x={x}:y={y}:w=14:h=14:color=black:t=fill[v]']
+    durations = json.loads((Path(args.narration) / 'durations.json').read_text())
+    length = video_length(args.ffmpeg, args.video)
+    # Narrated stretches play at normal speed; the transitions between them (page loads, which the
+    # recorder also stretches) are fast-forwarded, so the story fits in two minutes.
+    segments = []
     for n, item in enumerate(timeline, start=1):
-        start = starts[n] - trim + VOICE_DELAY
+        begin = trim if n == 1 else starts[n] - LEAD_BEFORE
+        if n == len(timeline):
+            segments.append((begin, length, 1.0))
+            break
+        spoken_end = starts[n] + VOICE_DELAY + durations[item['id']] + HOLD_AFTER
+        next_begin = starts[n + 1] - LEAD_BEFORE
+        if next_begin - spoken_end > 0.6:
+            segments += [(begin, spoken_end, 1.0), (spoken_end, next_begin, FAST)]
+        else:
+            segments.append((begin, next_begin, 1.0))
+    out_time = lambda t: sum(min(max(t - a, 0), b - a) / f for a, b, f in segments)
+    x, y = MARKER[0] - 3, MARKER[1] - 3
+    inputs, labels = ['-i', args.video], []
+    parts = [f'[0:v]trim=start={a:.3f}:end={b:.3f},setpts=(PTS-STARTPTS)/{f}[s{k}]' for k, (a, b, f) in enumerate(segments)]
+    filters = parts + [''.join(f'[s{k}]' for k in range(len(segments))) + f'concat=n={len(segments)}:v=1:a=0,'
+                       f'fps=25,drawbox=x={x}:y={y}:w=14:h=14:color=black:t=fill[v]']
+    for n, item in enumerate(timeline, start=1):
+        start = out_time(starts[n]) + VOICE_DELAY
         inputs += ['-i', str(Path(args.narration) / f"{item['id']}.wav")]
         filters.append(f'[{n}:a]adelay={int(start * 1000)}:all=1[a{n}]')
         labels.append(f'[a{n}]')
@@ -67,7 +95,7 @@ def main() -> None:
                     '-map', '[v]', '-map', '[voice]', '-c:v', 'libx264', '-preset', 'slow', '-crf', '20',
                     '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k', '-ar', '48000', '-movflags', '+faststart',
                     '-shortest', '-y', args.out], check=True)
-    print('trimmed', round(trim, 2), 's; written', args.out)
+    print("trimmed", round(trim, 2), "s; transitions at", FAST, "x; written", args.out)
 
 
 if __name__ == '__main__':

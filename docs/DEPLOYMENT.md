@@ -102,8 +102,9 @@ Verified on the new address after the move: health and readiness, Memgraph in sy
 
 ## Demo video
 
-`docs/demo/pitchlight-submission.mp4` (1:46) is the submission video, narrated with **Azure AI Speech**. It is recorded against the live deployment and replays the match at `?speed=3`. The full-time AI recap is requested in advance, one request at a time, so nothing waits on camera.
+`docs/demo/pitchlight-submission.mp4` (1:49) is the submission video. It opens on the problem: a false claim typed into the fact checker and blocked, narrated with **Azure AI Speech**. It is recorded against the live deployment and replays the match at `?speed=3`. The full-time AI recap is requested in advance, one request at a time, so nothing waits on camera.
 
 1. `python tools/narrate.py` synthesizes each line of `tools/narration.json` (voice `en-GB-RyanNeural`) on the Foundry resource's Speech endpoint. It signs in with the Azure CLI identity (Entra ID), so no key is used, and writes each line's spoken length.
 2. `NARRATION=.test-work/narration/durations.json MATCHMIND_URL=<url> npx playwright test -c playwright.video.config.ts` records the story. Each scene lasts as long as its line, and each scene sets a 14 px corner marker to a grey level unique to it.
-3. `python tools/mix-narration.py ...` finds each scene's start from the marker in every frame, places each line there, paints the corner over, normalizes loudness (-16 LUFS) and encodes H.264/AAC. The marker is needed because the recorder's clock drifts from the story's while the page is busy (about 4 s over the first 40 s in one take).
+Slow preparation (the Event Hubs job starting, the AI recap being written) runs in the test's `beforeAll`, before recording starts.
+3. `python tools/mix-narration.py ...` finds each scene's start from the marker in every frame, plays narrated stretches at normal speed and fast-forwards the transitions between them (3x), places each line there, paints the corner over, normalizes loudness (-16 LUFS) and encodes H.264/AAC. The marker is needed because the recorder's clock drifts from the story's while the page is busy (about 4 s over the first 40 s in one take).

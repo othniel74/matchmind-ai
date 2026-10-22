@@ -89,18 +89,31 @@ async function show(page: Page, locator: ReturnType<Page["locator"]>) {
 const workspace = (page: Page, name: string) =>
   page.getByRole("navigation", { name: "Workspace" }).getByRole("button", { name }).click();
 
+// Slow preparation happens before the recording starts, so nothing waits on camera: the Event
+// Hubs match must be streaming (a Container Apps job takes over a minute to start), and the
+// full-time AI recap must be written (the demo keeps it per match state).
+let recapAudience: "analyst" | "fan" | "broadcast" = "analyst";
+
+test.beforeAll(async ({ playwright }) => {
+  test.setTimeout(420_000);
+  const api = await playwright.request.newContext({ baseURL: process.env.MATCHMIND_URL });
+  for (const audience of ["analyst", "fan", "broadcast"] as const) {
+    const v = await (await api.get(`/api/recap/agent?minute=90&language=en&audience=${audience}`, { timeout: 120_000 })).json();
+    if (v?.trace?.engine === "microsoft_agent_framework") { recapAudience = audience; break; }
+  }
+  // Live, early in the match, so it is still streaming when the story reaches the feed (~1 minute in).
+  for (let i = 0; i < 100; i++) {
+    const feed = await (await api.get("/api/feed")).json();
+    const live = feed?.run?.status === "live" && (feed?.counts?.accepted ?? 0) > 0;
+    if (live && (feed?.minute ?? 90) <= 30) break;
+    if (!live || (feed?.minute ?? 0) > 60) await api.post("/api/feed/kickoff").catch(() => undefined);
+    await new Promise((r) => setTimeout(r, 3000));
+  }
+  await api.dispose();
+});
+
 test("Pitchlight submission story", async ({ page }) => {
   t0 = Date.now();  // the recording starts with the page, just before this line
-  // Kick off the Event Hubs feed first: the job takes a little while to start, so the match is
-  // streaming live by the time the video reaches the feed panel.
-  await page.request.post("/api/feed/kickoff").catch(() => undefined);
-  // The full-time AI recap takes 10-25 s to write and check. Request it now (the demo caches it per
-  // match state). One at a time: parallel runs share the model's rate limit with Ask the match.
-  const recapFor = (audience: "analyst" | "fan" | "broadcast") =>
-    page.request.get(`/api/recap/agent?minute=90&language=en&audience=${audience}`, { timeout: 120_000 })
-      .then((r) => r.json()).then((v) => ({ audience, published: v?.trace?.engine === "microsoft_agent_framework" }))
-      .catch(() => ({ audience, published: false }));
-  const prefetched = recapFor("analyst");
 
   // 1. The problem, then the idea: try to fool the fact checker.
   // The replay runs at 3x so the match reaches the moments this story shows within two minutes.
@@ -146,7 +159,7 @@ test("Pitchlight submission story", async ({ page }) => {
   if (await feed.count()) {
     await show(page, feed);
     // Live once the kickoff is accepted; within the cooldown the panel shows the last run instead.
-    await expect(feed.getByText(/Live ·/)).toBeVisible({ timeout: 12_000 }).catch(() => undefined);
+    await expect(feed.getByText(/Live ·/)).toBeVisible({ timeout: 5_000 }).catch(() => undefined);
     await caption(page, "feed", "A Container Apps Job streams the match through Azure Event Hubs; every event is validated live", 4000);
   }
 
@@ -180,9 +193,7 @@ test("Pitchlight submission story", async ({ page }) => {
 
   // 8. Recaps written by agents and checked by code, step by step
   await workspace(page, "Match centre");
-  let choice = await prefetched;
-  if (!choice.published) choice = await recapFor("fan");  // rarely needed: about 1 run in 20 is blocked
-  const mode = { analyst: "Analyst", fan: "Fan", broadcast: "Broadcast" }[choice.audience];
+  const mode = { analyst: "Analyst", fan: "Fan", broadcast: "Broadcast" }[recapAudience];
   await show(page, page.getByRole("region", { name: "Personalize your match" }));
   await page.getByRole("group", { name: "Viewing mode" }).getByRole("button", { name: mode }).click();
   const recap = page.getByRole("region", { name: "Match recap" });

@@ -40,7 +40,7 @@ const GROUPS: { title: string; note: string; rows: Row[] }[] = [
         how: "31.8 requests/s, 95th percentile 0.7 s (8.3/s and 8.8 s before caching)", link: "docs/PATH_TO_PRODUCTION.md" },
       { what: "Live match through Azure Event Hubs", result: "1,079 / 1,079 events accepted",
         how: "Validated one by one as they arrive", link: "docs/EVENT_DRIVEN.md" },
-      { what: "Automated tests", result: "304 backend · 7 browser", how: "Browser tests run against the live site; CI on every push",
+      { what: "Automated tests", result: "306 backend · 7 browser", how: "Browser tests run against the live site; CI on every push",
         link: "README.md" },
     ],
   },
