@@ -387,7 +387,10 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
             # deterministic TIMING filter is authoritative, so a flag raised only by such a word is cleared.
             flagged = []
         if flagged:
-            ok, reason = False, f'unsupported_{flagged[0]}'
+            # A factual contradiction ("contradicts the score") says more than a flag, so it wins.
+            if ok or reason == 'unsupported_statement':
+                reason = f'unsupported_{flagged[0]}'
+            ok = False
         elif ok and (intensity == 'extreme' or (intensity == 'strong' and not large)):
             ok, reason = False, 'overstated'
         if not ok:
@@ -692,18 +695,26 @@ class FactChecker(Executor):
         started = time.perf_counter()
         attempts, failure, rejected, statements, waits = 0, 'invalid_output', [], [], []
         verdicts: list[dict[str, Any]] = []
+        note = ''
         while attempts < AGENT_ATTEMPTS:
             attempts += 1
             try:
-                statements = parse_statements(await _run_agent(self.agent, checker_prompt(draft.text), waits))
+                statements = parse_statements(await _run_agent(self.agent, checker_prompt(draft.text) + note, waits))
             except Exception as exc:
                 failure = call_failure(exc)
                 if failure == 'rate_limited':
                     break
                 continue
+            verdicts.clear()
             failure, draft.claim_ids, rejected = verify_statements(
                 statements, draft.text, draft.insight, draft.job.events, draft.job.recap_minute, verdicts,
                 draft.job.language)
+            if failure in ('extraction_mismatch', 'incomplete_extraction') and attempts < AGENT_ATTEMPTS:
+                # The extractor's mistake, not the writer's (seen live in German, French and Italian):
+                # extract again, quoting only exact words and covering the whole text.
+                note = (' Your previous extraction quoted words that are not in the text or left part of it out. '
+                        'Quote only exact words from the text, and cover every statement in it.')
+                continue
             break
         step = {'agent': 'fact_checker', 'attempts': attempts, 'statements': len(statements), 'checked': verdicts,
                 'reason': failure, 'rate_limit_waits': len(waits),

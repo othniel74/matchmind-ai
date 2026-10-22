@@ -79,3 +79,32 @@ def test_currently_is_the_state_of_play_not_a_match_time():
     assert verify_statements([{**flagged, 'quote': late}], late, None, EVENTS, leading,
                              language='en')[0] == 'unsupported_mentions_match_time'
     assert verify_statements([flagged], text, None, EVENTS, leading, language='de')[0] == 'unsupported_mentions_match_time'
+
+
+def test_a_contradiction_is_reported_before_a_flag():
+    leading = minute_where(lambda m: recap_facts(EVENTS, m)['result']['away'] == 'won' or m == 90)
+    text = 'Calderbrook won thanks to a hat-trick'
+    flagged = {**stmt(text, 'result', 'home', 'won'), 'gives_cause': True}
+    assert verify_statements([flagged], text, None, EVENTS, 90)[0] == 'contradicts_result'
+    true_but_causal = {**stmt('Merridge won thanks to a hat-trick', 'result', 'away', 'won'), 'gives_cause': True}
+    assert verify_statements([true_but_causal], 'Merridge won thanks to a hat-trick', None, EVENTS, 90)[0] == 'unsupported_gives_cause'
+
+
+def test_a_bad_extraction_is_retried_with_a_note():
+    import asyncio
+    from app.agents import FoundryAgentRuntime
+    from tests.test_agents import scripted_client, statements, text
+    final = 'Merridge won.'
+    calls = []
+
+    async def checker(prompt):
+        calls.append(prompt)
+        quote = 'Merridge triumphed' if len(calls) == 1 else 'Merridge won'  # first answer misquotes the text
+        return statements({'quote': quote, 'type': 'result', 'team': 'away', 'relation': 'won'})
+    client = scripted_client({'tactical_analyst': [text(final)], 'match_storyteller': [text(final)],
+                              'audience_editor': [text(final)], 'fact_checker': checker})
+    result = asyncio.run(FoundryAgentRuntime(client).run_recap(EVENTS, 20261020, 90, 'en'))
+    assert result.trace.engine == 'microsoft_agent_framework'
+    assert len(calls) == 2 and 'Quote only exact words' in calls[1]
+    checker_step = next(s for s in result.trace.steps if s['agent'] == 'fact_checker')
+    assert checker_step['attempts'] == 2 and checker_step['status'] == 'verified'

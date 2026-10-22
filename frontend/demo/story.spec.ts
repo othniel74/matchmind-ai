@@ -102,16 +102,21 @@ test("Pitchlight submission story", async ({ page }) => {
       .catch(() => ({ audience, published: false }));
   const prefetched = recapFor("analyst");
 
-  // 1. What it is
-  await page.goto("/");
-  await caption(page, "intro", "Pitchlight turns synthetic football events into explainable match intelligence, live, on Azure", 3000);
-
-  // 2. Live moments that explain why they matter
+  // 1. The problem, then the idea: try to fool the fact checker.
   // The replay runs at 3x so the match reaches the moments this story shows within two minutes.
   await page.goto("/app?speed=3");
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await caption(page, "open", "Open the match: events stream in, each one validated as it arrives", 3500);
+  const checker = page.getByRole("region", { name: "Try to fool the fact checker" });
+  await checker.evaluate((el) => el.scrollIntoView({ block: "center" }));
+  await checker.getByLabel("A claim about the match").pressSequentially("Calderbrook won thanks to a Pedro Valença hat-trick", { delay: 25 });
+  await checker.getByRole("button", { name: "Check" }).click();
+  await caption(page, "hook", "AI commentary sounds confident, even when it is wrong. So we tried to fool it.", 4500);
+  await expect(checker.getByTestId("factcheck-result")).toBeVisible({ timeout: 60_000 });
+  await caption(page, "caught", "Every statement is checked against the match. Blocked: it contradicts the score", 5000);
+  await caption(page, "intro", "Pitchlight: AI football commentary you can put on air. Nothing unverified is published", 4500);
+
+  // 2. Live moments that explain why they matter
   const moments = page.getByRole("region", { name: "Your moments" });
   const why = page.locator(".why-button").first();
   await expect(why).toBeVisible({ timeout: 60_000 });
@@ -211,7 +216,7 @@ test("Pitchlight submission story", async ({ page }) => {
 
   // 10. Measured, not claimed; how it is built
   await card(page, "measured", "Measured", [
-    "Live recaps in 7 languages: 21 of 21 published, each angle chosen by a researcher agent through MCP",
+    "Live recaps in 7 languages: 20–21 of 21 published in repeated runs; the rest blocked, never published wrong",
     "Fact checker: 0 unsafe passes in 264 live checks  ·  Foundry groundedness 4.71 / 5",
     "Load test: 25 concurrent viewers, 0 errors  ·  Real-data adapter: 81,931 events, 0 rejected  ·  292 tests",
   ], 5500);

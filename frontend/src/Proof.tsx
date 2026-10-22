@@ -12,8 +12,8 @@ const GROUPS: { title: string; note: string; rows: Row[] }[] = [
     title: "Trustworthy AI",
     note: "Agents write; code verifies every statement; nothing unverified is published.",
     rows: [
-      { what: "Live AI recaps, 7 languages × half-time, minute 70, full time", result: "21 of 21 published",
-        how: "4 unsupported statements caught, sent back and rewritten first", link: "docs/AGENT_WORKFLOW.md" },
+      { what: "Live AI recaps, 7 languages × half-time, minute 70, full time", result: "20–21 of 21 published",
+        how: "Repeated live runs; unsupported statements are sent back and rewritten, and any remaining failure is blocked", link: "docs/AGENT_WORKFLOW.md" },
       { what: "Fact checker on held-out sentences (56 × 7 languages × 3 runs)", result: "168 / 168 correct",
         how: "No false statement passed", link: "docs/AGENT_WORKFLOW.md" },
       { what: "Fact checker, all live checks", result: "0 unsafe passes in 264", how: "Code decides; the model only extracts",

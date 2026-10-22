@@ -6,7 +6,7 @@
 - **The agent chooses; code computes.** `resolve_brief` turns those choices into facts from the events: which team led each chosen statistic, and who the most involved passer is. The writers receive only those facts, so no number or name comes from a model. The researcher's one-line reasoning appears in the run view as working notes and is never published.
 - **A new verified statement type.** The fact checker extracts `role` statements ("X was the most involved in Merridge's passing"), and code checks each one against the pass network. Two roles, hub and key link, were tried first, but their translations were confused (6 rejected statements in one run), so recaps use the hub only.
 - **Optional by design.** Without an MCP server (tests, injected clients) or if research fails, the step records why, and the writers get the standard verified facts. Research never blocks a recap.
-- **Result.** Live on Foundry, with the researcher: **21 of 21 recaps were published** across 7 languages at half-time, minute 70 and full time. Four statements were rejected, sent back and rewritten before publication (`evaluation/recap_pass_rate.py`).
+- **Result.** Live on Foundry, with the researcher: **21 of 21 recaps were published** (later runs: 21 and 20 of 21; the one fallback was a writer error on the score, caught twice and blocked) across 7 languages at half-time, minute 70 and full time. Four statements were rejected, sent back and rewritten before publication (`evaluation/recap_pass_rate.py`).
 
 ## Update — 21 October 2026 (later): visible runs, structured output, higher publication rate
 

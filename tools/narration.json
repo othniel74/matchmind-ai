@@ -3,12 +3,16 @@
   "rate": "8%",
   "lines": [
     {
-      "id": "intro",
-      "text": "This is Pitchlight: explainable match intelligence from synthetic football events, live on Azure."
+      "id": "hook",
+      "text": "AI commentary sounds confident, even when it's wrong. So we tried to fool it."
     },
     {
-      "id": "open",
-      "text": "Open the match, and events stream in, each one validated as it arrives."
+      "id": "caught",
+      "text": "Pitchlight checks every statement against the match. This one is blocked: it contradicts the score."
+    },
+    {
+      "id": "intro",
+      "text": "This is Pitchlight: AI football commentary you can put on air, because nothing unverified is published."
     },
     {
       "id": "moment",
