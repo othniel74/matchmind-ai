@@ -144,7 +144,10 @@ class FoundryAgentRuntime:
             gate = {'agent': 'evidence_gate', 'status': 'passed', 'mode': 'recap'}
             if listener is None:
                 return await self._execute(run_id, job, [fallback], gate)
-            from .agent_workflow import LISTENERS
+            try:
+                from .agent_workflow import LISTENERS
+            except ImportError:  # base install without the optional SDK: the verified recap, no live steps
+                return await self._execute(run_id, job, [fallback], gate)
             LISTENERS[listener] = on_step
             try:
                 return await self._execute(run_id, job, [fallback], gate)
