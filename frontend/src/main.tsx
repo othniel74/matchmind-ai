@@ -38,6 +38,9 @@ import { AskPanel, GraphExplorer } from "./GraphExplorer";
 import { EventFeedPanel } from "./EventFeed";
 import { VisionPanel } from "./VisionPanel";
 import { TacticsPanel } from "./TacticsPanel";
+import { FactCheckPanel } from "./FactCheck";
+import { ProofPanel } from "./Proof";
+import { Tour } from "./Tour";
 
 import { eventLabel, empty, initial, type Insight, type Overlay, type Frame, type Graph, type Sample } from "./matchTypes";
 import { Crest, PanelTitle, Comparison } from "./MatchWidgets";
@@ -55,7 +58,7 @@ const StatsBombResearch = (props: { standalone?: boolean }) =>
 const TrackingReplay = (props: { standalone?: boolean; source?: "skillcorner" | "metrica" }) =>
   RESEARCH ? <Suspense fallback={null}><LazyTracking {...props} /></Suspense> : null;
 
-type Section = "match" | "analysis" | "video" | "live" | "studio";
+type Section = "match" | "analysis" | "video" | "live" | "studio" | "proof";
 const SECTIONS: { id: Section; label: string; title: string; summary: string; scoreboard: boolean; icon: React.ReactNode }[] = [
   { id: "match", label: "Match centre", title: "Match centre", scoreboard: true, icon: <LayoutDashboard size={18} />,
     summary: "Live moments, answers and recaps, shaped for you. Every fact is verified." },
@@ -67,6 +70,8 @@ const SECTIONS: { id: Section; label: string; title: string; summary: string; sc
     summary: "The match feed through Azure Event Hubs, validated event by event." },
   { id: "studio", label: "Broadcast Studio", title: "Broadcast Studio", scoreboard: true, icon: <MonitorPlay size={18} />,
     summary: "Turn verified observations into broadcast-ready moments." },
+  { id: "proof", label: "Proof", title: "Proof", scoreboard: false, icon: <ShieldCheck size={18} />,
+    summary: "Every claim measured: the agents, real data from two providers, the load test and the video AI." },
 ];
 
 function App() {
@@ -88,6 +93,7 @@ function App() {
     window.history.replaceState(null, "", url);
     window.scrollTo({ top: 0 });
   };
+  const [tourOpen, setTourOpen] = useState(() => new URLSearchParams(location.search).get("tour") === "1");
   const studio = section === "studio";
   const setStudio = (on: boolean) => setSection(on ? "studio" : "match");
   const page = SECTIONS.find((x) => x.id === section)!;
@@ -482,6 +488,9 @@ function App() {
             <span>{page.label}</span>
           </div>
           <div className="topbar-right">
+            <button className="button secondary tour-button" onClick={() => setTourOpen(true)}>
+              <Sparkles size={14} /> 60-second tour
+            </button>
             <span className="synthetic-label">Synthetic data</span>
             {readOnlyDemo ? (
               <span className="synthetic-label">Read-only demo</span>
@@ -846,12 +855,14 @@ function App() {
                   <ExperiencePanels minute={frame.minute} stateVersion={frame.context?.state_version} profile={profile}
                                     onMoments={setMomentCount} />
                   <div className="experience-side">
+                    <FactCheckPanel minute={frame.minute} profile={profile} />
                     <AskPanel minute={frame.minute} profile={profile} />
                     <RecapPanel minute={frame.minute} profile={profile} />
                   </div>
                 </div>
                 )}
                 {section === "video" && <div className="section-stack"><VisionPanel /></div>}
+                {section === "proof" && <div className="section-stack"><ProofPanel /></div>}
                 {section === "live" && (
                   <div className="section-stack">
                     {squads && <EventFeedPanel clubs={squads.clubs} />}
@@ -1211,6 +1222,7 @@ function App() {
               {trackingMode ? "Preview: real research data. Surrounding analytics: synthetic demo." : "All teams and events are synthetic. Not affiliated with the Premier League."}
             </span>
           </footer>
+          <Tour open={tourOpen} onClose={() => setTourOpen(false)} setSection={setSection} />
         </main>
       </div>
     </div>

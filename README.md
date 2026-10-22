@@ -2,11 +2,15 @@
 
 *Formerly MatchMind. Some Azure resource names and settings (`MATCHMIND_*`) keep the old name; the old demo address redirects here.*
 
-**Explainable match intelligence from synthetic football events, and from broadcast video: live, personalized, in seven languages, on Azure and Microsoft Foundry.**
+**AI football commentary you can put on air: every statement is verified before anyone sees it.**
 
-Pitchlight turns football events into what a studio, a broadcaster or a fan needs. It finds the moments that matter and explains why. It writes recaps, answers questions, shapes everything for each viewer, and renders it as timed overlays. It can also **recover the events from video**, and prove how accurately it does so.
+Broadcasters, studios and fan apps want AI that explains a match live, in any language. They cannot put it on screen, because language models invent scorers, results and causes. Pitchlight lets agents write and **code verify**: a fact-checking agent extracts every statement, plain code checks each one against the match events, and anything unsupported is sent back or blocked. Nothing unverified is published.
 
-Every number it publishes is recomputed from the events. Every agent-written sentence passes a fact checker before anyone sees it. Every claim cites the events it rests on.
+- **Proven live:** 21 of 21 agent-written recaps published across 7 languages; 0 unsafe passes in 264 live fact checks; Microsoft Foundry groundedness 4.71 / 5.
+- **Ready for real data:** checked offline on 2,669 real matches from two providers, with every score matching (the product itself runs on synthetic data).
+- **Built on Azure:** Microsoft Foundry and Agent Framework agents that use Pitchlight's own MCP tools, Event Hubs, Container Apps, Azure AI Speech, managed identity throughout.
+
+**See it in 60 seconds:** open the demo, choose **See it in 60 seconds**, and in **Try to fool the fact checker** type a false claim (for example *"Calderbrook won thanks to a hat-trick"*). Then press **AI recap** and open the run to see every statement with its verdict.
 
 | | |
 | --- | --- |
@@ -138,10 +142,10 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 295 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 300 passed with the agent SDK; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
-| Browser | `cd frontend && npx playwright test` (also against the live URL) | 6 passed |
+| Browser | `cd frontend && npx playwright test` (also against the live URL) | 7 passed |
 | Foundry release evaluation | `backend/evaluation/foundry_eval.py` | groundedness 4.71/5, 0 unsupported numbers ([report](foundry-eval-report.json)) |
 | Vision vs ground truth | `python -m vision.run` | [vision-report.json](vision-report.json) |
 

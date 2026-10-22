@@ -243,6 +243,29 @@ async def recap_agent_endpoint(minute: int = Query(90, ge=1, le=90), seed: int =
     return payload
 
 
+@app.get('/api/factcheck')
+async def factcheck_endpoint(text: str = Query(..., min_length=3, max_length=400),
+                             minute: int = Query(90, ge=1, le=90),
+                             language: str = Query('en', pattern=LANGUAGE_PATTERN),
+                             seed: int = Query(20261020, ge=0, le=2147483647), http_request: Request = None):
+    """Try to fool the fact checker: any sentence about the match, checked statement by statement."""
+    from fastapi import HTTPException
+    from .agents import FoundryAgentRuntime
+    from .guard import GUARD, visitor
+    stream, version, source = match_repository().snapshot(seed)
+    key = ('factcheck', stream, version, minute, language, ' '.join(text.lower().split()))
+    if is_demo() and (hit := GUARD.cached(key)) is not None:
+        return hit
+    if is_demo() and not GUARD.allow(visitor(http_request)):
+        raise HTTPException(429, 'Too many AI requests from this visitor. Try again in a minute.',
+                            headers={'Retry-After': '60'})
+    result = await FoundryAgentRuntime().check_text(source, minute, text.strip(), language)
+    payload = {'context': {'match_id': stream, 'state_version': version}, **result}
+    if is_demo() and result.get('available'):
+        GUARD.store(key, payload)
+    return payload
+
+
 @app.get('/api/squads')
 def squads_endpoint():
     from .squads import squads

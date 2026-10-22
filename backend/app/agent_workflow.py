@@ -136,6 +136,8 @@ FACT_CHECKER_INSTRUCTIONS = (
     '"team": "home" or "away" (home, local or host team versus away, visiting or guest team); '
     '"relation": "increase" for activity_change, "more", "fewer" or "equal" for comparison, "won", "lost", '
     '"drew", "leads", "trails" or "level" for result, and "hub" or "key_link" for role; '
+    '"count": for scorer only, how many goals the statement says the player scored (2 for twice or a brace, 3 for '
+    'a hat-trick), or null when it does not say; '
     '"player": for scorer and role, the matching name from the roster supplied with the text, whatever the script '
     'or spelling in the text (for example a transliteration); '
     '"metric": for comparison only, one of ' + ', '.join(METRICS) + '; '
@@ -164,6 +166,7 @@ Statement = create_model(
     relation=(Optional[Literal['increase', 'more', 'fewer', 'equal', 'won', 'lost', 'drew', 'leads', 'trails',
                                'level', 'hub', 'key_link']], ...),
     player=(Optional[str], ...),
+    count=(Optional[int], ...),
     metric=(Optional[Literal[tuple(METRICS)]], ...),
     intensity=(Literal[INTENSITIES], ...),
     **{flag: (bool, ...) for flag in CHECKLIST},
@@ -358,7 +361,10 @@ def verify_statements(statements: list[dict[str, Any]], text: str, insight: dict
             reason = 'contradicts_roles'
         elif statement['type'] == 'scorer' and team in TEAMS:
             goals = scorers.get((_normal(statement.get('player') or ''), team), 0)
-            ok, reason, large = goals > 0, 'contradicts_scorers', goals >= 2
+            claimed = statement.get('count')
+            # "Scored a hat-trick" must match the count, not just the fact that the player scored.
+            ok = goals > 0 and (claimed is None or claimed == goals)
+            reason, large = 'contradicts_scorers', goals >= 2
         elif statement['type'] == 'comparison' and statement.get('metric') in METRICS and relation in RELATIONS \
                 and (team in TEAMS or (team is None and relation == 'equal')):
             team = team or 'home'  # "both teams had the same number of corners"
@@ -440,6 +446,23 @@ def recap_prompt(facts: dict[str, Any], brief: dict[str, Any] | None = None) -> 
             + (f"Passing roles: {roles}. " if roles else '')
             + "Write a short match recap in English using only these facts, without numbers or match times."
             + progress)
+
+
+async def check_claims(client: Any, text: str, events: list[Event], minute: int, language: str = 'en') -> dict[str, Any]:
+    """Fact-check any text about the match, as the workflow checks its own drafts: the extractor (a model)
+    lists the statements, and code verifies each one against the match up to `minute`. Statements with a
+    number are not publishable: Pitchlight publishes numbers only from verified claims, never free text."""
+    agent = client.as_agent(name='fact-checker', instructions=FACT_CHECKER_INSTRUCTIONS,
+                            default_options={'temperature': 0, 'response_format': Statements})
+    statements = parse_statements(await _run_agent(agent, checker_prompt(text)))
+    verdicts: list[dict[str, Any]] = []
+    failure, claim_ids, _ = verify_statements(statements, text, None, events, minute, verdicts, language)
+    for v in verdicts:
+        if v['supported'] and re.search(r'\d', v['quote']):
+            v.update(supported=False, reason='unsupported_number')
+    return {'text': text, 'minute': minute, 'statements': verdicts, 'claim_ids': claim_ids,
+            'failure': None if verdicts else failure,
+            'publishable': bool(verdicts) and all(v['supported'] for v in verdicts)}
 
 
 def role_holder(events: list[Event], team: str, minute: int, role: str) -> str | None:

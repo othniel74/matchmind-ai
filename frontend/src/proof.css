@@ -1,0 +1,43 @@
+.proof-group {
+  margin-top: 18px;
+}
+.proof-group h3 {
+  margin: 0 0 2px;
+  font-size: 15px;
+}
+.proof-group .subtle-note {
+  margin: 0 0 8px;
+}
+.proof-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.proof-table td {
+  padding: 8px 8px;
+  border-top: 1px solid var(--border);
+  vertical-align: top;
+}
+.proof-table .proof-result {
+  font-weight: 700;
+  color: var(--lime);
+  white-space: nowrap;
+}
+.proof-table .proof-how {
+  color: var(--muted);
+}
+.proof-table a {
+  color: var(--muted);
+}
+.proof-table a:hover,
+.proof-table a:focus-visible {
+  color: var(--lime);
+}
+@media (max-width: 760px) {
+  .proof-table td:nth-child(3) {
+    display: none;
+  }
+  .proof-table .proof-result {
+    white-space: normal;
+  }
+}

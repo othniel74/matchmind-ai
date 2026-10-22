@@ -225,19 +225,19 @@ export default function Landing() {
               <em>the beginning.</em>
             </h1>
             <p>
-              There’s a story in every shift of play.
+              AI football commentary you can put on air.
               <br />
-              Find it. Understand it. Show the evidence.
+              Every statement is verified before anyone sees it.
             </p>
             <div className="lp-hero-actions">
               <a href="/app" className="lp-button lp-button-lime">
                 Experience the match <ArrowUpRight size={19} />
               </a>
-              <a href="#intelligence" className="lp-text-link">
+              <a href="/app?tour=1&speed=3" className="lp-text-link">
                 <span className="lp-play">
                   <Play size={11} fill="currentColor" />
                 </span>{" "}
-                See the intelligence
+                See it in 60 seconds
               </a>
             </div>
             <div className="lp-hero-caption">

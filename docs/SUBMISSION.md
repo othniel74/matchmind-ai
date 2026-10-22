@@ -10,9 +10,15 @@ It also fits **Best Use of Microsoft Foundry** (models, tracing, release evaluat
 
 ## Pitch
 
-**Pitchlight turns synthetic football events into explainable match intelligence for studios, broadcasters and fans, live, in seven languages, on Azure.**
+**AI football commentary you can put on air: every statement is verified before anyone sees it.**
 
-A match feed streams through **Azure Event Hubs** into an app on **Azure Container Apps**. It validates every event, detects the moments that matter and explains why. A goal's build-up, a new key link in the pass network, a momentum swing: each is backed by evidence and a match knowledge graph mirrored in Memgraph.
+**The problem.** Broadcasters, studios and fan apps want AI that explains a match as it happens, in any language. They cannot put it on screen: language models invent scorers, results and causes, and one false line on air costs trust.
+
+**The solution.** In Pitchlight, agents write and code verifies. A fact-checking agent extracts every statement, and plain code checks each one against the match events. Anything unsupported is sent back to be rewritten or blocked, so nothing unverified is published. Judges can test this directly: **Try to fool the fact checker** takes any sentence about the match and shows each statement's verdict.
+
+**The proof.** Live on Microsoft Foundry: 21 of 21 agent-written recaps published across 7 languages, 0 unsafe passes in 264 fact checks, groundedness 4.71 / 5. Offline, on 2,669 real matches from two data providers, every score matched; the product itself runs only on synthetic data.
+
+**How it works.** A match feed streams through **Azure Event Hubs** into an app on **Azure Container Apps**. It validates every event, detects the moments that matter and explains why. A goal's build-up, a new key link in the pass network, a momentum swing: each is backed by evidence and a match knowledge graph mirrored in Memgraph.
 
 Narratives and recaps come from a **Microsoft Agent Framework** multi-agent workflow on **Microsoft Foundry**. Writers draft, a fact checker extracts every statement and code verifies it against the data, and a publication gate ships only verified text. Viewers can **ask the match** anything: a Foundry agent calls Pitchlight's own **MCP** tools, so answers come from verified facts, never the model's imagination.
 
@@ -36,7 +42,8 @@ Microsoft Foundry (models, evaluations, tracing) · Microsoft Agent Framework ·
 
 No sign-in is needed. The demo is free, read-only and uses synthetic data.
 
-1. Open https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io and choose **Experience the match**, or go straight to `/app`.
+1. Open https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io and choose **See it in 60 seconds** for a guided tour, or **Experience the match** to explore freely.
+   - In **Try to fool the fact checker** (Match centre), type a false claim, for example *"Calderbrook won thanks to a hat-trick"*, or pick one of the suggestions.
 2. The match replays in about 90 seconds (add `?speed=2` to the URL for a faster replay). In **Your moments**, press **Why?** on a goal.
 3. In **Your view**, change the viewing mode, language (try Arabic), favourite club, followed player or tracked metric.
 4. **Ask the match:** try "Who is Merridge's key player?" or a question in Spanish. The answer is labelled *Foundry agent via MCP*.

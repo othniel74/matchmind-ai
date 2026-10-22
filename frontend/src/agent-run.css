@@ -196,3 +196,30 @@
   display: block;
   padding: 0;
 }
+.factcheck-result {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.factcheck-result.ok {
+  border-color: rgba(90, 209, 154, 0.5);
+  background: rgba(90, 209, 154, 0.06);
+}
+.factcheck-result.bad {
+  border-color: rgba(239, 107, 107, 0.5);
+  background: rgba(239, 107, 107, 0.06);
+}
+.factcheck-verdict {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+.factcheck-result.ok .factcheck-verdict { color: #5ad19a; }
+.factcheck-result.bad .factcheck-verdict { color: #ef6b6b; }
+.factcheck-panel .ask-suggestions .player-chip {
+  text-align: left;
+}

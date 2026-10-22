@@ -94,6 +94,19 @@ class FoundryAgentRuntime:
                                         credential=self._credential)
         return self.client
 
+    async def check_text(self, events: list[Event], minute: int, text: str, language: str = 'en') -> dict[str, Any]:
+        """Fact-check a viewer's own sentence about the match with the workflow's fact checker."""
+        try:
+            client = self._client()
+            from .agent_workflow import check_claims
+            return {'available': True, **await check_claims(client, text, events, minute, language)}
+        except Exception as exc:  # no model here, or it failed: say so, never guess
+            return {'available': False, 'reason': type(exc).__name__, 'text': text, 'minute': minute,
+                    'statements': [], 'publishable': False}
+        finally:
+            if self._owns_client:
+                await self._close()
+
     async def run(self, events: list[Event], insights: list[dict[str, Any]], audience: str, language: str) -> AgentResponse:
         from .telemetry import narrative_span
         run_id = str(uuid.uuid4())

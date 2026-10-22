@@ -32,6 +32,11 @@ const REASONS: Record<string, string> = {
   contradicts_scorers: "contradicts the scorers",
   contradicts_claims: "contradicts the statistics",
   contradicts_roles: "contradicts the pass network",
+  unsupported_number: "a number: Pitchlight publishes numbers only from verified claims",
+  unsupported_timing: "states a match time",
+  no_factual_statement: "no factual statement",
+  extraction_mismatch: "the statements could not be matched to the text",
+  incomplete_extraction: "part of the text could not be checked",
   no_mcp_server: "no MCP server here, so the standard facts were used",
   contradicts_evidence: "contradicts the evidence",
   unsupported_statement: "not in the verified facts",
@@ -46,7 +51,7 @@ const REASONS: Record<string, string> = {
   rate_limited: "model rate limited",
   timeout: "model timed out",
 };
-const reasonText = (r?: string | null) => (r ? REASONS[r.split(":").pop() ?? r] ?? r.replace(/_/g, " ") : "");
+export const reasonText = (r?: string | null) => (r ? REASONS[r.split(":").pop() ?? r] ?? r.replace(/_/g, " ") : "");
 
 const STATUS: Record<string, { text: string; tone: "ok" | "warn" | "bad" | "muted" }> = {
   passed: { text: "Passed", tone: "ok" }, completed: { text: "Done", tone: "ok" }, verified: { text: "Verified", tone: "ok" },
