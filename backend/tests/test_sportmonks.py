@@ -82,3 +82,11 @@ def test_player_names_match_across_providers():
     assert same_person('Kylian Mbappé', 'Kylian Mbappé Lottin')
     assert not same_person('Julián Álvarez', 'Lionel Andrés Messi Cuccittini')
     assert not same_person(None, 'Player 9')
+
+
+def test_own_goal_without_a_running_score_goes_to_the_credited_team():
+    # Sportmonks gives an own goal to the team it counts for (seen on real data), so with no
+    # running score the participant decides.
+    fixture = copy.deepcopy(FIXTURE)
+    fixture['events'].append(sm_event('OWNGOAL', 10, 75, player='Southvale defender'))  # credited to Northbank
+    assert reference(fixture)['score'] == {'home': 0, 'away': 2}

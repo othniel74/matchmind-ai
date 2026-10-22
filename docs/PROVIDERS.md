@@ -92,7 +92,11 @@ python -m app.providers.sportmonks data/research/statsbomb/events.json     --lin
 - name matching;
 - reporting a disagreement.
 
-**Status:** ready, but the live run against the real Sportmonks record of the 2022 World Cup final is pending; the Sportmonks API was down when this was built.
+**Status (22 October 2026): tested on real Sportmonks data.**
+
+- **Plan coverage.** The account is on Sportmonks' free plan, which covers the Danish Superliga and the Scottish Premiership. StatsBomb's open data includes neither, so the same-match comparison needs a plan that covers a competition both providers have, such as a World Cup, a Euro or the Bundesliga.
+- **Reading a real record.** On Celtic 7–1 Hearts (Scottish Premiership, 18 October 2026), the reference parser returned the final score Sportmonks reports (7–1), all 8 goals with team, minute and scorer, an own goal credited to the right side, 4 yellow cards, 10 substitutions, possession and corners. The free plan returns only a few team statistics, so shots, passes and fouls are skipped.
+- **A convention found on real data.** Sportmonks credits an own goal to the team that benefits (Celtic), not to the player's own team. The parser read the side from the running score, so the result was right. Its fallback for records without a running score assumed the opposite and has been corrected, with a test.
 
 ## Live feeds
 

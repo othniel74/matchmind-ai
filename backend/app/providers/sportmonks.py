@@ -8,7 +8,7 @@ computed against what Sportmonks recorded for the same match.
     python -m app.providers.sportmonks data/research/statsbomb/events.json \
         --lineups data/research/statsbomb/lineups.json --date 2022-12-18
 
-The token is read from SPORTMONKS_API_TOKEN (backend/.env), sent in a header, and never printed.
+The token is read from SPORTMONKS_TOKEN or SPORTMONKS_API_TOKEN (backend/.env), sent in a header, and never printed.
 Exact checks: score, each goal (team, minute within one minute, scorer), cards and substitutions.
 Team statistics are compared too, but providers define shots, passes and fouls differently, so
 those are reported as differences, not pass or fail.
@@ -103,7 +103,9 @@ def reference(fixture: dict) -> dict[str, Any]:
             continue
         minute = (e.get('minute') or 0) + (e.get('extra_minute') or 0)
         if kind in GOAL_TYPES:
-            scorer_side = team if kind != 'OWNGOAL' else ('away' if team == 'home' else 'home')
+            # Checked on real data (Celtic 7-1 Hearts, 18 Oct 2026): an OWNGOAL's participant is the team
+            # credited with the goal, not the player's own team.
+            scorer_side = team
             try:  # the running score ('2-1', home first) says who scored, whatever the own-goal convention
                 score = tuple(int(n) for n in str(e.get('result')).split('-'))
                 if len(score) == 2 and score != running:
@@ -229,9 +231,9 @@ def _load_fixture(args: argparse.Namespace, events: list[dict], lineups: list[di
         if os.environ.get('MATCHMIND_SKIP_DOTENV') != '1':
             from dotenv import load_dotenv
             load_dotenv(Path(__file__).resolve().parents[2] / '.env', override=False)
-        token = os.environ.get('SPORTMONKS_API_TOKEN')
+        token = os.environ.get('SPORTMONKS_API_TOKEN') or os.environ.get('SPORTMONKS_TOKEN')
         if not token:
-            raise SystemExit('Set SPORTMONKS_API_TOKEN in backend/.env')
+            raise SystemExit('Set SPORTMONKS_TOKEN (or SPORTMONKS_API_TOKEN) in backend/.env')
         names = team_names(events, lineups, args.home_team_id)
         fixture_id = args.fixture_id or find_fixture(token, args.date, names['home'], names['away'])
         fixture = get(f'fixtures/{fixture_id}', token, include=INCLUDE)
