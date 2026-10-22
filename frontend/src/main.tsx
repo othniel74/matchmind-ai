@@ -65,7 +65,7 @@ const SECTIONS: { id: Section; label: string; title: string; summary: string; sc
   { id: "analysis", label: "Analysis", title: "Analysis", scoreboard: true, icon: <BarChart3 size={18} />,
     summary: "Team statistics, pass networks and the evidence behind every number." },
   { id: "video", label: "Video AI", title: "Video AI", scoreboard: false, icon: <ScanEye size={18} />,
-    summary: "Events recovered from broadcast video, scored against ground truth." },
+    summary: "Research prototype: events recovered from broadcast video, scored against exact ground truth. Not yet validated on real footage." },
   { id: "live", label: "Live data", title: "Live data", scoreboard: false, icon: <CloudLightning size={18} />,
     summary: "The match feed through Azure Event Hubs, validated event by event." },
   { id: "studio", label: "Broadcast Studio", title: "Broadcast Studio", scoreboard: true, icon: <MonitorPlay size={18} />,

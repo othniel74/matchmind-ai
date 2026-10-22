@@ -99,7 +99,7 @@ export function VisionPanel() {
     <section className="panel vision-panel" aria-label="Auto-eventing from video">
       <div className="panel-title">
         <h2><ScanEye size={17} />Auto-eventing from video</h2>
-        <span className="panel-kicker">SCORED AGAINST GROUND TRUTH</span>
+        <span className="panel-kicker">RESEARCH PROTOTYPE · SCORED AGAINST GROUND TRUTH</span>
       </div>
       <p className="subtle-note">
         Pitchlight renders the synthetic match as broadcast video. A vision pipeline then works only from the pixels: it
