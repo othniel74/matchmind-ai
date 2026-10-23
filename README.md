@@ -5,7 +5,7 @@
 <h1 align="center">Pitchlight</h1>
 
 <p align="center">
-  <b>AI football commentary you can put on air: every statement is verified before anyone sees it.</b>
+  <b>AI football commentary that checks factual claims against the match record before publishing.</b>
 </p>
 
 <p align="center">
@@ -25,13 +25,28 @@
   <a href="docs/README.md">Documentation</a>
 </p>
 
-Broadcasters, studios and fan apps want AI that explains a match live, in any language. They cannot put it on screen, because language models invent scorers, results and causes. Pitchlight lets agents write and **code verify**: a fact-checking agent extracts every statement, plain code checks each one against the match events, and anything unsupported is sent back or blocked. Nothing unverified is published.
+**Pitchlight turns football match events into commentary and recaps in seven languages, with a factual check before publication.** It is built for broadcasters, sports studios and fan apps.
 
-- **Proven live:** 62 of 63 agent-written recaps published across 7 languages, the other blocked safely; 0 wrong statements let through in 264 live fact checks; Microsoft Foundry groundedness 4.71 / 5.
-- **Ready for real data:** checked offline on 2,669 real matches from two providers, with every score matching (the product itself runs on synthetic data).
-- **Built on Azure:** Microsoft Foundry and Agent Framework agents that use Pitchlight's own MCP tools, Event Hubs, Container Apps scaling from 1 to 3 replicas on Azure Managed Redis, Azure AI Speech, managed identity throughout.
+The problem: AI can invent a scorer, a score or a reason a team won. Pitchlight gives the writing system a match record to work from. A checking agent extracts claims from the draft, then code compares those claims with the recorded events. Unsupported drafts are returned for revision or blocked.
 
-**See it in 60 seconds:** open the demo, choose **See it in 60 seconds**, and in **Try to fool the fact checker** type a false claim (for example *"Calderbrook won thanks to a hat-trick"*). Then press **AI recap** and open the run to see every statement with its verdict.
+**The main result:** across 264 live fact-check tests, no incorrect claims were accepted. In a separate test of AI recaps across seven languages, 62 of 63 were published and one was blocked; no published recap contained an error in that evaluation. These are measured test results, not a guarantee for every future output. See the [evaluation methods and limits](docs/EVALUATION.md).
+
+## Try the core idea in 60 seconds
+
+1. Open the [demo](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io) and choose **See it in 60 seconds**.
+2. In **Try to fool the fact checker**, enter a false claim such as *"Calderbrook won thanks to a hat-trick"*. Read the verdict and its explanation.
+3. Press **AI recap**, then open the run to inspect the draft, the extracted claims and their verdicts.
+
+The question to judge is: **can the app explain a match while showing the evidence behind its factual claims?**
+
+## What the demo shows
+
+- **Simulated matches:** the clubs, players and events are fictional. This makes the demo repeatable and gives the checks a known match record.
+- **Commentary and evidence:** explore key moments, statistics and recaps, then inspect why a claim passed or failed.
+- **Two ways to run:** with Azure configured, agents write and check recaps. Without Azure settings, the local app uses verified templates; this does not demonstrate live AI writing.
+- **A separate video pipeline:** video analysis recovers events from rendered synthetic footage and compares them with known labels. The main commentary experience can run directly from match events without video analysis.
+
+Personalization, broadcast overlays and tactical analysis extend this core experience. The architecture and supporting evaluations appear below.
 
 | | |
 | --- | --- |
