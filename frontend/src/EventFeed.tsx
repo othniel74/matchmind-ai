@@ -30,20 +30,28 @@ export function EventFeedPanel({ clubs }: { clubs: Record<string, { short: strin
     const timer = setInterval(refresh, 3000);
     return () => clearInterval(timer);
   }, []);
+  // Reconnect when the connection closes: with several replicas, scaling in closes the viewers of a
+  // replica that is removed. The server replays recent messages first, so the lists start empty.
+  const [connection, setConnection] = useState(0);
   useEffect(() => {
-    if (!status?.enabled || socket.current) return;
+    if (!status?.enabled) return;
+    let unmounted = false;
     const scheme = location.protocol === "https:" ? "wss" : "ws";
     const ws = new WebSocket(`${scheme}://${location.host}/ws/feed`);
     socket.current = ws;
+    ws.onopen = () => { setEvents([]); setMoments([]); };
     ws.onmessage = (e) => {
       const m = JSON.parse(e.data);
       if (m.type === "kickoff") { setEvents([]); setMoments([]); }
       else if (m.type === "event") setEvents((prev) => [m.event, ...prev].slice(0, 8));
       else if (m.type === "moment") setMoments((prev) => [m.moment, ...prev].slice(0, 6));
     };
-    ws.onclose = () => { socket.current = null; };
-    return () => { ws.close(); socket.current = null; };
-  }, [status?.enabled]);
+    ws.onclose = () => {
+      socket.current = null;
+      if (!unmounted) setTimeout(() => setConnection((c) => c + 1), 1000 + Math.random() * 1500);
+    };
+    return () => { unmounted = true; ws.close(); socket.current = null; };
+  }, [status?.enabled, connection]);
 
   if (!status?.enabled) return null;
   const live = status.run?.status === "live";
