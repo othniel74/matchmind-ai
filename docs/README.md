@@ -5,6 +5,7 @@
 | Document | What it covers |
 | --- | --- |
 | [Submission](SUBMISSION.md) | Pitch, prize category, Microsoft technologies, step-by-step testing instructions |
+| [Evaluation results](EVALUATION.md) | Every measured result with its raw report: live recaps, fact checker, Foundry, vision, real data, scaling |
 | [Hackathon brief coverage](HACKATHON_COVERAGE.md) | Every requirement of the brief mapped to code and to how it is verified |
 | [Demo video (1:49, narrated)](demo/pitchlight-submission.mp4) | Recorded against the live deployment |
 

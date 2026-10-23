@@ -1,0 +1,720 @@
+{
+  "test": "backend/evaluation/recap_pass_rate.py: 21 live recaps per run on Microsoft Foundry (gpt-4.1-mini) through the full Agent Framework workflow with the match_researcher agent; half-time, minute 70 and full time, in 7 languages",
+  "totals": {
+    "runs": 3,
+    "recaps": 63,
+    "published": 62,
+    "blocked_and_replaced_by_verified_text": 1,
+    "revised_then_published": 14
+  },
+  "runs": [
+    {
+      "run": 1,
+      "finished": "2026-10-22 01:26",
+      "summary": {
+        "runs": 21,
+        "published": 21,
+        "revised_then_published": 4,
+        "rejected_statements_by_reason": {
+          "contradicts_roles": 1,
+          "unsupported_mentions_chances_or_threat": 1,
+          "contradicts_result": 1,
+          "unsupported_gives_cause": 1
+        }
+      },
+      "recaps": [
+        {
+          "minute": 45,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 43205
+        },
+        {
+          "minute": 45,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_roles",
+              "quote": "Theo Marchetti es el jugador más involucrado en el pase de Calderbrook"
+            }
+          ],
+          "duration_ms": 52147
+        },
+        {
+          "minute": 45,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 19767
+        },
+        {
+          "minute": 45,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 17497
+        },
+        {
+          "minute": 45,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 19473
+        },
+        {
+          "minute": 45,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "unsupported_mentions_chances_or_threat",
+              "quote": "Calderbrook conduce per occasioni attese"
+            }
+          ],
+          "duration_ms": 29752
+        },
+        {
+          "minute": 45,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_result",
+              "quote": "المباراة بين كالدبروك وميريدج متعادلة"
+            }
+          ],
+          "duration_ms": 25237
+        },
+        {
+          "minute": 70,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 18652
+        },
+        {
+          "minute": 70,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 17715
+        },
+        {
+          "minute": 70,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "unsupported_gives_cause",
+              "quote": "Merridge mène Calderbrook grâce à deux buts de Pedro Valença et un de Lorenzo Bassi"
+            }
+          ],
+          "duration_ms": 27326
+        },
+        {
+          "minute": 70,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 16357
+        },
+        {
+          "minute": 70,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 17440
+        },
+        {
+          "minute": 70,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 22351
+        },
+        {
+          "minute": 70,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 17798
+        },
+        {
+          "minute": 90,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21703
+        },
+        {
+          "minute": 90,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 20047
+        },
+        {
+          "minute": 90,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 19437
+        },
+        {
+          "minute": 90,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 18486
+        },
+        {
+          "minute": 90,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 18407
+        },
+        {
+          "minute": 90,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 19014
+        },
+        {
+          "minute": 90,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 28177
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "finished": "2026-10-22 11:56",
+      "summary": {
+        "runs": 21,
+        "published": 21,
+        "revised_then_published": 4,
+        "rejected_statements_by_reason": {
+          "contradicts_result": 2,
+          "unsupported_mentions_chances_or_threat": 2,
+          "unsupported_mentions_match_time": 1
+        }
+      },
+      "recaps": [
+        {
+          "minute": 45,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 34920
+        },
+        {
+          "minute": 45,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 33678
+        },
+        {
+          "minute": 45,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23932
+        },
+        {
+          "minute": 45,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_result",
+              "quote": "A partida entre Calderbrook e Merridge está empatada, com um gol para cada equipe."
+            }
+          ],
+          "duration_ms": 36700
+        },
+        {
+          "minute": 45,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 24640
+        },
+        {
+          "minute": 45,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "unsupported_mentions_chances_or_threat",
+              "quote": "Calderbrook guida nelle occasioni totali e nei gol attesi"
+            },
+            {
+              "reason": "unsupported_mentions_chances_or_threat",
+              "quote": "Merridge è in vantaggio per i tiri in porta"
+            }
+          ],
+          "duration_ms": 35319
+        },
+        {
+          "minute": 45,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_result",
+              "quote": "المباراة بين كالدربروك وميريدج متعادلة"
+            }
+          ],
+          "duration_ms": 33458
+        },
+        {
+          "minute": 70,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 19373
+        },
+        {
+          "minute": 70,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23406
+        },
+        {
+          "minute": 70,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23056
+        },
+        {
+          "minute": 70,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23148
+        },
+        {
+          "minute": 70,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 25271
+        },
+        {
+          "minute": 70,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21999
+        },
+        {
+          "minute": 70,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 20806
+        },
+        {
+          "minute": 90,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 41638
+        },
+        {
+          "minute": 90,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 20502
+        },
+        {
+          "minute": 90,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 27835
+        },
+        {
+          "minute": 90,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "unsupported_mentions_match_time",
+              "quote": "Merridge liderou em posse de bola durante o jogo"
+            }
+          ],
+          "duration_ms": 31382
+        },
+        {
+          "minute": 90,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21849
+        },
+        {
+          "minute": 90,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21931
+        },
+        {
+          "minute": 90,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 30134
+        }
+      ]
+    },
+    {
+      "run": 3,
+      "finished": "2026-10-22 12:17",
+      "summary": {
+        "runs": 21,
+        "published": 20,
+        "revised_then_published": 6,
+        "rejected_statements_by_reason": {
+          "contradicts_result": 4,
+          "overstated": 3,
+          "contradicts_scorers": 2,
+          "contradicts_roles": 1
+        }
+      },
+      "recaps": [
+        {
+          "minute": 45,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 27119
+        },
+        {
+          "minute": 45,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 20375
+        },
+        {
+          "minute": 45,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21461
+        },
+        {
+          "minute": 45,
+          "language": "pt",
+          "published": false,
+          "fallback_reason": "fact_checker:contradicts_result",
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_result",
+              "quote": "O jogo entre Calderbrook e Merridge está empatado, com cada equipe marcando um gol."
+            },
+            {
+              "reason": "contradicts_result",
+              "quote": "Calderbrook lidera em finalizações, gols esperados e posse de bola"
+            }
+          ],
+          "duration_ms": 37509
+        },
+        {
+          "minute": 45,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_result",
+              "quote": "Das Spiel steht unentschieden mit je einem Tor von Calderbrook und Merridge."
+            }
+          ],
+          "duration_ms": 31405
+        },
+        {
+          "minute": 45,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21146
+        },
+        {
+          "minute": 45,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_result",
+              "quote": "المباراة متعادلة"
+            }
+          ],
+          "duration_ms": 31630
+        },
+        {
+          "minute": 70,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 26072
+        },
+        {
+          "minute": 70,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21829
+        },
+        {
+          "minute": 70,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_scorers",
+              "quote": "buts de Pedro Valença"
+            }
+          ],
+          "duration_ms": 31369
+        },
+        {
+          "minute": 70,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "contradicts_scorers",
+              "quote": "Merridge está liderando a partida com gols de Pedro Valença e Lorenzo Bassi."
+            }
+          ],
+          "duration_ms": 30675
+        },
+        {
+          "minute": 70,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 21730
+        },
+        {
+          "minute": 70,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "overstated",
+              "quote": "Merridge guida in diverse statistiche chiave, tra cui tiri, tiri in porta, expected goals e possesso palla."
+            },
+            {
+              "reason": "overstated",
+              "quote": "Merridge guida in diverse statistiche chiave, tra cui tiri, tiri in porta, expected goals e possesso palla."
+            },
+            {
+              "reason": "contradicts_roles",
+              "quote": "Pedro Valença è il giocatore più coinvolto nei passaggi di Merridge durante la partita."
+            }
+          ],
+          "duration_ms": 31838
+        },
+        {
+          "minute": 70,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": true,
+          "rejected": [
+            {
+              "reason": "overstated",
+              "quote": "تتصدر مريدج إحصائيات التسديدات، التسديدات على المرمى، والأهداف المتوقعة"
+            }
+          ],
+          "duration_ms": 31610
+        },
+        {
+          "minute": 90,
+          "language": "en",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23570
+        },
+        {
+          "minute": 90,
+          "language": "es",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23662
+        },
+        {
+          "minute": 90,
+          "language": "fr",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 26727
+        },
+        {
+          "minute": 90,
+          "language": "pt",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 25143
+        },
+        {
+          "minute": 90,
+          "language": "de",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 23142
+        },
+        {
+          "minute": 90,
+          "language": "it",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 22110
+        },
+        {
+          "minute": 90,
+          "language": "ar",
+          "published": true,
+          "fallback_reason": null,
+          "revised": false,
+          "rejected": [],
+          "duration_ms": 28602
+        }
+      ]
+    }
+  ]
+}

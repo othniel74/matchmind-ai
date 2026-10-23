@@ -1,10 +1,32 @@
-# Pitchlight
+<p align="center">
+  <img src="docs/images/landing.jpg" alt="Pitchlight landing page" width="100%">
+</p>
 
-**AI football commentary you can put on air: every statement is verified before anyone sees it.**
+<h1 align="center">Pitchlight</h1>
+
+<p align="center">
+  <b>AI football commentary you can put on air: every statement is verified before anyone sees it.</b>
+</p>
+
+<p align="center">
+  <a href="https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-online-c4f36b?style=flat-square"></a>
+  <a href="https://github.com/othniel74/pitchlight/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/othniel74/pitchlight/ci.yml?branch=main&label=CI&style=flat-square"></a>
+  <img alt="Microsoft Foundry" src="https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Framework-0078d4?style=flat-square">
+  <img alt="MCP" src="https://img.shields.io/badge/MCP-15%20tools-6b4fbb?style=flat-square">
+  <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-lightgrey?style=flat-square"></a>
+</p>
+
+<p align="center">
+  <a href="https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io">Live demo</a> ·
+  <a href="docs/demo/pitchlight-submission.mp4">Video (1:49)</a> ·
+  <a href="docs/EVALUATION.md">Evaluation results</a> ·
+  <a href="docs/SUBMISSION.md">Submission</a> ·
+  <a href="docs/README.md">Documentation</a>
+</p>
 
 Broadcasters, studios and fan apps want AI that explains a match live, in any language. They cannot put it on screen, because language models invent scorers, results and causes. Pitchlight lets agents write and **code verify**: a fact-checking agent extracts every statement, plain code checks each one against the match events, and anything unsupported is sent back or blocked. Nothing unverified is published.
 
-- **Proven live:** 20–21 of 21 agent-written recaps published across 7 languages in repeated runs, the rest blocked safely; 0 unsafe passes in 264 live fact checks; Microsoft Foundry groundedness 4.71 / 5.
+- **Proven live:** 62 of 63 agent-written recaps published across 7 languages, the other blocked safely; 0 wrong statements let through in 264 live fact checks; Microsoft Foundry groundedness 4.71 / 5.
 - **Ready for real data:** checked offline on 2,669 real matches from two providers, with every score matching (the product itself runs on synthetic data).
 - **Built on Azure:** Microsoft Foundry and Agent Framework agents that use Pitchlight's own MCP tools, Event Hubs, Container Apps scaling from 1 to 3 replicas on Azure Managed Redis, Azure AI Speech, managed identity throughout.
 
@@ -19,6 +41,33 @@ Broadcasters, studios and fan apps want AI that explains a match live, in any la
 
 All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional and synthetic. Pitchlight is not affiliated with the Premier League.
 
+<table>
+  <tr>
+    <td width="36%"><img src="docs/images/fact-check.png" alt="The fact checker blocking a false claim"></td>
+    <td width="64%"><img src="docs/images/workspace-recap.png" alt="Match workspace with verified moments, the fact checker, Ask the match and the AI recap"></td>
+  </tr>
+  <tr>
+    <td><sub>A false claim is blocked, with the reason for each statement.</sub></td>
+    <td><sub>The match workspace: verified moments, Ask the match, and AI recaps.</sub></td>
+  </tr>
+</table>
+
+## Evaluation results
+
+Measured live on Microsoft Foundry unless marked offline. Full method, per-run tables and known limits: **[docs/EVALUATION.md](docs/EVALUATION.md)**.
+
+| Area | Result | Report |
+| --- | --- | --- |
+| AI recaps through the multi-agent workflow (3 × 21, 7 languages) | **62 / 63 published**, 1 blocked, 0 published with an error | [json](docs/validation/recap-pass-rate.json) |
+| Fact checker on three held-out sets (264 checks) | **0 wrong statements let through**; 93–100% correct | [test](fact-check-test.json) · [h2](fact-check-holdout2.json) · [h3](fact-check-holdout3.json) |
+| Foundry release evaluation (Azure AI Evaluation) | **Groundedness 4.71 / 5**, 100% of numbers verified | [json](foundry-eval-report.json) |
+| Offline evaluation, 5 seeds (runs in CI) | **56 / 56** checks | [json](evaluation-report.json) |
+| Vision vs ground truth (751 frames) | Calibration 3 cm, players 87%, events 87.5% precision | [json](vision-report.json) |
+| Real data, offline: 64 World Cup matches (StatsBomb) | **81,931 events, 0 rejected**, 64 / 64 scores | [json](docs/validation/statsbomb-wc2022.json) |
+| Real data, offline: 2,605 matches (Sportmonks) | **2,605 / 2,605 scores** match | [json](docs/validation/sportmonks-2024-25.json) |
+| Scaling: 80 concurrent viewers | 1 → 3 replicas, **11,016 requests, 0 errors** | [json](docs/validation/load-test-scaled.json) |
+| Failover: feed leader killed mid-match | 1,079 accepted, 0 rejected, 0 duplicates | [doc](docs/PATH_TO_PRODUCTION.md) |
+
 ## What makes it different
 
 1. **Auto-eventing from video, scored against perfect ground truth.** Pitchlight renders its synthetic match as broadcast video. A vision pipeline then recovers players, ball, passes, goals and speeds from the pixels alone: pitch-line camera calibration, RT-DETR player detection, team and identity tracking, and ball tracking. Real footage has no exact labels; synthetic video does, so every stage is measured:
@@ -32,12 +81,12 @@ All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional 
    | Pass speed | within 2.6 km/h |
 
    It runs as an Azure Container Apps Job that streams the recovered events through Event Hubs into the live app. See [VISION.md](docs/VISION.md).
-2. **Agents that investigate, write and check one another.** Each recap starts with a researcher agent that decides which of Pitchlight's MCP tools to call and chooses the angle; code turns its choices into facts. A Microsoft Agent Framework workflow then writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 unsafe passes in 264 checks, and 20–21 of 21 live recaps across 7 languages published in repeated runs, with the researcher choosing each angle. Under every AI recap, the run is visible step by step: each agent's draft and every statement with code's verdict.
+2. **Agents that investigate, write and check one another.** Each recap starts with a researcher agent that decides which of Pitchlight's MCP tools to call and chooses the angle; code turns its choices into facts. A Microsoft Agent Framework workflow then writes narratives and recaps, and a fact-checking agent extracts every statement for **code** to verify, in any of 7 languages. Live results: 0 wrong statements let through in 264 checks, and 62 of 63 live recaps across 7 languages published, with the researcher choosing each angle. Under every AI recap, the run is visible step by step: each agent's draft and every statement with code's verdict.
 3. **Agents that use tools through MCP.** Pitchlight serves its verified match intelligence as an MCP server with 15 read-only tools. A Foundry agent answers viewers' questions by calling those tools, so the answer shown is the tool's verified result, never the model's own text. Copilot, Claude Desktop or any other MCP client can use the same tools.
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
 5. **Tactical change, explained honestly.** For every substitution and red card Pitchlight compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
 6. **Built on synthetic data, ready for real data.** The product, the demo and every test run on synthetic data, as the brief requires. To show the path to production, a provider adapter was checked offline against public StatsBomb open data: across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. A second integration reads Sportmonks records: across 2,605 real matches of three seasons, every score matched the official result, with 193 own goals and 47 penalty shootouts handled. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
-7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, about 270 backend tests, browser tests against the live site, and CI on every push.
+7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, 313 backend tests, browser tests against the live site, and CI on every push.
 
 ## The pipeline
 
@@ -61,13 +110,14 @@ flowchart LR
     FJ[Container Apps Job<br/>feed producer]
     VJ[Container Apps Job<br/>vision: RT-DETR on CPU]
     EH[(Event Hubs<br/>match-events)]
-    subgraph CA["Container App: matchmind-demo"]
+    subgraph CA["Container App: pitchlight (1-3 replicas)"]
       API[FastAPI: validation, claims,<br/>moments, knowledge graph]
       WF[Agent Framework workflow<br/>writers, fact checker, gate]
       MCP[MCP server /mcp<br/>15 read-only tools]
       UI[React web app<br/>workspace and Broadcast Studio]
     end
     MG[(Memgraph<br/>sidecar)]
+    RD[(Azure Managed Redis<br/>shared state)]
     FD[Microsoft Foundry<br/>gpt-4.1-mini, evaluations]
     AI[Application Insights<br/>Foundry tracing]
   end
@@ -75,6 +125,7 @@ flowchart LR
   VID --> VJ --> EH
   EH --> API
   API <--> MG
+  API <--> RD
   API --> WF --> FD
   WF -. agent calls tools .-> MCP
   API --> UI
@@ -90,7 +141,8 @@ Every Azure call uses **managed identity**; no keys are stored anywhere. Product
 | **Microsoft Foundry** | `gpt-4.1-mini` for every agent; release evaluations with Azure AI Evaluation; tracing of agent, model and MCP tool calls. See [FOUNDRY.md](docs/FOUNDRY.md). |
 | **Microsoft Agent Framework** | The multi-agent workflow (typed executors, conditional edges, handoffs, retries, fallback) and the MCP-calling Q&A agent. See [AGENT_WORKFLOW.md](docs/AGENT_WORKFLOW.md). |
 | **Model Context Protocol** | 15 read-only, time-scoped match tools at `/mcp` and over stdio; `.vscode/mcp.json` for GitHub Copilot agent mode. See [MCP.md](docs/MCP.md). |
-| **Azure Container Apps** | The API and web app, with a Memgraph sidecar |
+| **Azure Container Apps** | The API and web app, with a Memgraph sidecar; scales from 1 to 3 replicas on HTTP load |
+| **Azure Managed Redis** | Shared state across replicas: feed leader lease and relay, model-call cache, visitor limits, kickoff locks |
 | **Azure Container Apps Jobs** | The feed producer, and the vision job that turns broadcast video into events |
 | **Azure Event Hubs** | The live match feed: Entra ID only (SAS disabled), ordered per match, carrying the data feed and events recovered from video. See [EVENT_DRIVEN.md](docs/EVENT_DRIVEN.md). |
 | **Application Insights / OpenTelemetry** | Traces, connected to the Foundry project |
@@ -140,7 +192,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 306 passed with the agent SDK; the core-only suite also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 313 passed with the agent SDK; the core-only suite (224) also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
 | Browser | `cd frontend && npx playwright test` (also against the live URL) | 7 passed |
@@ -149,7 +201,7 @@ Without Azure settings, everything except the model-written text works offline, 
 
 ## Documentation
 
-Start with the [documentation index](docs/README.md). Key documents: [Brief coverage](docs/HACKATHON_COVERAGE.md) · [Auto-eventing from video](docs/VISION.md) · [Tactical changes](docs/TACTICS.md) · [Real data providers](docs/PROVIDERS.md) · [Agent workflow](docs/AGENT_WORKFLOW.md) · [Foundry](docs/FOUNDRY.md) · [MCP](docs/MCP.md) · [Event-driven feed](docs/EVENT_DRIVEN.md) · [Knowledge graph](docs/GRAPH_INTELLIGENCE_ARCHITECTURE.md) · [Deployment](docs/DEPLOYMENT.md) · [Path to production](docs/PATH_TO_PRODUCTION.md)
+Start with the [documentation index](docs/README.md). Key documents: [Evaluation results](docs/EVALUATION.md) · [Brief coverage](docs/HACKATHON_COVERAGE.md) · [Auto-eventing from video](docs/VISION.md) · [Tactical changes](docs/TACTICS.md) · [Real data providers](docs/PROVIDERS.md) · [Agent workflow](docs/AGENT_WORKFLOW.md) · [Foundry](docs/FOUNDRY.md) · [MCP](docs/MCP.md) · [Event-driven feed](docs/EVENT_DRIVEN.md) · [Knowledge graph](docs/GRAPH_INTELLIGENCE_ARCHITECTURE.md) · [Deployment](docs/DEPLOYMENT.md) · [Path to production](docs/PATH_TO_PRODUCTION.md)
 
 ## Licence
 
