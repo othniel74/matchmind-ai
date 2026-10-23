@@ -1,7 +1,5 @@
 # Pitchlight
 
-*Formerly MatchMind. Some Azure resource names and settings (`MATCHMIND_*`) keep the old name; the old demo address redirects here.*
-
 **AI football commentary you can put on air: every statement is verified before anyone sees it.**
 
 Broadcasters, studios and fan apps want AI that explains a match live, in any language. They cannot put it on screen, because language models invent scorers, results and causes. Pitchlight lets agents write and **code verify**: a fact-checking agent extracts every statement, plain code checks each one against the match events, and anything unsupported is sent back or blocked. Nothing unverified is published.
