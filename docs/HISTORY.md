@@ -2,9 +2,9 @@
 
 # MatchMind AI
 
-## Hackathon build — 20 October 2026
+## Hackathon build â€” 20 October 2026
 
-**Live demo:** https://matchmind-demo.mangograss-8c9a0131.uksouth.azurecontainerapps.io (read-only, synthetic data). **Video tour:** `docs/demo/matchmind-demo.webm`.
+**Live demo:** https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io(read-only, synthetic data). **Video tour:** `docs/demo/matchmind-demo.webm`.
 
 MatchMind turns synthetic football events into explainable match intelligence, in one pipeline:
 
@@ -40,10 +40,10 @@ The synthetic match generator is now possession-based (`possession-v3`), with ab
 - halves and kick-offs
 - set pieces: throw-ins, goal kicks, corners, free kicks and penalties
 - fouls and cards, including sending-offs
-- 3–5 substitutions per team
+- 3â€“5 substitutions per team
 - shot xG and time-based possession
 
-Each seed also has a hidden scenario label, used only for evaluation. The default demo match now ends 2–3.
+Each seed also has a hidden scenario label, used only for evaluation. The default demo match now ends 2â€“3.
 
 Insights now separate fact from interpretation:
 - The observed count change is checked exactly against source events and may publish.
@@ -65,13 +65,13 @@ Live results on 19 October 2026:
 - the fact checker got 168/168 correct on a held-out multilingual test set, with no wrong statement let through
 - traces arrive complete in Application Insights
 
-Browser smoke tests (`npm run test:e2e`) pass. The backend suite passes 168 tests. Statements below about 360 events, a 1–2 score and 40/40 checks are historical.
+Browser smoke tests (`npm run test:e2e`) pass. The backend suite passes 168 tests. Statements below about 360 events, a 1â€“2 score and 40/40 checks are historical.
 
 ## Current verified state 18 October 2026
 
 **Additional real datasets are integrated locally:** choose **Metrica - tracking + events** for a synchronized 25 Hz sample with event evidence and source-derived counts, or **StatsBomb - real event analysis** for Argentina v France (2022 final), shot/xG analysis and NetworkX passing networks. These research views use separate matches and clocks. Raw files are kept outside the frontend bundle and excluded from deployment images. See [source terms, import and verification](REAL_DATA_SOURCES.md).
 
-Broadcast Studio now offers **Real tracking � SkillCorner**: a free local two-minute historical excerpt with recorded player/ball positions, play/pause, seeking, speed controls and detected/extrapolated/unavailable labels. This is separate from the synthetic score and insights. See [tracking replay details](REAL_TRACKING_REPLAY.md).
+Broadcast Studio now offers **Real tracking · SkillCorner**: a free local two-minute historical excerpt with recorded player/ball positions, play/pause, seeking, speed controls and detected/extrapolated/unavailable labels. This is separate from the synthetic score and insights. See [tracking replay details](REAL_TRACKING_REPLAY.md).
 
 Local frontend build and browser replay now work. Scores are calculated from synthetic shot outcomes, and generated completed passes have explicit same-team recipients. NetworkX uses those recipients; legacy event fixtures without recipients retain a labeled proxy fallback.
 
@@ -103,11 +103,11 @@ Open http://127.0.0.1:5173. Vite proxies to the local backend. See [today's veri
 
 ---
 
-# MatchMind AI — M1 Working Prototype
+# MatchMind AI â€” M1 Working Prototype
 
 A new synthetic-football intelligence demo built for the Microsoft Premier League Hackathon. It generates deterministic synthetic match events, computes statistics, detects changes in territorial activity, attaches source event IDs, and streams results to a React dashboard.
 
-**Scope:** This is the first M1 prototype, not the finished hackathon entry or a production-ready commercial system. AI agents, Microsoft Foundry, persistence, licensed live feeds, multilingual generation and broadcast-grade overlay scheduling are future milestones. Current insights are deterministic and rule-based. Scores are placeholders (0–0), not calculated from goals. Teams and events are fictional.
+**Scope:** This is the first M1 prototype, not the finished hackathon entry or a production-ready commercial system. AI agents, Microsoft Foundry, persistence, licensed live feeds, multilingual generation and broadcast-grade overlay scheduling are future milestones. Current insights are deterministic and rule-based. Scores are placeholders (0â€“0), not calculated from goals. Teams and events are fictional.
 
 ## Quick start
 
@@ -163,7 +163,7 @@ Next: strengthen the simulator and match-state semantics, add PostgreSQL and rep
 - `GET /api/state?minute=67&seed=20261020` returns an atomic snapshot for debugging and evaluation.
 - 10 backend tests passed in the authoring environment (`python -m pytest -q`).
 
-**Data caveat:** The generator models discrete events, not tracking or timed possession. Its advanced-area event counts are **not** a validated measure of actual possession or tactical causation. The demo scoreboard is intentionally fixed at 0–0 because shot-to-goal outcomes are not yet modeled. Full Docker/browser verification and Azure deployment have **not** been performed.
+**Data caveat:** The generator models discrete events, not tracking or timed possession. Its advanced-area event counts are **not** a validated measure of actual possession or tactical causation. The demo scoreboard is intentionally fixed at 0â€“0 because shot-to-goal outcomes are not yet modeled. Full Docker/browser verification and Azure deployment have **not** been performed.
 
 ## M2 preparation: evidence-gated narrative API (October 2026)
 
@@ -187,7 +187,7 @@ verification remain outstanding.
 ## M2 Agent runtime (experimental Azure adapter)
 
 `GET /api/agents/run?minute=75&audience=fan&language=en` executes an evidence-gated
-three-agent sequence (tactical analyst → storyteller → audience editor) after a
+three-agent sequence (tactical analyst â†’ storyteller â†’ audience editor) after a
 deterministic evidence gate. Without Microsoft Foundry credentials or optional SDK,
 it returns the tested deterministic fallback with an execution trace.
 
@@ -215,15 +215,15 @@ Start with `docker compose up --build` on a machine with Docker and internet acc
 
 ## M4 offline evaluation and submission readiness (October 2026)
 
-- `cd backend && PYTHONPATH=. python -m pytest -q` — 25 tests passed in authoring environment.
-- `cd backend && PYTHONPATH=. python -m evaluation.run --output ../evaluation-report.json` — 40/40 synthetic offline checks passed across five fixed seeds.
+- `cd backend && PYTHONPATH=. python -m pytest -q` â€” 25 tests passed in authoring environment.
+- `cd backend && PYTHONPATH=. python -m evaluation.run --output ../evaluation-report.json` â€” 40/40 synthetic offline checks passed across five fixed seeds.
 - See `docs/RELEASE_CHECKLIST.md` for explicit verified vs unverified submission requirements.
 - GitHub Actions runs backend tests and evaluation and uploads the evaluation JSON as a CI artifact; frontend build is a separate job.
 - **Not yet verified:** frontend compilation (npm installation timed out), Docker/browser end-to-end run (Docker unavailable), Azure hosting, real Microsoft Agent Framework/Foundry integration. These must be completed before a hackathon submission.
 
 ## Consolidated VS Code handover
 
-See `docs/IMPLEMENTATION_STATUS.md`, `docs/VSCODE_SETUP_AND_TEST_PLAN.md`, and `docs/FUTURE_IMPLEMENTATION_ROADMAP.md` for an accurate M1–M4 implementation inventory, complete test matrix, and prioritized future work. The all-in-one reconstruction file and full ZIP are equivalent distributions of this source tree.
+See `docs/IMPLEMENTATION_STATUS.md`, `docs/VSCODE_SETUP_AND_TEST_PLAN.md`, and `docs/FUTURE_IMPLEMENTATION_ROADMAP.md` for an accurate M1â€“M4 implementation inventory, complete test matrix, and prioritized future work. The all-in-one reconstruction file and full ZIP are equivalent distributions of this source tree.
 
 
 ## Graph intelligence (NetworkX + Memgraph / Neo4j)
