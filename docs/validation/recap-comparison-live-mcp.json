@@ -1,0 +1,1071 @@
+{
+  "generated_at": "2026-10-23T09:16:19.733022+00:00",
+  "live_requested": true,
+  "method": "Same synthetic cases; templates, one writer and full workflow. Sequential, no API cache.",
+  "limits": [
+    "Checker acceptance uses the product checker, not an independent accuracy assessment.",
+    "Templates contain verified numbers; the free-text checker forbids digits, so templates are not scored by it.",
+    "Human quality and factual review are pending. Offline timings do not measure model latency.",
+    "Cost is unmeasured: reconcile provider usage and billing for an isolated run before reporting it.",
+    "Full workflow research requires a running MCP server. Inspect steps for research fallback.",
+    "Small samples and execution order can affect latency; repeat before making performance claims."
+  ],
+  "summary": {
+    "template": {
+      "runs": 3,
+      "errors": 0,
+      "fallbacks": 0,
+      "p50_ms": 108.41,
+      "p95_ms": 255.73,
+      "checker_accepted": 0,
+      "checker_evaluated": 0,
+      "cost_usd": null
+    },
+    "single_agent": {
+      "runs": 3,
+      "errors": 0,
+      "fallbacks": 0,
+      "p50_ms": 4592.29,
+      "p95_ms": 11759.95,
+      "checker_accepted": 1,
+      "checker_evaluated": 3,
+      "cost_usd": null
+    },
+    "full_workflow": {
+      "runs": 3,
+      "errors": 0,
+      "fallbacks": 0,
+      "p50_ms": 24469.52,
+      "p95_ms": 26225.35,
+      "checker_accepted": 3,
+      "checker_evaluated": 3,
+      "cost_usd": null
+    }
+  },
+  "runs": [
+    {
+      "seed": 20261020,
+      "minute": 45,
+      "language": "en",
+      "mode": "template",
+      "status": "ok",
+      "text": "Half-time — Calderbrook 1–1 Merridge before minute 45.\n9′ Pedro Valença scores for Merridge\n24′ Theo Marchetti scores for Calderbrook\nKey statistics:\n• Before minute 45, shots: Calderbrook 5, Merridge 4.\n• Before minute 45, shots on target: Calderbrook 2, Merridge 3.\n• Before minute 45, expected goals (xG): Calderbrook 1.08, Merridge 0.98.\n• Before minute 45, possession: Calderbrook 51.1%, Merridge 48.9%.\n• Before minute 45, pass completion: Calderbrook 81.2%, Merridge 80.5%.\n• Before minute 45, corners: Calderbrook 0, Merridge 1.\n• Before minute 45, fouls: Calderbrook 4, Merridge 6.\n• Before minute 45, yellow cards: Calderbrook 0, Merridge 0.\nGame flow: Calderbrook in control for 1 min; open, scrappy spells for 9 min\nStandout player: Theo Marchetti (Calderbrook), rating 8.2",
+      "duration_ms": 83.12,
+      "checker_accepted": null
+    },
+    {
+      "seed": 20261020,
+      "minute": 45,
+      "language": "en",
+      "mode": "single_agent",
+      "checker_accepted": false,
+      "text": "The match is currently level, with each side having scored once. Calderbrook has taken the lead in shots and expected goals, while Merridge leads in shots on target and corners. Both teams have found ways to advance into attacking areas.",
+      "status": "ok",
+      "duration_ms": 11759.95,
+      "check": {
+        "text": "The match is currently level, with each side having scored once. Calderbrook has taken the lead in shots and expected goals, while Merridge leads in shots on target and corners. Both teams have found ways to advance into attacking areas.",
+        "minute": 45,
+        "statements": [
+          {
+            "quote": "The match is currently level, with each side having scored once.",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook has taken the lead in shots and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook has taken the lead in shots and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge leads in shots on target and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge leads in shots on target and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Both teams have found ways to advance into attacking areas",
+            "type": "activity_change",
+            "supported": false,
+            "reason": "unsupported_statement"
+          },
+          {
+            "quote": "Both teams have found ways to advance into attacking areas",
+            "type": "activity_change",
+            "supported": false,
+            "reason": "unsupported_statement"
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:corners:both:45",
+          "claim:compare:goals:both:45",
+          "claim:compare:shots:both:45",
+          "claim:compare:shots_on_target:both:45",
+          "claim:compare:xg:both:45"
+        ],
+        "failure": null,
+        "publishable": false
+      },
+      "check_duration_ms": 6574.64
+    },
+    {
+      "seed": 20261020,
+      "minute": 45,
+      "language": "en",
+      "mode": "full_workflow",
+      "checker_accepted": true,
+      "text": "The match is level with one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively. Calderbrook leads in shots and expected goals, while Merridge leads in shots on target. Ennis Varga is the player most involved in passing for Calderbrook, and Kofi Asante-Reyes holds that role for Merridge.",
+      "status": "ok",
+      "fallback_reason": null,
+      "steps": [
+        {
+          "agent": "evidence_gate",
+          "status": "passed",
+          "mode": "recap"
+        },
+        {
+          "agent": "insight_ranker",
+          "status": "skipped",
+          "mode": "recap"
+        },
+        {
+          "agent": "match_researcher",
+          "status": "completed",
+          "tool_calls": [
+            {
+              "tool": "match_state",
+              "arguments": {
+                "minute": 45
+              }
+            },
+            {
+              "tool": "list_claims",
+              "arguments": {
+                "minute": 45
+              }
+            },
+            {
+              "tool": "network_roles",
+              "arguments": {
+                "team": "home",
+                "minute": 45
+              }
+            },
+            {
+              "tool": "network_roles",
+              "arguments": {
+                "team": "away",
+                "minute": 45
+              }
+            },
+            {
+              "tool": "key_moments",
+              "arguments": {
+                "minute": 45
+              }
+            },
+            {
+              "tool": "goal_buildups",
+              "arguments": {
+                "minute": 45
+              }
+            }
+          ],
+          "chose": {
+            "metrics": [
+              "shots",
+              "shots_on_target",
+              "xg"
+            ],
+            "roles": [
+              {
+                "team": "home",
+                "role": "hub",
+                "player": "Ennis Varga"
+              },
+              {
+                "team": "away",
+                "role": "hub",
+                "player": "Kofi Asante-Reyes"
+              }
+            ]
+          },
+          "angle": "An intense first half sees Calderbrook and Merridge equal at 1-1 with similar xG and shot numbers in an open, high-tempo game.",
+          "latency_ms": 9149
+        },
+        {
+          "agent": "tactical_analyst",
+          "status": "completed",
+          "output": "The match is level with Calderbrook and Merridge each having scored one goal, through Theo Marchetti and Pedro Valença respectively. Calderbrook leads the statistics for shots and expected goals, while Merridge leads in shots on target. Ennis Varga has been the player most involved in passing for Calderbrook, and Kofi Asante-Reyes holds that role for Merridge.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 2686
+        },
+        {
+          "agent": "match_storyteller",
+          "status": "completed",
+          "output": "The match is level with one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively. Calderbrook leads in shots and expected goals, while Merridge leads in shots on target. Ennis Varga has been the player most involved in passing for Calderbrook, and Kofi Asante-Reyes holds that role for Merridge.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1510
+        },
+        {
+          "agent": "audience_editor",
+          "status": "completed",
+          "output": "The match is level with one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively. Calderbrook leads in shots and expected goals, while Merridge leads in shots on target. Ennis Varga is the player most involved in passing for Calderbrook, and Kofi Asante-Reyes holds that role for Merridge.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 3074
+        },
+        {
+          "agent": "fact_checker",
+          "attempts": 1,
+          "statements": 8,
+          "checked": [
+            {
+              "quote": "The match is level with one goal each by Calderbrook and Merridge",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Calderbrook leads in shots and expected goals",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Calderbrook leads in shots and expected goals",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge leads in shots on target",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Ennis Varga is the player most involved in passing for Calderbrook",
+              "type": "role",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Kofi Asante-Reyes holds that role for Merridge",
+              "type": "role",
+              "supported": true,
+              "reason": null
+            }
+          ],
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 7761,
+          "status": "verified"
+        },
+        {
+          "agent": "publication_gate",
+          "status": "approved",
+          "evidence_validated": true,
+          "fact_checked": true
+        }
+      ],
+      "duration_ms": 24469.52,
+      "check": {
+        "text": "The match is level with one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively. Calderbrook leads in shots and expected goals, while Merridge leads in shots on target. Ennis Varga is the player most involved in passing for Calderbrook, and Kofi Asante-Reyes holds that role for Merridge.",
+        "minute": 45,
+        "statements": [
+          {
+            "quote": "The match is level with one goal each by Calderbrook and Merridge",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "one goal each by Calderbrook and Merridge, scored by Theo Marchetti and Pedro Valença respectively",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook leads in shots and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook leads in shots and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge leads in shots on target",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Ennis Varga is the player most involved in passing for Calderbrook",
+            "type": "role",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Kofi Asante-Reyes holds that role for Merridge",
+            "type": "role",
+            "supported": true,
+            "reason": null
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:goals:both:45",
+          "claim:compare:shots:both:45",
+          "claim:compare:shots_on_target:both:45",
+          "claim:compare:xg:both:45"
+        ],
+        "failure": null,
+        "publishable": true
+      },
+      "check_duration_ms": 13254.02
+    },
+    {
+      "seed": 20261020,
+      "minute": 70,
+      "language": "en",
+      "mode": "template",
+      "status": "ok",
+      "text": "Match so far — Calderbrook 1–3 Merridge before minute 70.\n9′ Pedro Valença scores for Merridge\n24′ Theo Marchetti scores for Calderbrook\n52′ Lorenzo Bassi scores for Merridge\n63′ Pedro Valença scores for Merridge\nKey statistics:\n• Before minute 70, shots: Calderbrook 8, Merridge 10.\n• Before minute 70, shots on target: Calderbrook 4, Merridge 6.\n• Before minute 70, expected goals (xG): Calderbrook 1.18, Merridge 3.05.\n• Before minute 70, possession: Calderbrook 47.3%, Merridge 52.7%.\n• Before minute 70, pass completion: Calderbrook 79.2%, Merridge 80.7%.\n• Before minute 70, corners: Calderbrook 2, Merridge 2.\n• Before minute 70, fouls: Calderbrook 8, Merridge 8.\n• Before minute 70, yellow cards: Calderbrook 0, Merridge 0.\nGame flow: Merridge in control for 3 min; open, scrappy spells for 18 min\nStandout player: Pedro Valença (Merridge), rating 9",
+      "duration_ms": 108.41,
+      "checker_accepted": null
+    },
+    {
+      "seed": 20261020,
+      "minute": 70,
+      "language": "en",
+      "mode": "single_agent",
+      "checker_accepted": true,
+      "text": "Merridge is leading Calderbrook with multiple goals scored by their forwards, including Pedro Valença and Lorenzo Bassi. Calderbrook has found the net once through Theo Marchetti. Merridge has recorded more shots, more shots on target, and a higher expected goals tally. Both teams have an equal number of corners.",
+      "status": "ok",
+      "duration_ms": 3480.69,
+      "check": {
+        "text": "Merridge is leading Calderbrook with multiple goals scored by their forwards, including Pedro Valença and Lorenzo Bassi. Calderbrook has found the net once through Theo Marchetti. Merridge has recorded more shots, more shots on target, and a higher expected goals tally. Both teams have an equal number of corners.",
+        "minute": 70,
+        "statements": [
+          {
+            "quote": "Merridge is leading Calderbrook",
+            "type": "result",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "multiple goals scored by their forwards, including Pedro Valença and Lorenzo Bassi",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "multiple goals scored by their forwards, including Pedro Valença and Lorenzo Bassi",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook has found the net once through Theo Marchetti",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge has recorded more shots",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge has recorded more shots on target",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge has recorded a higher expected goals tally",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Both teams have an equal number of corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:corners:both:70",
+          "claim:compare:shots:both:70",
+          "claim:compare:shots_on_target:both:70",
+          "claim:compare:xg:both:70",
+          "claim:score:goals:both:70"
+        ],
+        "failure": null,
+        "publishable": true
+      },
+      "check_duration_ms": 9607.42
+    },
+    {
+      "seed": 20261020,
+      "minute": 70,
+      "language": "en",
+      "mode": "full_workflow",
+      "checker_accepted": true,
+      "text": "Merridge is leading against Calderbrook. Pedro Valença has scored two goals and Lorenzo Bassi has also scored for Merridge. Theo Marchetti has scored for Calderbrook, who are trailing in the match. Merridge leads in shots on target, expected goals, and possession. Theo Marchetti is the player most involved in passing for Calderbrook, while Bastien Moreau-Diallo is the player most involved in passing for Merridge.",
+      "status": "ok",
+      "fallback_reason": null,
+      "steps": [
+        {
+          "agent": "evidence_gate",
+          "status": "passed",
+          "mode": "recap"
+        },
+        {
+          "agent": "insight_ranker",
+          "status": "skipped",
+          "mode": "recap"
+        },
+        {
+          "agent": "match_researcher",
+          "status": "completed",
+          "tool_calls": [
+            {
+              "tool": "match_state",
+              "arguments": {
+                "minute": 70
+              }
+            },
+            {
+              "tool": "list_claims",
+              "arguments": {
+                "minute": 70
+              }
+            },
+            {
+              "tool": "network_roles",
+              "arguments": {
+                "team": "home",
+                "minute": 70
+              }
+            },
+            {
+              "tool": "network_roles",
+              "arguments": {
+                "team": "away",
+                "minute": 70
+              }
+            },
+            {
+              "tool": "key_moments",
+              "arguments": {
+                "minute": 70,
+                "limit": 5
+              }
+            },
+            {
+              "tool": "goal_buildups",
+              "arguments": {
+                "minute": 70
+              }
+            }
+          ],
+          "chose": {
+            "metrics": [
+              "shots_on_target",
+              "xg",
+              "possession"
+            ],
+            "roles": [
+              {
+                "team": "home",
+                "role": "hub",
+                "player": "Theo Marchetti"
+              },
+              {
+                "team": "away",
+                "role": "hub",
+                "player": "Bastien Moreau-Diallo"
+              }
+            ]
+          },
+          "angle": "Merridge holds a strong three-goal lead with higher xG and more shots on target, driven by passing hub Bastien Moreau-Diallo, while Calderbrook relies on Theo Marchetti as their passing hub.",
+          "latency_ms": 8549
+        },
+        {
+          "agent": "tactical_analyst",
+          "status": "completed",
+          "output": "Merridge leads the match against Calderbrook. Pedro Valença has scored twice for Merridge, while Lorenzo Bassi has added another goal for Merridge. Theo Marchetti has scored for Calderbrook, who trails in the match. Merridge leads in shots on target, expected goals, and possession. Theo Marchetti is the player most involved in Calderbrook's passing, whereas Bastien Moreau-Diallo holds that role for Merridge.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1658
+        },
+        {
+          "agent": "match_storyteller",
+          "status": "completed",
+          "output": "Merridge is leading against Calderbrook. Pedro Valença has scored two goals for Merridge, and Lorenzo Bassi has also scored for Merridge. Theo Marchetti has scored for Calderbrook, who are trailing in the match. Merridge leads in shots on target, expected goals, and possession. Theo Marchetti is the player most involved in passing for Calderbrook, while Bastien Moreau-Diallo is the player most involved in passing for Merridge.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1874
+        },
+        {
+          "agent": "audience_editor",
+          "status": "completed",
+          "output": "Merridge is leading against Calderbrook. Pedro Valença has scored two goals and Lorenzo Bassi has also scored for Merridge. Theo Marchetti has scored for Calderbrook, who are trailing in the match. Merridge leads in shots on target, expected goals, and possession. Theo Marchetti is the player most involved in passing for Calderbrook, while Bastien Moreau-Diallo is the player most involved in passing for Merridge.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1569
+        },
+        {
+          "agent": "fact_checker",
+          "attempts": 1,
+          "statements": 10,
+          "checked": [
+            {
+              "quote": "Merridge is leading against Calderbrook.",
+              "type": "result",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Pedro Valença has scored two goals",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Lorenzo Bassi has also scored for Merridge",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Theo Marchetti has scored for Calderbrook",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Calderbrook are trailing in the match",
+              "type": "result",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge leads in shots on target",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge leads in expected goals",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge leads in possession",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Theo Marchetti is the player most involved in passing for Calderbrook",
+              "type": "role",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Bastien Moreau-Diallo is the player most involved in passing for Merridge",
+              "type": "role",
+              "supported": true,
+              "reason": null
+            }
+          ],
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 10085,
+          "status": "verified"
+        },
+        {
+          "agent": "publication_gate",
+          "status": "approved",
+          "evidence_validated": true,
+          "fact_checked": true
+        }
+      ],
+      "duration_ms": 23990.83,
+      "check": {
+        "text": "Merridge is leading against Calderbrook. Pedro Valença has scored two goals and Lorenzo Bassi has also scored for Merridge. Theo Marchetti has scored for Calderbrook, who are trailing in the match. Merridge leads in shots on target, expected goals, and possession. Theo Marchetti is the player most involved in passing for Calderbrook, while Bastien Moreau-Diallo is the player most involved in passing for Merridge.",
+        "minute": 70,
+        "statements": [
+          {
+            "quote": "Merridge is leading against Calderbrook.",
+            "type": "result",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Pedro Valença has scored two goals",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Lorenzo Bassi has also scored for Merridge",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Theo Marchetti has scored for Calderbrook",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook are trailing in the match",
+            "type": "result",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge leads in shots on target, expected goals, and possession",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge leads in shots on target, expected goals, and possession",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge leads in shots on target, expected goals, and possession",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Theo Marchetti is the player most involved in passing for Calderbrook",
+            "type": "role",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Bastien Moreau-Diallo is the player most involved in passing for Merridge",
+            "type": "role",
+            "supported": true,
+            "reason": null
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:possession:both:70",
+          "claim:compare:shots_on_target:both:70",
+          "claim:compare:xg:both:70",
+          "claim:score:goals:both:70"
+        ],
+        "failure": null,
+        "publishable": true
+      },
+      "check_duration_ms": 10775.42
+    },
+    {
+      "seed": 20261020,
+      "minute": 90,
+      "language": "en",
+      "mode": "template",
+      "status": "ok",
+      "text": "Full-time — Calderbrook 2–3 Merridge before minute 90.\n9′ Pedro Valença scores for Merridge\n24′ Theo Marchetti scores for Calderbrook\n52′ Lorenzo Bassi scores for Merridge\n63′ Pedro Valença scores for Merridge\n72′ Owen Tackett scores for Calderbrook\nKey statistics:\n• Before minute 90, shots: Calderbrook 9, Merridge 18.\n• Before minute 90, shots on target: Calderbrook 5, Merridge 10.\n• Before minute 90, expected goals (xG): Calderbrook 1.3, Merridge 4.5.\n• Before minute 90, possession: Calderbrook 45.8%, Merridge 54.2%.\n• Before minute 90, pass completion: Calderbrook 79.7%, Merridge 79.1%.\n• Before minute 90, corners: Calderbrook 2, Merridge 5.\n• Before minute 90, fouls: Calderbrook 12, Merridge 9.\n• Before minute 90, yellow cards: Calderbrook 1, Merridge 0.\nGame flow: Calderbrook in control for 3 min; open, scrappy spells for 27 min\nPlayer of the match: Pedro Valença (Merridge), rating 9",
+      "duration_ms": 255.73,
+      "checker_accepted": null
+    },
+    {
+      "seed": 20261020,
+      "minute": 90,
+      "language": "en",
+      "mode": "single_agent",
+      "checker_accepted": false,
+      "text": "Merridge took the lead in attacking areas with multiple players contributing goals, while Calderbrook also found the net through their forwards. Merridge had a higher number of shots, more attempts on target, and produced a greater expected goals total. They also registered more corners and maintained longer possession periods throughout the match.",
+      "status": "ok",
+      "duration_ms": 4592.29,
+      "check": {
+        "text": "Merridge took the lead in attacking areas with multiple players contributing goals, while Calderbrook also found the net through their forwards. Merridge had a higher number of shots, more attempts on target, and produced a greater expected goals total. They also registered more corners and maintained longer possession periods throughout the match.",
+        "minute": 90,
+        "statements": [
+          {
+            "quote": "Merridge took the lead in attacking areas",
+            "type": "activity_change",
+            "supported": false,
+            "reason": "unsupported_statement"
+          },
+          {
+            "quote": "multiple players contributing goals",
+            "type": "scorer",
+            "supported": false,
+            "reason": "contradicts_scorers"
+          },
+          {
+            "quote": "Calderbrook also found the net through their forwards",
+            "type": "scorer",
+            "supported": false,
+            "reason": "contradicts_scorers"
+          },
+          {
+            "quote": "Merridge had a higher number of shots",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "more attempts on target",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "produced a greater expected goals total",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "They also registered more corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "maintained longer possession periods throughout the match",
+            "type": "comparison",
+            "supported": false,
+            "reason": "unsupported_mentions_match_time"
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:corners:both:90",
+          "claim:compare:possession:both:90",
+          "claim:compare:shots:both:90",
+          "claim:compare:shots_on_target:both:90",
+          "claim:compare:xg:both:90"
+        ],
+        "failure": null,
+        "publishable": false
+      },
+      "check_duration_ms": 8721.14
+    },
+    {
+      "seed": 20261020,
+      "minute": 90,
+      "language": "en",
+      "mode": "full_workflow",
+      "checker_accepted": true,
+      "text": "Merridge won the match against Calderbrook with goals from Pedro Valença, who scored twice, and Lorenzo Bassi. Calderbrook's goals came from Theo Marchetti and Owen Tackett. Merridge led in shots, shots on target, and expected goals. Bastien Moreau-Diallo was the player most involved in Merridge's passing, while Samuel Adeyemi-Brook was the same for Calderbrook.",
+      "status": "ok",
+      "fallback_reason": null,
+      "steps": [
+        {
+          "agent": "evidence_gate",
+          "status": "passed",
+          "mode": "recap"
+        },
+        {
+          "agent": "insight_ranker",
+          "status": "skipped",
+          "mode": "recap"
+        },
+        {
+          "agent": "match_researcher",
+          "status": "completed",
+          "tool_calls": [
+            {
+              "tool": "match_state",
+              "arguments": {
+                "minute": 90
+              }
+            },
+            {
+              "tool": "list_claims",
+              "arguments": {
+                "minute": 90
+              }
+            },
+            {
+              "tool": "network_roles",
+              "arguments": {
+                "team": "home",
+                "minute": 90
+              }
+            },
+            {
+              "tool": "network_roles",
+              "arguments": {
+                "team": "away",
+                "minute": 90
+              }
+            },
+            {
+              "tool": "key_moments",
+              "arguments": {
+                "minute": 90
+              }
+            },
+            {
+              "tool": "goal_buildups",
+              "arguments": {
+                "minute": 90
+              }
+            }
+          ],
+          "chose": {
+            "metrics": [
+              "shots",
+              "shots_on_target",
+              "xg"
+            ],
+            "roles": [
+              {
+                "team": "home",
+                "role": "hub",
+                "player": "Samuel Adeyemi-Brook"
+              },
+              {
+                "team": "away",
+                "role": "hub",
+                "player": "Bastien Moreau-Diallo"
+              }
+            ]
+          },
+          "angle": "Merridge secured a 3-2 victory with dominant offensive stats and key players leading passing roles.",
+          "latency_ms": 7963
+        },
+        {
+          "agent": "tactical_analyst",
+          "status": "completed",
+          "output": "Merridge won their match against Calderbrook. The scorers for Merridge were Pedro Valença, who scored twice, and Lorenzo Bassi. Calderbrook's goals were scored by Theo Marchetti and Owen Tackett. Merridge led in shots, shots on target, and expected goals. The player most involved in Calderbrook's passing was Samuel Adeyemi-Brook, while Bastien Moreau-Diallo was the most involved in Merridge's passing.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 2125
+        },
+        {
+          "agent": "match_storyteller",
+          "status": "completed",
+          "output": "Merridge won the match against Calderbrook. The goals for Merridge were scored by Pedro Valença, who scored twice, and Lorenzo Bassi. Calderbrook's goals were scored by Theo Marchetti and Owen Tackett. Merridge led in shots, shots on target, and expected goals. The player most involved in Calderbrook's passing was Samuel Adeyemi-Brook, and for Merridge, Bastien Moreau-Diallo was most involved in their passing.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 2497
+        },
+        {
+          "agent": "audience_editor",
+          "status": "completed",
+          "output": "Merridge won the match against Calderbrook with goals from Pedro Valença, who scored twice, and Lorenzo Bassi. Calderbrook's goals came from Theo Marchetti and Owen Tackett. Merridge led in shots, shots on target, and expected goals. Bastien Moreau-Diallo was the player most involved in Merridge's passing, while Samuel Adeyemi-Brook was the same for Calderbrook.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1857
+        },
+        {
+          "agent": "fact_checker",
+          "attempts": 1,
+          "statements": 10,
+          "checked": [
+            {
+              "quote": "Merridge won the match against Calderbrook",
+              "type": "result",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "goals from Pedro Valença, who scored twice",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "goals from Lorenzo Bassi",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Calderbrook's goals came from Theo Marchetti and Owen Tackett",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Calderbrook's goals came from Theo Marchetti and Owen Tackett",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, and expected goals",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, and expected goals",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, and expected goals",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Bastien Moreau-Diallo was the player most involved in Merridge's passing",
+              "type": "role",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Samuel Adeyemi-Brook was the same for Calderbrook",
+              "type": "role",
+              "supported": true,
+              "reason": null
+            }
+          ],
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 11512,
+          "status": "verified"
+        },
+        {
+          "agent": "publication_gate",
+          "status": "approved",
+          "evidence_validated": true,
+          "fact_checked": true
+        }
+      ],
+      "duration_ms": 26225.35,
+      "check": {
+        "text": "Merridge won the match against Calderbrook with goals from Pedro Valença, who scored twice, and Lorenzo Bassi. Calderbrook's goals came from Theo Marchetti and Owen Tackett. Merridge led in shots, shots on target, and expected goals. Bastien Moreau-Diallo was the player most involved in Merridge's passing, while Samuel Adeyemi-Brook was the same for Calderbrook.",
+        "minute": 90,
+        "statements": [
+          {
+            "quote": "Merridge won the match against Calderbrook",
+            "type": "result",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "goals from Pedro Valença, who scored twice",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "goals from Lorenzo Bassi",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook's goals came from Theo Marchetti and Owen Tackett",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Calderbrook's goals came from Theo Marchetti and Owen Tackett",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, and expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Bastien Moreau-Diallo was the player most involved in Merridge's passing",
+            "type": "role",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Samuel Adeyemi-Brook was the same for Calderbrook",
+            "type": "role",
+            "supported": true,
+            "reason": null
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:shots:both:90",
+          "claim:compare:shots_on_target:both:90",
+          "claim:compare:xg:both:90",
+          "claim:score:goals:both:90"
+        ],
+        "failure": null,
+        "publishable": true
+      },
+      "check_duration_ms": 12240.04
+    }
+  ]
+}

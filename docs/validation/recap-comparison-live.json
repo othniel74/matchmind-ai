@@ -1,0 +1,348 @@
+{
+  "generated_at": "2026-10-23T09:12:32.006612+00:00",
+  "live_requested": true,
+  "method": "Same synthetic cases; templates, one writer and full workflow. Sequential, no API cache.",
+  "limits": [
+    "Checker acceptance uses the product checker, not an independent accuracy assessment.",
+    "Templates contain verified numbers; the free-text checker forbids digits, so templates are not scored by it.",
+    "Human quality and factual review are pending. Offline timings do not measure model latency.",
+    "Cost is unmeasured: reconcile provider usage and billing for an isolated run before reporting it.",
+    "Full workflow research requires a running MCP server. Inspect steps for research fallback.",
+    "Small samples and execution order can affect latency; repeat before making performance claims."
+  ],
+  "summary": {
+    "template": {
+      "runs": 1,
+      "errors": 0,
+      "fallbacks": 0,
+      "p50_ms": 167.97,
+      "p95_ms": 167.97,
+      "checker_accepted": 0,
+      "checker_evaluated": 0,
+      "cost_usd": null
+    },
+    "single_agent": {
+      "runs": 1,
+      "errors": 0,
+      "fallbacks": 0,
+      "p50_ms": 11364.23,
+      "p95_ms": 11364.23,
+      "checker_accepted": 0,
+      "checker_evaluated": 1,
+      "cost_usd": null
+    },
+    "full_workflow": {
+      "runs": 1,
+      "errors": 0,
+      "fallbacks": 0,
+      "p50_ms": 19622.8,
+      "p95_ms": 19622.8,
+      "checker_accepted": 1,
+      "checker_evaluated": 1,
+      "cost_usd": null
+    }
+  },
+  "runs": [
+    {
+      "seed": 20261020,
+      "minute": 90,
+      "language": "en",
+      "mode": "template",
+      "status": "ok",
+      "text": "Full-time — Calderbrook 2–3 Merridge before minute 90.\n9′ Pedro Valença scores for Merridge\n24′ Theo Marchetti scores for Calderbrook\n52′ Lorenzo Bassi scores for Merridge\n63′ Pedro Valença scores for Merridge\n72′ Owen Tackett scores for Calderbrook\nKey statistics:\n• Before minute 90, shots: Calderbrook 9, Merridge 18.\n• Before minute 90, shots on target: Calderbrook 5, Merridge 10.\n• Before minute 90, expected goals (xG): Calderbrook 1.3, Merridge 4.5.\n• Before minute 90, possession: Calderbrook 45.8%, Merridge 54.2%.\n• Before minute 90, pass completion: Calderbrook 79.7%, Merridge 79.1%.\n• Before minute 90, corners: Calderbrook 2, Merridge 5.\n• Before minute 90, fouls: Calderbrook 12, Merridge 9.\n• Before minute 90, yellow cards: Calderbrook 1, Merridge 0.\nGame flow: Calderbrook in control for 3 min; open, scrappy spells for 27 min\nPlayer of the match: Pedro Valença (Merridge), rating 9",
+      "duration_ms": 167.97,
+      "checker_accepted": null
+    },
+    {
+      "seed": 20261020,
+      "minute": 90,
+      "language": "en",
+      "mode": "single_agent",
+      "checker_accepted": false,
+      "text": "Merridge recorded multiple goals during the match with contributions from several players, while Calderbrook also scored twice. Merridge led in shots, shots on target, expected goals, possession, and corners, showing activity in advanced areas.",
+      "status": "ok",
+      "duration_ms": 11364.23,
+      "check": {
+        "text": "Merridge recorded multiple goals during the match with contributions from several players, while Calderbrook also scored twice. Merridge led in shots, shots on target, expected goals, possession, and corners, showing activity in advanced areas.",
+        "minute": 90,
+        "statements": [
+          {
+            "quote": "Merridge recorded multiple goals during the match",
+            "type": "result",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "with contributions from several players",
+            "type": "other",
+            "supported": false,
+            "reason": "unsupported_statement"
+          },
+          {
+            "quote": "Calderbrook also scored twice",
+            "type": "result",
+            "supported": false,
+            "reason": "contradicts_result"
+          },
+          {
+            "quote": "Merridge led in shots",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots on target",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in expected goals",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in possession",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge showing activity in advanced areas",
+            "type": "activity_change",
+            "supported": false,
+            "reason": "unsupported_statement"
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:corners:both:90",
+          "claim:compare:possession:both:90",
+          "claim:compare:shots:both:90",
+          "claim:compare:shots_on_target:both:90",
+          "claim:compare:xg:both:90",
+          "claim:score:goals:both:90"
+        ],
+        "failure": null,
+        "publishable": false
+      },
+      "check_duration_ms": 10191.26
+    },
+    {
+      "seed": 20261020,
+      "minute": 90,
+      "language": "en",
+      "mode": "full_workflow",
+      "checker_accepted": true,
+      "text": "Merridge won the match against Calderbrook. Pedro Valença scored two goals and Lorenzo Bassi scored one goal for Merridge. Theo Marchetti and Owen Tackett scored for Calderbrook. Merridge led in shots, shots on target, expected goals, possession, and corners.",
+      "status": "ok",
+      "fallback_reason": null,
+      "steps": [
+        {
+          "agent": "evidence_gate",
+          "status": "passed",
+          "mode": "recap"
+        },
+        {
+          "agent": "insight_ranker",
+          "status": "skipped",
+          "mode": "recap"
+        },
+        {
+          "agent": "match_researcher",
+          "status": "skipped",
+          "reason": "ToolException",
+          "latency_ms": 1689
+        },
+        {
+          "agent": "tactical_analyst",
+          "status": "completed",
+          "output": "Merridge secured a win over Calderbrook in the match. The scorers for Merridge were Pedro Valença, who contributed two goals, and Lorenzo Bassi, who added one goal. Calderbrook's goals were scored by Theo Marchetti and Owen Tackett. Merridge led in several statistical categories, including shots, shots on target, expected goals, possession, and corners.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 4179
+        },
+        {
+          "agent": "match_storyteller",
+          "status": "completed",
+          "output": "Merridge won the match against Calderbrook. Pedro Valença scored two goals and Lorenzo Bassi scored one goal for Merridge. Theo Marchetti and Owen Tackett scored for Calderbrook. Merridge led in shots, shots on target, expected goals, possession, and corners.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1938
+        },
+        {
+          "agent": "audience_editor",
+          "status": "completed",
+          "output": "Merridge won the match against Calderbrook. Pedro Valença scored two goals and Lorenzo Bassi scored one goal for Merridge. Theo Marchetti and Owen Tackett scored for Calderbrook. Merridge led in shots, shots on target, expected goals, possession, and corners.",
+          "attempts": 1,
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 1398
+        },
+        {
+          "agent": "fact_checker",
+          "attempts": 1,
+          "statements": 10,
+          "checked": [
+            {
+              "quote": "Merridge won the match against Calderbrook.",
+              "type": "result",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Pedro Valença scored two goals for Merridge.",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Lorenzo Bassi scored one goal for Merridge.",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Theo Marchetti scored for Calderbrook.",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Owen Tackett scored for Calderbrook.",
+              "type": "scorer",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners.",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners.",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners.",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners.",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            },
+            {
+              "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners.",
+              "type": "comparison",
+              "supported": true,
+              "reason": null
+            }
+          ],
+          "reason": null,
+          "rate_limit_waits": 0,
+          "latency_ms": 10143,
+          "status": "verified"
+        },
+        {
+          "agent": "publication_gate",
+          "status": "approved",
+          "evidence_validated": true,
+          "fact_checked": true
+        }
+      ],
+      "duration_ms": 19622.8,
+      "check": {
+        "text": "Merridge won the match against Calderbrook. Pedro Valença scored two goals and Lorenzo Bassi scored one goal for Merridge. Theo Marchetti and Owen Tackett scored for Calderbrook. Merridge led in shots, shots on target, expected goals, possession, and corners.",
+        "minute": 90,
+        "statements": [
+          {
+            "quote": "Merridge won the match against Calderbrook.",
+            "type": "result",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Pedro Valença scored two goals",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Lorenzo Bassi scored one goal for Merridge",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Theo Marchetti and Owen Tackett scored for Calderbrook",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Theo Marchetti and Owen Tackett scored for Calderbrook",
+            "type": "scorer",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          },
+          {
+            "quote": "Merridge led in shots, shots on target, expected goals, possession, and corners",
+            "type": "comparison",
+            "supported": true,
+            "reason": null
+          }
+        ],
+        "claim_ids": [
+          "claim:compare:corners:both:90",
+          "claim:compare:possession:both:90",
+          "claim:compare:shots:both:90",
+          "claim:compare:shots_on_target:both:90",
+          "claim:compare:xg:both:90",
+          "claim:score:goals:both:90"
+        ],
+        "failure": null,
+        "publishable": true
+      },
+      "check_duration_ms": 19526.1
+    }
+  ]
+}

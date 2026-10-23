@@ -4,23 +4,23 @@
 
 **Best Multi-Agent System**
 
-Pitchlight's agents have distinct roles. A **match researcher** investigates through Pitchlight's own MCP tools, deciding which to call, and chooses each recap's angle; code turns its choices into facts. The insight ranker, tactical analyst, storyteller and audience editor write; a **fact checker** extracts every statement for code to verify; a publication gate decides what ships. They share state through an Agent Framework workflow, hand off along typed edges, retry when rate limited, and fall back to verified text when a draft fails. A separate Q&A agent reaches the match through Pitchlight's own MCP server. A single agent could not both write fluent narratives in seven languages and guarantee that none of them states an unsupported fact. That guarantee comes from the agents checking each other. Live, 62 of 63 recaps across 7 languages were published in three runs, 14 of them after unsupported statements were rejected and rewritten, and the remaining one was blocked; the fact checker has 0 unsafe passes in 264 live checks. **The collaboration is visible**: under every AI recap, the run shows each agent's draft, every statement the fact checker extracted with code's verdict, and any rewrite loop.
+Pitchlight's agents have distinct roles. A **match researcher** investigates through Pitchlight's own MCP tools, deciding which to call, and chooses each recap's angle; code turns its choices into facts. The insight ranker, tactical analyst, storyteller and audience editor write; a **fact checker** extracts every statement for code to verify; a publication gate decides what ships. They share state through an Agent Framework workflow, hand off along typed edges, retry when rate limited, and fall back to verified text when a draft fails. A separate Q&A agent reaches the match through Pitchlight's own MCP server. The design separates research, writing and checking so a draft can be challenged before publication. An initial live comparison with a single writer records latency and checker outcomes; independent human review and a larger sample are still needed to establish the benefit of extra orchestration. Live, 62 of 63 recaps across 7 languages were published in three runs, 14 of them after unsupported statements were rejected and rewritten, and the remaining one was blocked; the fact checker has 0 unsafe passes in 264 live checks. **The collaboration is visible**: under every AI recap, the run shows each agent's draft, every statement the fact checker extracted with code's verdict, and any rewrite loop.
 
 It also fits **Best Use of Microsoft Foundry** (models, tracing, release evaluations) and **Best Enterprise Solution** (provenance, corrections, the release gate, managed identity).
 
 ## Pitch
 
-**AI football commentary you can put on air: every statement is verified before anyone sees it.**
+**AI football commentary that checks factual claims against the match record before publishing.**
 
 **The problem.** Broadcasters, studios and fan apps want AI that explains a match as it happens, in any language. They cannot put it on screen: language models invent scorers, results and causes, and one false line on air costs trust.
 
-**The solution.** In Pitchlight, agents write and code verifies. A fact-checking agent extracts every statement, and plain code checks each one against the match events. Anything unsupported is sent back to be rewritten or blocked, so nothing unverified is published. Judges can test this directly: **Try to fool the fact checker** takes any sentence about the match and shows each statement's verdict.
+**The solution.** In Pitchlight, agents write and code verifies. A fact-checking agent extracts every statement, and plain code checks each one against the match events. Drafts with unsupported extracted claims are sent back to be rewritten or blocked. Claim extraction is model-based, so the measured results below do not guarantee that every possible error will be caught. Judges can test this directly: **Try to fool the fact checker** takes any sentence about the match and shows each statement's verdict.
 
 **The proof.** Live on Microsoft Foundry: 62 of 63 agent-written recaps published across 7 languages (the other blocked, never published wrong), 0 unsafe passes in 264 fact checks, groundedness 4.71 / 5. All results: [EVALUATION.md](EVALUATION.md). Offline, on 2,669 real matches from two data providers, every score matched; the product itself runs only on synthetic data.
 
 **How it works.** A match feed streams through **Azure Event Hubs** into an app on **Azure Container Apps**. It validates every event, detects the moments that matter and explains why. A goal's build-up, a new key link in the pass network, a momentum swing: each is backed by evidence and a match knowledge graph mirrored in Memgraph.
 
-Narratives and recaps come from a **Microsoft Agent Framework** multi-agent workflow on **Microsoft Foundry**. Writers draft, a fact checker extracts every statement and code verifies it against the data, and a publication gate ships only verified text. Viewers can **ask the match** anything: a Foundry agent calls Pitchlight's own **MCP** tools, so answers come from verified facts, never the model's imagination.
+Narratives and recaps come from a **Microsoft Agent Framework** multi-agent workflow on **Microsoft Foundry**. Writers draft, a fact checker extracts every statement and code verifies it against the data, and a publication gate blocks drafts that fail its checks. Viewers can **ask the match** anything: a Foundry agent calls Pitchlight's own **MCP** tools, so answers come from verified facts, never the model's imagination.
 
 The same intelligence becomes two genuinely different experiences: a data-rich analyst view and a clear fan view, with favourite club and players, follow-one-player and single-metric modes. It also becomes timed, machine-readable overlays for Broadcast Studio, including Arabic right to left.
 
@@ -30,9 +30,9 @@ Pitchlight also does **auto-eventing from video**. It renders its synthetic matc
 
 For analysts, the **explorable pass network** shows directed passing lanes and which of them move the ball forward. Click a player for their passing partners, or use *Show change* to see which lanes grew or faded against the previous fifteen minutes. **Tactical changes** compare the ten minutes before and after each substitution, covering pressing (PPDA), defensive shape and attacking output, each ranked against the match's own swings and never claimed as the cause.
 
-It is built for production: 25 concurrent viewers are served at 32 requests per second with a 95th percentile of 0.7 s on one vCPU. A provider adapter checked offline on 64 real public matches accepted 81,931 events and rejected none. The product itself runs only on synthetic data.
+It is a deployed prototype with a production release gate: one recorded load test served 25 concurrent viewers at 32 requests per second with a 95th percentile of 0.7 s on one vCPU. This measures request handling, not AI recap latency. Production identity, storage and delivery controls remain work for a pilot. A provider adapter checked offline on 64 real public matches accepted 81,931 events and rejected none. The product itself runs only on synthetic data.
 
-**The problem it solves:** live sports AI is only as useful as it is trustworthy. Pitchlight makes match intelligence fast and personal enough for live play, and verifiable enough to put on screen.
+**The problem it addresses:** live sports AI is only as useful as it is trustworthy. Pitchlight makes match intelligence fast and personal enough for live play, and verifiable enough to put on screen.
 
 ## Microsoft and Azure technologies
 
@@ -60,3 +60,7 @@ Model-backed actions are limited to 4 per visitor per minute, and repeated reque
 
 - Repository: https://github.com/othniel74/pitchlight
 - Video: https://youtu.be/85Qid7SmMdw (1:49)
+
+## Additional validation
+
+[Judge validation](JUDGE_VALIDATION.md): reproducible template/single-agent/workflow comparison, initial live timings and their limitations, cost methodology, a real-user study protocol, and a two-minute demonstration script. Independent comparative quality, cost measurement and external user feedback remain pending.

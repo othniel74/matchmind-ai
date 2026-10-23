@@ -170,16 +170,16 @@ test("workspace sections: one navigation, shareable URLs, the right panels", asy
 test("the one idea is easy to find: tour, fact checker and proof", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("/");
-  await expect(page.getByText("Every statement is verified before anyone sees it.")).toBeVisible();
+  await expect(page.getByText("AI drafts the recap. Code checks its factual claims before publication.")).toBeVisible();
   await page.getByRole("link", { name: "See it in 60 seconds" }).click();
   const tour = page.getByRole("dialog", { name: "Guided tour" });
-  await expect(tour).toContainText("nothing unverified goes on air");
+  await expect(tour).toContainText("Start with a false claim");
   await expect(page.locator("section.tour-focus")).toHaveAttribute("aria-label", "Try to fool the fact checker");
   // The checker answers honestly whether or not a model is configured.
   const checker = page.getByRole("region", { name: "Try to fool the fact checker" });
   await checker.getByRole("button", { name: "Calderbrook won the match." }).click();
   await expect(checker).toContainText(/Blocked: this would never be published|unavailable right now|Verified/, { timeout: 60_000 });
-  for (let i = 0; i < 5; i++) await tour.getByRole("button", { name: "Next" }).click();
+  for (let i = 0; i < 3; i++) await tour.getByRole("button", { name: "Next" }).click();
   await expect(page.getByRole("region", { name: "Proof" })).toContainText("2,605 / 2,605 scores match");
   await tour.getByRole("button", { name: "Finish" }).click();
   await expect(tour).toHaveCount(0);

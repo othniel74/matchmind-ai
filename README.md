@@ -102,7 +102,7 @@ Measured live on Microsoft Foundry unless marked offline. Full method, per-run t
 4. **A knowledge graph of everything verified.** It links events, possessions, players, moments and claims. It powers "Why this moment?", pass-network roles (hub, key link, PageRank), xG chain, goal build-ups, and the impact of a correction on every output. It is mirrored in a Memgraph database, and its parity with NetworkX is tested on real Memgraph and Neo4j.
 5. **Tactical change, explained honestly.** For every substitution and red card Pitchlight compares the ten minutes before and after. It covers attacking output, pressing (PPDA, high turnovers), defensive shape from tracking (line height, width, compactness) and pass-network shifts. Each swing is ranked against the match's own swings, and the wording never claims a cause. See [TACTICS.md](docs/TACTICS.md).
 6. **Built on synthetic data, ready for real data.** The product, the demo and every test run on synthetic data, as the brief requires. To show the path to production, a provider adapter was checked offline against public StatsBomb open data: across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. A second integration reads Sportmonks records: across 2,605 real matches of three seasons, every score matched the official result, with 193 own goals and 47 penalty shootouts handled. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
-7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, 313 backend tests, browser tests against the live site, and CI on every push.
+7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, 321 backend tests, browser tests against the live site, and CI on every push.
 
 ## How the synthetic data is generated
 
@@ -231,9 +231,11 @@ Without Azure settings, everything except the model-written text works offline, 
 
 ## Tests and evaluation
 
+For the template/single-agent/workflow comparison, latency and cost methodology, user-study protocol and demo script, see [Judge validation](docs/JUDGE_VALIDATION.md). An initial live comparison is recorded with its sample size and limitations; external user feedback remains pending.
+
 | Suite | Command | Result |
 | --- | --- | --- |
-| Backend | `cd backend && python -m pytest -q` | 313 passed with the agent SDK; the core-only suite (224) also runs in CI |
+| Backend | `cd backend && python -m pytest -q` | 321 passed, 10 skipped in the local agent-SDK run; the core-only suite also runs in CI |
 | Vision | `.venv-vision/Scripts/python -m pytest tests/test_vision.py` | 7 passed: geometry, calibration from lines, teams, events, validation |
 | Real graph databases | [graph-db-tests.yaml](backend/graph-db-tests.yaml) in ACR Tasks | Memgraph and Neo4j parity with NetworkX |
 | Browser | `cd frontend && npx playwright test` (also against the live URL) | 7 passed |

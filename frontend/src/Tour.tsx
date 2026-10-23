@@ -8,18 +8,14 @@ import "./tour.css";
 export type TourSection = "match" | "analysis" | "video" | "live" | "studio" | "proof";
 
 const STOPS: { section: TourSection; region: string; title: string; text: string }[] = [
-  { section: "match", region: "Try to fool the fact checker", title: "The idea: nothing unverified goes on air",
-    text: "Write any claim about the match, or pick one. An agent lists each statement; code checks it against the events. False claims are struck out with the reason." },
+  { section: "match", region: "Try to fool the fact checker", title: "Start with a false claim",
+    text: "Pick a suggested claim and check it. An agent extracts statements; code compares them with the match events. Read why a claim passes or is blocked. This step needs a configured Azure model." },
   { section: "match", region: "Your moments", title: "Moments that explain themselves",
     text: "As the match plays, each moment says why it matters. Press Why? for the build-up, the players' roles in the pass network and the evidence events." },
-  { section: "match", region: "Ask the match", title: "Ask anything, in seven languages",
-    text: "A Microsoft Foundry agent picks the intent and calls Pitchlight's own MCP tools. You see the tool's verified answer, never the model's own text." },
   { section: "match", region: "Match recap", title: "Recaps written by agents, checked by code",
-    text: "Press AI recap, then open the run: a researcher agent chooses the angle through MCP, writers draft, and the fact checker's verdict on every statement is shown." },
-  { section: "analysis", region: "Match graph", title: "Who the play runs through",
-    text: "Directed passing lanes, forward passes highlighted. Click a player for their partners; in Last 15 min, Show change compares with the previous fifteen minutes." },
+    text: "Press AI recap and open the run to inspect research, writing, claim verdicts and any revision. Without Azure, the app shows a verified template and labels the fallback. Change the language in Your view to personalize the result." },
   { section: "proof", region: "Proof", title: "Measured, not claimed",
-    text: "Every result here can be rerun from the repository: live agent runs, 2,669 real matches from two providers, the load test and the video AI scores." },
+    text: "Review the recorded evaluations and their limits. The product uses fictional matches; real-data adapter tests and synthetic-video analysis are separate evaluations. Explore Analysis, Live data and Broadcast Studio after this tour." },
 ];
 
 export function Tour({ open, onClose, setSection }: { open: boolean; onClose: () => void;

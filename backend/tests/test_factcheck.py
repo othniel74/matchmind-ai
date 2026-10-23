@@ -66,3 +66,26 @@ def test_endpoint_without_a_model_says_so():
     body = TestClient(app).get('/api/factcheck', params={'text': 'Merridge won the match', 'minute': 90}).json()
     assert body['available'] is False and body['statements'] == [] and body['publishable'] is False
     assert TestClient(app).get('/api/factcheck', params={'text': 'x'}).status_code == 422
+
+
+@pytest.mark.parametrize('text', [
+    'Merridge won. Calderbrook secretly fielded twelve players and bribed the referee.',
+    'Merridge ganó. Calderbrook jugó con doce jugadores y sobornó al árbitro.',
+    'فاز ميريدج. لعب كالدربروك باثني عشر لاعباً ودفع رشوة للحكم.',
+])
+def test_partial_extraction_cannot_hide_a_long_unsupported_claim(text):
+    quote = text.split('.')[0]
+    result = run(text, statements({'quote': quote, 'type': 'result', 'team': WINNER, 'relation': 'won'}))
+    assert not result['publishable']
+    assert result['failure'] == 'incomplete_extraction'
+
+
+def test_mixed_true_and_false_scorer_claims_block_the_whole_text():
+    true = f"{SCORER['player']} scored twice"
+    false = f"{SCORER['player']} scored a hat-trick"
+    result = run(f'{true}. {false}.', statements(
+        {'quote': true, 'type': 'scorer', 'team': SCORER['team_id'], 'player': SCORER['player'], 'count': 2},
+        {'quote': false, 'type': 'scorer', 'team': SCORER['team_id'], 'player': SCORER['player'], 'count': 3},
+    ))
+    assert not result['publishable']
+    assert [v['supported'] for v in result['statements']] == [True, False]

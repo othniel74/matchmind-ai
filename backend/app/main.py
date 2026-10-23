@@ -700,7 +700,7 @@ async def feed_kickoff(request: Request, source: str = Query('feed', pattern='^(
         raise busy
     lock, cooldown = ('vision', VISION_COOLDOWN) if source == 'vision' else ('kickoff', 60)
     last = _last_vision if source == 'vision' else _last_kickoff
-    if shared.client() is None and time.monotonic() - last < cooldown:
+    if time.monotonic() - last < cooldown:
         raise busy
     if is_demo() and not GUARD.allow(visitor(request)):
         raise HTTPException(429, 'Too many requests from this visitor. Try again in a minute.', headers={'Retry-After': '60'})

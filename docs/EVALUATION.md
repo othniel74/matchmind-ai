@@ -44,6 +44,10 @@ Each case is a sentence about the match that must be either passed or blocked. "
 
 Every miss is a safe-side false block, which costs a rewrite or the verified fallback, never a wrong publication. [fact-check-report.json](../fact-check-report.json) is the earlier run on the test set, before the intensity backstop: it let one overstated Portuguese statement through in 2 of its 3 repeats, which is why the backstop was added.
 
+## Initial single-writer comparison (23 October 2026)
+
+An English pilot on one synthetic seed at minutes 45, 70 and 90 compared a single writer with the full workflow. The researcher completed six MCP calls per workflow case. The product checker accepted 1 of 3 single-writer outputs and 3 of 3 workflow outputs; median generation times were 4.59 s and 24.47 s respectively. No service errors or workflow fallbacks occurred. This is a small, sequential pilot using the product's own checker, not independent factual accuracy or proof of superiority. Independent human review, more seeds and languages, and cost measurement remain pending. [Raw report](validation/recap-comparison-live-mcp.json) · [Method and initial smoke-run limitation](JUDGE_VALIDATION.md).
+
 ## Known limits
 
 - The momentum-shift detector is measured against labelled shifts and does not meet the bar for publication without review (precision 0.52 at the interpretation tier, against a bar of 0.8; [evaluation-report.json](../evaluation-report.json)). Its interpretations are therefore always marked `review_required` (see [SYNTHETIC_SIMULATOR.md](SYNTHETIC_SIMULATOR.md)).

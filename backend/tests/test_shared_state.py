@@ -42,6 +42,37 @@ def test_without_redis_nothing_is_shared():
     assert shared.status() == {'shared_state': 'memory'}
 
 
+@pytest.mark.parametrize('source', ['feed', 'vision'])
+def test_kickoff_keeps_local_cooldown_when_redis_is_down(monkeypatch, source):
+    from fastapi.testclient import TestClient
+    from app import main
+
+    class Down:
+        def set(self, *args, **kwargs):
+            raise ConnectionError('redis down')
+
+    starts = []
+
+    async def start(job):
+        starts.append(job)
+        return {'job': job}
+
+    monkeypatch.setenv('FEED_JOB_RESOURCE_ID', 'test-feed')
+    monkeypatch.setenv('VISION_JOB_RESOURCE_ID', 'test-vision')
+    monkeypatch.setattr(main, '_last_kickoff', float('-inf'))
+    monkeypatch.setattr(main, '_last_vision', float('-inf'))
+    monkeypatch.setattr(feed.FEED, 'status', lambda: {'run': None})
+    monkeypatch.setattr(feed, 'start_feed_job', start)
+    shared.use(Down(), None)
+    try:
+        client = TestClient(main.app)
+        assert client.post('/api/feed/kickoff', params={'source': source}).status_code == 200
+        assert client.post('/api/feed/kickoff', params={'source': source}).status_code == 409
+        assert len(starts) == 1
+    finally:
+        shared.use(None, None)
+
+
 def test_an_unreachable_redis_falls_back_to_memory(monkeypatch):
     class Down:
         def __getattr__(self, name):

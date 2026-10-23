@@ -225,9 +225,9 @@ export default function Landing() {
               <em>the beginning.</em>
             </h1>
             <p>
-              AI football commentary you can put on air.
+              Football commentary. Checked against the match.
               <br />
-              Every statement is verified before anyone sees it.
+              AI drafts the recap. Code checks its factual claims before publication.
             </p>
             <div className="lp-hero-actions">
               <a href="/app" className="lp-button lp-button-lime">

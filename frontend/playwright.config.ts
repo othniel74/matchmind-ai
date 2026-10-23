@@ -4,23 +4,32 @@ import { defineConfig } from "@playwright/test";
 // no .env, so no model calls) and their own Vite server (port 5187).
 const API_PORT = "8137";
 const WEB_PORT = "5187";
+const python = process.env.MATCHMIND_TEST_PYTHON ??
+  (process.platform === "win32" ? ".venv-agents/Scripts/python.exe" : "python");
 
 export default defineConfig({
   testDir: "e2e",
   timeout: 90_000,
   retries: 0,
+  workers: 1,
   reporter: [["list"]],
   outputDir: "../.test-work/e2e-results",
   use: { baseURL: `http://127.0.0.1:${WEB_PORT}`, viewport: { width: 1440, height: 900 } },
   webServer: [
     {
-      command: `.venv-agents\\Scripts\\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port ${API_PORT}`,
+      command: `"${python}" -m uvicorn app.main:app --host 127.0.0.1 --port ${API_PORT}`,
       cwd: "../backend",
       url: `http://127.0.0.1:${API_PORT}/health`,
       reuseExistingServer: false,
       timeout: 60_000,
       env: {
         MATCHMIND_SKIP_DOTENV: "1",
+        MATCHMIND_ENV: "test",
+        MATCHMIND_AI_PROVIDER: "",
+        AZURE_AI_PROJECT_ENDPOINT: "",
+        AZURE_OPENAI_ENDPOINT: "",
+        EVENTHUB_NAMESPACE: "",
+        REDIS_URL: "",
         MATCHMIND_FOUNDATION_DB: "../.test-work/e2e-foundation.sqlite3",
       },
     },
