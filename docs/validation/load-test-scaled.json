@@ -1,0 +1,52 @@
+{
+  "test": "tools/load-test.py, 80 concurrent viewers for 170 s against the live app; Container Apps scaled from 1 to 3 replicas sharing state through Azure Managed Redis",
+  "replicas_seen": "1 -> 2 -> 3 within about one minute",
+  "summary": {
+    "users": 80,
+    "seconds": 170,
+    "requests": 11016,
+    "requests_per_second": 64.8,
+    "errors": 0,
+    "p50_ms": 273.5,
+    "p95_ms": 2204.3,
+    "p99_ms": 4070.1,
+    "mean_ms": 629.0
+  },
+  "endpoints": {
+    "experience": {
+      "requests": 2197,
+      "errors": 0,
+      "p50_ms": 241.9,
+      "p95_ms": 1873.7,
+      "p99_ms": 3035.4
+    },
+    "graph_roles": {
+      "requests": 2190,
+      "errors": 0,
+      "p50_ms": 551.6,
+      "p95_ms": 3738.4,
+      "p99_ms": 5537.6
+    },
+    "insights": {
+      "requests": 2222,
+      "errors": 0,
+      "p50_ms": 209.4,
+      "p95_ms": 1742.1,
+      "p99_ms": 2806.2
+    },
+    "recap": {
+      "requests": 2164,
+      "errors": 0,
+      "p50_ms": 250.0,
+      "p95_ms": 1878.8,
+      "p99_ms": 2702.4
+    },
+    "tactics": {
+      "requests": 2243,
+      "errors": 0,
+      "p50_ms": 227.6,
+      "p95_ms": 1800.9,
+      "p99_ms": 2932.4
+    }
+  }
+}

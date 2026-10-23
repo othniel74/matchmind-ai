@@ -84,6 +84,12 @@ az containerapp job update -n matchmind-vision -g rg-othniel.obasi-9233 --image 
 
 `--no-logs` avoids an Azure CLI crash on Windows: streaming Vite's "✓" output fails under the cp1252 console encoding.
 
+## Scaling and shared state
+
+The app scales from 1 to 3 replicas (`--min-replicas 1 --max-replicas 3`, HTTP rule `http-load` at 30 concurrent requests). Replicas share state through Azure Managed Redis `pitchlight-cache` (Balanced B0, no high availability, TLS 1.2, encrypted client protocol, port 10000, about US$13 a month). Its access key is stored only as the Container Apps secret `redis-url` (`rediss://:<key>@pitchlight-cache.uksouth.redis.azure.net:10000/0`), referenced by `REDIS_URL=secretref:redis-url`. `/ready` reports `shared_state` and the replica's `feed_role` (leader or follower). To return to a single replica without shared state: `az containerapp update -n pitchlight ... --remove-env-vars REDIS_URL --min-replicas 1 --max-replicas 1`.
+
+After any deployment, run a match through Event Hubs to full time (POST `/api/feed/kickoff`, then `/api/feed` must reach `full_time` with 1,079 accepted): `/ready` and the browser tests do not exercise the consumer.
+
 ## The pitchlight app and the old address
 
 The live app is the Container App **`pitchlight`** (its main container keeps the name `matchmind-demo`). It was created on 22 October 2026 from the old app's configuration. Its own managed identity holds the same roles: AcrPull on the registry, Foundry User on the Foundry resource, Azure Event Hubs Data Receiver on `match-events`, and Contributor on the `matchmind-feed` and `matchmind-vision` jobs. The old app `matchmind-demo` runs the same image with `PITCHLIGHT_REDIRECT_URL` set. It answers every HTTP request with a 301 to the same path on the new address, and starts no data store, graph, MCP session or Event Hubs consumer, so the two apps never compete for the feed.

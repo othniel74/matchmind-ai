@@ -36,6 +36,9 @@ const GROUPS: { title: string; note: string; rows: Row[] }[] = [
     title: "Production on Azure",
     note: "Measured on the live deployment.",
     rows: [
+      { what: "Scaling: 80 concurrent viewers for 170 s, 1 to 3 replicas sharing Azure Managed Redis", result: "11,016 requests, 0 errors",
+        how: "Scaled out in about a minute; failover mid-match: the same match finished with 1,079 accepted, 0 rejected",
+        link: "docs/PATH_TO_PRODUCTION.md" },
       { what: "Load test: 25 concurrent viewers for 60 s", result: "0 errors",
         how: "31.8 requests/s, 95th percentile 0.7 s (8.3/s and 8.8 s before caching)", link: "docs/PATH_TO_PRODUCTION.md" },
       { what: "Live match through Azure Event Hubs", result: "1,079 / 1,079 events accepted",

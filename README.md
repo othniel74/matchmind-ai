@@ -6,7 +6,7 @@ Broadcasters, studios and fan apps want AI that explains a match live, in any la
 
 - **Proven live:** 20–21 of 21 agent-written recaps published across 7 languages in repeated runs, the rest blocked safely; 0 unsafe passes in 264 live fact checks; Microsoft Foundry groundedness 4.71 / 5.
 - **Ready for real data:** checked offline on 2,669 real matches from two providers, with every score matching (the product itself runs on synthetic data).
-- **Built on Azure:** Microsoft Foundry and Agent Framework agents that use Pitchlight's own MCP tools, Event Hubs, Container Apps, Azure AI Speech, managed identity throughout.
+- **Built on Azure:** Microsoft Foundry and Agent Framework agents that use Pitchlight's own MCP tools, Event Hubs, Container Apps scaling from 1 to 3 replicas on Azure Managed Redis, Azure AI Speech, managed identity throughout.
 
 **See it in 60 seconds:** open the demo, choose **See it in 60 seconds**, and in **Try to fool the fact checker** type a false claim (for example *"Calderbrook won thanks to a hat-trick"*). Then press **AI recap** and open the run to see every statement with its verdict.
 
