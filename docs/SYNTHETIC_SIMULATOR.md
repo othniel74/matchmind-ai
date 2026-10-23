@@ -1,6 +1,6 @@
 # Synthetic match simulator and evaluation — 19 October 2026
 
-Generator version `possession-v3` replaces the earlier fixed four-events-per-minute stream. It is still synthetic: teams, players and events are invented, and nothing is fitted to a licensed dataset.
+Generator version `possession-v3` replaced the earlier fixed four-events-per-minute stream. The current version, `possession-v4`, adds ball speed and pressure to passes and shots from a separate random stream, so every v3 match is otherwise unchanged; the offline evaluation now runs 56 checks ([evaluation-report.json](../evaluation-report.json)). It is still synthetic: teams, players and events are invented, and nothing is fitted to a licensed dataset.
 
 ## What the simulator models
 

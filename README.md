@@ -88,6 +88,31 @@ Measured live on Microsoft Foundry unless marked offline. Full method, per-run t
 6. **Built on synthetic data, ready for real data.** The product, the demo and every test run on synthetic data, as the brief requires. To show the path to production, a provider adapter was checked offline against public StatsBomb open data: across **all 64 matches of the 2022 World Cup**, 81,931 events were accepted and 0 rejected, and every score matched the official result, including 5 matches with extra time and 3 own goals. On the final, the tactical analysis picks out France's 41′ double substitution as the turning point, where possession swung from 80% Argentina to 64% France. A second integration reads Sportmonks records: across 2,605 real matches of three seasons, every score matched the official result, with 193 own goals and 47 penalty shootouts handled. No provider data is stored in this repository. See [PROVIDERS.md](docs/PROVIDERS.md).
 7. **Measured, end to end.** Foundry evaluations (groundedness 4.71/5, no unsupported numbers), live fact-check holdouts, ground-truth vision scores, 313 backend tests, browser tests against the live site, and CI on every push.
 
+## How the synthetic data is generated
+
+The brief asks for synthetic data, so Pitchlight generates its own matches. Nothing is copied from or fitted to a licensed dataset. The clubs (Calderbrook FC, Merridge Athletic) and their 32 players are invented in [`squads.py`](backend/app/squads.py).
+
+**1. A seeded match simulator** ([`core.py`](backend/app/core.py), generator `possession-v4`). One integer seed fully determines a match, so every replay, test and evaluation is reproducible; the demo uses seed `20261020`. The simulator plays the match possession by possession on a seconds-resolution clock, about 1,100 events per match:
+
+| Modelled | How |
+| --- | --- |
+| Possessions | Start from a set piece, recovery or won tackle; continue as passes until a turnover, foul, shot or the ball going out |
+| Passing | Passer and recipient chosen by pitch zone from a 4-3-3; completion depends on destination, length, opponent pressing and missing players; ball speed and pressure on every pass |
+| Shots | Distance- and angle-based xG; outcome goal, saved, blocked or missed, with the matching restart |
+| Set pieces | Kick-offs, throw-ins, goal kicks, corners, free kicks (including direct shots) and penalties |
+| Discipline | Fouls lead to free kicks or penalties, and to yellow, second-yellow or red cards; sent-off players leave the match |
+| Substitutions | 3–5 per team in 2–3 second-half windows, only at dead balls |
+| Team quality | A hidden per-match strength difference creates realistic imbalance in possession and chances |
+| Physical data | Distance and top speed per player-minute by position, with fatigue; each minute seeded separately so later events never change earlier values |
+
+**2. Hidden ground truth for evaluation.** In about 75% of seeds the simulator injects a territorial shift for one team between minutes 50 and 70; the rest are controls. The label is kept from all insight, agent and API code and used only to score the detectors.
+
+**3. Positions and broadcast video.** [`tracking.py`](backend/app/tracking.py) turns the events into 25 Hz positions for the ball and every player, and [`render.html`](frontend/render.html) renders them as broadcast video with the exact camera recorded for every frame. That gives video with perfect labels, which is how the vision pipeline is scored ([VISION.md](docs/VISION.md)).
+
+**4. Checked for realism and integrity.** Over 200 simulated team-matches (seeds 2000–2099), all 11 per-team averages fall inside broad top-league ranges: 445 passes, 79.9% pass completion, 12.2 shots, 4.8 on target, 1.57 goals, 1.53 xG, 4.2 corners, 9.9 fouls, 1.75 yellow cards, 0.055 red cards, 4.2 substitutions ([evaluation-report.json](evaluation-report.json)). Every event also passes the same stream validator used for live and real data, which rejects, for example, players acting after being substituted or sent off, and xG on events that are not shots. Known limit: possession varies less between teams than in real football. Full detail: [SYNTHETIC_SIMULATOR.md](docs/SYNTHETIC_SIMULATOR.md).
+
+The same adapters and validator accept real provider data, which is how the real-data checks above were run offline.
+
 ## The pipeline
 
 The brief's five stages, live:
