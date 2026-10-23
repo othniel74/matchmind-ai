@@ -16,7 +16,7 @@ jobs:
       - run: PYTHONPATH=. python -m evaluation.run --output ../evaluation-report.json
       - uses: actions/upload-artifact@v4
         with:
-          name: matchmind-offline-evaluation
+          name: pitchlight-offline-evaluation
           path: evaluation-report.json
   optional-agent-sdk:
     runs-on: ubuntu-latest

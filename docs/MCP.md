@@ -37,7 +37,7 @@ Every agent-written recap starts with `match-researcher`, an Agent Framework age
 
 ## Use it from VS Code (GitHub Copilot agent mode)
 
-`.vscode/mcp.json` registers the deployed server (`matchmind-demo`) and a local stdio server (`matchmind-local`). Open the repository in VS Code, start the server from the MCP view, and ask Copilot Chat in agent mode, for example "Why did Merridge's opener matter?".
+`.vscode/mcp.json` registers the deployed server (`pitchlight-demo`) and a local stdio server (`pitchlight-local`). Open the repository in VS Code, start the server from the MCP view, and ask Copilot Chat in agent mode, for example "Why did Merridge's opener matter?".
 
 ## Security
 

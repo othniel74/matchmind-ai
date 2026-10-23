@@ -1,7 +1,8 @@
 {
-  "name": "matchmind-web",
+  "name": "pitchlight-web",
   "version": "0.1.0",
   "private": true,
+  "author": "Othniel Obasi",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",

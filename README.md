@@ -248,4 +248,4 @@ Start with the [documentation index](docs/README.md). Key documents: [Evaluation
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE). The Microsoft Rocketbox player models are MIT-licensed and credited separately.
+Created by **Othniel Obasi**. MIT. See [LICENSE](LICENSE). The Microsoft Rocketbox player models are MIT-licensed and credited separately.

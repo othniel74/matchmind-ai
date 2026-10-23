@@ -30,7 +30,7 @@ from .runtime import validate_runtime, RuntimeBoundary, apply_demo_restrictions,
 from .languages import LANGUAGE_PATTERN, catalogue
 from .live import enrich
 
-# A retired deployment (the old MatchMind address) only redirects to the current one.
+# A retired deployment (the previous app address) only redirects to the current one.
 REDIRECT_URL = os.getenv('PITCHLIGHT_REDIRECT_URL', '').rstrip('/')
 
 

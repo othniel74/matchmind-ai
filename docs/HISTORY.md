@@ -1,12 +1,12 @@
-> Build history: the previous README, kept unchanged. The current overview is the [README](../README.md).
+> Build history: the previous README, with product branding updated to Pitchlight. The current overview is the [README](../README.md).
 
-# MatchMind AI
+# Pitchlight
 
 ## Hackathon build â€” 20 October 2026
 
 **Live demo:** https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io (read-only, synthetic data). **Video tour:** `docs/demo/matchmind-demo.webm`.
 
-MatchMind turns synthetic football events into explainable match intelligence, in one pipeline:
+Pitchlight turns synthetic football events into explainable match intelligence, in one pipeline:
 
 1. **Ingest:** events arrive one at a time over WebSocket or an ingest API, each validated against the stream so far.
 2. **Interpret:** team and player statistics, xG, pass difficulty, ball and shot speed, and synthetic speed and distance.
@@ -57,7 +57,7 @@ See [simulator and evaluation](SYNTHETIC_SIMULATOR.md).
 
 Narratives now run as a Microsoft Agent Framework workflow, with typed executors, conditional fallback edges and traced handoffs. See [agent workflow](AGENT_WORKFLOW.md). It runs on the stable SDK (Agent Framework 1.22, `FoundryChatClient`) with OpenTelemetry tracing. A semantic fact checker extracts statements from the final text in any language, and plain code verifies each one against the insight and the [claim contracts](CLAIM_CONTRACTS.md).
 
-MatchMind supports seven languages: English, Spanish, French, Portuguese (Brazil), German, Italian and Arabic, which is right-to-left ([languages](LANGUAGES.md)).
+Pitchlight supports seven languages: English, Spanish, French, Portuguese (Brazil), German, Italian and Arabic, which is right-to-left ([languages](LANGUAGES.md)).
 
 The fact checker also checks tone against the size of the change.
 
@@ -103,7 +103,7 @@ Open http://127.0.0.1:5173. Vite proxies to the local backend. See [today's veri
 
 ---
 
-# MatchMind AI â€” M1 Working Prototype
+# Pitchlight â€” M1 Working Prototype
 
 A new synthetic-football intelligence demo built for the Microsoft Premier League Hackathon. It generates deterministic synthetic match events, computes statistics, detects changes in territorial activity, attaches source event IDs, and streams results to a React dashboard.
 
