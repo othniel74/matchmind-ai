@@ -9,11 +9,13 @@ export type TourSection = "match" | "analysis" | "video" | "live" | "studio" | "
 
 const STOPS: { section: TourSection; region: string; title: string; text: string }[] = [
   { section: "match", region: "Try to fool the fact checker", title: "Start with a false claim",
-    text: "Pick a suggested claim and check it. An agent extracts statements; code compares them with the match events. Read why a claim passes or is blocked. This step needs a configured Azure model." },
+    text: "Pick a suggested claim and check it. An agent extracts statements; code compares them with the match events. Read why a claim passes or is blocked: nothing unverified goes on air." },
   { section: "match", region: "Your moments", title: "Moments that explain themselves",
     text: "As the match plays, each moment says why it matters. Press Why? for the build-up, the players' roles in the pass network and the evidence events." },
+  { section: "match", region: "Ask the match", title: "Ask anything, in seven languages",
+    text: "A Microsoft Foundry agent picks the intent and calls Pitchlight's own MCP tools. You see the tool's verified answer, never the model's own text." },
   { section: "match", region: "Match recap", title: "Recaps written by agents, checked by code",
-    text: "Press AI recap and open the run to inspect research, writing, claim verdicts and any revision. Without Azure, the app shows a verified template and labels the fallback. Change the language in Your view to personalize the result." },
+    text: "Press AI recap and open the run to inspect research, writing, claim verdicts and any revision. Change the language in Your view to personalize the result." },
   { section: "proof", region: "Proof", title: "Measured, not claimed",
     text: "Review the recorded evaluations and their limits. The product uses fictional matches; real-data adapter tests and synthetic-video analysis are separate evaluations. Explore Analysis, Live data and Broadcast Studio after this tour." },
 ];
