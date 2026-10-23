@@ -242,9 +242,10 @@ def credential():
     return DefaultAzureCredential()
 
 
-async def consume(replay_minutes: int | None = None) -> None:
+async def consume(replay_minutes: int | None = None, hub: FeedHub | None = None) -> None:
     """Consume the hub forever (reconnecting on failure); a background task of the API."""
     from azure.eventhub.aio import EventHubConsumerClient
+    hub = hub or FEED
     replay = int(replay_minutes or os.getenv('FEED_REPLAY_MINUTES', '15'))
     start = datetime.now(timezone.utc) - timedelta(minutes=replay)
     while True:

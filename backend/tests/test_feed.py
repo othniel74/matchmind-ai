@@ -161,3 +161,59 @@ def test_video_runs_show_only_video_derived_moments(events):
         hub.handle(event(e, 'v'))
     kinds = {m['moment']['kind'] for m in hub.recent if m.get('type') == 'moment'}
     assert kinds and not kinds & {'top_speed', 'distance'}
+
+
+def test_the_event_hubs_consumer_callbacks_drive_the_feed(monkeypatch, events):
+    """Regression: a refactor left consume()'s callbacks pointing at an undefined name, the SDK
+    swallowed the error, and the live feed silently stayed at 'starting' (v28). This drives the
+    real callbacks through a stand-in for the Event Hubs client."""
+    import asyncio
+    import json as _json
+    import sys
+    import types
+    from app import feed as feed_module
+
+    class Partition:
+        partition_id = '0'
+
+    class Message:
+        def __init__(self, body):
+            self.body, self.enqueued_time = _json.dumps(body), None
+
+        def body_as_str(self):
+            return self.body
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            pass
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *exc):
+            return False
+
+        async def receive(self, on_event, starting_position, on_error, on_partition_initialize):
+            await on_partition_initialize(Partition())
+            await on_event(Partition(), Message(kickoff()))
+            for e in events[:30]:
+                await on_event(Partition(), Message({'type': 'event', 'feed_run': RUN, 'event': e.json()}))
+            raise asyncio.CancelledError  # end the consumer's endless loop
+
+    class FakeCredential:
+        async def close(self):
+            pass
+
+    sdk = types.ModuleType('azure.eventhub.aio')
+    sdk.EventHubConsumerClient = FakeClient
+    monkeypatch.setitem(sys.modules, 'azure.eventhub.aio', sdk)
+    monkeypatch.setattr(feed_module, 'credential', lambda: FakeCredential())
+    monkeypatch.setenv('EVENTHUB_NAMESPACE', 'test.servicebus.windows.net')
+    hub = feed_module.FeedHub()
+    monkeypatch.setattr(feed_module, 'FEED', hub)  # called exactly as the app calls it: no hub argument
+    try:
+        asyncio.run(feed_module.consume())
+    except asyncio.CancelledError:
+        pass
+    assert hub.consumer == {'status': 'connected', 'partition': '0'}
+    assert hub.run['feed_run'] == RUN and hub.counts['accepted'] == 30 and hub.counts['rejected'] == 0
