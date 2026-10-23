@@ -4,7 +4,7 @@
 
 ## Hackathon build â€” 20 October 2026
 
-**Live demo:** https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io(read-only, synthetic data). **Video tour:** `docs/demo/matchmind-demo.webm`.
+**Live demo:** https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io (read-only, synthetic data). **Video tour:** `docs/demo/matchmind-demo.webm`.
 
 MatchMind turns synthetic football events into explainable match intelligence, in one pipeline:
 
