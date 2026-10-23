@@ -59,4 +59,4 @@ Model-backed actions are limited to 4 per visitor per minute, and repeated reque
 ## Links
 
 - Repository: https://github.com/othniel74/pitchlight
-- Video: upload `docs/demo/pitchlight-submission.mp4` to YouTube or Vimeo and paste the public link here.
+- Video: https://youtu.be/85Qid7SmMdw (1:49)

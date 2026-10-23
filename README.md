@@ -10,6 +10,7 @@
 
 <p align="center">
   <a href="https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-online-c4f36b?style=flat-square"></a>
+  <a href="https://youtu.be/85Qid7SmMdw"><img alt="Demo video" src="https://img.shields.io/badge/demo%20video-YouTube-ff0000?style=flat-square&logo=youtube&logoColor=white"></a>
   <a href="https://github.com/othniel74/pitchlight/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/othniel74/pitchlight/ci.yml?branch=main&label=CI&style=flat-square"></a>
   <img alt="Microsoft Foundry" src="https://img.shields.io/badge/Microsoft%20Foundry-Agent%20Framework-0078d4?style=flat-square">
   <img alt="MCP" src="https://img.shields.io/badge/MCP-15%20tools-6b4fbb?style=flat-square">
@@ -18,7 +19,7 @@
 
 <p align="center">
   <a href="https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io">Live demo</a> ·
-  <a href="docs/demo/pitchlight-submission.mp4">Video (1:49)</a> ·
+  <a href="https://youtu.be/85Qid7SmMdw">Video (1:49)</a> ·
   <a href="docs/EVALUATION.md">Evaluation results</a> ·
   <a href="docs/SUBMISSION.md">Submission</a> ·
   <a href="docs/README.md">Documentation</a>
@@ -35,7 +36,7 @@ Broadcasters, studios and fan apps want AI that explains a match live, in any la
 | | |
 | --- | --- |
 | **Live demo** | https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
-| **Video (1:49, narrated)** | [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4) |
+| **Video (1:49, narrated)** | [https://youtu.be/85Qid7SmMdw](https://youtu.be/85Qid7SmMdw) (also in the repo: [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4)) |
 | **MCP server** | `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
 | **Submission** | [docs/SUBMISSION.md](docs/SUBMISSION.md): pitch, category and testing instructions |
 
