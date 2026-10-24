@@ -27,6 +27,10 @@ Pitchlight publishes its verified match intelligence as a [Model Context Protoco
 
 Tool annotations declare `readOnlyHint: true` and `destructiveHint: false`. Invalid arguments return MCP tool errors with a reason, not server errors.
 
+## Choosing the match
+
+Every match comes from a seed. `/mcp` serves the featured match; `/mcp?seed=N` scopes every tool to match `N` (the workspace offers six, and any seed works). The match is taken from the URL, never from a tool argument, so an agent cannot query a different match from the one being viewed. Pitchlight's own agents connect with the viewer's seed in the URL.
+
 ## Pitchlight's own agent is an MCP client
 
 `/api/ask` (Ask the match) runs an Agent Framework agent on the Foundry model, with Pitchlight's MCP server as its tool (`MCPStreamableHTTPTool`, limited to `answer_question`). The agent does three things: it understands a question in any language, picks the typed intent (for example "main man in midfield" becomes `key_player`), and calls the tool. **The viewer sees the tool's verified result, never the model's text.** The tool validates the agent's arguments again. If the model is unavailable or the visitor's rate limit is reached, the same tool logic runs on a 7-language keyword router. The response's `router` field reports `mcp_agent` or `keywords`, and `tool_call` shows the arguments the agent chose.

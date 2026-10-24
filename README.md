@@ -50,7 +50,7 @@ Personalization, broadcast overlays and tactical analysis extend this core exper
 | --- | --- |
 | **Live demo** | https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io (no sign-in, read-only, synthetic data) |
 | **Video (1:49, narrated)** | [https://youtu.be/85Qid7SmMdw](https://youtu.be/85Qid7SmMdw) (also in the repo: [docs/demo/pitchlight-submission.mp4](docs/demo/pitchlight-submission.mp4)) |
-| **MCP server** | `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` |
+| **MCP server** | `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` (add `?seed=N` for another match) |
 | **Submission** | [docs/SUBMISSION.md](docs/SUBMISSION.md): pitch, category and testing instructions |
 
 All clubs (Calderbrook FC, Merridge Athletic), players and events are fictional and synthetic. Pitchlight is not affiliated with the Premier League.
@@ -193,7 +193,7 @@ Every Azure call uses **managed identity**; no keys are stored anywhere. Product
 
 On the [live demo](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/app):
 
-1. Watch **Your moments** fill in as the match replays, then press **Why?** on a goal.
+1. Watch **Your moments** fill in as the match replays, then press **Why?** on a goal. To see the same pipeline on a different story, choose another of the six synthetic matches in **Match** (a late comeback, a 3–3 draw, two red cards, a goalless draw): moments, the fact checker, Ask and the AI recap all follow it.
 2. In **Your view**, switch the language to Arabic, the mode to Analyst, and follow a player.
 3. **Ask the match** "Who is Merridge's key player?". The answer is labelled *Foundry agent via MCP*.
 4. Open **Video AI** in the sidebar and play the clip: these are detections from the pixels, compared live with the truth.
