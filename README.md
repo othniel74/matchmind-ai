@@ -20,6 +20,7 @@
 <p align="center">
   <a href="https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io">Live demo</a> ·
   <a href="https://youtu.be/85Qid7SmMdw">Video (1:49)</a> ·
+  <a href="#how-to-use-it">How to use it</a> ·
   <a href="docs/EVALUATION.md">Evaluation results</a> ·
   <a href="docs/SUBMISSION.md">Submission</a> ·
   <a href="docs/README.md">Documentation</a>
@@ -189,15 +190,60 @@ Every Azure call uses **managed identity**; no keys are stored anywhere. Product
 | **Managed identity and Azure RBAC** | Foundry, Event Hubs, Azure Resource Manager (starting jobs), the registry |
 | **GitHub Actions** | CI on every push: core and agent-SDK backend suites, frontend build |
 
-## Try it in two minutes
+## How to use it
 
-On the [live demo](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/app):
+There are four ways in: the web app, an MCP client, the HTTP API, or your own machine. The hosted demo needs no sign-in and is read-only; every match is synthetic.
+
+### 1. In the browser
+
+Open the [live demo](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/app). **60-second tour** in the top bar walks through the main ideas. Then:
 
 1. Watch **Your moments** fill in as the match replays, then press **Why?** on a goal. To see the same pipeline on a different story, choose another of the six synthetic matches in **Match** (a late comeback, a 3–3 draw, two red cards, a goalless draw): moments, the fact checker, Ask and the AI recap all follow it.
 2. In **Your view**, switch the language to Arabic, the mode to Analyst, and follow a player.
 3. **Ask the match** "Who is Merridge's key player?". The answer is labelled *Foundry agent via MCP*.
 4. Open **Video AI** in the sidebar and play the clip: these are detections from the pixels, compared live with the truth.
 5. Open **Live data → Kick off a live match** to stream a match through Event Hubs. **Analysis** has the explorable pass network and team statistics. Lanes are directed and forward lanes highlighted. Click a player for their passing partners or a lane for its evidence, and use *Show change* to compare with the previous 15 minutes.
+
+### 2. From an MCP client (GitHub Copilot, Claude Desktop, any agent)
+
+Point the client at `https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/mcp` (streamable HTTP). Add `?seed=N` to work on another match, for example `/mcp?seed=20261036` for the 0–4 match. All 15 tools are read-only and time-scoped: they never use events after the `minute` you pass, and every answer cites the event IDs it rests on.
+
+In VS Code, `.vscode/mcp.json` already registers the hosted server (`pitchlight-demo`) and a local one (`pitchlight-local`): open the folder, start the server from the MCP view, and ask Copilot Chat in agent mode, for example *"Why did Merridge's opener matter?"*. Tool list and details: [MCP.md](docs/MCP.md).
+
+### 3. Through the HTTP API
+
+Every endpoint takes `minute` (what is known at that point of the match) and `seed` (which match; the featured one if omitted). Interactive reference: [`/docs`](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io/docs).
+
+```bash
+U=https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainerapps.io
+curl "$U/api/matches"                                                       # the six matches in the picker
+curl "$U/api/state?minute=67&seed=20261068"                                 # score, statistics, insights at 67'
+curl "$U/api/recap?minute=90&seed=20261026&language=fr"                     # verified recap, any of 7 languages
+curl "$U/api/ask?q=Who%20scored%3F&minute=90&seed=20261036"                 # answered by the Foundry agent via MCP
+curl "$U/api/factcheck?text=Calderbrook%20won%20the%20match.&minute=90"     # each statement with its verdict
+curl -N "$U/api/recap/agent/stream?minute=90&language=en"                   # the agents' run, step by step (SSE)
+```
+
+Model-backed endpoints (`ask`, `factcheck`, `recap/agent`) are rate-limited per visitor on the hosted demo.
+
+### 4. On your machine
+
+Requires Python 3.12 and Node 22. On macOS or Linux, use `.venv-agents/bin/python` where the commands below say `.venv-agents/Scripts/python`.
+
+```bash
+# backend: http://localhost:8000 (API, /mcp and /docs)
+cd backend
+python -m venv .venv-agents
+.venv-agents/Scripts/python -m pip install -r requirements-agents.txt
+.venv-agents/Scripts/python -m uvicorn app.main:app --port 8000
+
+# frontend, in a second terminal: http://localhost:5173 (proxies /api and /ws to port 8000)
+cd frontend
+npm ci
+npm run dev
+```
+
+Without Azure settings, everything except the model-written text works offline: recaps, answers and fact checks fall back to verified templates and say so. To use Microsoft Foundry, copy `backend/.env.example` to `backend/.env`, set `AZURE_AI_PROJECT_ENDPOINT` and `AZURE_AI_MODEL_DEPLOYMENT_NAME`, and run `az login` (managed identity or your Azure CLI login; no keys needed). The vision pipeline has its own environment; see [VISION.md](docs/VISION.md). Deploying to Azure: [DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Repository map
 
@@ -212,20 +258,6 @@ On the [live demo](https://pitchlight.mangograss-8c9a0131.uksouth.azurecontainer
 | `backend/evaluation/` | Offline evaluation, live fact-check holdouts, Foundry release evaluation |
 | `frontend/src/` | Workspace, Broadcast Studio, graph explorer, vision panel; `render.html` is the broadcast renderer |
 | `docs/` | Design and verification documents (index: [docs/README.md](docs/README.md)) |
-
-## Run it locally
-
-```bash
-# backend (Python 3.12)
-cd backend
-python -m venv .venv-agents && .venv-agents/Scripts/python -m pip install -r requirements-agents.txt
-.venv-agents/Scripts/python -m uvicorn app.main:app --port 8000
-
-# frontend (Node 22)
-cd frontend && npm ci && npm run dev    # http://localhost:5173
-```
-
-Without Azure settings, everything except the model-written text works offline, using verified templates. To use Foundry, copy `backend/.env.example` to `backend/.env`, set the project endpoint and deployment, and run `az login`. The vision pipeline has its own environment; see [VISION.md](docs/VISION.md).
 
 ## Tests and evaluation
 
