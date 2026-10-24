@@ -86,3 +86,29 @@ def test_rejects_unknown_host(client):
     r = client.post('/mcp', headers={**HEADERS, 'Host': 'evil.example'},
                     json={'jsonrpc': '2.0', 'id': 1, 'method': 'tools/list', 'params': {}})
     assert r.status_code in (400, 421)
+
+
+def test_the_url_selects_the_match_for_every_tool(client):
+    """/mcp?seed=N scopes every tool to that match; without it, the featured match. The agents get
+    the match from the URL, never from a tool argument, so they cannot query the wrong one."""
+    from app.matches import describe
+
+    def score(seed=None):
+        path = '/mcp' if seed is None else f'/mcp?seed={seed}'
+        body = {'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call', 'params': {'name': 'match_state', 'arguments': {'minute': 90}}}
+        r = client.post(path, headers=HEADERS, json=body)
+        assert r.status_code == 200, r.text
+        return r.json()['result']['structuredContent']['score']
+
+    assert score(20261036) == describe(20261036)['score'] == {'home': 0, 'away': 4}
+    assert score() == describe(20261020)['score']  # nothing leaks from the previous request
+    assert score(20261058) == {'home': 0, 'away': 0}
+    assert score('not-a-seed') == describe(20261020)['score']
+
+
+def test_the_match_catalogue_is_computed_from_the_events(client):
+    matches = client.get('/api/matches').json()['matches']
+    assert matches[0]['featured'] and matches[0]['seed'] == 20261020
+    assert len({m['seed'] for m in matches}) == len(matches) >= 5
+    by_seed = {m['seed']: m for m in matches}
+    assert by_seed[20261058]['tags'] == ['goalless'] and by_seed[20261026]['tags'] == ['draw']

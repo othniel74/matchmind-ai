@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { withMatch } from "./match";
 import { ArrowDown, ArrowUp, Repeat2, Shield } from "lucide-react";
 import { directionOf } from "./languages";
 import "./tactics.css";
@@ -25,10 +26,10 @@ export function TacticsPanel({ minute, language, clubs }: { minute: number; lang
   const bucket = Math.max(1, Math.floor(minute / 5) * 5);  // refresh every five minutes of match time
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/tactics/changes?minute=${bucket}&language=${language}`).then((r) => (r.ok ? r.json() : null))
+    fetch(withMatch(`/api/tactics/changes?minute=${bucket}&language=${language}`)).then((r) => (r.ok ? r.json() : null))
       .then((d) => { if (!cancelled && d) setChanges(d.changes); }).catch(() => undefined);
     if (bucket >= 5)
-      fetch(`/api/tactics/pressing?minute=${bucket}`).then((r) => (r.ok ? r.json() : null))
+      fetch(withMatch(`/api/tactics/pressing?minute=${bucket}`)).then((r) => (r.ok ? r.json() : null))
         .then((d) => { if (!cancelled) setPressing(d); }).catch(() => undefined);
     return () => { cancelled = true; };
   }, [bucket, language]);

@@ -89,8 +89,16 @@ _mcp_app = _mcp_http_app()
 class _MCPEndpoint:
     """ASGI endpoint so /mcp is served exactly, without a trailing-slash redirect."""
     async def __call__(self, scope, receive, send):
-        await _mcp_app(dict(scope, path='/', raw_path=b'/', root_path=scope.get('root_path', '') + '/mcp'),
-                       receive, send)
+        from urllib.parse import parse_qs
+        from .mcp_server import MATCH_SEED, SEED as FEATURED
+        raw = parse_qs(scope.get('query_string', b'').decode('latin-1')).get('seed', [''])[0]
+        seed = int(raw) if raw.isdigit() and int(raw) <= 2147483647 else FEATURED
+        token = MATCH_SEED.set(seed)  # tool calls in this request inherit it
+        try:
+            await _mcp_app(dict(scope, path='/', raw_path=b'/', root_path=scope.get('root_path', '') + '/mcp'),
+                           receive, send)
+        finally:
+            MATCH_SEED.reset(token)
 
 
 app.router.routes.append(_Route('/mcp', endpoint=_MCPEndpoint(), methods=['GET', 'POST', 'DELETE']))
@@ -162,6 +170,13 @@ def runtime_status():
                     else 'entra_id' if provider == 'foundry' else None,
             'live_inference_verified': False,
             'event_storage': 'sqlite' if os.getenv('MATCHMIND_EVENT_DB') else 'generated_in_memory'}
+
+@app.get('/api/matches')
+def matches_endpoint():
+    """The synthetic matches offered in the workspace; any other seed also works through the API."""
+    from .matches import catalogue
+    return {'matches': catalogue()}
+
 
 @app.get('/api/match')
 def match(seed: int = Query(20261020, ge=0, le=2147483647)):
@@ -258,13 +273,28 @@ def _recap_key(stream: str, version: int, minute: int, audience: str, language: 
     return ('recap', stream, version, minute, audience, language)
 
 
-async def _warm_recaps(seed: int = 20261020, delay: float = 20.0) -> None:
-    """Write the most requested recaps once at startup, one at a time, so viewers rarely wait."""
-    from .agents import FoundryAgentRuntime, selected_provider
-    from .guard import GUARD
+def mcp_url(seed: int) -> str:
+    """This API's MCP server, scoped to one match."""
+    return f"{os.getenv('MATCHMIND_MCP_URL', 'http://127.0.0.1:8000/mcp')}?seed={seed}"
+
+
+async def _warm_recaps(delay: float = 20.0, every: float = 6 * 3600) -> None:
+    """Write the most requested recaps of every listed match, featured first, one at a time, so viewers
+    rarely wait; then check again every few hours. Cached recaps (shared across replicas) are skipped."""
+    from .agents import selected_provider
+    from .matches import SEEDS
     if not is_demo() or selected_provider() is None:
         return
     await asyncio.sleep(delay)  # the API (and its MCP server) must be serving first
+    while True:
+        for seed in SEEDS:
+            await _warm_match(seed)
+        await asyncio.sleep(every)
+
+
+async def _warm_match(seed: int) -> None:
+    from .agents import FoundryAgentRuntime
+    from .guard import GUARD
     for minute, audience, language in WARM_RECAPS:
         try:
             stream, version, source = match_repository().snapshot(seed)
@@ -275,7 +305,7 @@ async def _warm_recaps(seed: int = 20261020, delay: float = 20.0) -> None:
             GUARD.store(key, {'context': {'match_id': stream, 'state_version': version}, **result.model_dump()},
                         keep=RECAP_KEEP_SECONDS)
         except Exception:
-            logging.getLogger(__name__).warning('Recap warm-up failed for %s/%s', audience, language)
+            logging.getLogger(__name__).warning('Recap warm-up failed for %s/%s/%s', seed, audience, language)
 
 
 @app.get('/api/recap/agent/stream')
@@ -891,13 +921,12 @@ async def ask_match(request: Request, q: str = Query(..., min_length=2, max_leng
     g, events, context = _knowledge(seed, max(minute, 1))
     result, router, intent = None, 'keywords', None
     use_model = os.getenv('MATCHMIND_ASK_MODEL', 'true').lower() == 'true' and selected_provider() is not None
-    from .mcp_server import SEED as MCP_SEED
-    if use_model and 1 <= minute and seed == MCP_SEED and (not is_demo() or GUARD.allow(visitor(request))):
+    if use_model and 1 <= minute and (not is_demo() or GUARD.allow(visitor(request))):
         # The agent reaches the match tools over MCP, like any external MCP client would.
         from .agents import FoundryAgentRuntime
         runtime = FoundryAgentRuntime()
         try:
-            url = os.getenv('MATCHMIND_MCP_URL', 'http://127.0.0.1:8000/mcp')
+            url = mcp_url(seed)
             result = await mcp_agent_answer(runtime._client(), q, minute, language, url)
             if result is not None:
                 router = 'mcp_agent'

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { withMatch } from "./match";
 import { BookOpen, Radio, Sparkles, Star, Target, UserRound } from "lucide-react";
 import { LANGUAGES, directionOf, type LanguageCode } from "./languages";
 import { WhyDetailView, type WhyDetail } from "./GraphExplorer";
@@ -204,12 +205,12 @@ export function ExperiencePanels({ minute, stateVersion, profile, onMoments }: {
   const explain = (id: string) => {
     if (why?.id === id) { setWhy(null); return; }
     setWhy({ id, detail: null });
-    fetch(`/api/graph/why?moment_id=${encodeURIComponent(id)}&minute=${Math.max(1, minute)}`)
+    fetch(withMatch(`/api/graph/why?moment_id=${encodeURIComponent(id)}&minute=${Math.max(1, minute)}`))
       .then((r) => (r.ok ? r.json() : null)).then((d) => setWhy({ id, detail: d })).catch(() => setWhy(null));
   };
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/experience?${profileQuery(profile, { minute })}`)
+    fetch(withMatch(`/api/experience?${profileQuery(profile, { minute })}`))
       .then((r) => (r.ok ? r.json() : null))
       .then((v) => { if (!cancelled) { setData(v); onMoments?.(v?.moments?.length ?? 0); } })
       .catch(() => { if (!cancelled) setData(null); });
@@ -312,14 +313,14 @@ export function RecapPanel({ minute, profile }: { minute: number; profile: Profi
   const load = (at: number) => {
     setBusy("recap");
     setAiText(null);
-    fetch(`/api/recap?${profileQuery(profile, { minute: at })}`)
+    fetch(withMatch(`/api/recap?${profileQuery(profile, { minute: at })}`))
       .then((r) => (r.ok ? r.json() : null)).then(setRecap).catch(() => setRecap(null)).finally(() => setBusy(""));
   };
   // The agents' work streams in step by step (server-sent events), so the wait is the demo.
   const loadAi = (at: number) => {
     setBusy("ai"); setAiText(null); setAiError(""); setLive([]);
     const query = new URLSearchParams({ minute: String(at), language: profile.language, audience: profile.audience });
-    const events = new EventSource(`/api/recap/agent/stream?${query}`);
+    const events = new EventSource(withMatch(`/api/recap/agent/stream?${query}`));
     const finish = () => { events.close(); setLive(null); setBusy(""); };
     events.addEventListener("step", (e) => setLive((steps) => [...(steps ?? []), JSON.parse((e as MessageEvent).data)]));
     events.addEventListener("done", (e) => {

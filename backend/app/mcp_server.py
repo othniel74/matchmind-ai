@@ -11,6 +11,7 @@ Served over streamable HTTP at /mcp by the API (see main.py), or over stdio:
 """
 from __future__ import annotations
 import os
+from contextvars import ContextVar
 from typing import Any, Literal
 from mcp.server.fastmcp import FastMCP
 from mcp.server.fastmcp.exceptions import ToolError
@@ -18,6 +19,8 @@ from mcp.server.transport_security import TransportSecuritySettings
 from mcp.types import ToolAnnotations
 
 SEED = 20261020
+# The match this request is about: set from /mcp?seed=N by the API, the featured match otherwise.
+MATCH_SEED: ContextVar[int] = ContextVar('match_seed', default=SEED)
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True,
                             openWorldHint=False)
 Team = Literal['home', 'away']
@@ -39,8 +42,8 @@ server = FastMCP(
     streamable_http_path='/', stateless_http=True, json_response=True,
     transport_security=TransportSecuritySettings(allowed_hosts=_allowed_hosts(), allowed_origins=[]),
     instructions=(
-        'Verified intelligence for one synthetic football match: Calderbrook FC (home) v Merridge '
-        'Athletic (away). Use these tools instead of guessing. Every result is computed from the '
+        'Verified intelligence for a synthetic football match: Calderbrook FC (home) v Merridge '
+        'Athletic (away); the URL (/mcp?seed=N) selects the match. Use these tools instead of guessing. Every result is computed from the '
         'validated event stream up to `minute` (1-90) and cites evidence event IDs. Languages: '
         'en, es, fr, pt, de, it, ar. All clubs, players and data are fictional.'),
 )
@@ -48,7 +51,7 @@ server = FastMCP(
 
 def _graph(minute: int):
     from .knowledge import match_graph
-    return match_graph(SEED, max(1, min(90, minute)))
+    return match_graph(MATCH_SEED.get(), max(1, min(90, minute)))
 
 
 def _minute(minute: int) -> int:
@@ -95,7 +98,7 @@ def key_moments(minute: int = 90, language: Language = 'en', kinds: list[str] | 
     from .moments import detect_moments, render
     from .squads import name
     _, events, context = _graph(_minute(minute))
-    found = [m for m in detect_moments(events, SEED, minute) if kinds is None or m['kind'] in kinds]
+    found = [m for m in detect_moments(events, MATCH_SEED.get(), minute) if kinds is None or m['kind'] in kinds]
     found.sort(key=lambda m: (-m['priority'], -m['clock_seconds']))
     return {'context': context, 'moments': [
         {'id': m['id'], 'kind': m['kind'], 'minute': m['clock_seconds'] // 60 + 1, 'team_id': m['team_id'],
@@ -176,7 +179,7 @@ def match_recap(minute: int = 90, language: Language = 'en') -> dict[str, Any]:
     from .experience import Profile
     from .recap import build_recap
     _, events, context = _graph(_minute(minute))
-    return {**build_recap(events, SEED, minute, Profile(language=language)), 'context': context}
+    return {**build_recap(events, MATCH_SEED.get(), minute, Profile(language=language)), 'context': context}
 
 
 @server.tool(annotations=READ_ONLY)
@@ -191,7 +194,7 @@ def answer_question(question: str, minute: int = 90, language: Language = 'en',
     g, events, context = _graph(_minute(minute))
     routed = (validate_intent({'intent': intent, 'team': team, 'player': player, 'metric': metric}, question[:300])
               if intent else keyword_intent(question[:300]))
-    return {**answer(g, events, SEED, minute, routed, language), 'context': context}
+    return {**answer(g, events, MATCH_SEED.get(), minute, routed, language), 'context': context}
 
 
 @server.tool(annotations=READ_ONLY)

@@ -3365,3 +3365,29 @@ pre {
   text-transform: none;
   letter-spacing: 0.2px;
 }
+
+.match-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #7e8795;
+}
+.match-picker select {
+  background: #15191d;
+  color: #e9edf1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 13px;
+  max-width: 330px;
+}
+.featured-only {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: #aab3bf;
+  font-size: 13px;
+}

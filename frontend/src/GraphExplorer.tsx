@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
+import { withMatch } from "./match";
 import { Database, MessageCircleQuestion, Network } from "lucide-react";
 import { directionOf } from "./languages";
 import type { Profile } from "./Experience";
@@ -265,7 +266,7 @@ export function GraphExplorer({ minute, stateVersion, clubs }: { minute: number;
   useEffect(() => {
     let cancelled = false;
     const start = span === "last15" ? Math.max(0, at - 15) : 0;
-    const get = (url: string) => fetch(url).then((r) => (r.ok ? r.json() : null));
+    const get = (url: string) => fetch(withMatch(url)).then((r) => (r.ok ? r.json() : null));
     Promise.all([
       get(`/api/graph/roles?minute=${at}&start=${start}`),
       get(`/api/graph/xg-chain?minute=${at}&team=${team}`),
@@ -413,7 +414,7 @@ export function AskPanel({ minute, profile }: { minute: number; profile: Profile
   const ask = (q: string) => {
     if (q.trim().length < 2) return;
     setBusy(true);
-    fetch(`/api/ask?q=${encodeURIComponent(q.trim())}&minute=${minute}&language=${profile.language}`)
+    fetch(withMatch(`/api/ask?q=${encodeURIComponent(q.trim())}&minute=${minute}&language=${profile.language}`))
       .then((r) => (r.ok ? r.json() : null)).then(setAnswer).catch(() => setAnswer(null)).finally(() => setBusy(false));
   };
   const suggestions = ["Who scored?", "Who is the key player?", "Why did the last goal happen?", "Who has momentum?"];

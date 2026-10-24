@@ -138,7 +138,8 @@ class FoundryAgentRuntime:
                 from .agent_workflow import NarrativeJob
                 # Live runs give the match researcher Pitchlight's own MCP server; injected clients (tests,
                 # tools) run offline and the researcher records that it was skipped.
-                url = os.getenv('MATCHMIND_MCP_URL', 'http://127.0.0.1:8000/mcp') if self._owns_client else None
+                url = (f"{os.getenv('MATCHMIND_MCP_URL', 'http://127.0.0.1:8000/mcp')}?seed={seed}"
+                       if self._owns_client else None)
                 return NarrativeJob(events, [], audience, language, recap_minute=minute, recap_fallback=fallback,
                                     mcp_url=url, listener=listener)
             gate = {'agent': 'evidence_gate', 'status': 'passed', 'mode': 'recap'}

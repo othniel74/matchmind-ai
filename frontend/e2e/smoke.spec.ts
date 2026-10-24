@@ -185,3 +185,22 @@ test("the one idea is easy to find: tour, fact checker and proof", async ({ page
   await expect(tour).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+test("pick another synthetic match: the workspace follows it", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/app");
+  const picker = page.getByLabel("Synthetic match");
+  await expect(picker).toBeVisible({ timeout: 30_000 });
+  await expect(picker.locator("option")).toHaveCount(6);
+  await expect(picker).toHaveValue("20261020");
+  const followed = page.waitForRequest((r) => r.url().includes("/api/experience") && r.url().includes("seed=20261036"));
+  await picker.selectOption("20261036");
+  await page.waitForURL(/match=20261036/);
+  await followed;
+  await expect(page.getByLabel("Synthetic match")).toHaveValue("20261036");
+  await expect(page.getByText(/SEED 20261036/)).toBeVisible();
+  // The video and the Event Hubs feed were made from the featured match, and say so.
+  await page.goto("/app?view=video&match=20261036");
+  await expect(page.getByRole("note")).toContainText("Video AI runs on the featured match");
+  expect(errors).toEqual([]);
+});

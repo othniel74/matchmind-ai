@@ -44,11 +44,20 @@ import { Tour } from "./Tour";
 
 import { eventLabel, empty, initial, type Insight, type Overlay, type Frame, type Graph, type Sample } from "./matchTypes";
 import { Crest, PanelTitle, Comparison } from "./MatchWidgets";
+import { IS_FEATURED, MATCH, withMatch } from "./match";
+import { MatchPicker } from "./MatchPicker";
 import { BroadcastCanvas, PreviewWindow, type PreviewPayload } from "./Broadcast";
 
 // Real-data research views are local-only; the product itself uses synthetic data, and the
 // research components load only when enabled.
 const RESEARCH = import.meta.env.VITE_ENABLE_RESEARCH === "true";
+// The rendered broadcast video and the Event Hubs feed were made from the featured match.
+const FeaturedOnly = ({ what }: { what: string }) => (
+  <p className="featured-only" role="note">
+    {what} runs on the featured match: its broadcast video was rendered and scored once, and the feed job replays it.
+    Every other panel follows the match you picked.
+  </p>
+);
 // Replay speed in match minutes per second: ?speed=2 for quick reviews and demos (0.5 to 5, default 1).
 const replaySpeed = Math.min(5, Math.max(0.5, Number(new URLSearchParams(location.search).get("speed")) || 1));
 const LazyStatsBomb = lazy(() => import("./StatsBombResearch"));
@@ -258,7 +267,7 @@ function App() {
       const scheme = location.protocol === "https:" ? "wss" : "ws";
       socket = new WebSocket(
         // The server's `speed` is seconds per match minute, so send the inverse.
-        `${scheme}://${location.host}/ws/match?speed=${1 / replaySpeed}&start_minute=${lastMinute + 1}`,
+        `${scheme}://${location.host}${withMatch(`/ws/match?speed=${1 / replaySpeed}&start_minute=${lastMinute + 1}`)}`,
       );
       socket.onopen = () => {
         if (!disposed) setConnected(true);
@@ -303,7 +312,7 @@ function App() {
     let cancelled = false;
     setOverlayError(false);
     fetch(
-      `/api/overlays?minute=${frame.minute}&language=${language}&audience=${audience}` +
+      `/api/overlays?seed=${MATCH}&minute=${frame.minute}&language=${language}&audience=${audience}` +
         (profile.club ? `&club=${profile.club}` : "") +
         (profile.players.length ? `&players=${profile.players.join(",")}` : "") +
         (profile.focus ? `&focus_player=${profile.focus}` : ""),
@@ -331,7 +340,7 @@ function App() {
       return;
     }
     let cancelled = false;
-    fetch(`/api/graph/compare?minute=${frame.minute}&team=away`)
+    fetch(withMatch(`/api/graph/compare?minute=${frame.minute}&team=away`))
       .then((r) => {
         if (!r.ok) throw Error();
         return r.json();
@@ -350,7 +359,7 @@ function App() {
     if(connected || frame.minute===0) return;
     const controller=new AbortController();
     const timer=setInterval(()=>{
-      fetch(`/api/state?minute=${frame.minute}`,{signal:controller.signal}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(next=>{
+      fetch(withMatch(`/api/state?minute=${frame.minute}`),{signal:controller.signal}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(next=>{
         if(controller.signal.aborted || next.context?.state_version===frame.context?.state_version)return;
         setFrame(prev=>prev.minute===next.minute?{...prev,...next}:prev);
         setHistory(next.insights);setQueue([]);setGraph(null);setSamples([]);setSelected("");setSelectedInsight("");
@@ -509,7 +518,7 @@ function App() {
               </>
             )}
             <div className="avatar" aria-label="Pitchlight workspace">
-              MM
+              PL
             </div>
           </div>
         </header>
@@ -529,6 +538,7 @@ function App() {
               <p>{page.summary}</p>
             </div>
             {page.scoreboard && <div className="page-actions">
+              <MatchPicker />
               {section !== "match" && <button
                 className="button ghost"
                 onClick={exportSnapshot}
@@ -555,7 +565,7 @@ function App() {
               </span>
               <span>
                 {frame.minute === 90 ? "MATCH COMPLETE" : "90-MINUTE REPLAY"}{" "}
-                <span className="separator">/</span> DEMO 001
+                <span className="separator">/</span> {IS_FEATURED ? "DEMO 001" : `SEED ${MATCH}`}
               </span>
             </div>
             <div className="scoreboard">
@@ -861,10 +871,11 @@ function App() {
                   </div>
                 </div>
                 )}
-                {section === "video" && <div className="section-stack"><VisionPanel /></div>}
+                {section === "video" && <div className="section-stack">{!IS_FEATURED && <FeaturedOnly what="Video AI" />}<VisionPanel /></div>}
                 {section === "proof" && <div className="section-stack"><ProofPanel /></div>}
                 {section === "live" && (
                   <div className="section-stack">
+                    {!IS_FEATURED && <FeaturedOnly what="The live Event Hubs feed" />}
                     {squads && <EventFeedPanel clubs={squads.clubs} />}
                     <LiveStreamPanel profile={profile} />
                   </div>

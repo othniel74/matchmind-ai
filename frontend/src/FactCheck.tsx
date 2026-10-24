@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { withMatch } from "./match";
 import { Check, ShieldAlert, ShieldCheck, X } from "lucide-react";
 import { reasonText } from "./AgentRun";
 import type { Profile } from "./Experience";
@@ -27,7 +28,7 @@ export function FactCheckPanel({ minute, profile }: { minute: number; profile: P
   const check = (value: string) => {
     if (value.trim().length < 3) return;
     setBusy(true); setError("");
-    fetch(`/api/factcheck?${new URLSearchParams({ text: value.trim(), minute: String(at), language: profile.language })}`)
+    fetch(withMatch(`/api/factcheck?${new URLSearchParams({ text: value.trim(), minute: String(at), language: profile.language })}`))
       .then(async (r) => (r.ok ? r.json() : Promise.reject(r.status === 429 ? "Too many checks: try again in a minute." : "The check failed.")))
       .then(setResult).catch((e) => { setResult(null); setError(String(e)); }).finally(() => setBusy(false));
   };
